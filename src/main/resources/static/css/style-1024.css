@@ -1,0 +1,415 @@
+/* 공통클래스 */
+.inner {
+  padding: 0 2rem;
+  padding-bottom: 4rem;
+
+  max-width: 76rem;
+  border-bottom: 1px solid #f0f4f4;
+}
+
+/* swiper 버튼 */
+.sw-bt {
+  display: none;
+}
+
+/* section 내용 구조 */
+.wrap > section {
+  padding-top: 3rem;
+  padding-bottom: 0px;
+}
+
+.section-top > h2 {
+  font-size: 2rem;
+  line-height: 2.4rem;
+  margin-bottom: 0;
+}
+
+.section-top > p {
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+}
+
+.bt-link-shop {
+  display: block;
+  font-size: 1.5rem;
+  line-height: 4.8rem;
+  border-radius: 0.3rem;
+}
+
+.section-top .btns {
+  margin: 1.5rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.section-top .btns a {
+  line-height: 3.4rem;
+  padding: 0 1.4rem;
+  margin-right: 0.5rem;
+}
+/* 플라잉배너 */
+.fix-banner {
+  bottom: 6.5rem;
+}
+.fix-banner a img {
+  display: none;
+}
+/* 퀵메뉴 */
+.quick-menu {
+  display: block;
+}
+
+/* 기본레이아웃 */
+/* 상단 */
+.header {
+  border: none;
+}
+
+.header .inner {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.5rem;
+  height: 23rem;
+}
+
+/* 모바일헤더 */
+.mb-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 76rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 5rem;
+  background-color: var(--white);
+  z-index: 10;
+}
+
+.mb-header h1 {
+  width: 12rem;
+  height: 3rem;
+  margin-left: 2rem;
+  background: no-repeat center/100% url(/images/logo.svg);
+}
+.mb-mypage {
+  display: block;
+}
+
+.logo {
+  display: none;
+}
+
+.header-up {
+  order: 1;
+}
+.header-left {
+  width: 100%;
+  justify-content: center;
+}
+
+.search {
+  /* top: 140px;
+  left: 50%;
+  transform: translateX(-50%); */
+}
+
+.member-list {
+  display: none;
+}
+
+.header-down {
+  text-align: center;
+  justify-content: center;
+  padding: 5rem 0 1rem;
+}
+
+.service-list {
+  display: inherit;
+  margin-top: 0;
+}
+
+.service-list li {
+  padding-right: 2rem;
+}
+
+.service-list li:last-child {
+  margin-right: 0;
+}
+
+.service-list li a {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.service-list li a img {
+  display: block;
+  width: 4.8rem;
+  height: 4.8rem;
+  margin: 0 auto;
+}
+
+.service-menu {
+  display: none;
+}
+
+/* 추천이벤트 */
+.promotion .inner {
+  height: 32rem;
+}
+
+.promotion .section-top {
+  display: block;
+}
+
+.promotion .sw-bt {
+  display: none;
+}
+
+.sw-promotion-control {
+  display: block;
+  margin: 2rem;
+}
+
+/* swiper.js 에서 자동으로 css 생성 */
+.sw-promotion-pg .swiper-pagination-bullet {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  opacity: 0.2;
+  background-color: #000;
+}
+
+.sw-promotion-pg .swiper-pagination-bullet-active {
+  opacity: 1;
+  background-color: #000;
+}
+
+/* 쇼핑추천 */
+.good-info {
+  height: auto;
+  padding: 1.2rem;
+}
+.good-info-list li b {
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+  font-weight: 700;
+}
+.good-info-list li p {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+  margin-top: 0.3rem;
+}
+/* 투어특가 */
+.tour-img {
+  height: 13.8rem;
+}
+
+.tour-info {
+  padding: 1.6rem 1.2rem 1.2rem;
+}
+.tour-info-list li {
+  margin: 0.4rem 0;
+}
+.tour-cate {
+  top: -34px;
+  font-size: 1rem;
+  line-height: 2.2rem;
+  padding: 0 0.7rem;
+  border-radius: 0.4rem;
+}
+
+.tour-title {
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+}
+.tour-place {
+  display: -webkit-box;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: 300;
+  margin: 0.2rem 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.tour-price {
+  font-size: 1.5rem;
+}
+
+.tour-price b {
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+}
+
+/* 티켓랭킹 */
+/* .ticket .section-slide {
+      width: 120%;
+      overflow: hidden;
+    } */
+.ticket-rank {
+  left: 1.2rem;
+  bottom: 0.8rem;
+  font-size: 3.8rem;
+  line-height: 4.5rem;
+}
+.ticket-img {
+  height: 20rem;
+}
+/* .ticket-img img {
+  transform: translate(-50%, -50%) scale(1.4);
+} */
+.ticket-info {
+  padding: 1rem 0.4rem;
+}
+.ticket-info-list li:not(:last-child) {
+  margin-bottom: 0.4rem;
+}
+.ticket-title {
+  line-height: 1.8rem;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+.ticket-hall {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
+.ticket-date {
+  font-size: 1.2rem;
+  line-height: 1.4rem;  
+}
+.ticket-sale,
+.ticket-seat {
+  line-height: 1.8rem;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+.sw-ticket .swiper-slide {
+  width: 15rem;
+}
+
+/* 인터파크 라이브 */
+.live .section-slide {
+  height: 28.5rem;
+}
+
+.live-info {
+  padding: 1.2rem;
+}
+
+.live-info-cate {
+  font-size: 1rem;
+  line-height: 2rem;
+  border-radius: 1rem;
+  padding: 0 0.7rem;
+}
+
+.live-info-title {
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  height: 3.4rem;
+}
+
+.live-info-date {
+  font-size: 1.8rem;
+  line-height: 2.1rem;
+  white-space: nowrap;
+}
+
+.live-info-time {
+  font-size: 3.2rem;
+  line-height: 3.8rem;
+}
+
+.live-info-desc {
+  float: right;
+  width: calc(100% - 40px - 10px);
+}
+
+.live-info-bottom {
+  bottom: 1.2rem;
+  padding: 0 1.2rem;
+}
+
+.live-info-thumb {
+  width: 4rem;
+  height: 4rem;
+}
+
+.live-info-desc-title {
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+}
+
+.live-info-desc-price {
+  font-size: 1.3rem;
+  white-space: nowrap;
+  margin-top: -0.5rem;
+}
+
+.live-info-desc-price em {
+  font-size: 1.3rem;
+}
+
+.live-info-desc-price b {
+  font-size: 1.3rem;
+}
+
+/* 오늘의 도서 */
+.books .section-slide {
+  height: auto;
+}
+.books-img {
+  height: 32rem;
+}
+
+.books-img i {
+  min-width: 1.54rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  font-size: 1.1rem;
+  line-height: 1.8rem;
+}
+
+.books-info-title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+  white-space: inherit;
+}
+.books-info-desc {
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+}
+.books-info-price {
+  margin-top: 0.6rem;
+  font-size: 1.4rem;
+}
+
+.books-info-price em {
+  font-size: 1.4rem;
+}
+
+/* 이벤트 */
+.event {
+  display: none;
+}
+
+/* 푸터 */
+.footer-menu {
+  display: none;
+}
+
+.footer-main {
+  display: none;
+}
+
+.footer-mobile {
+  display: block;
+}
