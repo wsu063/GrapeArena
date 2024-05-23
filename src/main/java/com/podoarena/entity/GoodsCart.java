@@ -31,7 +31,7 @@ public class GoodsCart {
     private Member member;
 
     //생성
-    public static GoodsCart crateShopCart(Goods goods, Member member, int goodsCount) {
+    public static GoodsCart createGoodsCart(Goods goods, Member member, int goodsCount) {
         GoodsCart goodsCart = new GoodsCart();
         goodsCart.setGoods(goods);
         goodsCart.setCart(member.getCart());

@@ -23,7 +23,7 @@ public class Reserve {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "reserve_seat", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "reserve", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReserveSeat> reserveSeats = new ArrayList<>();
 
     //추가
