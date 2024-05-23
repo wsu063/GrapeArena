@@ -1,11 +1,29 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>PodoArena</title>
+
+    <!-- css  -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <!-- 각 페이지의 CSS가 작성될 위치 -->
+    <th:block layout:fragment="css"></th:block>
+
 </head>
 <body>
+<div>
+    <div th:replace="fragment/header::header"></div>
+    <div layout:fragment="content" class="content"></div>
+    <div th:replace="fragments/footer::footer"></div>
+</div>
 
+    <!--  js  -->
+    <script th:src="@{/js/main.js}"></script>
+
+    <!-- 각 페이지의 스크립트가 작성될 위치 -->
+    <th:block layout:fragment="script"></th:block>
 </body>
 </html>
