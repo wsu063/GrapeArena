@@ -1,11 +1,40 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
-</head>
-<body>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{layouts/layout}">
+<div layout:fragment="content">
+    <div class="login-wrapper">
+        <h2>Login</h2>
+        <form method="post" action="/" id="login-form">
+            <input type="text" name="userName" placeholder="아이디">
+            <input type="password" name="userPassword" placeholder="비밀번호">
+            <label for="remember-check">
+                <input type="checkbox" id="remember-check">아이디 저장
+            </label>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
 
-</body>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+          var userName = document.getElementById('userName').value;
+          var userPassword = document.getElementById('userPassword').value;
+
+          if (!userName) {
+              alert('아이디를 입력해주세요.');
+              event.preventDefault(); // 폼 제출을 막음
+              return;
+          }
+
+          if (!userPassword) {
+              alert('비밀번호를 입력해주세요.');
+              event.preventDefault(); // 폼 제출을 막음
+              return;
+          }
+             });
+
+    </script>
+</th:block>
 </html>
