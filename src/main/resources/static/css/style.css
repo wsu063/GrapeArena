@@ -128,3 +128,45 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
+.footer_wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+    background: #fff;
+    justify-content: space-around;
+
+}
+
+.footer_left {
+    width: 30%;
+    font-size: 14px;
+
+}
+
+.footer_right {
+    width: 40%;
+    font-size: 14px;
+}
+
+.footer_right ul{
+    list-style-type: none;
+}
+
+.sangun {
+    color: #6C0486;
+}
+
+.eunhwa {
+    color: #EFADF0;
+}
+
+.sseung {
+    color: #EBE082;
+}
+
+.jeongmin {
+    color: #7BA4F4;
+}
