@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController {
     @GetMapping(value = "/members/login")
     public String loginpage () {
-        return "member/memberLoginForm";
+        return "member/login";
     }
 
     @GetMapping(value = "/members/register")
     public String registerPage() {
-        return "member/memberForm";
+        return "member/register";
     }
 }
