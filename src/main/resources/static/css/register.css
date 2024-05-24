@@ -1,3 +1,43 @@
-button {
+.error {
+           color: #bd2130;
+}
+
+*{
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+}
+
+.container{
+  position:relative;
+  top:10px;
+  left:35%;
+  display:block;
+  margin-bottom:80px;
+  width:500px;
+  height:360px;
+  background:#fff;
+  border-radius:5px;
+  overflow:hidden;
+  z-index:1;
+}
+
+.register-title {
+    border-bottom: 1px solid;
+}
+
+h2 {
+    display: flex; justify-content: center;
+}
+
+
+.form {
+    position: relative;
+      z-index: 1;
+      background: #FFFFFF;
+      max-width: 360px;
+      margin: 0 auto 100px;
+      padding: 45px;
+      text-align: center;
 
 }
