@@ -1,8 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+</th:block>
+
 <div layout:fragment="content">
+    <div class="index_wrap">
+        <div class="index_event">
+            <!-- Swiper -->
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="/images/slide1.webp" alt="랜덤">
+                    </div>
+                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
+                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
+                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
+                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
+                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
+                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
+                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
+                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
-
+<th:block layout:fragment="script">
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script th:inline="javascript">
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+        });
+    </script>
+</th:block>
 </html>
