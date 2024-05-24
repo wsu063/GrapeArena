@@ -2,6 +2,13 @@
 <html  xmlns:th="http://www.thymeleaf.org"
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="~{layouts/layout}">
+<<<<<<< HEAD
+
+<div layout:fragment="content">
+
+
+
+=======
 <th:block layout:fragment="css">
 
 </th:block>
@@ -47,14 +54,19 @@
                 </div>
         </div>
     </div>
+>>>>>>> origin/develop
 </div>
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
+<<<<<<< HEAD
+
+=======
         //회원가입을 실패했을떄 에러메세지
            var errorMessage  = [[${errorMessage}]]
 
            if(errorMessage != null) alert(errorMessage);
+>>>>>>> origin/develop
     </script>
 </th:block>
 
