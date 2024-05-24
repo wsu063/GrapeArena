@@ -4,7 +4,7 @@
 .login_wrap{
     max-width: 40rem;
     margin: 0 auto;
-    padding: 20rem;
+    padding: 10rem;
 }
 
 .login_logo {
@@ -20,6 +20,20 @@
     padding: 1.5rem 1.4rem;
     box-sizing: border-box;
 }
+
+.input_style_input_id label,
+.input_style_input_pw label{
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+
+.input_style_input_id i,
+.input_style_input_pw i{
+    font-size: 1.4rem;
+    margin: 0 1rem;
+}
+
 
 .input_text_id,
 .input_text_pw {

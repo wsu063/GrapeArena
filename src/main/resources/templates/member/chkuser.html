@@ -2,13 +2,14 @@
 <html  xmlns:th="http://www.thymeleaf.org"
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="~{layouts/layout2}">
+ 
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+  </th:block>
   <head>
     <meta name="_csrf" th:content="${_csrf.token}" />
     <meta name="_csrf_header" th:content="${_csrf.headerName}" />
   </head>
-  <th:block layout:fragment="css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
-  </th:block>
   
   <div layout:fragment="content">
     <div class="resetpw_wrap">
@@ -36,7 +37,8 @@
           </div>
         </div>
         <div class="login_style">
-          <button type="submit" class="login_btn" id="loginBtn">
+          <button onclick="chkUser()"
+              type="button" class="chkuser_btn" id="chkuserBtn">
             <span>확인</span>
           </button>
         </div>
@@ -73,12 +75,12 @@
             location.href = '/members/resetpassword'
           },
           error: function(jqXHR, status, error) {
-            if (jqXHR.responseText === "가입되지 않은 이메일입니다. 확인 후 다시 입력해주세요.") {
+            if (jqXHR.responseText === '가입되지 않은 이메일입니다. 확인 후 다시 입력해주세요.') {
               alert('가입되지 않은 이메일입니다. 확인 후 다시 입력해주세요.');
-              location.href = '/members/login'
-            } else if(jqXHR.responseText === "가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.") {
+              location.href = '/members/chkuser'
+            } else if(jqXHR.responseText === '가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.') {
               alert('가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.');
-              location.href = '/members/login'
+              location.href = '/members/chkuser'
             }
           }
         });

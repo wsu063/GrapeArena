@@ -65,15 +65,19 @@ public class MemberController {
 
     //이메일 전화번호 체크
     @PostMapping(value = "/members/chkuser")
-    public ResponseEntity<String> chkUser(@RequestBody Map<String, String> requestData) throws Exception {
-        String email = requestData.get("email");
-        String phone = requestData.get("phone");
-        boolean chkUser = memberService.chkUser(email, phone);
+    public ResponseEntity<String> chkUser(@RequestBody Map<String, String> requestData) {
+        try {
+            String email = requestData.get("email");
+            String phone = requestData.get("phone");
+            boolean chkUser = memberService.chkUser(email, phone);
 
-        if(chkUser) {
-            return new ResponseEntity<String>(email, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            if (chkUser) {
+                return new ResponseEntity<String>("인증 성공", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<String>("인증 실패", HttpStatus.BAD_REQUEST);
+            }
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

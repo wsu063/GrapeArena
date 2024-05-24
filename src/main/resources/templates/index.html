@@ -8,26 +8,6 @@
 <div layout:fragment="content">
     <div class="index_wrap">
         <div class="index_event">
-            <!-- Swiper -->
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="/images/slide1.webp" alt="랜덤">
-                    </div>
-                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
-                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
-                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
-                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
-                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
-                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
-                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
-                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="랜덤"></div>
-                </div>
-            </div>
-            <div class="swiper_mini swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
-                <div class="mini_gradient"></div>
-                <div class="swiper-pagination-bullet" data-link="#" ></div>
-            </div>
         </div>
     </div>
 
@@ -40,6 +20,10 @@
             slidesPerView: 1,
             spaceBetween: 30,
             loop: true,
+            pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            },
         });
     </script>
 </th:block>
