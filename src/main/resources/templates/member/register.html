@@ -1,18 +1,46 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org"
-       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="~{layouts/layout}">
-<<<<<<< HEAD
 
-<div layout:fragment="content">
-
-
-
-=======
 <th:block layout:fragment="css">
+    <style>
+        .error {
+           color: #bd2130;
+        }
 
+        /* 15 */
+.btn-15 {
+  background: #b621fe;
+  border: none;
+  z-index: 1;
+}
+.btn-15:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background-color: #663dff;
+  border-radius: 5px;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  transition: all 0.3s ease;
+}
+.btn-15:hover {
+  color: #fff;
+}
+.btn-15:hover:after {
+  left: 0;
+  width: 100%;
+}
+.btn-15:active {
+  top: 2px;
+}
+    </style>
 </th:block>
-
 <div layout:fragment="content">
     <div class="container">
         <div class="row">
@@ -22,7 +50,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label th:for="id">아이디</label>
-                                <input type="text" class="" placeholder="6~20자 영문, 숫자" th:field="*{id}" />
+                                <input type="text" class="form-control" placeholder="6~20자 영문, 숫자" th:field="*{id}" />
                                 <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="fieldError">Incorrect Data</p>
                             </div>
                         </div>
@@ -30,7 +58,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label th:for="password">비밀번호</label>
-                                <input type="password" class="" placeholder="8~12자 영문, 숫자, 특수문자" th:field="*{password}" />
+                                <input type="password" class="form-control" placeholder="8~12자 영문, 숫자, 특수문자" th:field="*{password}" />
                                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
                             </div>
                         </div>
@@ -38,7 +66,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label th:for="password_cf">비밀번호 확인</label>
-                                <input type="text" class="" placeholder="8~12자 영문, 숫자, 특수문자" th:field="*{password_cf}" />
+                                <input type="text" class="form-control" placeholder="8~12자 영문, 숫자, 특수문자" th:field="*{password_cf}" />
                                 <p th:if="${#fields.hasErrors('password_cf')}" th:errors="*{password_cf}" class="fieldError">Incorrect Data</p>
                             </div>
                         </div>
@@ -46,27 +74,33 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label th:for="name">이름</label>
-                                <input type="text" class="" placeholder="이름을 입력해주세요" th:field="*{name}" />
+                                <input type="text" class="form-control" placeholder="이름을 입력해주세요" th:field="*{name}" />
                                 <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button type="submit" class="custom-btn btn-15">가입완료</button>
+                            </div>
+                        </div>
+
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     </form>
                 </div>
         </div>
     </div>
->>>>>>> origin/develop
+
 </div>
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-<<<<<<< HEAD
 
-=======
         //회원가입을 실패했을떄 에러메세지
            var errorMessage  = [[${errorMessage}]]
 
            if(errorMessage != null) alert(errorMessage);
->>>>>>> origin/develop
+
     </script>
 </th:block>
 
