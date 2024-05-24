@@ -1,0 +1,38 @@
+@@ -1,7 +1,36 @@
+/* 로그인 화면  */
+.loginBtn {
+    display: block;
+    width: 100%;
+    height: 5.2rem;
+    border-radius: 1.2rem;
+    background-color: #1769ff;
+    }
+    border: 0;
+
+}
+.loginBtn span {
+    font-weight: 700;
+    font-size: 1.7rem;
+    color: #fff;
+}
+
+.inputStyle_inputId,
+.inputStyle_inputPw {
+    position: relative;
+    display: block;
+    padding: 1.5rem 1.4rem;
+    box-sizing: border-box;
+}
+
+.inputBox {
+    width: 100%;
+    margin: 0 auto;
+    border: .1rem solid #ddd;
+    border-radius: 1.2rem;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+.inputStyle_inputPw {
+    border-top: .1rem solid #ddd;
+}
