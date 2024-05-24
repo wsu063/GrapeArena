@@ -10,13 +10,13 @@
 /* 기본 화면 구성*/
 @media(max-width: 759px) {
     html {
-        font-size:10px
+        font-size:15px
     }
 }
 
 @media(min-width: 760px) and (max-width:1023px) {
     html {
-        font-size:10px
+        font-size:15px
     }
 }
 
@@ -137,6 +137,9 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
+
+
 
 .footer_wrap {
     display: flex;
