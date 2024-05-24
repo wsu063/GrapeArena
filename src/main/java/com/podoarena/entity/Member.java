@@ -49,7 +49,7 @@ public class Member extends BaseEntity {
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
         member.setPassword(password);
-        member.setAddress(memberFormDto.getAddress());
+        member.setAddress(memberFormDto.getAddress1() + " " + memberFormDto.getDetailAddress());
         member.setPhone(memberFormDto.getPhone());
 
         //member.setRole(Role.USER);
