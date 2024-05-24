@@ -8,9 +8,11 @@
 
 <div layout:fragment="content">
     <div class="loginWrap">
-        <a href="/">
-            <img src="/images/logo_head.png" alt="로고" width="80" height="60" fill="none"/>
-        </a>
+        <div class="login_logo">
+            <a href="/">
+                <img src="/images/logo_head.png" alt="로고" width="80" height="60" fill="none"/>
+            </a>
+        </div>
 
         <form role="form" action="/members/login" method="post"  id="login-form">
             <div class="loginForm">
@@ -63,8 +65,6 @@
 </div>
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-
-
         var userInputId = getCookie("userInputId");
         var setCookieYN = getCookie("setCookieYN");
 

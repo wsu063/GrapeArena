@@ -4,6 +4,12 @@
 .loginWrap{
     max-width: 40rem;
     margin: 0 auto;
+    padding: 20rem;
+}
+
+.login_logo {
+    display:flex;
+    justify-content: center;
 }
 
 
