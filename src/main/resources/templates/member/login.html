@@ -2,23 +2,29 @@
 <html  xmlns:th="http://www.thymeleaf.org"
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</th:block>
+
 <div layout:fragment="content">
     <div class="login-wrapper">
-        <h2>Login</h2>
+        <a href="/">
+            <img src="/images/logo_head.png" alt="로고" width="80" height="60" fill="none"/>
+        </a>
+
         <form method="post" action="/members/login" id="login-form">
-            <input type="email" id="email" name="email" placeholder="아이디">
-            <input type="password" id="password" name="password" placeholder="비밀번호">
+                <input type="email" id="email" name="email" placeholder="아이디">
+                <input type="password" id="password" name="password" placeholder="비밀번호">
 
-            <label for="id_save">
-                <input type="checkbox"  name="id_save" id="id_save">아이디 저장
-            </label>
+                <label for="id_save">
+                    <input type="checkbox"  name="id_save" id="id_save">아이디 저장
+                </label>
 
-            <button type="submit"  id="loginbtn">로그인</button>
+                <button type="submit"  id="loginbtn">로그인</button>
 
-            <a href="/" class="signup-link">아이디 찾기</a>
-            <a href="/" class="signup-link">비밀번호 찾기</a>
-            <a href="/" class="signup-link">회원가입</a>
-
+                <a href="/" class="signup-link">아이디 찾기</a>
+                <a href="/" class="signup-link">비밀번호 찾기</a>
+                <a href="/" class="signup-link">회원가입</a>
         </form>
     </div>
 </div>
