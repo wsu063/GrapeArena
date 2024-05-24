@@ -41,6 +41,7 @@ public class MemberService implements UserDetailsService {
         } else if(!member.getPhone().equals(phone)) {
             throw new Exception("가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.");
         }
+
         return true;
     }
 }
