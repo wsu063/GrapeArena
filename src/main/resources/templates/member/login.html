@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org"
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-       layout:decorate="~{layouts/layout}">
+       layout:decorate="~{layouts/layout2}">
 <th:block layout:fragment="css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
 </th:block>
 
 <div layout:fragment="content">
-    <div class="login-wrapper">
+    <div class="loginWrap">
         <a href="/">
             <img src="/images/logo_head.png" alt="로고" width="80" height="60" fill="none"/>
         </a>
@@ -29,23 +29,35 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="checkStyle">
                 <p th:if="${loginErrorMsg}" th:text="${loginErrorMsg}" class="error"></p>
                 <label for="id_save">
                     <input type="checkbox"  name="id_save" id="id_save">아이디 저장
                 </label>
             </div>
-            <div>
-                <button type="submit" class="loginBtn" id="loginbtn">
+
+            <div class="loginStyle">
+                <button type="submit" class="loginBtn" id="loginBtn">
                     <span>로그인</span>
                 </button>
             </div>
 
+            <div class="findList">
+                <ul>
+                    <li>
+                        <a id="findId" class="findId" href="#">아이디 찾기</a>
+                    </li>
+                    |
+                    <li>
+                        <a id="findPwd" href="#">비밀번호 찾기</a>
+                    </li>
+                    |
+                    <li>
+                        <a id="join" href="/members/register"><span style="color:blue">회원가입 </span></a>
+                    </li>
+                </ul>
+            </div>
 
-
-                <a href="/" class="signup-link">아이디 찾기</a>
-                <a href="/" class="signup-link">비밀번호 찾기</a>
-                <a href="/members/register" class="signup-link" >회원가입</a>
         </form>
     </div>
 </div>

@@ -1,20 +1,11 @@
-@@ -1,7 +1,36 @@
-/* 로그인 화면  */
-.loginBtn {
-    display: block;
-    width: 100%;
-    height: 5.2rem;
-    border-radius: 1.2rem;
-    background-color: #1769ff;
-    }
-    border: 0;
 
+/* 로그인 화면  */
+
+.loginWrap{
+    max-width: 40rem;
+    margin: 0 auto;
 }
-.loginBtn span {
-    font-weight: 700;
-    font-size: 1.7rem;
-    color: #fff;
-}
+
 
 .inputStyle_inputId,
 .inputStyle_inputPw {
@@ -23,6 +14,14 @@
     padding: 1.5rem 1.4rem;
     box-sizing: border-box;
 }
+
+.inputText_id,
+.inputText_pw {
+    width:100%;
+    border :0;
+}
+
+
 
 .inputBox {
     width: 100%;
@@ -36,3 +35,55 @@
 .inputStyle_inputPw {
     border-top: .1rem solid #ddd;
 }
+
+.loginBtn {
+    display: block;
+    width: 100%;
+    height: 5.2rem;
+    border-radius: 1.2rem;
+    background-color: #1769ff;
+    border: 0;
+}
+
+.loginBtn span {
+    font-weight: 700;
+    font-size: 1.7rem;
+    color: #fff;
+}
+
+
+
+.findList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 3.2rem;
+}
+
+.findList ul {
+    list-style-type: none;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 100%;
+}
+.findList li a{
+    font-size: 1.3rem;
+    color: #666;
+    text-decoration: none;
+}
+
+.findList li {
+    margin: 0 2rem;
+    text-align: left;
+}
+
+
+.loginForm,
+.checkStyle,
+.loginStyle{
+    margin:2rem;
+    }
+
+
