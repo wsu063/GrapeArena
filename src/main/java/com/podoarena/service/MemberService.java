@@ -36,10 +36,11 @@ public class MemberService implements UserDetailsService {
 
     //이메일과 휴대폰 번호로 일치 확인
     public boolean chkUser(String email, String phone) throws Exception {
-        Member member = memberRepository.findByEmail(email);
-        if(member == null) {
+        Member findEmail = memberRepository.findByEmail(email);
+        Member findPhone = memberRepository.findByPhone(phone);
+        if(findEmail == null) {
             throw new Exception("가입되지 않은 이메일입니다. 확인 후 다시 입력해주세요.");
-        } else if(!member.getPhone().equals(phone)) {
+        } else if(findPhone == null) {
             throw new Exception("가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.");
         }
 

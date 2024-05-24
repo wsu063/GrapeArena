@@ -7,7 +7,7 @@
 </th:block>
 
 <div layout:fragment="content">
-    <div class="loginWrap">
+    <div class="login_wrap">
         <div class="login_logo">
             <a href="/">
                 <img src="/images/logo_head.png" alt="로고" width="110" height="90" fill="none"/>
@@ -15,38 +15,38 @@
         </div>
 
         <form role="form" action="/members/login" method="post"  id="login-form">
-            <div class="loginForm">
-                <div class="inputBox">
-                    <div class="inputStyle_inputId">
+            <div class="login_form">
+                <div class="input_box">
+                    <div class="input_style_input_id">
                         <label th:for="email">
-                            <input  type="email" class="inputText_id" id="email" name="email" placeholder="아이디">
+                            <input  type="email" class="input_text_id" id="email" name="email" placeholder="이메일">
                         </label>
                     </div>
-                    <div class="inputStyle_inputPw">
+                    <div class="input_style_input_pw">
                         <label th:for="password">
-                            <input type="password" class="inputText_pw" id="password" name="password" placeholder="비밀번호">
+                            <input type="password" class="input_text_pw" id="password" name="password" placeholder="비밀번호">
                         </label>
                     </div>
                 </div>
             </div>
 
-            <div class="checkStyle">
+            <div class="check_style">
                 <p th:if="${loginErrorMsg}" th:text="${loginErrorMsg}" class="error"></p>
                 <label for="id_save">
                     <input type="checkbox"  name="id_save" id="id_save">아이디 저장
                 </label>
             </div>
 
-            <div class="loginStyle">
-                <button type="submit" class="loginBtn" id="loginBtn">
+            <div class="login_style">
+                <button type="submit" class="login_btn" id="loginBtn">
                     <span>로그인</span>
                 </button>
             </div>
 
-            <div class="findList">
+            <div class="find_list">
                 <ul>
                     <li>
-                        <a id="findId" class="findId" href="#">아이디 찾기</a>
+                        <a id="findId" class="find_id" href="#">아이디 찾기</a>
                     </li>
                     |
                     <li>
@@ -75,7 +75,7 @@
             $("#id_save").prop("checked", false);
         }
 
-        $("#loginbtn").click(function() {
+        $("#loginBtn").click(function() {
             if($("#id_save").is(":checked")) {
 
                 var userInputId = $("#email").val();
