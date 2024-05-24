@@ -15,7 +15,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label th:for="id">아이디</label>
-                                <input type="text" class="" placeholder="6~20자 영문, 숫자를 입력하세요" th:field="*{id}" />
+                                <input type="text" class="" placeholder="6~20자 영문, 숫자" th:field="*{id}" />
                                 <p th:if="${#fields.haserrirs('id')}" th:errors="*{id}" class="fieldError">Incorrect Data</p>
                             </div>
                         </div>
@@ -23,7 +23,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label th:for="password">비밀번호</label>
-                                <input type="password" class="" placeholder="이름을 입력해주세요" th:field="*{password}" />
+                                <input type="password" class="" placeholder="8~12자 영문, 숫자, 특수문자" th:field="*{password}" />
                                 <p th:if="${#fields.haserrirs('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label th:for="password_cf">비밀번호 확인</label>
-                                <input type="text" class="" placeholder="이름을 입력해주세요" th:field="*{name}" />
+                                <input type="text" class="" placeholder="8~12자 영문, 숫자, 특수문자" th:field="*{name}" />
                                 <p th:if="${#fields.haserrirs('password_cf')}" th:errors="*{password_cf}" class="fieldError">Incorrect Data</p>
                             </div>
                         </div>
