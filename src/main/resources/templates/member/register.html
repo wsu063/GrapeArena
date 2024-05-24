@@ -14,8 +14,8 @@
 <div layout:fragment="content">
     <div class="container">
         <div class="row">
-            <h2>회원가입</h2>
-                <div>
+            <h2 style="display: flex; justify-content: center;">회원가입</h2>
+                <div class="container">
                     <form role="form" action="/members/register" method="post" th:object="${memberFormDto}">
                         <div class="form-group row">
                             <div class="col-md-12">
