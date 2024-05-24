@@ -60,7 +60,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label th:for="phone">휴대폰</label>
-                                <input type="text" class="form-control" placeholder="이름을 입력해주세요" th:field="*{phone}" />
+                                <input type="text" class="form-control" placeholder="전화번호를 입력해주세요" th:field="*{phone}" />
                                 <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect Data</p>
                             </div>
                         </div>
