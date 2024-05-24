@@ -25,9 +25,12 @@ public class MemberService implements UserDetailsService {
     //회원중복체크
     private void validateDuplicateMember(Member member) {
         Member findMember = memberRepository.findByEmail(member.getEmail());
+        Member findPhone = memberRepository.findByEmail(member.getPhone());
 
         if(findMember != null) {
             throw new IllegalStateException("이미 가입된 이메일 입니다.");
+        } else if (findPhone != null) {
+            throw new IllegalStateException("이미 가입된 번호 입니다.");
         }
     }
 
