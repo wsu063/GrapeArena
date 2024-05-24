@@ -64,7 +64,6 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 3.2rem;
 }
 
 .findList ul {
@@ -73,6 +72,7 @@
      justify-content: center;
      align-items: center;
      width: 100%;
+     padding: 0px;
 }
 .findList li a{
     font-size: 1.3rem;
