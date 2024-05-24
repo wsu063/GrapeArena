@@ -20,9 +20,19 @@
                     </div>
                     <!-- 유저메뉴 -->
                     <div class="header_usermenu">
-                        <a href="/members/login">로그인</a>
-                        <a href="/members/register">회원가입</a>
-                        <!-- <a href="/members/"></a>-->
+                        <a href="/members/login" sec:authorize="isAnonymous()">로그인</a>
+                        <a href="/members/register" sec:authorize="isAnonymous()">회원가입</a>
+                        <div class="dropdown" sec:authorize="isAuthenticated()">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                마이페이지
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item" type="button">Action</button></li>
+                                <li><button class="dropdown-item" type="button">Another action</button></li>
+                                <li><button class="dropdown-item" type="button">Something else here</button></li>
+                            </ul>
+                        </div>
+                        <a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a>
                     </div>
                 </div>
             </div>
