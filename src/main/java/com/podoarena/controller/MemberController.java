@@ -88,4 +88,11 @@ public class MemberController {
             return new ResponseEntity<String>("비밀번호가 일치 하지 않습니다.", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping(value = "/members/login/error")
+    public String loginError(Model model){
+        model.addAttribute("loginErrorMsg","아이디 또는 비밀번호를 입력해주세요. ");
+        return "member/login";
+
+    }
 }
