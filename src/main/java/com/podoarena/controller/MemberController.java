@@ -24,13 +24,13 @@ public class MemberController {
     //로그인 페이지 이동
     @GetMapping(value = "/members/login")
     public String loginpage() {
-        return "member/memberLoginForm";
+        return "member/login";
     }
 
     //회원가입 페이지 이동
     @GetMapping(value = "/members/register")
     public String registerPage() {
-        return "member/memberForm";
+        return "member/register";
     }
 
     //이메일 휴대폰 번호 검사
