@@ -3,7 +3,7 @@
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="~{layouts/layout}">
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
 </th:block>
 
 <div layout:fragment="content">
@@ -12,19 +12,40 @@
             <img src="/images/logo_head.png" alt="로고" width="80" height="60" fill="none"/>
         </a>
 
-        <form method="post" action="/members/login" id="login-form">
-                <input type="email" id="email" name="email" placeholder="아이디">
-                <input type="password" id="password" name="password" placeholder="비밀번호">
+        <form role="form" action="/members/login" method="post"  id="login-form">
+            <div class="loginForm">
+                <div class="inputBox">
 
+                    <div class="inputStyle_inputId">
+                        <label th:for="email">
+                            <input  type="email" class="inputText_id" id="email" name="email" placeholder="아이디">
+                        </label>
+                    </div>
+                    <div class="inputStyle_inputPw">
+                        <label th:for="password">
+                            <input type="password" class="inputText_pw" id="password" name="password" placeholder="비밀번호">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p th:if="${loginErrorMsg}" th:text="${loginErrorMsg}" class="error"></p>
                 <label for="id_save">
                     <input type="checkbox"  name="id_save" id="id_save">아이디 저장
                 </label>
+            </div>
+            <div>
+                <button type="submit" class="loginBtn" id="loginbtn">
+                    <span>로그인</span>
+                </button>
+            </div>
 
-                <button type="submit"  id="loginbtn">로그인</button>
+
 
                 <a href="/" class="signup-link">아이디 찾기</a>
                 <a href="/" class="signup-link">비밀번호 찾기</a>
-                <a href="/" class="signup-link">회원가입</a>
+                <a href="/" class="signup-link" onclick="location.href='/members/new'">회원가입</a>
         </form>
     </div>
 </div>
