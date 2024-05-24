@@ -34,3 +34,71 @@ body {
     margin: 0;
     background: #fff;
 }
+
+.header_wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: cneter;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.header_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: cneter;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.header_top_wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    gap: 20px;
+}
+
+.header_logo {
+    position: relative;
+    padding: 0;
+    gap: 6px;
+    width: 225px;
+    height: 50px;
+}
+
+.header_searchbar {
+    width: 100%;
+    height: 50px;
+    background: #fff;
+    border-radius: 25px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(0, 0, 0, .15);
+}
+
+.header_searchbar input {
+    height: 18px;
+    flex: 1;
+    margin-left: 16px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    text-align: justify;
+    color: #111;
+    border: 0;
+    outline: 0;
+    width: 100%
+
+}
