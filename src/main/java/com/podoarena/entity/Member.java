@@ -1,6 +1,7 @@
 package com.podoarena.entity;
 
 import com.podoarena.constant.Role;
+import com.podoarena.dto.MemberFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,6 +39,23 @@ public class Member extends BaseEntity {
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private Reserve reserve;
+
+
+    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+        String password = passwordEncoder.encode(memberFormDto.getPassword());
+
+        Member member = new Member();
+
+        member.setName(memberFormDto.getName());
+        member.setEmail(memberFormDto.getEmail());
+        member.setPassword(password);
+        member.setAddress(memberFormDto.getAddress());
+
+        //member.setRole(Role.USER);
+        member.setRole(Role.ADMIN);
+
+        return member;
+    }
 
     public static void resetPassword(Member member, String password, PasswordEncoder passwordEncoder) {
         String resetPassword = passwordEncoder.encode(password);

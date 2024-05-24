@@ -1,13 +1,17 @@
 package com.podoarena.controller;
 
+import com.podoarena.dto.MemberFormDto;
 import com.podoarena.entity.Member;
 import com.podoarena.repository.MemberRepository;
 import com.podoarena.service.MemberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,8 +33,27 @@ public class MemberController {
 
     //회원가입 페이지 이동
     @GetMapping(value = "/members/register")
-    public String registerPage() {
+    public String registerPage(Model model) {
+        model.addAttribute("memberFormDto", new MemberFormDto());
+
         return "member/register";
+    }
+
+    //회원가입 처리
+    @PostMapping(value = "/members/register")
+    public String registerUser(@Valid MemberFormDto memberFormDto,
+                               BindingResult bindingResult , Model model) {
+        if(bindingResult.hasErrors()) return "member/register";
+
+        try {
+            Member member = Member.createMember(memberFormDto, passwordEncoder);
+            memberService.saveMember(member);
+        } catch (IllegalStateException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "member/register";
+        }
+
+        return "redirect:/";
     }
 
     //이메일 휴대폰 번호 검사
