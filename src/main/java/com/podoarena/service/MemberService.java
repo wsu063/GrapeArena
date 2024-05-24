@@ -32,4 +32,15 @@ public class MemberService implements UserDetailsService {
                 .roles((member.getRole().toString()))
                 .build();
     }
+
+    //이메일과 휴대폰 번호로 일치 확인
+    public boolean chkUser(String email, String phone) throws Exception {
+        Member member = memberRepository.findByEmail(email);
+        if(member == null) {
+            throw new Exception("가입되지 않은 이메일입니다. 확인 후 다시 입력해주세요.");
+        } else if(!member.getPhone().equals(phone)) {
+            throw new Exception("가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.");
+        }
+        return true;
+    }
 }
