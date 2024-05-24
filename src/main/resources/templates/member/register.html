@@ -79,6 +79,23 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label th:for=email>이메일</label>
+                                <input type="text" class="form-control" placeholder="이메일 입력" th:field="*{email}" />
+                                <span id="middle"><small>@</small></span>
+                                <select id="email_address" name="email_address" title="이메일 선택" class="email_address">
+                                    <option value="naver.com">naver.com</option>
+                                    <option value="gmail.com">gmail.com</option>
+                                    <option value="daum.net">daum.net</option>
+                                    <option value="hanmail.net">hanmail.net</option>
+                                    <option value="nate.com">nate.com</option>
+                                    <option value="direct">직접입력</option>
+                                </select>
+                                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect Data</p>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-12">
                                 <button type="submit" class="custom-btn btn-15">가입완료</button>
