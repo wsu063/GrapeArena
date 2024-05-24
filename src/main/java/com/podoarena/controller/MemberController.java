@@ -56,7 +56,14 @@ public class MemberController {
         return "redirect:/";
     }
 
-    //이메일 휴대폰 번호 검사
+    //이메일 전화번호 검사 페이지
+    @GetMapping(value = "/members/chkuser")
+    public String chkUserPage(Model model) {
+        model.addAttribute("member", new MemberFormDto());
+        return "member/chkuser";
+    }
+
+    //이메일 전화번호 체크
     @PostMapping(value = "/members/chkuser")
     public ResponseEntity<String> chkUser(@RequestBody Map<String, String> requestData) throws Exception {
         String email = requestData.get("email");

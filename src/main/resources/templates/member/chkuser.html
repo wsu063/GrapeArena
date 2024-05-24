@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{layouts/layout2}">
+  <head>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  </head>
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+  </th:block>
+  
+  <div layout:fragment="content">
+    <div class="resetpw_wrap">
+      <div class="resetpw_logo">
+        <a href="/">
+          <img src="/images/logo_head.png" alt="로고" width="110" height="90" fill="none"/>
+        </a>
+      </div>
+      
+      <form role="form" id="resetpw-form">
+        <div class="resetpw_form">
+          <div class="input_box">
+            <div class="input_style_input_id">
+              <p>가입 시, 입력한 이메일을 입력하세요.</p>
+              <label th:for="email">
+                <input  type="email" class="input_text_id" id="email" name="email" placeholder="이메일">
+              </label>
+            </div>
+            <div class="input_style_input_phone">
+              <p>가입 시, 입력한 전화번호를 입력하세요.</p>
+              <label th:for="phone">
+                <input type="text" class="input_text_phone" id="phone" name="phone" placeholder="전화번호">
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="login_style">
+          <button type="submit" class="login_btn" id="loginBtn">
+            <span>확인</span>
+          </button>
+        </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+      </form>
+    </div>
+  </div>
+  
+  <th:block layout:fragment="script">
+    <script th:inline="javascript">
+      function chkUser() {
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        
+        var formData = {
+          email: email,
+          phone: phone
+        };
+        $.ajax({
+          url: "/members/chkuser",
+          type: "POST",
+          contentType: "application/json",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          dataType: "json",
+          cache: false,
+          data: JSON.stringify(formData), // 데이터를 JSON 형식으로 전송
+          success: function(result, status, xhr) {
+            alert('인증에 성공하셨습니다. 비밀번호 재설정 페이지로 이동합니다.')
+            location.href = '/members/resetpassword'
+          },
+          error: function(jqXHR, status, error) {
+            if (jqXHR.responseText === "가입되지 않은 이메일입니다. 확인 후 다시 입력해주세요.") {
+              alert('가입되지 않은 이메일입니다. 확인 후 다시 입력해주세요.');
+              location.href = '/members/login'
+            } else if(jqXHR.responseText === "가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.") {
+              alert('가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.');
+              location.href = '/members/login'
+            }
+          }
+        });
+      }
+    </script>
+  </th:block>
+</html>
