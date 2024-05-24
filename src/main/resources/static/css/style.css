@@ -59,7 +59,7 @@ body {
     flex-direction: row;
     align-items: center;
     width: 100%;
-    height: 50px;
+    height: 60px;
     padding: 0;
     gap: 20px;
 }
@@ -69,12 +69,12 @@ body {
     padding: 0;
     gap: 6px;
     width: 225px;
-    height: 50px;
+    height: 60px;
 }
 
 .header_searchbar {
     width: 100%;
-    height: 50px;
+    height: 60px;
     background: #fff;
     border-radius: 25px;
     position: relative;
@@ -100,5 +100,29 @@ body {
     border: 0;
     outline: 0;
     width: 100%
+}
 
+.header_usermenu {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    gap: 20px;
+    width: 100%;
+    max-width: 312px;
+    height: 18px;
+    border-radius: 6px;
+    flex: 1;
+    text-wrap: nowrap;
+}
+.header_usermenu a {
+    height: 18px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: #111;
+    text-decoration: none;
+    cursor: pointer;
 }
