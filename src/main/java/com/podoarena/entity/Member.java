@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Table(name = "member")
@@ -38,4 +39,8 @@ public class Member extends BaseEntity {
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private Reserve reserve;
 
+    public static void resetPassword(Member member, String password, PasswordEncoder passwordEncoder) {
+        String resetPassword = passwordEncoder.encode(password);
+        member.setPassword(resetPassword);
+    }
 }
