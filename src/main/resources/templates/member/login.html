@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org"
-       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-       layout:decorate="~{layouts/layout2}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout2}">
 <th:block layout:fragment="css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
 </th:block>
@@ -14,16 +14,18 @@
             </a>
         </div>
 
-        <form role="form" action="/members/login" method="post"  id="login-form">
+        <form role="form" action="/members/login" method="post" id="login-form">
             <div class="login_form">
                 <div class="input_box">
                     <div class="input_style_input_id">
                         <label th:for="email">
-                            <input  type="email" class="input_text_id" id="email" name="email" placeholder="이메일">
+                            <i class="fa-regular fa-user"></i>
+                            <input type="email" class="input_text_id" id="email" name="email" placeholder="이메일">
                         </label>
                     </div>
                     <div class="input_style_input_pw">
                         <label th:for="password">
+                            <i class="fa-solid fa-lock"></i>
                             <input type="password" class="input_text_pw" id="password" name="password" placeholder="비밀번호">
                         </label>
                     </div>
@@ -33,7 +35,7 @@
             <div class="check_style">
                 <p th:if="${loginErrorMsg}" th:text="${loginErrorMsg}" class="error"></p>
                 <label for="id_save">
-                    <input type="checkbox"  name="id_save" id="id_save">아이디 저장
+                    <input type="checkbox" name="id_save" id="id_save">아이디 저장
                 </label>
             </div>
 
@@ -54,7 +56,7 @@
                     </li>
                     |
                     <li>
-                        <a id="join" href="/members/register"><span style="color:blue">회원가입 </span></a>
+                        <a id="join" href="/members/register"><span style="color:blue">회원가입</span></a>
                     </li>
                 </ul>
             </div>
@@ -65,29 +67,28 @@
 <th:block layout:fragment="script">
     <script type="text/javascript" th:src="@{/js/cookie.js}"></script>
     <script th:inline="javascript">
-        var userInputId = getCookie("userInputId");
-        var setCookieYN = getCookie("setCookieYN");
+        document.addEventListener('DOMContentLoaded', function() {
+            var userInputId = getCookie("userInputId");
+            var setCookieYN = getCookie("setCookieYN");
 
-        if(setCookieYN == 'Y' ) {
-            $("#id_save").prop("checked", true);
-            $("#email").val(userInputId);
-        } else {
-            $("#id_save").prop("checked", false);
-        }
-
-        $("#loginBtn").click(function() {
-            if($("#id_save").is(":checked")) {
-
-                var userInputId = $("#email").val();
-
-                setCookie("userInputId", userInputId, 60);
-                setCookie("setCookieYN", "Y" , 60);
-                } else {
-                 deleteCookie("userInputId");
-                 deleteCookie("setCookieYN");
+            if (setCookieYN == 'Y') {
+                document.getElementById("id_save").checked = true;
+                document.getElementById("email").value = userInputId;
+            } else {
+                document.getElementById("id_save").checked = false;
             }
-        });
 
+            document.getElementById("loginBtn").addEventListener('click', function() {
+                if (document.getElementById("id_save").checked) {
+                    var userInputId = document.getElementById("email").value;
+                    setCookie("userInputId", userInputId, 60);
+                    setCookie("setCookieYN", "Y", 60);
+                } else {
+                    deleteCookie("userInputId");
+                    deleteCookie("setCookieYN");
+                }
+            });
+        });
     </script>
 </th:block>
 </html>
