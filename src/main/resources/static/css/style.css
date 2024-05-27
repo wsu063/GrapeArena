@@ -44,6 +44,27 @@ body {
     background: #fff;
 }
 
+/* h2 */
+
+h2 {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid black;
+}
+
+h2.fourth {
+  font-weight: 700;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+
+h2.fourth:hover {
+  border-bottom: 1px solid purple;
+  font-weight: 300;
+}
+
+
 /* header */
 .header_wrap {
     display: flex;
@@ -156,9 +177,50 @@ body {
     font-size: 1.5rem;
 }
 
-/* clip_wrap */
+/* clip */
+.clip {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 0 0;
+    cursor: default;
+    width: 100%;
+}
 
 
+/* hover effect 97 */
+.SMN_effect-97 a {
+  transition: all 0.3s ease 0s;
+}
+
+.SMN_effect-97 a:hover {
+  animation: Rainbow 10s infinite;
+}
+
+@keyframes Rainbow {
+  0% {
+    color: #e74c3c;
+  }
+  20% {
+    color: #e67e22;
+  }
+  35% {
+    color: #f1c40f;
+  }
+  50% {
+    color: #27ae60;
+  }
+  65% {
+    color: #3498db;
+  }
+  85% {
+    color: #8e44ad;
+  }
+  100% {
+    color: #34495e;
+  }
+}
 
 
 /* footer */
