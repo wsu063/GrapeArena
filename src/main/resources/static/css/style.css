@@ -44,6 +44,7 @@ body {
     background: #fff;
 }
 
+/* header */
 .header_wrap {
     display: flex;
     flex-direction: column;
@@ -155,9 +156,12 @@ body {
     font-size: 1.5rem;
 }
 
+/* clip_wrap */
 
 
 
+
+/* footer */
 .footer_wrap {
     display: flex;
     flex-direction: row;
