@@ -65,6 +65,12 @@
     border: 0;
 }
 
+.login_btn:hover {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 2px solid black;
+}
+
 .login_btn span {
     font-weight: 700;
     font-size: 1.7rem;
@@ -105,5 +111,6 @@
 .login_style{
     margin:2rem;
     }
+
 
 
