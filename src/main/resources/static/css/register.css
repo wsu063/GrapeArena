@@ -1,68 +1,71 @@
 .error {
-           color: #bd2130;
+    color: #bd2130;
+}
+.container{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+.register_header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    height: 88px;
+    padding-top: 0;
+    line-height: 68px;
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
 }
 
 .register_wrap{
     max-width: 40rem;
     margin: 0 auto;
 }
-.container{
-  margin: 0;
-      padding: 0;
-      border: 0;
-      outline: 0;
-      font-size: 100%;
-      vertical-align: baseline;
-      background: transparent;
-}
 
-.header {
-    height: 88px;
-            padding-top: 0;
-            line-height: 68px;
-            border-bottom: 1px solid rgba(0, 0, 0, .08);
-}
 .register-title {
-        padding: 0 150px;
-        line-height: 88px;
-
-        }
+    padding: 0 150px;
+    line-height: 88px;
+}
 
 h2 {
   display: flex;
   justify-content: center;
 }
 
-input{
-  font-size: 15px;
-      line-height: 30px;
-      color: #000;
-      display: block;
-      width: 100%;
-      height: 30px;
-      padding: 0 25px 0 10px;
-      box-sizing: border-box;
-      border: 0;
-      outline: 0;
-      background: none;
-  }
+input {
+    font-size: 15px;
+    line-height: 30px;
+    color: #000;
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding: 0 25px 0 10px;
+    box-sizing: border-box;
+    border: 0;
+    outline: 0;
+    background: none;
+}
 
-  label {
-      font-size: 15px;
-          line-height: 30px;
-          color: #000;
-          float: left;
-          font-weight: bold;
-  }
+label {
+    font-size: 15px;
+    line-height: 30px;
+    color: #000;
+    float: left;
+    font-weight: bold;
+}
 
 .form {
-
-      width: 500px;
-              min-height: 800px;
-              box-sizing: border-box;
-              margin: 0 auto;
-              padding: 0;
-
+    width: 500px;
+    min-height: 800px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
 }
 
 .form-group row {
@@ -70,25 +73,29 @@ input{
 }
 
 .col-md-12 {
-        display: table;
-        width: 100%;
-        height: 30px;
-        padding: 10px 0;
-        border-bottom: 1px solid #000;
+    display: -webkit-box;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #000;
+}
+
+.post {
+    display: flex;
+}
+
+.address input {
 }
 
 .post_btn {
-    height: 55px;
     box-shadow: 0px 4px 0px #73B9C9;
     background-color: #7fccde;
     text-decoration: none;
     position: relative;
-        border: 0;
-        padding: 15px 25px;
-        display: inline-block;
-        text-align: center;
-        color: white;
-            border-radius: 10px;
+    border: 0;
+    display: inline-block;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
 }
 
 .register_btn {
@@ -99,9 +106,8 @@ input{
     background-color: #1769ff;
     border: 0;
     margin-top: 45px;
-
-     font-weight: 700;
-        font-size: 1.7rem;
-        color: #fff;
+    font-weight: 700;
+    font-size: 1.7rem;
+    color: #fff;
 }
 

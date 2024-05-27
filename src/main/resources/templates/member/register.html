@@ -7,24 +7,19 @@
 </th:block>
 <div layout:fragment="content">
     <div class="container">
-        <div class="register_wrap">
-            <div class="header" style="
-                 display: flex;
-                 flex-direction: row;
-                 flex-wrap: nowrap;
-                 align-content: center;
-                 justify-content: center;">
-                <div>
-                    <a href="/">
-                        <img src="/images/logo_head.png" alt="로고"
-                             style="padding-top: 10px; display: flex; width: 80px; height:70px;" />
-                    </a>
-                </div>
-                <div class="register-title">
-                    <h2>회원가입</h2>
-                </div>
-                <div style="width: 80px; height: 70px;"></div>
+        <div class="register_header">
+            <div>
+                <a href="/">
+                    <img src="/images/logo_head.png" alt="로고"
+                         style="padding-top: 10px; display: flex; width: 80px; height:70px;" />
+                </a>
             </div>
+            <div class="register-title">
+                <h2>회원가입</h2>
+            </div>
+            <div style="width: 80px; height: 70px;"></div>
+        </div>
+        <div class="register_wrap">
                 <div class="register-form" style="display: flex; justify-content: center;">
                     <form class="form" role="form" action="/members/register" method="post" th:object="${memberFormDto}">
                         <div class="form-group row">
@@ -43,8 +38,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label th:for="name">이름</label>
@@ -53,18 +46,21 @@
                             </div>
                         </div>
 
-
-
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label th:for="address">주소</label>
-                                <input type="text" class="form-control" placeholder="주소를 입력해주세요" th:field="*{address1}" />
-                                <p th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}" class="fieldError">Incorrect Data</p>
-                                <input type="text" id="postcode" placeholder="우편번호" />
-                                <input class="post_btn" type="button" onclick="execDaumPostcode()" value="우편번호 찾기" />
-                                <br>
-                                <input type="text" th:field="*{detailAddress}" placeholder="상세주소" />
-                                <input type="text" id="extraAddress" placeholder="참고항목" />
+                                <div class="address">
+                                    <label th:for="address">주소</label>
+                                    <input type="text" class="form-control" placeholder="주소를 입력해주세요" th:field="*{address1}" />
+                                    <p th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}" class="fieldError">Incorrect Data</p>
+                                    <div class="post">
+                                        <input type="text" id="postcode" placeholder="우편번호" />
+                                        <input class="post_btn" type="button" onclick="execDaumPostcode()" value="우편번호 찾기" />
+                                    </div>
+                                    <br>
+                                    <input type="text" th:field="*{detailAddress}" placeholder="상세주소" />
+                                    <input type="text" id="extraAddress" placeholder="동, 아파트명" />
+
+                                </div>
                             </div>
                         </div>
 
