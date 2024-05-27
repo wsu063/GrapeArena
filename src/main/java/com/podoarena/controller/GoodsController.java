@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class GoodsController {
 
-    // 굿즈 페이지 이동
-    @GetMapping(value = "/goods/goodsList")
+    // 굿즈 메인페이지 이동
+    @GetMapping(value = "/goods/goodsIndex")
     public String goodspage() {
-        return "goods/goodsList";
+        return "goods/goodsIndex";
     }
 }
