@@ -3,11 +3,24 @@
       layout:decorate="~{layouts/layout}">
 <th:block layout:fragment="css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
 </th:block>
 
 <div layout:fragment="content">
     <div class="index_wrap">
-        <div class="index_event">
+        <div class="index_swiper">
+            <!-- Swiper -->
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="/images/slide1.webp" alt="슬라이드"></div>
+                    <div class="swiper-slide"><img src="/images/slide2.webp" alt="슬라이드"></div>
+                    <div class="swiper-slide"><img src="/images/slide3.webp" alt="슬라이드"></div>
+                    <div class="swiper-slide"><img src="/images/slide4.webp" alt="슬라이드"></div>
+                    <div class="swiper-slide"><img src="/images/slide5.webp" alt="슬라이드"></div>
+                    <div class="swiper-slide"><img src="/images/slide6.webp" alt="슬라이드"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
     </div>
 
@@ -17,13 +30,14 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script th:inline="javascript">
         var swiper = new Swiper(".mySwiper", {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            loop: true,
-            pagination: {
+          pagination: {
             el: ".swiper-pagination",
             clickable: true,
+            renderBullet: function (index, className) {
+            return '<img class="' + className +
+            '" src="/images/slide_sub' + (index + 1) + '.webp" alt="슬라이드">';
             },
+          },
         });
     </script>
 </th:block>
