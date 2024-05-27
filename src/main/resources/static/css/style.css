@@ -168,6 +168,7 @@ h2.fourth:hover {
 .header_bottom_wrap {
     display: flex;
     text-align: center;
+    justify-content: space-around;
 }
 
 .header_bottom_wrap > div > a {
