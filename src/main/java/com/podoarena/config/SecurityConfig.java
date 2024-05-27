@@ -18,7 +18,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         // 1. 페이지 접근에 대한 설정(인가)
         httpSecurity.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/css/**", "/js/**", "/img/**", "/images/**", "/fonts/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/img/**", "/images/**", "/fonts/**","/plugins/**").permitAll()
                         .requestMatchers("/", "/members/**", "/goods/**", "/carts/**").permitAll()
                         .requestMatchers("/favicon.ico", "/error").permitAll()
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN")
