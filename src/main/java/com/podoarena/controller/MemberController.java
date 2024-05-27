@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -82,23 +83,27 @@ public class MemberController {
     }
 
     //비밀번호 재설정
-    @PostMapping(value = "/members/resetpassword")
-    public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> requestData) {
-        String resetPassword = requestData.get("resetPaswword");
-        String resetChk = requestData.get("resetChk");
+    @PostMapping(value = "/members/resetpw")
+    public ResponseEntity<String> resetpwpage(@RequestBody  Map<String, String> requestData, Model model) {
         String email = requestData.get("email");
+        String resetPw = requestData.get("resetPw");
+        String resetPwChk = requestData.get("resetPwChk");
 
-        boolean confirmPassword = resetPassword.equals(resetChk);
+        boolean comparePw = resetPw.equals(resetPwChk);
 
-        if(confirmPassword) {
+        if(comparePw) {
             Member member = memberRepository.findByEmail(email);
-            member.resetPassword(member, resetPassword, passwordEncoder);
+            member.resetPassword(member, resetPw, passwordEncoder);
             memberRepository.save(member);
             return new ResponseEntity<String>(email, HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>("비밀번호가 일치 하지 않습니다.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
         }
     }
+
+
+
+
 
     @GetMapping(value = "/members/login/error")
     public String loginError(Model model){
