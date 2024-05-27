@@ -52,14 +52,14 @@ h2 {
     border-bottom: 2px solid black;
 }
 
-h2.fourth {
+h2.first {
   font-weight: 700;
   border-bottom: 1px solid transparent;
   transition: all 0.2s ease;
 }
 
 
-h2.fourth:hover {
+h2.first:hover {
   border-bottom: 1px solid purple;
   font-weight: 300;
 }
@@ -186,6 +186,11 @@ h2.fourth:hover {
     padding: 80px 0 0;
     cursor: default;
     width: 100%;
+}
+
+/* card */
+.card {
+
 }
 
 
