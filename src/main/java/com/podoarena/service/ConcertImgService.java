@@ -1,5 +1,6 @@
 package com.podoarena.service;
 
+import com.podoarena.dto.ConcertImgDto;
 import com.podoarena.entity.ConcertImg;
 import com.podoarena.repository.ConcertImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,5 +39,17 @@ public class ConcertImgService {
         //DB에 insert를 하기전 유저가 직접 입력하지 못하는 값들을 개발자가 넣어준다.
         concertImg.updateConcertImg(oriImgName, imgName, imgUrl);
         concertImgRepository.save(concertImg); // insert
+    }
+
+    //가져오기
+    public List<ConcertImgDto> getConcertImgDtoList(Long concertId) {
+        List<ConcertImg> concertImgList = concertImgRepository.findByConcertIdOrderByIdAsc(concertId);
+        List<ConcertImgDto> concertImgDtoList = new ArrayList<>();
+
+        for(ConcertImg concertImg : concertImgList) {
+            ConcertImgDto concertImgDto = ConcertImgDto.of(concertImg);
+            concertImgDtoList.add(concertImgDto);
+        }
+        return concertImgDtoList;
     }
 }
