@@ -47,6 +47,7 @@ public class MemberService implements UserDetailsService {
         return true;
     }
 
+    //아이디 찾기 boolean
     public boolean findId(String phone, String name) {
         Member findName = memberRepository.findByName(name);
         Member findPhone = memberRepository.findByPhone(phone);
@@ -58,6 +59,8 @@ public class MemberService implements UserDetailsService {
 
         return true;
     }
+
+    public Member getMember(String email) {return memberRepository.findByEmail(email); }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

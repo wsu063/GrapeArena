@@ -24,11 +24,13 @@
           <div class="input_box">
             <div class="input_style_input_name">
               <label th:for="name">
+                
                 <input type="text" class="input_text_name" id="name" name="name" placeholder="가입 시, 입력한 이름을 입력하세요.">
               </label>
             </div>
             <div class="input_style_input_phone">
               <label th:for="phone">
+                <i class="fa-solid fa-mobile-screen-button"></i>
                 <input type="text" class="input_text_phone" id="phone" name="phone" placeholder="가입 시, 입력한 전화번호를 입력하세요.">
               </label>
             </div>
@@ -39,6 +41,21 @@
                   type="button" class="findid_btn" id="findIdBtn">
             <span>확인</span>
           </button>
+        </div>
+        <div class="find_list">
+          <ul>
+            <li>
+              <a id="findId" class="find_id" href="/members/findid">아이디 찾기</a>
+            </li>
+            |
+            <li>
+              <a id="findPwd" href="/members/chkuser">비밀번호 찾기</a>
+            </li>
+            |
+            <li>
+              <a id="join" href="/members/register"><span style="color:blue">회원가입</span></a>
+            </li>
+          </ul>
         </div>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
       </form>
