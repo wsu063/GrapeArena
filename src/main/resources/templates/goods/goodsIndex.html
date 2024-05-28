@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/goodsIndex.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap4/bootstrap.min.css}">
     <link th:href="@{/plugins/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
@@ -42,7 +42,7 @@
             <div class="row">
                 <div class="col text-center">
                     <div class="section_title new_arrivals_title">
-                        <h2>New Arrivals</h2>
+                        <h2>Products</h2>
                     </div>
                 </div>
             </div>
@@ -51,9 +51,9 @@
                     <div class="new_arrivals_sorting">
                         <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
                             <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">all</li>
-                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".women">women's</li>
-                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".accessories">accessories</li>
-                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".men">men's</li>
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".TOUR">TOUR MERCH</li>
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".OFF">OFFICIAL STICK</li>
+                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".ALBUM">ALBUM</li>
                         </ul>
                     </div>
                 </div>
@@ -66,16 +66,15 @@
 
                         <!-- Product 1 -->
 
-                        <div class="product-item men">
+                        <div class="product-item TOUR">
                             <div class="product discount product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods1.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-30%</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Photo Card</a></h6>
-                                    <div class="product_price">￦ 7,000<span>￦ 10,000</span></div>
+                                    <h6 class="product_name"><a href="single.html">Shopper Bag</a></h6>
+                                    <div class="product_price">￦6,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -83,16 +82,16 @@
 
                         <!-- Product 2 -->
 
-                        <div class="product-item women">
+                        <div class="product-item TOUR">
                             <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods2.png" alt="">
                                 </div>
                                 <div class="favorite"></div>
-                                <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>new</span></div>
+                                <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>품절</span></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Samsung CF591 Series Curved 27-Inch FHD Monitor</a></h6>
-                                    <div class="product_price">$610.00</div>
+                                    <h6 class="product_name"><a href="single.html">Mini Pouch</a></h6>
+                                    <div class="product_price">￦22,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -100,15 +99,15 @@
 
                         <!-- Product 3 -->
 
-                        <div class="product-item women">
+                        <div class="product-item TOUR">
                             <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods3.png" alt="">
                                 </div>
                                 <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></h6>
-                                    <div class="product_price">$120.00</div>
+                                    <h6 class="product_name"><a href="single.html">String Bag</a></h6>
+                                    <div class="product_price">￦35,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -116,7 +115,7 @@
 
                         <!-- Product 4 -->
 
-                        <div class="product-item accessories">
+                        <div class="product-item TOUR">
                             <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods4.png" alt="">
@@ -124,8 +123,8 @@
                                 <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>sale</span></div>
                                 <div class="favorite favorite_left"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">DYMO LabelWriter 450 Turbo Thermal Label Printer</a></h6>
-                                    <div class="product_price">$410.00</div>
+                                    <h6 class="product_name"><a href="single.html">Ball Cap</a></h6>
+                                    <div class="product_price">￦42,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -133,15 +132,15 @@
 
                         <!-- Product 5 -->
 
-                        <div class="product-item women men">
+                        <div class="product-item TOUR">
                             <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods5.png" alt="">
                                 </div>
                                 <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Pryma Headphones, Rose Gold & Grey</a></h6>
-                                    <div class="product_price">$180.00</div>
+                                    <h6 class="product_name"><a href="single.html">S/S T-Shirt(White)</a></h6>
+                                    <div class="product_price">￦45,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -149,16 +148,16 @@
 
                         <!-- Product 6 -->
 
-                        <div class="product-item accessories">
+                        <div class="product-item TOUR">
                             <div class="product discount product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods6.png" alt="">
                                 </div>
                                 <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
+                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-￦4.0</span></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="#single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="#single.html">S/S T-Shirt (Black)</a></h6>
+                                    <div class="product_price">￦45,000<span>￦49,000</span></div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -166,15 +165,15 @@
 
                         <!-- Product 7 -->
 
-                        <div class="product-item women">
+                        <div class="product-item TOUR">
                             <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods7.png" alt="">
                                 </div>
                                 <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Samsung CF591 Series Curved 27-Inch FHD Monitor</a></h6>
-                                    <div class="product_price">$610.00</div>
+                                    <h6 class="product_name"><a href="single.html">Crop Sweatshirt</a></h6>
+                                    <div class="product_price">￦65,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -182,15 +181,16 @@
 
                         <!-- Product 8 -->
 
-                        <div class="product-item accessories">
+                        <div class="product-item TOUR">
                             <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods8.png" alt="">
                                 </div>
                                 <div class="favorite"></div>
+                                <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>품절</span></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></h6>
-                                    <div class="product_price">$120.00</div>
+                                    <h6 class="product_name"><a href="single.html">Denim Shirt</a></h6>
+                                    <div class="product_price">￦99,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -198,16 +198,16 @@
 
                         <!-- Product 9 -->
 
-                        <div class="product-item men">
+                        <div class="product-item TOUR">
                             <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods9.png" alt="">
                                 </div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>sale</span></div>
-                                <div class="favorite favorite_left"></div>
+                                <div class="favorite"></div>
+                                <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>품절</span></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">DYMO LabelWriter 450 Turbo Thermal Label Printer</a></h6>
-                                    <div class="product_price">$410.00</div>
+                                    <h6 class="product_name"><a href="single.html">Lettering Tumbler</a></h6>
+                                    <div class="product_price">￦28,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -215,15 +215,15 @@
 
                         <!-- Product 10 -->
 
-                        <div class="product-item men">
+                        <div class="product-item TOUR">
                             <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods10.png" alt="">
                                 </div>
                                 <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Pryma Headphones, Rose Gold & Grey</a></h6>
-                                    <div class="product_price">$180.00</div>
+                                    <h6 class="product_name"><a href="single.html">BONGBONGEE Blanket</a></h6>
+                                    <div class="product_price">￦39,900</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -231,15 +231,15 @@
 
                         <!-- Product 11 -->
 
-                        <div class="product-item men">
+                        <div class="product-item TOUR">
                             <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods11.png" alt="">
                                 </div>
                                 <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Pryma Headphones, Rose Gold & Grey</a></h6>
-                                    <div class="product_price">$180.00</div>
+                                    <h6 class="product_name"><a href="single.html">BONGBONGEE Face Pouch</a></h6>
+                                    <div class="product_price">￦22,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -247,16 +247,15 @@
 
                         <!-- Product 12 -->
 
-                        <div class="product-item men">
-                            <div class="product discount product_filter">
+                        <div class="product-item TOUR">
+                            <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods12.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$50</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">BONGBONGEE Face Pouch</a></h6>
+                                    <div class="product_price">￦18,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -264,16 +263,15 @@
 
                         <!-- Product 13 -->
 
-                        <div class="product-item men">
-                            <div class="product discount product_filter">
+                        <div class="product-item TOUR">
+                            <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods13.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$40</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">BONGBONGEE Photo Card Holder</a></h6>
+                                    <div class="product_price">￦19,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -281,16 +279,15 @@
 
                         <!-- Product 14 -->
 
-                        <div class="product-item men">
-                            <div class="product discount product_filter">
+                        <div class="product-item TOUR">
+                            <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods14.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">Photo Standing Binder</a></h6>
+                                    <div class="product_price">￦28,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -298,16 +295,15 @@
 
                         <!-- Product 15 -->
 
-                        <div class="product-item men">
-                            <div class="product discount product_filter">
+                        <div class="product-item TOUR">
+                            <div class="product product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods15.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">Photo Keyring</a></h6>
+                                    <div class="product_price">￦19,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -315,16 +311,15 @@
 
                         <!-- Product 16 -->
 
-                        <div class="product-item men">
-                            <div class="product discount product_filter">
+                        <div class="product-item TOUR">
+                            <div class="product">
                                 <div class="product_image">
                                     <img src="/images/goods16.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">Collect Book</a></h6>
+                                    <div class="product_price">￦20,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -332,16 +327,15 @@
 
                         <!-- Product 17 -->
 
-                        <div class="product-item men">
-                            <div class="product discount product_filter">
+                        <div class="product-item TOUR">
+                            <div class="product">
                                 <div class="product_image">
                                     <img src="/images/goods17.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">Sticker Set</a></h6>
+                                    <div class="product_price">￦18,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -349,16 +343,15 @@
 
                         <!-- Product 18 -->
 
-                        <div class="product-item men">
+                        <div class="product-item TOUR">
                             <div class="product discount product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods18.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">Clear Photo Card Set</a></h6>
+                                    <div class="product_price">￦20,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -366,16 +359,15 @@
 
                         <!-- Product 19 -->
 
-                        <div class="product-item men">
+                        <div class="product-item TOUR">
                             <div class="product discount product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods19.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">Lenticular Photo Card Set</a></h6>
+                                    <div class="product_price">￦25,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -383,52 +375,50 @@
 
                         <!-- Product 20 -->
 
-                        <div class="product-item men">
+                        <div class="product-item TOUR">
                             <div class="product discount product_filter">
                                 <div class="product_image">
                                     <img src="/images/goods20.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">4-Cuts Photo Set</a></h6>
+                                    <div class="product_price">￦25,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
                         </div>
 
+                        <!-- 응원봉  -->
                         <!-- Product 21 -->
 
-                        <div class="product-item men">
+                        <div class="product-item OFF">
                             <div class="product discount product_filter">
                                 <div class="product_image">
                                     <img src="/images/offmerch1.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
+                                <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>품절</span></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">OFFICIAL LIGHT STICK VER.3</a></h6>
+                                    <div class="product_price">￦49,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
                         </div>
 
 
-                <!-- 응원봉  -->
                         <!-- Product 22 -->
 
-                        <div class="product-item men">
+                        <div class="product-item OFF">
                             <div class="product discount product_filter">
                                 <div class="product_image">
                                     <img src="/images/offmerch2.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">OFFICIAL LIGHT STICK DECORING SET</a></h6>
+                                    <div class="product_price">￦24,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -436,33 +426,33 @@
 
                         <!-- Product 23 -->
 
-                        <div class="product-item men">
+                        <div class="product-item OFF">
                             <div class="product discount product_filter">
+                                <a href="single.html">
                                 <div class="product_image">
                                     <img src="/images/offmerch3.png" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name">Official Lightstick Accessory</h6>
+                                    <div class="product_price">￦12,000</div>
                                 </div>
+                                </a>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
                         </div>
 
                         <!-- Product 24 -->
 
-                        <div class="product-item men">
+                        <div class="product-item OFF">
                             <div class="product discount product_filter">
                                 <div class="product_image">
                                     <img src="/images/offmerch4.jpg" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">Power Bank Ver.2</a></h6>
+                                    <div class="product_price">￦18,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -470,16 +460,15 @@
 
                         <!-- Product 25 -->
 
-                        <div class="product-item men">
+                        <div class="product-item OFF">
                             <div class="product discount product_filter">
                                 <div class="product_image">
                                     <img src="/images/offmerch5.jpg" alt="">
                                 </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="favorite"></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">Lightstick Keying Ver.2</a></h6>
+                                    <div class="product_price">￦18,000</div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
@@ -487,21 +476,23 @@
 
                         <!-- Product 26 -->
 
-                        <div class="product-item men">
+                        <div class="product-item OFF">
                             <div class="product discount product_filter">
                                 <div class="product_image">
                                     <img src="/images/offmerch6.jpg" alt="">
                                 </div>
                                 <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$30</span></div>
+                                <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>품절</span></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="single.html">Official LightStick Ver.2</a></h6>
+                                    <div class="product_price"><span>￦39,000</span></div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
                         </div>
-                <!-- 앨범 -->
+
+
+                        <!-- 앨범 -->
                         <!-- Product 27 -->
                         <div class="product-item men">
                             <div class="product discount product_filter">
