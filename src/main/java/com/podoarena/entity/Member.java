@@ -32,6 +32,8 @@ public class Member extends BaseEntity {
     @Column(unique = true)
     private String phone;
 
+    private String postcode;
+
     private String address;
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -48,6 +50,7 @@ public class Member extends BaseEntity {
 
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
+        member.setPostcode(memberFormDto.getPostcode());
         member.setPassword(password);
         member.setAddress(memberFormDto.getAddress1() + " " + memberFormDto.getDetailAddress());
         member.setPhone(memberFormDto.getPhone());
