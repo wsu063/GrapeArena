@@ -47,6 +47,18 @@ public class MemberService implements UserDetailsService {
         return true;
     }
 
+    public boolean findId(String phone, String name) {
+        Member findName = memberRepository.findByName(name);
+        Member findPhone = memberRepository.findByPhone(phone);
+        if(findName == null) {
+            throw new IllegalStateException("가입되지 않은 이름입니다. 확인 후 다시 입력해주세요.");
+        } else if(findPhone == null) {
+            throw new IllegalStateException("가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.");
+        }
+
+        return true;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //해당 email 계정을 가진 사용자가 있는지 확인

@@ -101,6 +101,30 @@ public class MemberController {
         }
     }
 
+    //아이디 찾기 페이지
+    @GetMapping(value = "/members/findid")
+    public String findIdPage(Model model) {
+        model.addAttribute("member", new MemberFormDto());
+        return "member/findid";
+    }
+
+    //찾은 아이디 표시
+    @PostMapping(value = "/members/showid")
+    public ResponseEntity<String> findId(@RequestBody  Map<String, String> requestData, Model model){
+        String name = requestData.get("name");
+        String phone = requestData.get("phone");
+
+        Member findId = memberRepository.findByPhoneAndName(phone, name);
+        String email = findId.getEmail();
+
+        if(findId != null) {
+            model.addAttribute("member", findId);
+            model.addAttribute("email", email);
+            return new ResponseEntity<String>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("해당 정보로 가입한 내역이 없습니다.", HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
 
