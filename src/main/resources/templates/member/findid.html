@@ -4,7 +4,7 @@
        layout:decorate="~{layouts/layout2}">
   
   <th:block layout:fragment="css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/findid.css}">
   </th:block>
   <head>
     <meta name="_csrf" th:content="${_csrf.token}" />
@@ -12,8 +12,8 @@
   </head>
   
   <div layout:fragment="content">
-    <div class="resetid_wrap">
-      <div class="resetid_logo">
+    <div class="findid_wrap">
+      <div class="findid_logo">
         <a href="/">
           <img src="/images/logo_head.png" alt="로고" width="110" height="90" fill="none"/>
         </a>
@@ -22,21 +22,19 @@
       <form role="form" id="findid-form">
         <div class="findid_form">
           <div class="input_box">
-            <div class="input_style_input_id">
-              <p>가입 시, 입력한 이름을 입력하세요.</p>
+            <div class="input_style_input_name">
               <label th:for="name">
-                <input type="text" class="input_text_id" id="name" name="name" placeholder="이름">
+                <input type="text" class="input_text_name" id="name" name="name" placeholder="가입 시, 입력한 이름을 입력하세요.">
               </label>
             </div>
             <div class="input_style_input_phone">
-              <p>가입 시, 입력한 전화번호를 입력하세요.</p>
               <label th:for="phone">
-                <input type="text" class="input_text_phone" id="phone" name="phone" placeholder="전화번호">
+                <input type="text" class="input_text_phone" id="phone" name="phone" placeholder="가입 시, 입력한 전화번호를 입력하세요.">
               </label>
             </div>
           </div>
         </div>
-        <div class="login_style">
+        <div class="findid_style">
           <button onclick="findId()"
                   type="button" class="findid_btn" id="findIdBtn">
             <span>확인</span>
@@ -45,7 +43,7 @@
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
       </form>
       <div class="modal" id="findIdModal" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">아이디 찾기</h5>
@@ -54,7 +52,8 @@
             <div class="modal-body">
                   <div class="input_box">
                     <div class="input_style_input_id">
-                      <p th:text="'회원님의 아이디는: ' + ${email}  "></p>
+                      <p>회원님의 아이디는: <span id="id_text"></span></p>
+                      <input type="hidden" />
                     </div>
                   </div>
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -94,6 +93,7 @@
           success: function(result, status, xhr, formData) {
             alert('인증에 성공하셨습니다.')
             $("#findIdModal").modal("show");
+            $("#id_text").text(result);
           },
           error: function(jqXHR, status, error) {
             if (jqXHR.responseText === '가입되지 않은 이름입니다. 확인 후 다시 입력해주세요.') {
