@@ -5,7 +5,7 @@
     font-weight: 400;
     font-style: normal;
 }
-}
+
 
 /* 기본 화면 구성*/
 @media(max-width: 759px) {
@@ -147,7 +147,7 @@ h2.first:hover {
     height: 18px;
     border-radius: 6px;
     flex: 1;
-    text-wrap: nowrap;
+    text-wrap: none;
 }
 .header_usermenu a {
     height: 18px;

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:fragment="header">
+    <div class="container">
+        <div class="header_wrap">
+            <!-- 로고, 서치바, 로그인, 회원가입, 마이페이지 -->
+            <div class="header_top">
+                <div class="header_top_wrap">
+                    <!-- 로고 -->
+                    <div class="header_logo">
+                        <a href="/">
+                            <img src="/images/logo_head.png" alt="로고" width="80" height="70" fill="none"/>
+                        </a>
+                    </div>
+                    <!-- 서치바 -->
+                    <div class="header_searchbar">
+                        <input type="text" placeholder="찾는 공연을 검색해보세요"/>
+                        <a role="button" tabindex="0" class="search_btn">
+                            <i class="fa-solid fa-magnifying-glass fa-beat" style="width: 30px; color: #FFD43B;"></i>
+                        </a>
+                    </div>
+                    <!-- 유저메뉴 -->
+                    <div class="header_usermenu">
+                        <a href="/members/login" sec:authorize="isAnonymous()">로그인</a>
+                        <a href="/members/register" sec:authorize="isAnonymous()">회원가입</a>
+                        <a href="/">
+                            <!-- !!폰트어썸 스타일 수정!! -->
+                            <i class="fa-solid fa-cart-plus fa-fade" style="color: #FFD43B;"></i>
+                            장바구니</a>
+                        <div class="dropdown" sec:authorize="isAuthenticated()">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                마이페이지
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><button class="dropdown-item" type="button"><a href="/members/mypage">회원정보 수정</a></button></li>
+                                <li><button class="dropdown-item" type="button">예매내역</button></li>
+                                <li><button class="dropdown-item" type="button">결제내역</button></li>
+                                <li><button class="dropdown-item" type="button">관리자 메뉴</button></li>
+                            </ul>
+                        </div>
+                        <a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a>
+                    </div>
+                </div>
+            </div>
+            <div class="header_bottom">
+                <!-- 콘서트, MD샵 -->
+                <div class="header_bottom_wrap">
+                    <div class="SMN_effect-97">
+                        <a href="/" data-hover="콘서트">콘서트</a>
+                    </div>
+                    <div class="SMN_effect-97">
+                        <a href="/goods/goodsIndex" data-hover="MD샵">MD샵</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</html>
