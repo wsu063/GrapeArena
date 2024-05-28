@@ -19,7 +19,7 @@ public class SecurityConfig {
         // 1. 페이지 접근에 대한 설정(인가)
         httpSecurity.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/css/**", "/js/**", "/img/**", "/images/**", "/fonts/**","/plugins/**").permitAll()
-                        .requestMatchers("/", "/members/**", "/goods/**", "/carts/**").permitAll()
+                        .requestMatchers("/", "/members/**", "/goods/**", "/concerts/**").permitAll()
                         .requestMatchers("/favicon.ico", "/error").permitAll()
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                         .anyRequest().authenticated()
@@ -28,7 +28,7 @@ public class SecurityConfig {
                         .loginPage("/members/login") // 로그인 페이지 URL
                         .defaultSuccessUrl("/") // 로그인 성공시 이동할 페이지 URL
                         .usernameParameter("email") // ★로그인시 id로 사용할 파라미터 이름(내 사이트에 맞는걸로)
-                        .failureUrl("/users/login/error") // 로그인 실패시 이동할 페이지
+                        .failureUrl("/members/login/error") // 로그인 실패시 이동할 페이지
                 )        // 3. 로그아웃에 관한 설정
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout")) //로그아웃시 이동할 URL
