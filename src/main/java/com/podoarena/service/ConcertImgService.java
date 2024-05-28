@@ -3,6 +3,7 @@ package com.podoarena.service;
 import com.podoarena.dto.ConcertImgDto;
 import com.podoarena.entity.ConcertImg;
 import com.podoarena.repository.ConcertImgRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,24 @@ public class ConcertImgService {
             concertImgDtoList.add(concertImgDto);
         }
         return concertImgDtoList;
+    }
+
+    //이미지 수정
+    public void updateConcertImg(Long concertImgId, MultipartFile concertImgFile) throws  Exception {
+        if(!concertImgFile.isEmpty()) {
+            ConcertImg savedConcertImg = concertImgRepository.findById(concertImgId)
+                    .orElseThrow(EntityNotFoundException::new);
+
+            if(!StringUtils.isEmpty(savedConcertImg.getImgName())) {
+                fileService.deleteFile(concertImgLocation + "/" + savedConcertImg.getImgName());
+            }
+
+            String oriImgName = concertImgFile.getOriginalFilename();
+            String imgName = fileService.uploadFile(concertImgLocation, oriImgName, concertImgFile.getBytes());
+            String imgUrl = "/images/concerts/" + imgName;
+
+            savedConcertImg.updateConcertImg(oriImgName, imgName, imgUrl);
+
+        }
     }
 }

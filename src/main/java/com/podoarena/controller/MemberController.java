@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
 import java.util.Map;
 
 @Controller
@@ -124,6 +125,18 @@ public class MemberController {
         }
     }
 
+    @GetMapping(value = "/members/mypage")
+    public String myPage(Model model, Principal principal) {
+        try {
+            if (principal.getName() != null) {
+                model.addAttribute("member", memberService.getMember(principal.getName()));
+                return "member/mypage";
+            }
+        } catch (Exception e) {
+            return "member/login";
+        }
+        return "member/mypage";
+    }
 
 
 

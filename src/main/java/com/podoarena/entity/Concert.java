@@ -1,6 +1,7 @@
 package com.podoarena.entity;
 
 import com.podoarena.constant.ConcertState;
+import com.podoarena.dto.ConcertFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,5 +33,12 @@ public class Concert extends BaseEntity {
 
 //    @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Seat> seatList;
+
+    public void updateConcert(ConcertFormDto concertFormDto) {
+        this.concertName = concertFormDto.getConcertName();
+        this.concertPeriod = concertFormDto.getConcertPeriod();
+        this.concertSinger = concertFormDto.getConcertSinger();
+        this.concertState = concertFormDto.getConcertState();
+    }
 
 }
