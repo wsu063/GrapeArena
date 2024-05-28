@@ -26,8 +26,7 @@
 }
 
 .register-title {
-    padding: 0 150px;
-    line-height: 88px;
+    padding: 2rem 10rem;
 }
 
 .register-form {
@@ -93,18 +92,20 @@ input {
 
 .address input {
     margin: 5px 0;
-    width: calc(100% - 20px);
 }
 
-.post {
+.address_top {
     display: flex;
-    width: 100%;
-    margin: 5px 0;
+    align-items: center;
 }
 
-.post input {
-    flex: 1;
-    margin-right: 5px;
+.address_mid {
+    display: flex;
+    margin-left: 6.1rem;
+}
+
+.address_bottom {
+    margin-left: 6.1rem;
 }
 
 .post_btn {
@@ -115,6 +116,7 @@ input {
     color: white;
     border-radius: 5px;
     padding: 5px 10px;
+    margin-left: 1rem;
 }
 
 .btn_div {

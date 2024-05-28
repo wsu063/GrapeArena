@@ -24,8 +24,10 @@
   object-fit: cover;
 }
 
-.swiper-pagination {
+.swiper_sub {
     text-align: left;
+    left: 14rem !important;
+    bottom: 4rem !important;
 }
 
 .swiper-pagination-bullet {
