@@ -192,7 +192,19 @@ h2.first:hover {
 
 /* card */
 .card {
+    width: 18rem;
+    margin: 0 40px;
+    margin-bottom: 30px;
+}
 
+.card-1 {
+   display: flex;
+   justify-content: center;
+   padding-top: 10px;
+}
+
+.card-body {
+    flex: none;
 }
 
 
