@@ -45,7 +45,7 @@ public class ConcertService {
         return concertFormDto.getId();
     }
 
-    //2. 콘서트 가져오기
+    //2. 콘서트 상세페이지
     @Transactional
     public ConcertFormDto getConcertDtl(Long concertId) {
         //1. concertImgDtoList를 가져온다.
@@ -60,7 +60,31 @@ public class ConcertService {
 
         return concertFormDto;
     }
-    
+
+    //3. 콘서트 수정
+    public Long updateConcert(ConcertFormDto concertFormDto, List<MultipartFile> concertImgFileList) throws Exception {
+        // concert 수정
+        Concert concert = concertRepository.findById(concertFormDto.getId()).orElseThrow(EntityNotFoundException::new);
+        concert.updateConcert(concertFormDto);
+
+        // concertImg 수정
+        List<Long> concertImgIds = concertFormDto.getBoardImgIds();
+
+        for (int i = 0; i < concertImgFileList.size(); i++) {
+            concertImgService.updateConcertImg(concertImgIds.get(i), concertImgFileList.get(i));
+        }
+        return concert.getId();
+    }
+
+    // 콘서트 리스트 가져오기?
+
+    //콘서트 삭제하기
+    public void deleteConcert(Long concertId) {
+        Concert concert = concertRepository.findById(concertId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        concertRepository.delete(concert);
+    }
 
 
 }

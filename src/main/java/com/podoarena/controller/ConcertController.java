@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -27,7 +28,7 @@ public class ConcertController {
         return "concert/concertForm";
     }
 
-    @PostMapping
+    @PostMapping(value = "/admin/concerts/new")
     public String concertInsert(@Valid ConcertFormDto concertFormDto, BindingResult bindingResult,
                                 Model model, @RequestParam("concertImgFile") List<MultipartFile> concertImgFileList) {
         if (bindingResult.hasErrors()) return "concert/concertForm";
@@ -37,7 +38,7 @@ public class ConcertController {
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMessage", "콘서트 등록 중 에러가 발생했습니다.");
-            return "concert/concertForm";
+            return "admin/concert/concertForm";
         }
         //등록하고 메인화면으로 돌아간다.
         //다른 화면으로 해야할 필요가 있는가?
@@ -45,14 +46,29 @@ public class ConcertController {
     }
 
     //콘서트 상세 페이지
+    @GetMapping(value = "/concerts/concertDtl/{concertId}")
+    private String concertDtl(Model model, @PathVariable(value = "concertId") Long concertId, Principal principal) {
+        ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
 
+        model.addAttribute("concert", concertFormDto);
+        return "concert/concertDtl";
+    }
 
 
     //콘서트 수정
     @GetMapping(value = "/admin/concerts/rewrite/{concertId}")
-    private String concertRewrite(@PathVariable("concertId") Long lecture) {
+    private String concertRewrite(@PathVariable("concertId") Long concertId, Model model) {
+        try {
 
-        return "concert/concertModifyForm";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMessage", "콘서트 정보를 가져오는 도중 에러가 발생했습니다.");
+
+            //에러 발생시 비어있는 객체를 넘긴다
+            model.addAttribute("concertFormDto", new ConcertFormDto());
+            return "admin/concertModifyForm";
+        }
+        return "admin/concertModifyForm";
     }
 
 
