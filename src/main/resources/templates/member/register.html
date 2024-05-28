@@ -48,17 +48,20 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
+                              <!-- 주소 부분 다른 input과 라벨과 같은 라인에 나오게 해주시고 width 동일
+                               우편번호 찾기 버튼은 줄여주세요.-->
                                 <div class="address">
                                     <label th:for="address">주소</label>
                                     <input type="text" class="form-control" placeholder="주소를 입력해주세요" th:field="*{address1}" />
                                     <p th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}" class="fieldError">Incorrect Data</p>
                                     <div class="post">
-                                        <input type="text" th:field="*{postcode}" placeholder="우편번호" />
-                                        <input class="post_btn" type="button" onclick="execDaumPostcode()" value="우편번호 찾기" />
+                                        <input type="text" class="form-control" th:field="*{postcode}"  placeholder="우편번호" />
+                                        <button class="post_btn" type="button" style="width:15rem;"
+                                               onclick="execDaumPostcode()" value="우편번호 찾기">우편번호 찾기</button>
                                     </div>
                                     <br>
-                                    <input type="text" th:field="*{detailAddress}" placeholder="상세주소" />
-                                    <input type="text" id="extraAddress" placeholder="동, 아파트명" />
+                                    <input type="text" class="form-control" th:field="*{detailAddress}" placeholder="상세주소" />
+                                    <input type="text" class="form-control" id="extraAddress" placeholder="동, 아파트명" />
 
                                 </div>
                             </div>
@@ -73,8 +76,8 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="md-12">
-                                <button type="submit" class="register_btn">가입완료</button>
+                            <div class="md-12 btn_div">
+                                <button type="submit" class="register_btn">가입하기</button>
                             </div>
                         </div>
 
