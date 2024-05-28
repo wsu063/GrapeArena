@@ -44,6 +44,10 @@ public class ConcertController {
         return "redirect:/";
     }
 
+    //콘서트 상세 페이지
+
+
+
     //콘서트 수정
     @GetMapping(value = "/admin/concerts/rewrite/{concertId}")
     private String concertRewrite(@PathVariable("concertId") Long lecture) {

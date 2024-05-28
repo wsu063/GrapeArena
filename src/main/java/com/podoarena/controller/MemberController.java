@@ -118,9 +118,7 @@ public class MemberController {
         String email = findId.getEmail();
 
         if(findId != null) {
-            model.addAttribute("member", findId);
-            model.addAttribute("email", email);
-            return new ResponseEntity<String>(HttpStatus.OK);
+            return new ResponseEntity<String>(email, HttpStatus.OK);
         } else {
             return new ResponseEntity<String>("해당 정보로 가입한 내역이 없습니다.", HttpStatus.BAD_REQUEST);
         }
