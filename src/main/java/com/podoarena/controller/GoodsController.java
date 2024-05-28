@@ -15,4 +15,10 @@ public class GoodsController {
     public String goodspage() {
         return "goods/goodsIndex";
     }
+
+    // 굿즈 상세 페이지 이동
+    @GetMapping(value = "/goods/goodsDtl")
+    public String goodsDtl() {
+        return "goods/goodsDtl";
+    }
 }
