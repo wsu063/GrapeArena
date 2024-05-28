@@ -1689,3 +1689,10 @@ section
 .swiper-slide img{
     border-radius : 2rem;
 }
+
+.slide_inside {
+    display: block;
+    position: absolute;
+    left: 5rem;
+    bottom: 10rem;
+}
