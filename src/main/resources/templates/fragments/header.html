@@ -34,9 +34,9 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><button class="dropdown-item" type="button"><a href="/members/mypage">회원정보 수정</a></button></li>
-                                <li><button class="dropdown-item" type="button">예매내역</button></li>
-                                <li><button class="dropdown-item" type="button">결제내역</button></li>
-                                <li><button class="dropdown-item" type="button">관리자 메뉴</button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/">예매내역</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/">결제내역</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/admin/bookingMng">관리자 메뉴</a></button></li>
                             </ul>
                         </div>
                         <a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a>
