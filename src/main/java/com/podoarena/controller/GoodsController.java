@@ -12,7 +12,7 @@ public class GoodsController {
 
     // 굿즈 메인페이지 이동
     @GetMapping(value = "/goods/goodsIndex")
-    public String goodspage() {
+    public String goodsPage() {
         return "goods/goodsIndex";
     }
 
