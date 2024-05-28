@@ -75,6 +75,32 @@
     color: #fff;
 }
 
+.find_list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.find_list ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0px;
+}
+.find_list li a{
+    font-size: 1.3rem;
+    color: #666;
+    text-decoration: none;
+}
+
+.find_list li {
+    margin: 0 2rem;
+    text-align: left;
+}
+
 .chkuser_form,
 .chkuser_style{
     margin:2rem;

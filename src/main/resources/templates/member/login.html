@@ -89,6 +89,15 @@
                 }
             });
         });
+
+        $(document).ready(function() {
+            $('#login-form input').on('keypress', function(e) {
+                if (e.which == 13) { // Enter key 코드 13번
+                    e.preventDefault();
+                    $('#loginBtn').click();
+                }
+            });
+        });
     </script>
 </th:block>
 </html>
