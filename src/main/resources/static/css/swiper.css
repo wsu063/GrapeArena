@@ -41,7 +41,30 @@
   border-radius: 6px;
 }
 
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+}
+
 .swiper-pagination-bullet-active {
   color: #fff;
   background: #007aff;
+}
+
+/* 폰트어썸 아이콘 버전 */
+.slider-box .swiper {
+  width: 600px;
+  height:300px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  width:auto;
+  height:auto;
+}
+
+/* 공통적으로 들어가는 부분, 꼭 기본 navigation을 숨겨 줘야 한다. */
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  content: none !important;
 }
