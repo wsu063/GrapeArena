@@ -71,6 +71,21 @@ public class MemberService implements UserDetailsService {
         return memberFormDto;
     }
 
+//    public void editMember(String email, MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+//        Member member = memberRepository.findByEmail(email);
+//        String password = passwordEncoder.encode(memberFormDto.getPassword());
+//
+//        if(member != null) {
+//            member.setPassword(password);
+//            member.setPhone(memberFormDto.getPhone());
+//            member.setPostcode(memberFormDto.getPostcode());
+//            member.setAddress(memberFormDto.getAddress());
+//            member.setDetailAddress(memberFormDto.getDetailAddress());
+//            member.setExtraAddress(memberFormDto.getExtraAddress());
+//            memberRepository.save(member);
+//        }
+//    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //해당 email 계정을 가진 사용자가 있는지 확인

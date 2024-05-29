@@ -51,8 +51,8 @@
                                 <div class="address">
                                     <div class="address_top">
                                         <label th:for="address">주소</label>
-                                        <input type="text" class="form-control" placeholder="주소를 입력해주세요" th:field="*{address1}" />
-                                        <p th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}" class="fieldError">Incorrect Data</p>
+                                        <input type="text" class="form-control" placeholder="주소를 입력해주세요" th:field="*{address}" />
+                                        <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect Data</p>
                                     </div>
                                     <div class="address_mid">
                                         <input type="text" class="form-control" th:field="*{postcode}"  placeholder="우편번호" />
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="address_bottom">
                                         <input type="text" class="form-control" th:field="*{detailAddress}" placeholder="상세주소" />
-                                        <input type="text" class="form-control" id="extraAddress" placeholder="동, 아파트명" />
+                                        <input type="text" class="form-control" th:field="*{extraAddress}" placeholder="동, 아파트명" />
                                     </div>
 
                                 </div>
