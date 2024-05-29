@@ -16,7 +16,6 @@ public class ConcertRepositoryCustomImpl implements  ConcertRepositoryCustom{
                 .orderBy(QConcert.concert.regDate.desc())
                 .fetch();
 
-
         return concerts;
     }
 }
