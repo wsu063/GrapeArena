@@ -5,21 +5,233 @@
 <th:block layout:fragment="css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
 
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" th:href="@{/plugins/themify-icons/themify-icons.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/single_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/single_responsive.css}">
+
 </th:block>
 
 
 
-<div layout:fragment="content">
+<div layout:fragment="content" >
 
+    <div class="super_container">
+        <form role="form" action="/" method="post" enctype="multipart/form-data" name="concertForm">
+
+        <div class="container single_product_container">
+
+            <div class="row">
+                <!--   콘서트 이미지 등록     -->
+
+                <div class="col-lg-7">
+                    <div class="single_product_pics">
+                        <div class="row">
+
+                            <div id="root">
+
+                                <div class="contents">
+                                    <div class="upload-box">
+                                        <div id="drop-file" class="drag-file">
+                                            <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
+                                            <p class="message">Drag files to upload</p>
+                                            <img src="" alt="미리보기 이미지" class="preview">
+                                        </div>
+                                        <label class="file-label" for="chooseFile">Choose File</label>
+                                        <input class="file" id="chooseFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--   콘서트 상세 등록     -->
+                <div class="col-lg-5">
+                    <div class="product_details">
+                        <div class="form_details">
+                                <label class="text-black">콘&nbsp;&nbsp;서&nbsp;&nbsp;트</label>
+                                <input type="text" class="form-control form-input"   placeholder="알아서 입력" />
+                        </div>
+                        <div class="form_details">
+                            <label class="text-black">공&nbsp;&nbsp;연&nbsp;&nbsp;일</label>
+                            <input type="text" class="form-control form-input"  placeholder="알아서 입력" />
+                        </div>
+                        <div class="form_details">
+                            <label class="text-black">아티스트</label>
+                            <input type="text" class="form-control form-input"  placeholder="알아서 입력" />
+                        </div>
+                        <div class="form_details">
+                            <label class="text-black">공연시간</label>
+                            <input type="text" class="form-control form-input"  placeholder="알아서 입력" />
+                        </div>
+                        <div class="form_details">
+                            <label class="text-black">장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</label>
+                            <select class="form-control form-input">
+                                <option value="" disabled selected>장소를 선택하세요</option>
+                                <option value="location1">장소 1</option>
+                                <option value="location2">장소 2</option>
+                                <option value="location3">장소 3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tabs -->
+
+        <div class="tabs_section_container">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="tabs_container">
+                            <div>
+                                <span>
+                                    <b>[판매공지]</b>
+                                    <br>
+                                    ● 최대 구매 수량은 3개 입니다.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+
+                        <!-- Tab Description -->
+
+                        <div id="tab_1" class="tab_container active">
+                            <div class="row">
+                                <div class="col-lg-5 desc_col">
+                                    <div class="tab_title">
+                                        <h4>Description</h4>
+                                    </div>
+                                    <div class="tab_text_block">
+                                        <h2>Pocket cotton sweatshirt</h2>
+                                        <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
+                                    </div>
+                                    <div class="tab_image">
+                                        <img src="/images/desc_1.jpg" alt="">
+                                    </div>
+                                    <div class="tab_text_block">
+                                        <h2>Pocket cotton sweatshirt</h2>
+                                        <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 offset-lg-2 desc_col">
+                                    <div class="tab_image">
+                                        <img src="/images/desc_2.jpg" alt="">
+                                    </div>
+                                    <div class="tab_text_block">
+                                        <h2>Pocket cotton sweatshirt</h2>
+                                        <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
+                                    </div>
+                                    <div class="tab_image desc_last">
+                                        <img src="/images/desc_3.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="red_button add_to_cart_button"><a href="#">등록하기</a></div>
+            </div>
+        </div>
+        </form>
+    </div>
 </div>
 
 
 
 <th:block layout:fragment="script">
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/css/bootstrap4/popper.js}"></script>
+    <script th:src="@{/css/bootstrap4/bootstrap.min.js}"></script>
+    <script th:src="@{/plugins/Isotope/isotope.pkgd.min.js}"></script>
+    <script th:src="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+    <script th:src="@{/plugins/easing/easing.js}"></script>
+    <script th:src="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+    <script th:src="@{/js/single_custom.js}"></script>
 
     <script th:inline="javascript">
 
+    function DropFile(dropAreaId, fileListId) {
+          let dropArea = document.getElementById(dropAreaId);
+          let fileList = document.getElementById(fileListId);
+
+          function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+
+          function highlight(e) {
+            preventDefaults(e);
+            dropArea.classList.add("highlight");
+          }
+
+          function unhighlight(e) {
+            preventDefaults(e);
+            dropArea.classList.remove("highlight");
+          }
+
+          function handleDrop(e) {
+            unhighlight(e);
+            let dt = e.dataTransfer;
+            let files = dt.files;
+
+            handleFiles(files);
+
+            const fileList = document.getElementById(fileListId);
+            if (fileList) {
+              fileList.scrollTo({ top: fileList.scrollHeight });
+            }
+          }
+
+          function handleFiles(files) {
+            files = [...files];
+            // files.forEach(uploadFile);
+            files.forEach(previewFile);
+          }
+
+          function previewFile(file) {
+            console.log(file);
+            renderFile(file);
+          }
+
+          function renderFile(file) {
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = function () {
+              let img = dropArea.getElementsByClassName("preview")[0];
+              img.src = reader.result;
+              img.style.display = "block";
+            };
+          }
+
+          dropArea.addEventListener("dragenter", highlight, false);
+          dropArea.addEventListener("dragover", highlight, false);
+          dropArea.addEventListener("dragleave", unhighlight, false);
+          dropArea.addEventListener("drop", handleDrop, false);
+
+          return {
+            handleFiles
+          };
+        }
+
+        const dropFile = new DropFile("drop-file", "files");
+
     </script>
+
+
 </th:block>
 
 </html>
