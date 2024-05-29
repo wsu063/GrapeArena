@@ -253,6 +253,13 @@ section
 	overflow: hidden;
 }
 
+.super_container_admin
+{
+    padding-top:3%;
+	width: 100%;
+	overflow: hidden;
+}
+
 /*********************************
 3. Home
 *********************************/

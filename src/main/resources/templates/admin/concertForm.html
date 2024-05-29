@@ -17,9 +17,49 @@
 
 
 
-<div layout:fragment="content" >
+<div layout:fragment="content"  style="width: 100%;">
+    <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+        <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"  >
+            <!-- Mobile hamburger -->
+            <button  class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
+                     @click="toggleSideMenu"
+                     aria-label="Menu">
+                <svg class="w-6 h-6"
+                     aria-hidden="true"
+                     fill="currentColor"
+                     viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                          clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            <!-- Search input -->
+            <!-- Search input 가 아니고 '관리자 페이지' 라고 띄우고 싶은데 높이 때문에 건들이지는 않았어요 수정해야해요 -->
 
-    <div class="super_container">
+            <div class="flex justify-center flex-1 lg:mr-32">
+                <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500" >
+                    <div class="absolute inset-y-0 flex items-center pl-2">
+                        <svg  class="w-4 h-4"
+                              aria-hidden="true"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"  >
+                            <path fill-rule="evenodd"
+                                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+
+                    <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                           type="text"
+                           placeholder="검색어를 입력해주세요."
+                           aria-label="Search" />
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="super_container_admin">
         <form role="form" action="/" method="post" enctype="multipart/form-data" name="concertForm">
 
         <div class="container single_product_container">
@@ -53,24 +93,26 @@
                 <div class="col-lg-5">
                     <div class="product_details">
                         <div class="form_details">
+                            <!--  &nbsp; 때문에 코드가 지저분해 보여요.ㅠ 정리 해주실분 -->
                                 <label class="text-black">콘&nbsp;&nbsp;서&nbsp;&nbsp;트</label>
-                                <input type="text" class="form-control form-input"   placeholder="알아서 입력" />
+                                <input type="text" class="form-control product-form-input"   placeholder="알아서 입력" />
                         </div>
                         <div class="form_details">
                             <label class="text-black">공&nbsp;&nbsp;연&nbsp;&nbsp;일</label>
-                            <input type="text" class="form-control form-input"  placeholder="알아서 입력" />
+                            <input type="text" class="form-control product-form-input"  placeholder="알아서 입력" />
                         </div>
                         <div class="form_details">
                             <label class="text-black">아티스트</label>
-                            <input type="text" class="form-control form-input"  placeholder="알아서 입력" />
+                            <input type="text" class="form-control product-form-input"  placeholder="알아서 입력" />
                         </div>
                         <div class="form_details">
                             <label class="text-black">공연시간</label>
-                            <input type="text" class="form-control form-input"  placeholder="알아서 입력" />
+                            <input type="text" class="form-control product-form-input"  placeholder="알아서 입력" />
                         </div>
                         <div class="form_details">
                             <label class="text-black">장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</label>
-                            <select class="form-control form-input">
+                            <select class="form-control product-form-input">
+                                <!--  장소를 선택하세요 옆에 화살표가 있으면 좋을 것 같습니다.-->
                                 <option value="" disabled selected>장소를 선택하세요</option>
                                 <option value="location1">장소 1</option>
                                 <option value="location2">장소 2</option>
@@ -83,16 +125,17 @@
 
         </div>
 
-        <!-- Tabs -->
+        <!-- 등록 상세페이지 -->
 
         <div class="tabs_section_container">
-
             <div class="container">
                 <div class="row">
                     <div class="col">
                         <div class="tabs_container">
-                            <div>
+                            <div class="notiBox">
                                 <span>
+                                    <!--  이거 콘서트 등록페이지랑
+                                        상품 등록페이지랑 동시에 쓸꺼에요. -->
                                     <b>[판매공지]</b>
                                     <br>
                                     ● 최대 구매 수량은 3개 입니다.
@@ -108,30 +151,60 @@
 
                         <div id="tab_1" class="tab_container active">
                             <div class="row">
-                                <div class="col-lg-5 desc_col">
-                                    <div class="tab_title">
-                                        <h4>Description</h4>
-                                    </div>
-                                    <div class="tab_text_block">
-                                        <h2>Pocket cotton sweatshirt</h2>
-                                        <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
-                                    </div>
-                                    <div class="tab_image">
-                                        <img src="/images/desc_1.jpg" alt="">
-                                    </div>
-                                    <div class="tab_text_block">
-                                        <h2>Pocket cotton sweatshirt</h2>
-                                        <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
-                                    </div>
-                                </div>
                                 <div class="col-lg-5 offset-lg-2 desc_col">
-                                    <div class="tab_image">
-                                        <img src="/images/desc_2.jpg" alt="">
+                                    <div class="tab_text_block">
+                                        <h2>캐스팅</h2>
+                                        <!-- 피그마에는 아티스트가 사진으로 보이게 되어 있는데
+                                        일단은 텍스트 상자로 받게 해뒀어요.-->
+                                        <p> <input type="text" placeholder="아티스트 입력" /><br></p>
                                     </div>
                                     <div class="tab_text_block">
-                                        <h2>Pocket cotton sweatshirt</h2>
-                                        <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
+                                        <h2>공연시간 정보</h2>
+
+                                        <p>
+                                            <!--  폰트사이즈는 좀 더 키우고 싶은데
+                                               다른 css에 영향을 받고 있습니다
+                                               클래스명을 바꾼다던지 .. 잘 생각해야해요-->
+
+                                            <!--  폼 입력창도 현재는 border가 아예 안보이는데 연한 그레이 색으로 보이면 좋을 것 같아요   -->
+                                            예매가능시간: 관람 2시간 전까지<br>
+                                            <br>
+                                            - 공 연 명 :  <input type="text" placeholder="콘서트 명 입력" /><br>
+                                            <br>
+                                            - 공연기간 :  <input type="text" placeholder="콘서트 기간 입력" /><br>
+                                            <br>
+                                            - 공연시간 :  <input type="text" placeholder="콘서트 시간 입력" /><br>
+                                            (공연시간 : 160 분 / 인터미션 : 20 분)<br>
+                                            <br>
+                                            - 공연장소 :  <input type="text" placeholder="콘서트 장소 입력" /><br>
+                                            <br>
+                                            - 티켓가격 : <br>
+                                            R석 <input type="text" placeholder="R석 금액" /><br>
+                                            S석 <input type="text" placeholder="S석 금액" /><br>
+                                            A석 <input type="text" placeholder="A석 금액" /><br>
+                                            <br>
+                                            - 관람등급 : <input type="text" placeholder="관람 등급 입력" /><br>
+                                            <br>
+                                            ※ 2차 티켓오픈 일자<br>
+                                            - 토핑 선예매: 2024년 5월 2일(목) 오후 1시<br>
+                                            - 일반 예매: 2024년 5월 2일(목) 오후 3시<br>
+                                        </p>
                                     </div>
+
+                                    <div class="tab_text_block">
+                                        <h2>공연상세 / 출연진 정보</h2>
+                                    </div>
+
+                                    <!--  위에 있는 이미지 폼을 여기도 쓰고 싶은데
+                                       ID가 겹치면 안되기 때문에 위에 코드 복사해서 고쳐야해요
+                                       자바스크립트에도 영향이 갑니다~ -->
+
+                                    <div class="tab_image">
+                                        <input type="file" />
+                                    </div>
+
+                                    <!--   이미지 사이즈는 밑에 애를 참조하세여       -->
+                                    <!--   밑에도 지우고 이미지 삽입으로 바꾸고 싶습니당.      -->
                                     <div class="tab_image desc_last">
                                         <img src="/images/desc_3.jpg" alt="">
                                     </div>
