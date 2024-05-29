@@ -30,9 +30,11 @@ public class MemberFormDto {
     private String postcode;
 
     @NotEmpty(message = "주소는 필수 입력 값입니다.")
-    private String address1;
+    private String address;
 
     private String detailAddress;
+
+    private String extraAddress;
 
     private static ModelMapper modelMapper = new ModelMapper();
 
@@ -41,8 +43,4 @@ public class MemberFormDto {
         return modelMapper.map(member, MemberFormDto.class);
     }
 
-    //dto -> entity
-    public Member loadMember() {
-        return modelMapper.map(this, Member.class);
-    }
 }

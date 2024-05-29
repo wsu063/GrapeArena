@@ -2,6 +2,8 @@ package com.podoarena.entity;
 
 import com.podoarena.constant.Role;
 import com.podoarena.dto.MemberFormDto;
+import com.podoarena.repository.MemberRepository;
+import com.podoarena.service.MemberService;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +38,10 @@ public class Member extends BaseEntity {
 
     private String address;
 
+    private String detailAddress;
+
+    private String extraAddress;
+
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
 
@@ -52,7 +58,9 @@ public class Member extends BaseEntity {
         member.setEmail(memberFormDto.getEmail());
         member.setPostcode(memberFormDto.getPostcode());
         member.setPassword(password);
-        member.setAddress(memberFormDto.getAddress1() + " " + memberFormDto.getDetailAddress());
+        member.setAddress(memberFormDto.getAddress());
+        member.setDetailAddress(memberFormDto.getDetailAddress());
+        member.setExtraAddress(memberFormDto.getExtraAddress());
         member.setPhone(memberFormDto.getPhone());
 
         //member.setRole(Role.USER);
@@ -60,11 +68,6 @@ public class Member extends BaseEntity {
 
         return member;
     }
-
-//    public static Member editMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
-//        String password = passwordEncoder.encode(memberFormDto.getPassword());
-//
-//    }
 
     public static void resetPassword(Member member, String password, PasswordEncoder passwordEncoder) {
         String resetPassword = passwordEncoder.encode(password);
