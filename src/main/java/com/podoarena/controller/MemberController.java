@@ -150,7 +150,7 @@ public class MemberController {
     }
 
     @GetMapping(value = "/members/editprofile")
-    public String editProfile(Principal principal, Model model) {
+    public String editProfilePage(Principal principal, Model model) {
         if(principal == null) {
             return "redirect:/members/login";
         } else {
@@ -160,6 +160,12 @@ public class MemberController {
             return "member/editprofile";
         }
     }
+
+//    @PostMapping(value = "/members/editprofile")
+//    public String editProfile(Principal principal, Model model) {
+//        String email = principal.getName();
+//        memberService.editMember(email);
+//    }
 
 
 

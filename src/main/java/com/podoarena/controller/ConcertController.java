@@ -90,8 +90,6 @@ public class ConcertController {
     //콘서트 예매 내역 (관리자)
     @GetMapping(value = "/admin/concerts/list")
     public String concertReserveListAdmin(Model model) {
-        List<Concert> concerts = concertService.getConcertList();
-        model.addAttribute("concerts", concerts);
 
         return "admin/concertMng"; // 임시
     }

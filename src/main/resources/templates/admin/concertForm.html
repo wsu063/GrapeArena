@@ -3,21 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout3}">
 <th:block layout:fragment="css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
-
-    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
-    <link rel="stylesheet" th:href="@{/plugins/themify-icons/themify-icons.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/single_styles.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/single_responsive.css}">
-
 </th:block>
-
-
-
-<div layout:fragment="content"  style="width: 100%;">
+<div layout:fragment="content" class="flex flex-col flex-1 w-full">
     <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
         <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"  >
             <!-- Mobile hamburger -->
@@ -35,7 +22,6 @@
             </button>
             <!-- Search input -->
             <!-- Search input 가 아니고 '관리자 페이지' 라고 띄우고 싶은데 높이 때문에 건들이지는 않았어요 수정해야해요 -->
-
             <div class="flex justify-center flex-1 lg:mr-32">
                 <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500" >
                     <div class="absolute inset-y-0 flex items-center pl-2">
@@ -58,31 +44,23 @@
         </div>
     </header>
 
-
-    <div class="super_container_admin">
+    <div class="super_container_admin" style="overflow-y: auto;">
         <form role="form" action="/" method="post" enctype="multipart/form-data" name="concertForm">
-
         <div class="container single_product_container">
-
             <div class="row">
                 <!--   콘서트 이미지 등록     -->
-
                 <div class="col-lg-7">
                     <div class="single_product_pics">
                         <div class="row">
-
-                            <div id="root">
-
-                                <div class="contents">
-                                    <div class="upload-box">
-                                        <div id="drop-file" class="drag-file">
-                                            <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
-                                            <p class="message">Drag files to upload</p>
-                                            <img src="" alt="미리보기 이미지" class="preview">
-                                        </div>
-                                        <label class="file-label" for="chooseFile">Choose File</label>
-                                        <input class="file" id="chooseFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
+                            <div class="contents">
+                                <div class="upload-box">
+                                    <div id="drop-file" class="drag-file">
+                                        <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
+                                        <p class="message">Drag files to upload</p>
+                                        <img src="" alt="미리보기 이미지" class="preview">
                                     </div>
+                                    <label class="file-label" for="chooseFile">Choose File</label>
+                                    <input class="file" id="chooseFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
                                 </div>
                             </div>
                         </div>
@@ -126,7 +104,6 @@
         </div>
 
         <!-- 등록 상세페이지 -->
-
         <div class="tabs_section_container">
             <div class="container">
                 <div class="row">
@@ -146,9 +123,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-
                         <!-- Tab Description -->
-
                         <div id="tab_1" class="tab_container active">
                             <div class="row">
                                 <div class="col-lg-5 offset-lg-2 desc_col">
@@ -160,12 +135,10 @@
                                     </div>
                                     <div class="tab_text_block">
                                         <h2>공연시간 정보</h2>
-
                                         <p>
                                             <!--  폰트사이즈는 좀 더 키우고 싶은데
                                                다른 css에 영향을 받고 있습니다
                                                클래스명을 바꾼다던지 .. 잘 생각해야해요-->
-
                                             <!--  폼 입력창도 현재는 border가 아예 안보이는데 연한 그레이 색으로 보이면 좋을 것 같아요   -->
                                             예매가능시간: 관람 2시간 전까지<br>
                                             <br>
@@ -190,17 +163,19 @@
                                             - 일반 예매: 2024년 5월 2일(목) 오후 3시<br>
                                         </p>
                                     </div>
-
                                     <div class="tab_text_block">
                                         <h2>공연상세 / 출연진 정보</h2>
                                     </div>
-
-                                    <!--  위에 있는 이미지 폼을 여기도 쓰고 싶은데
-                                       ID가 겹치면 안되기 때문에 위에 코드 복사해서 고쳐야해요
-                                       자바스크립트에도 영향이 갑니다~ -->
-
-                                    <div class="tab_image">
-                                        <input type="file" />
+                                    <div class="contents">
+                                        <div class="upload-box">
+                                            <div id="drop-file2" class="drag-file">
+                                                <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
+                                                <p class="message">Drag files to upload</p>
+                                                <img src="" alt="미리보기 이미지" class="preview">
+                                            </div>
+                                            <label class="file-label" for="chooseFile2">Choose File</label>
+                                            <input class="file" id="chooseFile2" type="file" onchange="dropFile2.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
+                                        </div>
                                     </div>
 
                                     <!--   이미지 사이즈는 밑에 애를 참조하세여       -->
@@ -298,9 +273,9 @@
           return {
             handleFiles
           };
-        }
-
-        const dropFile = new DropFile("drop-file", "files");
+    }
+    const dropFile = new DropFile("drop-file", "files");
+    const dropFile2 = new DropFile("drop-file2", "files2");
 
     </script>
 
