@@ -1696,3 +1696,31 @@ section
     left: 5rem;
     bottom: 2.5rem;
 }
+
+/* 폰트어썸 아이콘 버전 */
+.slider-box .swiper {
+  width: 600px;
+  height:300px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  width:auto;
+  height:auto;
+}
+
+/* 공통적으로 들어가는 부분, 꼭 기본 navigation을 숨겨 줘야 한다. */
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  content: none !important;
+}
+
+.fa-2xl {
+    font-size: 3.5rem;
+    line-height: normal;
+}
+
+.swiper-button-next {
+    position: absolute;
+    right: 2.7rem;
+}
