@@ -47,7 +47,7 @@ public class ConcertController {
     }
 
     //콘서트 상세 페이지
-    @GetMapping(value = "/concerts/concertDtl/{concertId}")
+    @GetMapping(value = "/concerts/detail/{concertId}")
     private String concertDtl(Model model, @PathVariable(value = "concertId") Long concertId, Principal principal) {
         ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
 
@@ -75,19 +75,19 @@ public class ConcertController {
     //콘서트 예매 내역 (유저)
     @GetMapping(value = "/concerts/list")
     public String concertReserveList(Model model) {
-
         List<Concert> concerts = concertService.getConcertList();
         model.addAttribute("concerts", concerts);
 
         return "concerts/list";
     }
 
+    //콘서트 예매 내역 (관리자)
     @GetMapping(value = "/admin/concerts/list")
     public String concertReserveListAdmin(Model model) {
         List<Concert> concerts = concertService.getConcertList();
         model.addAttribute("concerts", concerts);
 
-        return "admin/concertList"; // 임시
+        return "admin/concertMng"; // 임시
     }
 
 

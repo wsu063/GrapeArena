@@ -61,8 +61,17 @@ public class Member extends BaseEntity {
         return member;
     }
 
+//    public static Member editMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+//        String password = passwordEncoder.encode(memberFormDto.getPassword());
+//
+//    }
+
     public static void resetPassword(Member member, String password, PasswordEncoder passwordEncoder) {
         String resetPassword = passwordEncoder.encode(password);
         member.setPassword(resetPassword);
+    }
+
+    public static boolean confirmPassword(Member member, String password, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(password, member.getPassword());
     }
 }

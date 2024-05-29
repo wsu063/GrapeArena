@@ -12,10 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Map;
@@ -85,7 +82,7 @@ public class MemberController {
 
     //비밀번호 재설정
     @PostMapping(value = "/members/resetpw")
-    public ResponseEntity<String> resetpwpage(@RequestBody  Map<String, String> requestData, Model model) {
+    public ResponseEntity<String> resetpwpage(@RequestBody  Map<String, String> requestData) {
         String email = requestData.get("email");
         String resetPw = requestData.get("resetPw");
         String resetPwChk = requestData.get("resetPwChk");
@@ -125,8 +122,9 @@ public class MemberController {
         }
     }
 
+    //마이페이지 전 페이지
     @GetMapping(value = "/members/mypage")
-    public String myPage(Model model, Principal principal) {
+    public String myPageConfirm(Model model, Principal principal) {
         try {
             if (principal.getName() != null) {
                 model.addAttribute("member", memberService.getMember(principal.getName()));
@@ -136,6 +134,31 @@ public class MemberController {
             return "member/login";
         }
         return "member/mypage";
+    }
+
+    //마이페이지 비밀번호 확인
+    @PostMapping(value = "/members/mypage")
+    public String myPage(@RequestParam("password")String password, Principal principal, Model model) {
+        Member member = memberRepository.findByEmail(principal.getName());
+        boolean confirmPassword = member.confirmPassword(member, password, passwordEncoder);
+        if(confirmPassword) {
+            return "redirect:/members/editprofile";
+        } else {
+            model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
+            return "redirect:/members/mypage";
+        }
+    }
+
+    @GetMapping(value = "/members/editprofile")
+    public String editProfile(Principal principal, Model model) {
+        if(principal == null) {
+            return "redirect:/members/login";
+        } else {
+            String email = principal.getName();
+            MemberFormDto member = memberService.loadMember(email);
+            model.addAttribute("member", member);
+            return "member/editprofile";
+        }
     }
 
 

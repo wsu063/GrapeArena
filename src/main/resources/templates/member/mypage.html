@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}">
+      layout:decorate="~{layouts/layout2}">
   <th:block layout:fragment="css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/mypage.css}">
@@ -13,8 +13,9 @@
           <img src="/images/logo_head.png" alt="로고" width="110" height="90" fill="none"/>
         </a>
       </div>
+      <h3 style="text-align: center">회원정보 수정</h3>
       
-      <form role="form" action="/members/modifyform" method="post" id="mypage-form">
+      <form role="form" action="/members/mypage" method="post" id="mypage-form">
         <div class="mypage_form">
           <div class="input_box">
             <div class="input_style_input_pw">

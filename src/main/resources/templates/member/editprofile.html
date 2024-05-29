@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout2}">
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage.css}">
+  </th:block>
+  
+  <div layout:fragment="content">
+    <div class="container">
+      <div class="register_header">
+        <div>
+          <a href="/">
+            <img src="/images/logo_head.png" alt="로고"
+                 style="padding-top: 10px; display: flex; width: 80px; height:70px;" />
+          </a>
+        </div>
+        <div class="register-title">
+          <h2>회원정보수정</h2>
+        </div>
+        <div style="width: 80px; height: 70px;"></div>
+      </div>
+      <div class="register_wrap">
+        <div class="register-form" style="display: flex; justify-content: center;">
+          <form class="form" role="form" action="/members/editprofile" method="post" th:object="${member}">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label th:for="email">
+                  이메일
+                  <input type="text" class="form-control" readonly th:field="*{email}"  />
+                </label>
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect Data</p>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label th:for="password">비밀번호</label>
+                <input type="password" class="form-control" placeholder="8~12자 영문, 숫자, 특수문자" th:field="*{password}" />
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label th:for="password2">비밀번호 확인</label>
+                <input type="password" class="form-control" placeholder="8~12자 영문, 숫자, 특수문자" name="password2" />
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label th:for="name">이름</label>
+                <input type="text" class="form-control" readonly th:field="*{name}" />
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <div class="col-md-12">
+                <!-- 주소 부분 다른 input과 라벨과 같은 라인에 나오게 해주시고 width 동일
+                 우편번호 찾기 버튼은 줄여주세요.-->
+                <div class="address">
+                  <div class="address_top">
+                    <label th:for="address">주소</label>
+                    <input type="text" class="form-control" placeholder="주소를 입력해주세요" th:field="*{address1}" />
+                    <p th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}" class="fieldError">Incorrect Data</p>
+                  </div>
+                  <div class="address_mid">
+                    <input type="text" class="form-control" th:field="*{postcode}"  placeholder="우편번호" />
+                    <button class="post_btn" type="button" style="width:15rem;"
+                            onclick="execDaumPostcode()" value="우편번호 찾기">우편번호 찾기</button>
+                  </div>
+                  <div class="address_bottom">
+                    <input type="text" class="form-control" th:field="*{detailAddress}" placeholder="상세주소" />
+                    <input type="text" class="form-control" id="extraAddress" placeholder="동, 아파트명" />
+                  </div>
+                
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label th:for="phone">휴대폰</label>
+                <input type="text" class="form-control" placeholder="전화번호를 입력해주세요" th:field="*{phone}" />
+                <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect Data</p>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="md-12 btn_div">
+                <button type="submit" class="register_btn">가입하기</button>
+              </div>
+            </div>
+            
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>

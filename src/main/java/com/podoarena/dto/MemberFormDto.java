@@ -1,5 +1,6 @@
 package com.podoarena.dto;
 
+import com.podoarena.entity.Member;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 
 @Getter
 @Setter
@@ -31,4 +33,16 @@ public class MemberFormDto {
     private String address1;
 
     private String detailAddress;
+
+    private static ModelMapper modelMapper = new ModelMapper();
+
+    //entitiy -> dto
+    public static MemberFormDto of(Member member) {
+        return modelMapper.map(member, MemberFormDto.class);
+    }
+
+    //dto -> entity
+    public Member loadMember() {
+        return modelMapper.map(this, Member.class);
+    }
 }

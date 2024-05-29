@@ -286,3 +286,7 @@ h2.first:hover {
     color: #7BA4F4;
 }
 
+.card > a {
+    text-decoration: none;
+    color: inherit;
+}
