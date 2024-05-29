@@ -55,6 +55,12 @@ public class ConcertController {
         return "concert/concertDtl";
     }
 
+    //임시 상세 페이지(db 만들고 나서 지우기)
+    @GetMapping(value = "/concerts/detail")
+    private String concertDtltemp(Model model, Principal principal) {
+
+        return "concert/concertDtl";
+    }
 
     //콘서트 수정
     @GetMapping(value = "/admin/concerts/rewrite/{concertId}")

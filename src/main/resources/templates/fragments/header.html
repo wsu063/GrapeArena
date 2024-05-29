@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <div th:fragment="header">
     <div class="container">
@@ -24,8 +24,7 @@
                     <div class="header_usermenu">
                         <a href="/members/login" sec:authorize="isAnonymous()">로그인</a>
                         <a href="/members/register" sec:authorize="isAnonymous()">회원가입</a>
-                        <a href="/">
-                            <!-- !!폰트어썸 스타일 수정!! -->
+                        <a href="/cart/goodsCart">
                             <i class="fa-solid fa-cart-plus fa-fade" style="color: #FFD43B;"></i>
                             장바구니</a>
                         <div class="dropdown" sec:authorize="isAuthenticated()">
