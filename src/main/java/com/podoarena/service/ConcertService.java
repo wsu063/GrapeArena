@@ -3,11 +3,16 @@ package com.podoarena.service;
 import com.podoarena.constant.RepImgYn;
 import com.podoarena.dto.ConcertFormDto;
 import com.podoarena.dto.ConcertImgDto;
+import com.podoarena.dto.ReserveSeatSearchDto;
 import com.podoarena.entity.Concert;
 import com.podoarena.entity.ConcertImg;
+import com.podoarena.entity.ReserveSeat;
+import com.podoarena.entity.Seat;
 import com.podoarena.repository.ConcertRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -92,4 +97,10 @@ public class ConcertService {
 
         return concerts;
     }
+    // 예매내역 가져오기(관리자)
+//    public Page<ReserveSeat> getReserveSeatPage(ReserveSeatSearchDto reserveSeatSearchDto, Pageable pageable) {
+//        Page<ReserveSeat> reserveSeatPage =
+//
+//
+//    }
 }
