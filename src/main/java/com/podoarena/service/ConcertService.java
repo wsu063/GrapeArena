@@ -76,7 +76,7 @@ public class ConcertService {
         return concert.getId();
     }
 
-    // 콘서트 리스트 가져오기?
+
 
     //콘서트 삭제하기
     public void deleteConcert(Long concertId) {
@@ -86,5 +86,10 @@ public class ConcertService {
         concertRepository.delete(concert);
     }
 
+    // 콘서트 리스트 가져오기
+    public List<Concert> getConcertList() {
+        List<Concert> concerts = concertRepository.getConcertList();
 
+        return concerts;
+    }
 }

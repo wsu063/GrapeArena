@@ -1,6 +1,7 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.ConcertFormDto;
+import com.podoarena.entity.Concert;
 import com.podoarena.service.ConcertService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -71,8 +72,23 @@ public class ConcertController {
         return "admin/concertModifyForm";
     }
 
-    //콘서트 예매 내역 (목록)
+    //콘서트 예매 내역 (유저)
+    @GetMapping(value = "/concerts/list")
+    public String concertReserveList(Model model) {
 
+        List<Concert> concerts = concertService.getConcertList();
+        model.addAttribute("concerts", concerts);
+
+        return "concerts/list";
+    }
+
+    @GetMapping(value = "/admin/concerts/list")
+    public String concertReserveListAdmin(Model model) {
+        List<Concert> concerts = concertService.getConcertList();
+        model.addAttribute("concerts", concerts);
+
+        return "admin/concertList"; // 임시
+    }
 
 
 }
