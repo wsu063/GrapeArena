@@ -1098,6 +1098,7 @@ section
 	font-size: 12px;
 	font-weight: 600;
 	color: #FFFFFF;
+	z-index: 1;
 }
 .product_bubble_right::after
 {
@@ -1128,7 +1129,7 @@ section
 }
 .product_bubble_left::after
 {
-	border-color: #51a042 #51a042 transparent transparent;
+	border-color: gray gray transparent transparent;
 }
 .product_bubble_red
 {
@@ -1136,7 +1137,7 @@ section
 }
 .product_bubble_green
 {
-	background: #51a042;
+	background: gray;
 }
 .product_bubble_left
 {
