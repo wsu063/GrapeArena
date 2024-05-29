@@ -1,5 +1,6 @@
 package com.podoarena.service;
 
+import com.podoarena.dto.MemberFormDto;
 import com.podoarena.entity.Member;
 import com.podoarena.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +63,13 @@ public class MemberService implements UserDetailsService {
     }
 
     public Member getMember(String email) {return memberRepository.findByEmail(email); }
+
+    //entity -> dto
+    public MemberFormDto loadMember(String email) {
+        Member member = memberRepository.findByEmail(email);
+        MemberFormDto memberFormDto = MemberFormDto.of(member);
+        return memberFormDto;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
