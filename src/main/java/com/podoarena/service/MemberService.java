@@ -78,7 +78,7 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findByEmail(memberFormDto.getEmail());
 
         if(member != null) {
-            if(memberFormDto.getPassword() != null) {
+            if(memberFormDto.getPassword() != null) { //비밀번호 입력 값이 없으면 새로운 패스워드를 변경
                 String password = passwordEncoder.encode(memberFormDto.getPassword());
                 member.setPassword(password);
             }
