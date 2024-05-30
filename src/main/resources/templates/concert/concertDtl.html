@@ -2,7 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <th:block layout:fragment="css">
-
+    <style>
+        ul, ol {
+            list-style: none;
+        }
+    </style>
 </th:block>
 
 <div layout:fragment="content">
@@ -10,8 +14,24 @@
             <div class="contents">
                 <div class="con_wrap" style="position: relative; display: flex; justify-content: space-between;">
                     <div class="con_main" style="width: 83rem; margin-top: 2rem; margin-bottom: 9.8rem; margin-left: 2rem;">
-                        <div class="con_title">
-                            <h2 class="title">SEVENTEEN TOUR 'FOLLOW' AGAIN TO SEOUL</h2>
+                        <div class="con_title" style="margin-bottom: 2rem;">
+                            <h2 class="title" style="font-weight: 800;">2024 SVT 8TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h2>
+                        </div>
+                        <div class="detail">
+                            <div class="poster">
+                                <img src="/images/con_1.jpg" alt="1" style="width: 300px;">
+                                <ul class="info" style="display: inline-block; margin-top: 0.4rem; vertical-align: top;">
+                                    <li>
+                                        <strong class="label" style="display: inline-block; width: 9rem; padding-right: 0.5rem; color: #000;
+                                        font-size: 1.6rem; font-weight: normal; line-height: 160%; vertical-align: top; box-sizing: border-box;">장소</strong>
+                                        <div class="desc" style="display: inline-block; max-width: 39rem; vertical-align: top;">
+                                            <p>고척스카이돔</p>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                     <div class="calender" style="position: relative; width: 37rem; margin-top: 4rem; padding-bottom: 1rem;"></div>
