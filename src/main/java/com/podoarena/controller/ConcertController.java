@@ -9,6 +9,7 @@ import com.podoarena.service.ConcertService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -93,9 +95,20 @@ public class ConcertController {
     }
 
     //콘서트 예매 내역 (관리자)
-    @GetMapping(value = "/admin/concerts/list")
-    public String concertReserveListAdmin(ReserveSeatSearchDto reserveSeatSearchDto, Pageable pageable) {
-        Page<ReserveSeat> reserveSeatPage;
+    @GetMapping(value = {"/admin/concerts/list", "/admin/concerts/list/{page}"})
+    public String concertReserveListAdmin(ReserveSeatSearchDto reserveSeatSearchDto,
+                                          @PathVariable("page")Optional<Integer> page, Model model) {
+        // page가 있으면 번호 조회, 아니면 0
+        // 한 페이지에 10개
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+        
+        Page<ReserveSeat> reserveSeats = concertService.getReserveSeatPage(reserveSeatSearchDto, pageable);
+
+        model.addAttribute("reserveSeats", reserveSeats);
+        model.addAttribute("reserveSeatSearchDto", reserveSeatSearchDto);
+        
+        //최대 페이지 번호 5개씩
+        model.addAttribute("maxPage", 5);
 
         return "admin/concertMng"; // 임시
     }
