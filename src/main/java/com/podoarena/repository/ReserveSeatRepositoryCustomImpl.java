@@ -26,6 +26,8 @@ public class ReserveSeatRepositoryCustomImpl implements ReserveSeatRepositoryCus
 
     @Override
     public Page<ReserveSeat> getReserveSeatPage(ReserveSeatSearchDto reserveSeatSearchDto, Pageable pageable) {
+        //관리자 페이지에서 예매한 좌석을 볼 수 있다.
+        //회원 아이디(이메일)로 검색할 수 있다.
         List<ReserveSeat> content = queryFactory
                 .selectFrom(QReserveSeat.reserveSeat)
                 .where(searchByLike(reserveSeatSearchDto.getSearchQuery()))

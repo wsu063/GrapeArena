@@ -9,6 +9,7 @@ import com.podoarena.entity.ConcertImg;
 import com.podoarena.entity.ReserveSeat;
 import com.podoarena.entity.Seat;
 import com.podoarena.repository.ConcertRepository;
+import com.podoarena.repository.ReserveSeatRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,7 +24,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class ConcertService {
+    // Concert, ReserveSeat Service
     private final ConcertRepository concertRepository;
+    private final ReserveSeatRepository reserveSeatRepository;
+
     private final ConcertImgService concertImgService;
 
     //1. 콘서트 등록
@@ -83,7 +87,7 @@ public class ConcertService {
 
 
 
-    //콘서트 삭제하기
+    // 4. 콘서트 삭제하기
     public void deleteConcert(Long concertId) {
         Concert concert = concertRepository.findById(concertId)
                 .orElseThrow(EntityNotFoundException::new);
@@ -98,9 +102,9 @@ public class ConcertService {
         return concerts;
     }
     // 예매내역 가져오기(관리자)
-//    public Page<ReserveSeat> getReserveSeatPage(ReserveSeatSearchDto reserveSeatSearchDto, Pageable pageable) {
-//        Page<ReserveSeat> reserveSeatPage =
-//
-//
-//    }
+    public Page<ReserveSeat> getReserveSeatPage(ReserveSeatSearchDto reserveSeatSearchDto, Pageable pageable) {
+        Page<ReserveSeat> reserveSeatPage = reserveSeatRepository.getReserveSeatPage(reserveSeatSearchDto, pageable);
+
+        return reserveSeatPage;
+    }
 }

@@ -38,19 +38,10 @@ public class MemberService implements UserDetailsService {
 
     //이메일과 휴대폰 번호로 일치 확인
     public boolean chkUser(String email, String phone) {
-        Member findEmail = memberRepository.findByEmail(email);
-        Member findPhone = memberRepository.findByPhone(phone);
-        if(findEmail == null) {
-            throw new IllegalStateException("가입되지 않은 이메일입니다. 확인 후 다시 입력해주세요.");
-        } else if(findPhone == null) {
-            throw new IllegalStateException("가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.");
-        } else if(!findPhone.equals(phone)) {
-            throw new IllegalStateException(("전화번호가 일치하지 않습니다."));
-        } else if(!findEmail.equals(email)) {
-            throw new IllegalStateException("이메일이 일치하지 않습니다.");
+        Member findPassword = memberRepository.findByEmailAndPhone(email, phone);
+        if(findPassword == null) {
+            throw new IllegalStateException("잘못된 정보입니다. 확인 후 다시 입력해주세요.");
         }
-
-
         return true;
     }
 
@@ -83,10 +74,10 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findByEmail(memberFormDto.getEmail());
 
         if(member != null) {
-            if(memberFormDto.getPassword() != null) { //비밀번호 입력 값이 없으면 새로운 패스워드를 변경
+            if(!memberFormDto.getPassword().equals("true")) { //비밀번호 수정을 하면 바꿔주고
                 String password = passwordEncoder.encode(memberFormDto.getPassword());
                 member.setPassword(password);
-            }
+            } //수정을 안하면 setPassword를 안한다.
             member.setPhone(memberFormDto.getPhone());
             member.setPostcode(memberFormDto.getPostcode());
             member.setAddress(memberFormDto.getAddress());
