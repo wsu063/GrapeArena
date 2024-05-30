@@ -89,50 +89,25 @@
                                     <option value="location3">3</option>
                                 </select>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- 등록 상세페이지 -->
-            <div class="tabs_section_container">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <!-- Tab Description -->
-                            <div id="tab_1" class="tab_container active">
-                                <div class="row">
-                                    <div class="col-lg-5 offset-lg-2 desc_col">
-                                        <div class="tab_text_block">
-                                            <h2>DETAIL</h2>
-                                        </div>
-                                        <div class="contents">
-                                            <div class="upload-box">
-                                                <div id="drop-file2" class="drag-file">
-                                                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
-                                                    <p class="message">Drag files to upload</p>
-                                                    <img src="" alt="미리보기 이미지" class="preview">
-                                                </div>
-                                                <label class="file-label" for="chooseFile2">Choose File</label>
-                                                <input class="file" id="chooseFile2" type="file" onchange="dropFile2.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
-                                            </div>
-                                        </div>
-                                        <div class="tab_text_block">
-                                            <button class="btn btn-primary solid blank mt-3" type="button" onclick="beforeSubmit(); return false;">
-                                                등록하기
-                                            </button>
-                                        </div>
-
-
+                            <div class="form_details">
+                                <div class="btn-file-upload">
+                                    <div class="btn btn-block theme-green">
+                                        <input type="file" id="REQ_FILE" name="REQ_FILE[]">
                                     </div>
-
                                 </div>
+                            </div>
+                            <div class="form_details">
+                                <button class="btn btn-primary solid blank mt-3" type="button" onclick="beforeSubmit(); return false;">
+                                    등록하기
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
+
         </form>
     </div>
 </div>
@@ -152,69 +127,69 @@
     <script th:inline="javascript">
 
         function DropFile(dropAreaId, fileListId) {
-              let dropArea = document.getElementById(dropAreaId);
-              let fileList = document.getElementById(fileListId);
+           let dropArea = document.getElementById(dropAreaId);
+           let fileList = document.getElementById(fileListId);
 
-              function preventDefaults(e) {
-                e.preventDefault();
-                e.stopPropagation();
-              }
+           function preventDefaults(e) {
+             e.preventDefault();
+             e.stopPropagation();
+           }
 
-              function highlight(e) {
-                preventDefaults(e);
-                dropArea.classList.add("highlight");
-              }
+           function highlight(e) {
+             preventDefaults(e);
+             dropArea.classList.add("highlight");
+           }
 
-              function unhighlight(e) {
-                preventDefaults(e);
-                dropArea.classList.remove("highlight");
-              }
+           function unhighlight(e) {
+             preventDefaults(e);
+             dropArea.classList.remove("highlight");
+           }
 
-              function handleDrop(e) {
-                unhighlight(e);
-                let dt = e.dataTransfer;
-                let files = dt.files;
+           function handleDrop(e) {
+             unhighlight(e);
+             let dt = e.dataTransfer;
+             let files = dt.files;
 
-                handleFiles(files);
+             handleFiles(files);
 
-                const fileList = document.getElementById(fileListId);
-                if (fileList) {
-                  fileList.scrollTo({ top: fileList.scrollHeight });
-                }
-              }
+             const fileList = document.getElementById(fileListId);
+             if (fileList) {
+               fileList.scrollTo({ top: fileList.scrollHeight });
+             }
+           }
 
-              function handleFiles(files) {
-                files = [...files];
-                // files.forEach(uploadFile);
-                files.forEach(previewFile);
-              }
+           function handleFiles(files) {
+             files = [...files];
+             // files.forEach(uploadFile);
+             files.forEach(previewFile);
+           }
 
-              function previewFile(file) {
-                console.log(file);
-                renderFile(file);
-              }
+           function previewFile(file) {
+             console.log(file);
+             renderFile(file);
+           }
 
-              function renderFile(file) {
-                let reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onloadend = function () {
-                  let img = dropArea.getElementsByClassName("preview")[0];
-                  img.src = reader.result;
-                  img.style.display = "block";
-                };
-              }
+           function renderFile(file) {
+             let reader = new FileReader();
+             reader.readAsDataURL(file);
+             reader.onloadend = function () {
+               let img = dropArea.getElementsByClassName("preview")[0];
+               img.src = reader.result;
+               img.style.display = "block";
+             };
+           }
 
-              dropArea.addEventListener("dragenter", highlight, false);
-              dropArea.addEventListener("dragover", highlight, false);
-              dropArea.addEventListener("dragleave", unhighlight, false);
-              dropArea.addEventListener("drop", handleDrop, false);
+           dropArea.addEventListener("dragenter", highlight, false);
+           dropArea.addEventListener("dragover", highlight, false);
+           dropArea.addEventListener("dragleave", unhighlight, false);
+           dropArea.addEventListener("drop", handleDrop, false);
 
-              return {
-                handleFiles
-              };
-        }
-        const dropFile = new DropFile("drop-file", "files");
-        const dropFile2 = new DropFile("drop-file2", "files2");
+           return {
+             handleFiles
+           };
+         }
+
+         const dropFile = new DropFile("drop-file", "files");
 
     </script>
 
