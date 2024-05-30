@@ -1,14 +1,182 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-<th:block layout:fragment="css">
 
+<th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" th:href="@{/plugins/themify-icons/themify-icons.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/single_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/single_responsive.css}">
 </th:block>
 
 <div layout:fragment="content">
+    <div class="super_container">
+        <div class="fs_menu_overlay"></div>
+        <div class="container single_product_container">
 
+            <div class="row">
+                <div class="col">
+
+                    <!-- 세부항목(?) -->
+                    <div class="breadcrumbs d-flex flex-row align-items-center">
+                        <ul>
+                            <li><a href="/goods/goodsIndex">CONCERT</a></li>
+                            <li><a href="/goods/goodsIndex"><i class="fa fa-angle-right" aria-hidden="true"></i>TOUR MERCH</a></li>
+                            <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Merch</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div>
+                    <h3>SEVENTEEN TOUR 'FOLLOW' TO SEOUL</h3>
+                </div>
+                <div class="col-lg-7">
+                    <div class="single_product_pics">
+
+                        <div class="row">
+                            <!-- 상품 이미지 -->
+                            <div class="col-lg-9 image_col order-lg-2 order-1">
+                                <div class="single_product_image">
+                                    <div class="single_product_image_background_concert"
+                                         style="background-image:url(/images/con_4.jpg)">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="product_details">
+                        <!-- 상품 타이틀, 가격 -->
+                        <div class="product_details_title">
+                            <div class="product_details">
+                                <div class="form_details">
+                                    <!--  &nbsp; 때문에 코드가 지저분해 보여요.ㅠ 정리 해주실분 -->
+                                    <label class="text-black">콘&nbsp;&nbsp;서&nbsp;&nbsp;트</label>
+                                    <span class="text-uppercase font-sm letter-spacing-1"></span>
+                                </div>
+                                <div class="form_details">
+                                    <label class="text-black">공&nbsp;&nbsp;연&nbsp;&nbsp;일</label>
+                                    <span class="text-uppercase font-sm letter-spacing-1"></span>
+                                </div>
+                                <div class="form_details">
+                                    <label class="text-black">아티스트</label>
+                                    <span class="text-uppercase font-sm letter-spacing-1"></span>
+                                </div>
+                                <div class="form_details">
+                                    <label class="text-black">공연시간</label>
+                                    <span class="text-uppercase font-sm letter-spacing-1"></span>
+                                </div>
+                                <div class="form_details">
+                                    <label class="text-black">관람연령</label>
+                                    <span class="text-uppercase font-sm letter-spacing-1"></span>
+                                </div>
+                                <div class="form_details">
+                                    <label class="text-black">가격 </label><br>
+                                R석 <span class="text-uppercase font-sm letter-spacing-1"></span><br>
+                                S석 <span class="text-uppercase font-sm letter-spacing-1"></span><br>
+                                A석 <span class="text-uppercase font-sm letter-spacing-1"></span><br>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tabs -->
+
+        <div class="tabs_section_container">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+
+                        <!-- 상품설명 -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="tabs_container">
+                                    <div class="notiBox">
+                                <span>
+                                    <b>[판매공지]</b>
+                                    <br>
+                                    ● 최대 구매 수량은 3개 입니다.
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab_text_block">
+                            <h2>캐스팅</h2>
+                            <!-- 피그마에는 아티스트가 사진으로 보이게 되어 있는데
+                            일단은 텍스트 상자로 받게 해뒀어요.-->
+                            <p> <span class="text-uppercase font-sm letter-spacing-1"></span><br></p>
+                        </div>
+                        <div class="tab_text_block">
+                            <h2>공연시간 정보</h2>
+                            <p>
+                                <!--  폰트사이즈는 좀 더 키우고 싶은데
+                                   다른 css에 영향을 받고 있습니다
+                                   클래스명을 바꾼다던지 .. 잘 생각해야해요-->
+                                <!--  폼 입력창도 현재는 border가 아예 안보이는데 연한 그레이 색으로 보이면 좋을 것 같아요   -->
+                                예매가능시간: 관람 2시간 전까지<br>
+                                <br>
+                                - 공 연 명 :  <span class="text-uppercase font-sm letter-spacing-1"></span><br>
+                                <br>
+                                - 공연기간 :  <span class="text-uppercase font-sm letter-spacing-1"></span><br>
+                                <br>
+                                - 공연시간 : <span class="text-uppercase font-sm letter-spacing-1"></span><br>
+                                <br>
+                                (공연시간 : 160 분 / 인터미션 : 20 분)<br>
+                                <br>
+                                - 공연장소 : <span class="text-uppercase font-sm letter-spacing-1"></span>
+                                <br>
+                                - 관람등급 : <span class="text-uppercase font-sm letter-spacing-1"></span><br>
+                                <br>
+                                ※ 2차 티켓오픈 일자<br>
+                                - 토핑 선예매: 2024년 5월 2일(목) 오후 1시<br>
+                                - 일반 예매: 2024년 5월 2일(목) 오후 3시<br>
+                            </p>
+                        </div>
+
+                        <div id="tab_1" class="tab_container active">
+                            <div class="tab_title">
+                                <h4 style="padding-top: 2rem;">
+                                    <strong>상품설명</strong></h4>
+                            </div>
+                            <div style="display: flex; justify-content: center;">
+                                <img src="/images/merch_detail.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <th:block layout:fragment="script">
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/css/bootstrap4/popper.js}"></script>
+    <script th:src="@{/css/bootstrap4/bootstrap.min.js}"></script>
+    <script th:src="@{/plugins/Isotope/isotope.pkgd.min.js}"></script>
+    <script th:src="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+    <script th:src="@{/plugins/easing/easing.js}"></script>
+    <script th:src="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+    <script th:src="@{/js/single_custom.js}"></script>
+
+
+    <script th:inline="javascript">
+
+    </script>
 </th:block>
 </html>

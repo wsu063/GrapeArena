@@ -3,18 +3,222 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout3}">
 <th:block layout:fragment="css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
 </th:block>
+<div layout:fragment="content" class="flex flex-col flex-1 w-full">
+    <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+        <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"  >
+            <!-- Mobile hamburger -->
+            <button  class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
+                     @click="toggleSideMenu"
+                     aria-label="Menu">
+                <svg class="w-6 h-6"
+                     aria-hidden="true"
+                     fill="currentColor"
+                     viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                          clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            <!-- Search input -->
+            <!-- Search input 가 아니고 '관리자 페이지' 라고 띄우고 싶은데 높이 때문에 건들이지는 않았어요 수정해야해요 -->
+            <div class="flex justify-center flex-1 lg:mr-32">
+                <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500" >
+                    <div class="absolute inset-y-0 flex items-center pl-2">
+                        <svg  class="w-4 h-4"
+                              aria-hidden="true"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"  >
+                            <path fill-rule="evenodd"
+                                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+
+                    <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                           type="text"
+                           placeholder="검색어를 입력해주세요."
+                           aria-label="Search" />
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="super_container_admin" style="overflow-y: auto;">
+        <form role="form" action="/" method="post" enctype="multipart/form-data" name="concertForm">
+            <div class="container single_product_container">
+                <div class="row">
+                    <!--  상품 이미지 등록     -->
+                    <div class="col-lg-7">
+                        <div class="single_product_pics">
+                            <div class="row">
+                                <div class="contents">
+                                    <div class="upload-box">
+                                        <div id="drop-file" class="drag-file">
+                                            <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
+                                            <p class="message">Drag files to upload</p>
+                                            <img src="" alt="미리보기 이미지" class="preview">
+                                        </div>
+                                        <label class="file-label" for="chooseFile">Choose File</label>
+                                        <input class="file" id="chooseFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--   콘서트 상세 등록     -->
+                    <div class="col-lg-5">
+                        <div class="product_details">
+                            <div class="form_details">
+
+                                <!--  &nbsp; 때문에 코드가 지저분해 보여요.ㅠ 정리 해주실분 -->
+                                <label class="text-black">상품명</label>
+                                <input type="text" class="form-control product-form-input"   placeholder="알아서 입력" />
+                            </div>
+                            <div class="form_details">
+                                <label class="text-black">가격</label>
+                                <input type="text" class="form-control product-form-input"  placeholder="알아서 입력" />
+                            </div>
+                            <div class="form_details">
+                                <label class="text-black">최대구매수량</label>
+                                <select class="form-control product-form-input">
+                                    <option value="" disabled selected>최대구매수량을 선택해주세요</option>
+                                    <option value="location1">1</option>
+                                    <option value="location2">2</option>
+                                    <option value="location3">3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 등록 상세페이지 -->
+            <div class="tabs_section_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <!-- Tab Description -->
+                            <div id="tab_1" class="tab_container active">
+                                <div class="row">
+                                    <div class="col-lg-5 offset-lg-2 desc_col">
+                                        <div class="tab_text_block">
+                                            <h2>DETAIL</h2>
+                                        </div>
+                                        <div class="contents">
+                                            <div class="upload-box">
+                                                <div id="drop-file2" class="drag-file">
+                                                    <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
+                                                    <p class="message">Drag files to upload</p>
+                                                    <img src="" alt="미리보기 이미지" class="preview">
+                                                </div>
+                                                <label class="file-label" for="chooseFile2">Choose File</label>
+                                                <input class="file" id="chooseFile2" type="file" onchange="dropFile2.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
+                                            </div>
+                                        </div>
+                                        <div class="tab_text_block">
+                                            <button class="btn btn-primary solid blank mt-3" type="button" onclick="beforeSubmit(); return false;">
+                                                등록하기
+                                            </button>
+                                        </div>
 
 
+                                    </div>
 
-<div layout:fragment="content">
-
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 
 
 <th:block layout:fragment="script">
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/css/bootstrap4/popper.js}"></script>
+    <script th:src="@{/css/bootstrap4/bootstrap.min.js}"></script>
+    <script th:src="@{/plugins/Isotope/isotope.pkgd.min.js}"></script>
+    <script th:src="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+    <script th:src="@{/plugins/easing/easing.js}"></script>
+    <script th:src="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+    <script th:src="@{/js/single_custom.js}"></script>
+
+    <script th:inline="javascript">
+
+        function DropFile(dropAreaId, fileListId) {
+              let dropArea = document.getElementById(dropAreaId);
+              let fileList = document.getElementById(fileListId);
+
+              function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+              }
+
+              function highlight(e) {
+                preventDefaults(e);
+                dropArea.classList.add("highlight");
+              }
+
+              function unhighlight(e) {
+                preventDefaults(e);
+                dropArea.classList.remove("highlight");
+              }
+
+              function handleDrop(e) {
+                unhighlight(e);
+                let dt = e.dataTransfer;
+                let files = dt.files;
+
+                handleFiles(files);
+
+                const fileList = document.getElementById(fileListId);
+                if (fileList) {
+                  fileList.scrollTo({ top: fileList.scrollHeight });
+                }
+              }
+
+              function handleFiles(files) {
+                files = [...files];
+                // files.forEach(uploadFile);
+                files.forEach(previewFile);
+              }
+
+              function previewFile(file) {
+                console.log(file);
+                renderFile(file);
+              }
+
+              function renderFile(file) {
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onloadend = function () {
+                  let img = dropArea.getElementsByClassName("preview")[0];
+                  img.src = reader.result;
+                  img.style.display = "block";
+                };
+              }
+
+              dropArea.addEventListener("dragenter", highlight, false);
+              dropArea.addEventListener("dragover", highlight, false);
+              dropArea.addEventListener("dragleave", unhighlight, false);
+              dropArea.addEventListener("drop", handleDrop, false);
+
+              return {
+                handleFiles
+              };
+        }
+        const dropFile = new DropFile("drop-file", "files");
+        const dropFile2 = new DropFile("drop-file2", "files2");
+
+    </script>
+
+
 </th:block>
 
 </html>
