@@ -902,7 +902,7 @@ section
 	width: 100%;
 	height: 60px;
 	border-bottom: solid 1px #ebebeb;
-	margin-bottom: 79px;
+	margin-bottom: 20px;
 }
 .breadcrumbs ul li
 {
@@ -989,7 +989,7 @@ section
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 70%;
+	width: 100%;
 	height: 100%;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -1234,7 +1234,7 @@ section
 }
 .tab_text_block
 {
-	margin-bottom: 133px;
+	margin-bottom: 60px;
 }
 .tab_text_block p
 {
