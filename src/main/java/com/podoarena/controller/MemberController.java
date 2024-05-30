@@ -161,11 +161,13 @@ public class MemberController {
         }
     }
 
-//    @PostMapping(value = "/members/editprofile")
-//    public String editProfile(Principal principal, Model model) {
-//        String email = principal.getName();
-//        memberService.editMember(email);
-//    }
+    @PostMapping(value = "/members/editprofile")
+    public String editProfile(MemberFormDto memberFormDto, Model model) {
+        memberService.editMember(memberFormDto, passwordEncoder);
+        
+        model.addAttribute("몰루");
+        return "redirect:/";
+    }
 
 
 
