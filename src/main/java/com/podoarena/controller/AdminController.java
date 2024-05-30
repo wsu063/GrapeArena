@@ -24,7 +24,5 @@ public class AdminController {
     @GetMapping(value = "/admin/concertForm")
     public String concertForm() { return "admin/concertForm";}
 
-    @GetMapping(value = "/admin/goodsForm")
-    public String goodsForm() { return "admin/goodsForm";}
 
 }
