@@ -46,154 +46,111 @@
 
     <div class="super_container_admin" style="overflow-y: auto;">
         <form role="form" action="/" method="post" enctype="multipart/form-data" name="concertForm">
-        <div class="container single_product_container">
-            <div class="row">
-                <!--   콘서트 이미지 등록     -->
-                <div class="col-lg-7">
-                    <div class="single_product_pics">
-                        <div class="row">
-                            <div class="contents">
-                                <div class="upload-box">
-                                    <div id="drop-file" class="drag-file">
-                                        <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
-                                        <p class="message">Drag files to upload</p>
-                                        <img src="" alt="미리보기 이미지" class="preview">
+            <div class="container single_product_container">
+                <div class="row">
+                    <!--   콘서트 이미지 등록     -->
+                    <div class="col-lg-7">
+                        <div class="single_product_pics">
+                            <div class="row">
+                                <div class="contents">
+                                    <div class="upload-box">
+                                        <div id="drop-file" class="drag-file">
+                                            <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
+                                            <p class="message">Drag files to upload</p>
+                                            <img src="" alt="미리보기 이미지" class="preview">
+                                        </div>
+                                        <label class="file-label" for="chooseFile">Choose File</label>
+                                        <input class="file" id="chooseFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
                                     </div>
-                                    <label class="file-label" for="chooseFile">Choose File</label>
-                                    <input class="file" id="chooseFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!--   콘서트 상세 등록     -->
-                <div class="col-lg-5">
-                    <div class="product_details">
-                        <div class="form_details">
-                            <!--  &nbsp; 때문에 코드가 지저분해 보여요.ㅠ 정리 해주실분 -->
+                    <!--   콘서트 상세 등록     -->
+                    <div class="col-lg-5">
+                        <div class="product_details">
+                            <div class="form_details">
+                                <!--  &nbsp; 때문에 코드가 지저분해 보여요.ㅠ 정리 해주실분 -->
                                 <label class="text-black">콘&nbsp;&nbsp;서&nbsp;&nbsp;트</label>
                                 <input type="text" class="form-control product-form-input"   placeholder="알아서 입력" />
-                        </div>
-                        <div class="form_details">
-                            <label class="text-black">공&nbsp;&nbsp;연&nbsp;&nbsp;일</label>
-                            <input type="text" class="form-control product-form-input"  placeholder="알아서 입력" />
-                        </div>
-                        <div class="form_details">
-                            <label class="text-black">아티스트</label>
-                            <input type="text" class="form-control product-form-input"  placeholder="알아서 입력" />
-                        </div>
-                        <div class="form_details">
-                            <label class="text-black">공연시간</label>
-                            <input type="text" class="form-control product-form-input"  placeholder="알아서 입력" />
-                        </div>
-                        <div class="form_details">
-                            <label class="text-black">장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</label>
-                            <select class="form-control product-form-input">
-                                <!--  장소를 선택하세요 옆에 화살표가 있으면 좋을 것 같습니다.-->
-                                <option value="" disabled selected>장소를 선택하세요</option>
-                                <option value="location1">장소 1</option>
-                                <option value="location2">장소 2</option>
-                                <option value="location3">장소 3</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- 등록 상세페이지 -->
-        <div class="tabs_section_container">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="tabs_container">
-                            <div class="notiBox">
-                                <span>
-                                    <!--  이거 콘서트 등록페이지랑
-                                        상품 등록페이지랑 동시에 쓸꺼에요. -->
-                                    <b>[판매공지]</b>
-                                    <br>
-                                    ● 최대 구매 수량은 3개 입니다.
-                                </span>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <!-- Tab Description -->
-                        <div id="tab_1" class="tab_container active">
-                            <div class="row">
-                                <div class="col-lg-5 offset-lg-2 desc_col">
-                                    <div class="tab_text_block">
-                                        <h2>캐스팅</h2>
-                                        <!-- 피그마에는 아티스트가 사진으로 보이게 되어 있는데
-                                        일단은 텍스트 상자로 받게 해뒀어요.-->
-                                        <p> <input type="text" placeholder="아티스트 입력" /><br></p>
-                                    </div>
-                                    <div class="tab_text_block">
-                                        <h2>공연시간 정보</h2>
-                                        <p>
-                                            <!--  폰트사이즈는 좀 더 키우고 싶은데
-                                               다른 css에 영향을 받고 있습니다
-                                               클래스명을 바꾼다던지 .. 잘 생각해야해요-->
-                                            <!--  폼 입력창도 현재는 border가 아예 안보이는데 연한 그레이 색으로 보이면 좋을 것 같아요   -->
-                                            예매가능시간: 관람 2시간 전까지<br>
-                                            <br>
-                                            - 공 연 명 :  <input type="text" placeholder="콘서트 명 입력" /><br>
-                                            <br>
-                                            - 공연기간 :  <input type="text" placeholder="콘서트 기간 입력" /><br>
-                                            <br>
-                                            - 공연시간 :  <input type="text" placeholder="콘서트 시간 입력" /><br>
-                                            (공연시간 : 160 분 / 인터미션 : 20 분)<br>
-                                            <br>
-                                            - 공연장소 :  <input type="text" placeholder="콘서트 장소 입력" /><br>
-                                            <br>
-                                            - 티켓가격 : <br>
-                                            R석 <input type="text" placeholder="R석 금액" /><br>
-                                            S석 <input type="text" placeholder="S석 금액" /><br>
-                                            A석 <input type="text" placeholder="A석 금액" /><br>
-                                            <br>
-                                            - 관람등급 : <input type="text" placeholder="관람 등급 입력" /><br>
-                                            <br>
-                                            ※ 2차 티켓오픈 일자<br>
-                                            - 토핑 선예매: 2024년 5월 2일(목) 오후 1시<br>
-                                            - 일반 예매: 2024년 5월 2일(목) 오후 3시<br>
-                                        </p>
-                                    </div>
-                                    <div class="tab_text_block">
-                                        <h2>공연상세 / 출연진 정보</h2>
-                                    </div>
-                                    <div class="contents">
-                                        <div class="upload-box">
-                                            <div id="drop-file2" class="drag-file">
-                                                <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
-                                                <p class="message">Drag files to upload</p>
-                                                <img src="" alt="미리보기 이미지" class="preview">
-                                            </div>
-                                            <label class="file-label" for="chooseFile2">Choose File</label>
-                                            <input class="file" id="chooseFile2" type="file" onchange="dropFile2.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
-                                        </div>
-                                    </div>
-
-                                    <!--   이미지 사이즈는 밑에 애를 참조하세여       -->
-                                    <!--   밑에도 지우고 이미지 삽입으로 바꾸고 싶습니당.      -->
-                                    <div class="tab_image desc_last">
-                                        <img src="/images/desc_3.jpg" alt="">
+                            <div class="form_details">
+                                <label class="text-black">공&nbsp;&nbsp;연&nbsp;&nbsp;일</label>
+                                <input type="text" class="form-control product-form-input"  placeholder="알아서 입력" />
+                            </div>
+                            <div class="form_details">
+                                <label class="text-black">아티스트</label>
+                                <input type="text" class="form-control product-form-input"  placeholder="알아서 입력" />
+                            </div>
+                            <div class="form_details">
+                                <label class="text-black">공연시간</label>
+                                <input type="text" class="form-control product-form-input"  placeholder="알아서 입력" />
+                            </div>
+                            <div class="form_details">
+                                <label class="text-black">장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</label>
+                                <select class="form-control product-form-input">
+                                    <!--  장소를 선택하세요 옆에 화살표가 있으면 좋을 것 같습니다.-->
+                                    <option value="" disabled selected>장소를 선택하세요</option>
+                                    <option value="location1">장소 1</option>
+                                    <option value="location2">장소 2</option>
+                                    <option value="location3">장소 3</option>
+                                </select>
+                            </div>
+                            <div class="form_details">
+                                <div class="btn-file-upload">
+                                    <div class="btn btn-block theme-green">
+                                        <input type="file" id="REQ_FILE" name="REQ_FILE[]">
                                     </div>
                                 </div>
                             </div>
+                            <div class="form_details">
+                                <button class="btn btn-primary solid blank mt-3" type="button" onclick="beforeSubmit(); return false;">
+                                    등록하기
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            <div>
-                <div class="red_button add_to_cart_button"><a href="#">등록하기</a></div>
-            </div>
-        </div>
+            <!-- 등록 상세페이지 -->
+            <!--        <div class="tabs_section_container">-->
+            <!--            <div class="container">-->
+            <!--                <div class="row">-->
+            <!--                    <div class="col">-->
+            <!--                        &lt;!&ndash; Tab Description &ndash;&gt;-->
+            <!--                        <div id="tab_1" class="tab_container active">-->
+            <!--                            <div class="row">-->
+            <!--                                <div class="col-lg-5 offset-lg-2 desc_col">-->
+            <!--                                    <div class="tab_text_block">-->
+            <!--                                        <h2>공연상세 / 출연진 정보</h2>-->
+            <!--                                    </div>-->
+            <!--                                    <div class="contents">-->
+            <!--                                        <div class="upload-box">-->
+            <!--                                            <div id="drop-file2" class="drag-file">-->
+            <!--                                                <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >-->
+            <!--                                                <p class="message">Drag files to upload</p>-->
+            <!--                                                <img src="" alt="미리보기 이미지" class="preview">-->
+            <!--                                            </div>-->
+            <!--                                            <label class="file-label" for="chooseFile2">Choose File</label>-->
+            <!--                                            <input class="file" id="chooseFile2" type="file" onchange="dropFile2.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">-->
+            <!--                                        </div>-->
+            <!--                                    </div>-->
+            <!--                                    &lt;!&ndash;   이미지 사이즈는 밑에 애를 참조하세여   &ndash;&gt;-->
+            <!--                                    &lt;!&ndash;   밑에도 지우고 이미지 삽입으로 바꾸고 싶습니당.  &ndash;&gt;-->
+            <!--                                    &lt;!&ndash;   <div class="tab_image desc_last">&ndash;&gt;-->
+            <!--                                    &lt;!&ndash;   <img src="/images/desc_3.jpg" alt="">&ndash;&gt;-->
+            <!--                                    &lt;!&ndash;   </div>&ndash;&gt;-->
+            <!--                                </div>-->
+
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
         </form>
     </div>
 </div>
@@ -212,7 +169,7 @@
 
     <script th:inline="javascript">
 
-    function DropFile(dropAreaId, fileListId) {
+        function DropFile(dropAreaId, fileListId) {
           let dropArea = document.getElementById(dropAreaId);
           let fileList = document.getElementById(fileListId);
 
@@ -231,51 +188,70 @@
             dropArea.classList.remove("highlight");
           }
 
-          function handleDrop(e) {
-            unhighlight(e);
-            let dt = e.dataTransfer;
-            let files = dt.files;
+<!--    function DropFile(dropAreaId, fileListId) {-->
+<!--          let dropArea = document.getElementById(dropAreaId);-->
+<!--          let fileList = document.getElementById(fileListId);-->
 
-            handleFiles(files);
+<!--          function preventDefaults(e) {-->
+<!--            e.preventDefault();-->
+<!--            e.stopPropagation();-->
+<!--          }-->
 
-            const fileList = document.getElementById(fileListId);
-            if (fileList) {
-              fileList.scrollTo({ top: fileList.scrollHeight });
-            }
-          }
+<!--          function highlight(e) {-->
+<!--            preventDefaults(e);-->
+<!--            dropArea.classList.add("highlight");-->
+<!--          }-->
 
-          function handleFiles(files) {
-            files = [...files];
-            // files.forEach(uploadFile);
-            files.forEach(previewFile);
-          }
+<!--          function unhighlight(e) {-->
+<!--            preventDefaults(e);-->
+<!--            dropArea.classList.remove("highlight");-->
+<!--          }-->
 
-          function previewFile(file) {
-            console.log(file);
-            renderFile(file);
-          }
+<!--          function handleDrop(e) {-->
+<!--            unhighlight(e);-->
+<!--            let dt = e.dataTransfer;-->
+<!--            let files = dt.files;-->
 
-          function renderFile(file) {
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = function () {
-              let img = dropArea.getElementsByClassName("preview")[0];
-              img.src = reader.result;
-              img.style.display = "block";
-            };
-          }
+<!--            handleFiles(files);-->
 
-          dropArea.addEventListener("dragenter", highlight, false);
-          dropArea.addEventListener("dragover", highlight, false);
-          dropArea.addEventListener("dragleave", unhighlight, false);
-          dropArea.addEventListener("drop", handleDrop, false);
+<!--            const fileList = document.getElementById(fileListId);-->
+<!--            if (fileList) {-->
+<!--              fileList.scrollTo({ top: fileList.scrollHeight });-->
+<!--            }-->
+<!--          }-->
 
-          return {
-            handleFiles
-          };
-    }
-    const dropFile = new DropFile("drop-file", "files");
-    const dropFile2 = new DropFile("drop-file2", "files2");
+<!--          function handleFiles(files) {-->
+<!--            files = [...files];-->
+<!--            // files.forEach(uploadFile);-->
+<!--            files.forEach(previewFile);-->
+<!--          }-->
+
+<!--          function previewFile(file) {-->
+<!--            console.log(file);-->
+<!--            renderFile(file);-->
+<!--          }-->
+
+<!--          function renderFile(file) {-->
+<!--            let reader = new FileReader();-->
+<!--            reader.readAsDataURL(file);-->
+<!--            reader.onloadend = function () {-->
+<!--              let img = dropArea.getElementsByClassName("preview")[0];-->
+<!--              img.src = reader.result;-->
+<!--              img.style.display = "block";-->
+<!--            };-->
+<!--          }-->
+
+<!--          dropArea.addEventListener("dragenter", highlight, false);-->
+<!--          dropArea.addEventListener("dragover", highlight, false);-->
+<!--          dropArea.addEventListener("dragleave", unhighlight, false);-->
+<!--          dropArea.addEventListener("drop", handleDrop, false);-->
+
+<!--          return {-->
+<!--            handleFiles-->
+<!--          };-->
+<!--    }-->
+<!--    const dropFile = new DropFile("drop-file", "files");-->
+<!--    const dropFile2 = new DropFile("drop-file2", "files2");-->
 
     </script>
 
