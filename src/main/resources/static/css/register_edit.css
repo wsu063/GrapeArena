@@ -8,7 +8,8 @@
     background: transparent;
 }
 
-.register_header {
+.register_header,
+.edit_header{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -20,16 +21,19 @@
     border-bottom: 1px solid rgba(0, 0, 0, .08);
 }
 
-.register_wrap {
+.register_wrap,
+.edit_wrap {
     max-width: 40rem;
     margin: 0 auto;
 }
 
-.register-title {
+.register-title,
+.edit-title {
     padding: 2rem 10rem;
 }
 
-.register-form {
+.register-form,
+.edit-form {
     margin-top: 30px;
 }
 
@@ -125,7 +129,8 @@ input {
     width:35rem;
 }
 
-.register_btn {
+.register_btn,
+.edit_btn {
     width: 100%;
     height: 70px; /* 높이를 늘렸습니다 */
     border-radius: 10px; /* 기존 1.2rem에서 10px로 변경했습니다 */

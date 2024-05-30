@@ -77,7 +77,7 @@
                         <div class="product_details">
                             <div class="form_details">
                                 <label class="text-black" th:for="goodsName">상품명</label>
-                                <input id="goodsName" type="text" class="form-control product-form-input" th:field="*{goodsName}"   placeholder="알아서 입력" />
+                                <input id="goodsName" type="text" class="form-control product-form-input" th:field="*{goodsName}" placeholder="알아서 입력" />
                                 <p th:if="${#fields.hasErrors('goodsName')}" th:errors="*goodsName" class="fieldError">Incorrect Data</p>
                             </div>
                             <div class="form_details">
