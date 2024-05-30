@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
 
-</body>
+</th:block>
+
+<div layout:fragment="content">
+    <div class="container">
+            <div class="contents">
+                <div class="con_wrap" style="position: relative; display: flex; justify-content: space-between;">
+                    <div class="con_main" style="width: 83rem; margin-top: 2rem; margin-bottom: 9.8rem; margin-left: 2rem;">
+                        <div class="con_title">
+                            <h2 class="title">SEVENTEEN TOUR 'FOLLOW' AGAIN TO SEOUL</h2>
+                        </div>
+                    </div>
+                    <div class="calender" style="position: relative; width: 37rem; margin-top: 4rem; padding-bottom: 1rem;"></div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+</th:block>
 </html>

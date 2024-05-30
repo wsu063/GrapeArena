@@ -37,6 +37,7 @@ h2 {
     display: flex;
     justify-content: center;
     border-bottom: none!important;
+    font-weight: 700;
 }
 
 .form {
