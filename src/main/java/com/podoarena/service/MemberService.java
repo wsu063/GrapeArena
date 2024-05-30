@@ -44,7 +44,12 @@ public class MemberService implements UserDetailsService {
             throw new IllegalStateException("가입되지 않은 이메일입니다. 확인 후 다시 입력해주세요.");
         } else if(findPhone == null) {
             throw new IllegalStateException("가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.");
+        } else if(!findPhone.equals(phone)) {
+            throw new IllegalStateException(("전화번호가 일치하지 않습니다."));
+        } else if(!findEmail.equals(email)) {
+            throw new IllegalStateException("이메일이 일치하지 않습니다.");
         }
+
 
         return true;
     }

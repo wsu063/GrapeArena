@@ -36,6 +36,10 @@ public class MemberFormDto {
 
     private String extraAddress;
 
+    private String password1;
+
+    private String password2;
+
     private static ModelMapper modelMapper = new ModelMapper();
 
     //entitiy -> dto

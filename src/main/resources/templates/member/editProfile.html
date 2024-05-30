@@ -22,7 +22,7 @@
       </div>
       <div class="register_wrap">
         <div class="register-form" style="display: flex; justify-content: center;">
-          <form class="form" role="form" action="/members/editprofile" method="post" th:object="${member}">
+          <form class="form" name="editform" role="form" action="/members/editprofile" method="post" th:object="${member}">
             <div class="form-group row">
               <div class="col-md-12">
                 <label th:for="email">
@@ -36,8 +36,9 @@
             <div class="form-group row">
               <div class="col-md-12">
                 <label th:for="password">비밀번호</label>
-                <input type="password" class="form-control" placeholder="8~12자 영문, 숫자, 특수문자" th:field="*{password}" />
-                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
+                <input type="hidden" name="password" th:field="*{password}" />
+                <input type="password" class="form-control" placeholder="8~12자 영문, 숫자, 특수문자" th:field="*{password1}" name="passwrod1" />
+                <p th:if="${#fields.hasErrors('password1')}" th:errors="*{password1}" class="fieldError">Incorrect Data</p>
               </div>
             </div>
             
@@ -45,7 +46,7 @@
               <div class="col-md-12">
                 <label th:for="password2">비밀번호 확인</label>
                 <input type="password" class="form-control" placeholder="8~12자 영문, 숫자, 특수문자" name="password2" />
-                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
+                <p th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}" class="fieldError">Incorrect Data</p>
               </div>
             </div>
             
@@ -91,7 +92,7 @@
             
             <div class="form-group">
               <div class="md-12 btn_div">
-                <button type="submit" class="register_btn">수정하기</button>
+                <button type="button" onclick="beforesend()" class="register_btn">수정하기</button>
               </div>
             </div>
             
@@ -105,6 +106,23 @@
   <th:block layout:fragment="script">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:inline="javascript">
+      function beforesend() {
+        var f = document.form("editform");
+        var curpassword = $("#password").val()
+        var password1 = $("#password1").val()
+        var password2 = $("#password2").val()
+        
+        var password = '';
+        
+        if(password1 === (password2)){
+          return password = password1;
+        } else if(password1 && password2 == null) {
+          return password = curpassword;
+        }
+        return password;
+        
+        f.location.href="/members/editprofile"
+      }
       function execDaumPostcode() {
         new daum.Postcode({
           oncomplete: function(data) {

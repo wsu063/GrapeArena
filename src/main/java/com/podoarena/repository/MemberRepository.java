@@ -8,6 +8,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Member findByEmail(String email);
     Member findByPhone(String phone);
 
+    //비밀번호 찾기 쿼리문
+    Member findByEmailAndPhone(String email, String phone);
+
     //id찾기 쿼리문
     Member findByName(String name);
     Member findByPhoneAndName(String phone, String name);
