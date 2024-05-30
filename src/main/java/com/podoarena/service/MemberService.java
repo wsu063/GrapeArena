@@ -71,20 +71,25 @@ public class MemberService implements UserDetailsService {
         return memberFormDto;
     }
 
-//    public void editMember(String email, MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
-//        Member member = memberRepository.findByEmail(email);
-//        String password = passwordEncoder.encode(memberFormDto.getPassword());
-//
-//        if(member != null) {
-//            member.setPassword(password);
-//            member.setPhone(memberFormDto.getPhone());
-//            member.setPostcode(memberFormDto.getPostcode());
-//            member.setAddress(memberFormDto.getAddress());
-//            member.setDetailAddress(memberFormDto.getDetailAddress());
-//            member.setExtraAddress(memberFormDto.getExtraAddress());
-//            memberRepository.save(member);
-//        }
-//    }
+    // 회원정보수정
+    public void editMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+        //1. MemberFormDto를 입력받아서
+        //2. 수정된 member를 저장한다.
+        Member member = memberRepository.findByEmail(memberFormDto.getEmail());
+
+        if(member != null) {
+            if(memberFormDto.getPassword() != null) {
+                String password = passwordEncoder.encode(memberFormDto.getPassword());
+                member.setPassword(password);
+            }
+            member.setPhone(memberFormDto.getPhone());
+            member.setPostcode(memberFormDto.getPostcode());
+            member.setAddress(memberFormDto.getAddress());
+            member.setDetailAddress(memberFormDto.getDetailAddress());
+            member.setExtraAddress(memberFormDto.getExtraAddress());
+            memberRepository.save(member);
+        }
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
