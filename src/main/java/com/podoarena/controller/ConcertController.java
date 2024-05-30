@@ -1,10 +1,15 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.ConcertFormDto;
+import com.podoarena.dto.ReserveSeatSearchDto;
 import com.podoarena.entity.Concert;
+import com.podoarena.entity.ReserveSeat;
+import com.podoarena.entity.Seat;
 import com.podoarena.service.ConcertService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -89,7 +94,8 @@ public class ConcertController {
 
     //콘서트 예매 내역 (관리자)
     @GetMapping(value = "/admin/concerts/list")
-    public String concertReserveListAdmin(Model model) {
+    public String concertReserveListAdmin(ReserveSeatSearchDto reserveSeatSearchDto, Pageable pageable) {
+        Page<ReserveSeat> reserveSeatPage;
 
         return "admin/concertMng"; // 임시
     }
