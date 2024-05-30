@@ -37,16 +37,14 @@
               <div class="col-md-12">
                 <label th:for="password">비밀번호</label>
                 <input type="hidden" name="password" th:field="*{password}" />
-                <input type="password" class="form-control" placeholder="8~12자 영문, 숫자, 특수문자" th:field="*{password1}" name="passwrod1" />
-                <p th:if="${#fields.hasErrors('password1')}" th:errors="*{password1}" class="fieldError">Incorrect Data</p>
+                <input type="password" class="form-control" placeholder="8~12자 영문, 숫자, 특수문자" id="password1" name="password1" />
               </div>
             </div>
             
             <div class="form-group row">
               <div class="col-md-12">
                 <label th:for="password2">비밀번호 확인</label>
-                <input type="password" class="form-control" placeholder="8~12자 영문, 숫자, 특수문자" name="password2" />
-                <p th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}" class="fieldError">Incorrect Data</p>
+                <input type="password" class="form-control" placeholder="8~12자 영문, 숫자, 특수문자" id="password2" name="password2"/>
               </div>
             </div>
             
@@ -107,21 +105,28 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script th:inline="javascript">
       function beforesend() {
-        var f = document.form("editform");
-        var curpassword = $("#password").val()
-        var password1 = $("#password1").val()
-        var password2 = $("#password2").val()
+        var f = document.editform;
+        var curpassword = $("#password").val();
+        var password1 = $("#password1").val();
+        var password2 = $("#password2").val();
         
-        var password = '';
-        
-        if(password1 === (password2)){
-          return password = password1;
-        } else if(password1 && password2 == null) {
-          return password = curpassword;
+        if(password1 === '') {
+          if(password2 === '') {
+            //둘다 비어있으면 현재 비밀번호 그대로 제출한다.
+            $("#password").val("true");
+            f.submit();
+          } else {
+            alert("비밀번호를 입력해주세요.")
+          }
+        } else {
+          if(password2 !== password1) {
+            alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.")
+          } else {
+            // 변경 비밀번호와 확인 비밀번호가 같으면 현재 비밀번호를 바꿔서 제출한다.
+            $("#password").val(password1);
+            f.submit();
+          }
         }
-        return password;
-        
-        f.location.href="/members/editprofile"
       }
       function execDaumPostcode() {
         new daum.Postcode({
