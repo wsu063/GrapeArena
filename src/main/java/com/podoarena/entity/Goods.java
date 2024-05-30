@@ -1,5 +1,6 @@
 package com.podoarena.entity;
 
+import com.podoarena.constant.GoodsMaxAmount;
 import com.podoarena.constant.SellStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,12 +19,15 @@ public class Goods extends BaseEntity {
     @Column(name = "goods_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String shopName;
-    private String item;
-    private int goodsStock;
+    private String goodsName; // 이름
+    private int goodsPrice; // 가격
+    private int goodsStock; // 재고
 
     @Enumerated(EnumType.STRING)
-    private SellStatus sellStatus;
+    private GoodsMaxAmount goodsMaxAmount; // 수량
+
+    @Enumerated(EnumType.STRING)
+    private SellStatus sellStatus; // 판매상태
 
     @OneToMany(mappedBy = "goods", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GoodsImg> goodsImgs;

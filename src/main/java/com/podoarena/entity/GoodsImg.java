@@ -12,6 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class GoodsImg {
+
     @Id
     @Column(name = "goods_img_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +24,7 @@ public class GoodsImg {
 
     private String imgUrl;
 
-    private RepImgYn repImgYn;
+    private String repImgYn;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "goods_id")

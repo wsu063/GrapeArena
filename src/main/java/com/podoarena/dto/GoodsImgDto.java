@@ -5,5 +5,5 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ShopFormDto {
+public class GoodsImgDto {
 }
