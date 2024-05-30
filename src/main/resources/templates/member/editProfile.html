@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout2}">
+  
   <th:block layout:fragment="css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/register_edit.css}">
   </th:block>
   
   <div layout:fragment="content">
     <div class="container">
-      <div class="register_header">
+      <div class="edit_header">
         <div>
           <a href="/">
             <img src="/images/logo_head.png" alt="로고"
                  style="padding-top: 10px; display: flex; width: 80px; height:70px;" />
           </a>
         </div>
-        <div class="register-title">
+        <div class="edit-title">
           <h2>회원정보수정</h2>
         </div>
         <div style="width: 80px; height: 70px;"></div>
       </div>
-      <div class="register_wrap">
-        <div class="register-form" style="display: flex; justify-content: center;">
+      <div class="edit_wrap">
+        <div class="edit-form" style="display: flex; justify-content: center;">
           <form class="form" name="editform" role="form" action="/members/editprofile" method="post" th:object="${member}">
             <div class="form-group row">
               <div class="col-md-12">
-                <label th:for="email">
-                  이메일
+                <label th:for="email">이메일</label>
                   <input type="text" class="form-control" readonly th:field="*{email}"  />
-                </label>
                 <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect Data</p>
               </div>
             </div>
@@ -90,7 +88,7 @@
             
             <div class="form-group">
               <div class="md-12 btn_div">
-                <button type="button" onclick="beforesend()" class="register_btn">수정하기</button>
+                <button type="button" onclick="beforesend()" class="edit_btn">수정하기</button>
               </div>
             </div>
             
