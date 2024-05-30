@@ -167,7 +167,7 @@ public class MemberController {
         memberService.editMember(memberFormDto, passwordEncoder);
         
         model.addAttribute("몰?루");
-        
+        return "/";
     }
 
 
