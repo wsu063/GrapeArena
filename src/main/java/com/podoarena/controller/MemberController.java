@@ -162,12 +162,11 @@ public class MemberController {
     }
 
     @PostMapping(value = "/members/editprofile")
-    public String editProfile(Principal principal, Model model, @RequestParam("memberFormDto") MemberFormDto memberFormDto) {
-        String email = principal.getName();
+    public String editProfile(MemberFormDto memberFormDto, Model model) {
         memberService.editMember(memberFormDto, passwordEncoder);
         
-        model.addAttribute("몰?루");
-        return "/";
+        model.addAttribute("몰루");
+        return "redirect:/";
     }
 
 
