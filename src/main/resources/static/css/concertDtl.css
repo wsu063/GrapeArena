@@ -1,0 +1,116 @@
+.text-black {
+            font-size: 15px;
+            line-height: 30px;
+            color: #000;
+            width: 20%;
+            margin-right: 10px;
+        }
+
+        span {
+             font-weight: bold;
+        }
+
+        table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+td {
+	padding: 0;
+}
+
+.calendar-container {
+	position: relative;
+	width: 450px;
+}
+
+.calendar-container header {
+	border-radius: 1em 1em 0 0;
+	background: #e66b6b;
+	color: #fff;
+	padding: 3em 2em;
+}
+
+.day {
+	font-weight: 900;
+}
+
+.month {
+	font-size: 3.5em;
+	line-height: 1em;
+	text-transform: lowercase;
+}
+
+.calendar {
+	background: #fff;
+	border-radius: 0 0 1em 1em;
+	-webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, .2), 0 3px 1px #fff;
+	box-shadow: 0 2px 1px rgba(0, 0, 0, .2), 0 3px 1px #fff;
+	color: #555;
+	display: inline-block;
+	padding: 2em;
+}
+
+.calendar thead {
+	color: #e66b6b;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.calendar td {
+	padding: .5em 1em;
+	text-align: center;
+}
+
+.calendar tbody td:hover {
+	background: #cacaca;
+	color: #fff;
+}
+
+.current-day {
+	color: #e66b6b;
+}
+
+.prev-month,
+.next-month {
+	color: #cacaca;
+}
+
+.ring-left,
+.ring-right {
+	position: absolute;
+	top: 130px;
+}
+
+.ring-left { left: 2em; }
+.ring-right { right: 2em; }
+
+.ring-left:before,
+.ring-left:after,
+.ring-right:before,
+.ring-right:after {
+	background: #fff;
+	border-radius: 4px;
+	-webkit-box-shadow: 0 3px 1px rgba(0, 0, 0, .3), 0 -1px 1px rgba(0, 0, 0, .2);
+	box-shadow: 0 3px 1px rgba(0, 0, 0, .3), 0 -1px 1px rgba(0, 0, 0, .2);
+	content: "";
+	display: inline-block;
+	margin: 8px;
+	height: 32px;
+	width: 8px;
+}
+
+.ticket_btn {
+    width: 100%;
+    height: 70px; /* 높이를 늘렸습니다 */
+    border-radius: 10px; /* 기존 1.2rem에서 10px로 변경했습니다 */
+    background-color: #e66b6b;
+    border: 0;
+    margin-top: 45px;
+    font-weight: 700;
+    font-size: 20px; /* 폰트 크기를 키웠습니다 */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

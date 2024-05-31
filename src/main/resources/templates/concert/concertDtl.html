@@ -11,20 +11,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/single_styles.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/single_responsive.css}">
-    <style>
-        .text-black {
-            font-size: 15px;
-            line-height: 30px;
-            color: #000;
-            width: 20%;
-            margin-right: 10px;
-        }
-
-        span {
-             font-weight: bold;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/concertDtl.css}">
 </th:block>
 
 <div layout:fragment="content">
@@ -49,7 +36,7 @@
                 <div  style="margin-bottom: 20px;">
                     <h3 style="font-weight: 700;">2023 SVT 7TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h3>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="single_product_pics">
 
                         <div class="row">
@@ -65,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="product_details">
                         <!-- 콘서트 타이틀, 정보 -->
                         <div class="product_details_title">
@@ -103,6 +90,102 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="container">
+
+                        <div class="calendar-container">
+
+                            <header>
+
+                                <div class="day">관람일</div>
+                                <div class="month">2024.07</div>
+
+                            </header>
+
+                            <table class="calendar">
+
+                                <thead>
+                                <tr>
+                                    <td>Mon</td>
+                                    <td>Tue</td>
+                                    <td>Wed</td>
+                                    <td>Thu</td>
+                                    <td>Fri</td>
+                                    <td>Sat</td>
+                                    <td>Sun</td>
+                                </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                <tr>
+                                    <td class="prev-month">29</td>
+                                    <td class="prev-month">30</td>
+                                    <td class="prev-month">31</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                </tr>
+
+                                <tr>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>7</td>
+                                    <td>8</td>
+                                    <td>9</td>
+                                    <td>10</td>
+                                    <td>11</td>
+                                </tr>
+
+                                <tr>
+                                    <td>12</td>
+                                    <td>13</td>
+                                    <td>14</td>
+                                    <td>15</td>
+                                    <td>16</td>
+                                    <td>17</td>
+                                    <td class="current-day">18</td>
+                                </tr>
+
+                                <tr>
+                                    <td>19</td>
+                                    <td>20</td>
+                                    <td>21</td>
+                                    <td>22</td>
+                                    <td>23</td>
+                                    <td>24</td>
+                                    <td>25</td>
+                                </tr>
+
+                                <tr>
+                                    <td>26</td>
+                                    <td>27</td>
+                                    <td>28</td>
+                                    <td>29</td>
+                                    <td>30</td>
+                                    <td>31</td>
+                                    <td class="next-month">1</td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+
+                            <div class="form-group">
+                                <div class="md-12 btn_div">
+                                    <button type="submit" class="ticket_btn">예매하기</button>
+                                </div>
+                            </div>
+
+
+                            <div class="ring-left"></div>
+                            <div class="ring-right"></div>
+
+                        </div> <!-- end calendar-container -->
+
+                    </div> <!-- end container -->
                 </div>
             </div>
 
