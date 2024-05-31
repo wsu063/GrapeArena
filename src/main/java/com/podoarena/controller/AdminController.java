@@ -15,6 +15,9 @@ public class AdminController {
     // 관리자 페이지 이동
     @GetMapping(value = "/admin/concertMng")
     public String concertMng() { return "admin/concertMng";}
+    // 관리자 페이지 이동
+    @GetMapping(value = "/admin/concertList")
+    public String concertList() { return "admin/concertList";}
 
     // 관리자 페이지 이동
     @GetMapping(value = "/admin/concertModifyForm")
