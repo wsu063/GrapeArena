@@ -29,7 +29,7 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final ListPath<GoodsImg, QGoodsImg> goodsImgs = this.<GoodsImg, QGoodsImg>createList("goodsImgs", GoodsImg.class, QGoodsImg.class, PathInits.DIRECT2);
 
-    public final EnumPath<com.podoarena.constant.GoodsMaxAmount> goodsMaxAmount = createEnum("goodsMaxAmount", com.podoarena.constant.GoodsMaxAmount.class);
+    public final NumberPath<Integer> goodsMaxAmount = createNumber("goodsMaxAmount", Integer.class);
 
     public final StringPath goodsName = createString("goodsName");
 

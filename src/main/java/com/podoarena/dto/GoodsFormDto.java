@@ -1,6 +1,6 @@
 package com.podoarena.dto;
 
-import com.podoarena.constant.GoodsMaxAmount;
+
 import com.podoarena.constant.SellStatus;
 import com.podoarena.entity.Goods;
 import jakarta.validation.constraints.NotBlank;
@@ -26,7 +26,7 @@ public class GoodsFormDto {
     @NotNull(message = " 재고는 필수 입력입니다. ")
     private int goodsStock;
 
-    private GoodsMaxAmount goodsMaxAmount;
+    private int goodsMaxAmount;
 
     private SellStatus sellStatus;
 

@@ -31,19 +31,18 @@ public class GoodsController {
         return "goods/goodsDtl";
     }
 
-    @GetMapping(value ="/admin/goodsForm")
+    @GetMapping(value ="/admin/goods/new")
     public String goodsForm(Model model) {
-        GoodsFormDto goodsFormDto = new GoodsFormDto();
-        model.addAttribute("goodsFormDto", goodsFormDto);
-
+        model.addAttribute("goodsFormDto", new GoodsFormDto());
         return "admin/goodsForm";
     }
 
     // 굿즈 등록 처리
-    @PostMapping(value ="/admin/goodsForm")
+    @PostMapping(value ="/admin/goods/new")
     public String goodsNew(@Valid GoodsFormDto goodsFormDto, BindingResult bindingResult, Model model,
                            @RequestParam("goodsImgFile")List<MultipartFile> goodsImgFileList){
-        if(bindingResult.hasErrors()) return "admin/goodsForm";
+
+        if (bindingResult.hasErrors()) return "admin/goodsForm";
 
         if(goodsImgFileList.get(0).isEmpty()){
             model.addAttribute("errorMessage",
@@ -51,7 +50,6 @@ public class GoodsController {
 
             return "admin/goodsForm";
         }
-
         try {
             goodsService.saveGoods(goodsFormDto, goodsImgFileList);
         } catch (Exception e){
