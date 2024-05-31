@@ -167,6 +167,18 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @DeleteMapping(value = "/members/deleteMember")
+    public @ResponseBody ResponseEntity deleteMember(@RequestBody Map<String, String> requestData){
+        String email = requestData.get("email");
+        String deleteMemberText = requestData.get("deleteMemberText");
+        if (deleteMemberText.equals("탈퇴")) {
+            memberService.confirmDelete(email);
+           return new ResponseEntity<String>("성공", HttpStatus.OK);
+        } else {
+            return  new ResponseEntity<String>("error", HttpStatus.BAD_REQUEST);
+        }
+
+    }
 
 
     @GetMapping(value = "/members/login/error")

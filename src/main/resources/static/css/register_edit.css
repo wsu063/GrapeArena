@@ -114,7 +114,13 @@ input {
     margin-left: 6.1rem;
 }
 
-.post_btn {
+.email-input {
+    display: flex;
+    margin-left: 6.1rem;
+}
+
+.post_btn
+{
     box-shadow: 0px 4px 0px #73B9C9;
     background-color: #7fccde;
     text-decoration: none;
@@ -123,6 +129,7 @@ input {
     border-radius: 5px;
     padding: 5px 10px;
     margin-left: 1rem;
+    width: 15rem;
 }
 
 .btn_div {

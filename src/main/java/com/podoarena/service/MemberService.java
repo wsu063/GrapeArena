@@ -87,6 +87,11 @@ public class MemberService implements UserDetailsService {
         }
     }
 
+    public void confirmDelete(String email){
+        Member member = memberRepository.findByEmail(email);
+        memberRepository.delete(member);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //해당 email 계정을 가진 사용자가 있는지 확인
