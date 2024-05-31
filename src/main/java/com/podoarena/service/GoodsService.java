@@ -3,6 +3,7 @@ package com.podoarena.service;
 import com.podoarena.dto.GoodsFormDto;
 import com.podoarena.entity.Goods;
 import com.podoarena.entity.GoodsImg;
+import com.podoarena.repository.GoodsImgRepository;
 import com.podoarena.repository.GoodsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class GoodsService {
-
     private final GoodsRepository goodsRepository;
+    private final GoodsImgRepository goodsImgRepository;
     private final GoodsImgService goodsImgService;
 
 
@@ -24,7 +25,6 @@ public class GoodsService {
     public Long saveGoods(GoodsFormDto goodsFormDto,
                          List<MultipartFile> goodsImgFileList) throws Exception {
         Goods goods = goodsFormDto.createGoods();
-
         goodsRepository.save(goods);
 
         for (int i = 0; i < goodsImgFileList.size(); i++) {
