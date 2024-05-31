@@ -34,6 +34,27 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
         defer></script>
 <script th:src="@{/js/init-alpine.js}"></script>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentPath = window.location.pathname;
+
+        const menuItems = document.querySelectorAll('#menu li');
+        menuItems.forEach(item => {
+            const link = item.querySelector('a');
+            if (link) {
+                const href = link.getAttribute('href');
+                if (href === currentPath) {
+                    link.classList.add('text-gray-800');
+
+                    const span = document.createElement('span');
+                    span.className = 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg';
+                    span.setAttribute('aria-hidden', 'true');
+                    item.appendChild(span);
+                }
+            }
+        });
+    });
+</script>
 
 <!-- 각 페이지의 스크립트가 작성될 위치 -->
 <th:block layout:fragment="script"></th:block>
