@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AdminController {
 
     // 관리자 페이지 이동
-    @GetMapping(value = "/admin/bookingMng")
-    public String adminPage() { return "admin/bookingMng";}
-
-    // 관리자 페이지 이동
     @GetMapping(value = "/admin/concertMng")
     public String concertMng() { return "admin/concertMng";}
     // 관리자 페이지 이동
