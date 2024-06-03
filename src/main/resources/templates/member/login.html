@@ -20,13 +20,13 @@
                     <div class="input_style_input_id">
                         <label th:for="email">
                             <i class="fa-regular fa-user"></i>
-                            <input type="email" class="input_text_id" id="email" name="email" placeholder="이메일">
+                            <input type="email" class="input_text_id" id="email" name="email" placeholder="이메일" autocomplete="username">
                         </label>
                     </div>
                     <div class="input_style_input_pw">
                         <label th:for="password">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" class="input_text_pw" id="password" name="password" placeholder="비밀번호">
+                            <input type="password" class="input_text_pw" id="password" name="password" placeholder="비밀번호" autocomplete="current-password">
                         </label>
                     </div>
                 </div>
@@ -60,44 +60,137 @@
                     </li>
                 </ul>
             </div>
+            <div class="find_list">
+                <ul>
+                    <li>
+                        <a href="javascript:kakaoLogin();">
+                            <img src="/images/kakao.webp" alt="카카오" width="50" height="50" fill="none"/>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:naverLogin();">
+                            <div id="naver_id_login"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         </form>
     </div>
 </div>
 <th:block layout:fragment="script">
     <script type="text/javascript" th:src="@{/js/cookie.js}"></script>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao/js"></script>
     <script th:inline="javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            var userInputId = getCookie("userInputId");
-            var setCookieYN = getCookie("setCookieYN");
 
-            if (setCookieYN == 'Y') {
-                document.getElementById("id_save").checked = true;
-                document.getElementById("email").value = userInputId;
-            } else {
-                document.getElementById("id_save").checked = false;
-            }
+        // 카카오 로그인
+        window.Kakao.init("9cdc1b3284eb43a2c0b07ba6546601da");
 
-            document.getElementById("loginBtn").addEventListener('click', function() {
-                if (document.getElementById("id_save").checked) {
-                    var userInputId = document.getElementById("email").value;
-                    setCookie("userInputId", userInputId, 60);
-                    setCookie("setCookieYN", "Y", 60);
-                } else {
-                    deleteCookie("userInputId");
-                    deleteCookie("setCookieYN");
-                }
-            });
-        });
+             function kakaoLogin() {
+               window.Kakao.Auth.login({
+                 scope: 'profile_nickname',
+                 success: function (authObj) {
+                   console.log(authObj);
+                   window.Kakao.API.request({
+                     url: '/v2/user/me',
+                     success: res => {
+                       const kakao_account = res.kakao_account;
+                       console.log(kakao_account);
+                     },
+                     fail: function (error) {
+                       console.log(error);
+                     }
+                   });
+                 },
+                 fail: function (error) {
+                   console.log(error);
+                 }
+               });
+             }
 
-        $(document).ready(function() {
-            $('#login-form input').on('keypress', function(e) {
-                if (e.which == 13) { // Enter key 코드 13번
-                    e.preventDefault();
-                    $('#loginBtn').click();
-                }
-            });
-        });
+             // 네이버 로그인
+            var naver_id_login = new naver_id_login("3drhsh029AGKE2v99_bQ", "http://localhost/members/login");
+                var state = naver_id_login.getUniqState();
+                naver_id_login.setButton("green", 1,40);
+                naver_id_login.setDomain("http://localhost:3306");
+                naver_id_login.setState(state);
+                naver_id_login.setPopup();
+                naver_id_login.init_naver_id_login();
+
+                 naverLogin.init();
+    naverLogin.getLoginStatus(function (status) {
+      if (status) {
+          const nickName=naverLogin.user.getNickName();
+          const age=naverLogin.user.getAge();
+          const birthday=naverLogin.user.getBirthday();
+
+          if(nickName===null||nickName===undefined ){
+            alert("별명이 필요합니다. 정보제공을 동의해주세요.");
+            naverLogin.reprompt();
+            return ;
+         }else{
+          setLoginStatus();
+         }
+    }
+    });
+    console.log(naverLogin);
+
+    function setLoginStatus(){
+
+      const message_area=document.getElementById('message');
+      message_area.innerHTML=`
+      <h3> Login 성공 </h3>
+      <div>user Nickname : ${naverLogin.user.nickname}</div>
+      <div>user Age(범위) : ${naverLogin.user.age}</div>
+      <div>user Birthday : ${naverLogin.user.birthday}</div>
+      `;
+
+      const button_area=document.getElementById('button_area');
+      button_area.innerHTML="<button id='btn_logout'>로그아웃</button>";
+
+      const logout=document.getElementById('btn_logout');
+      logout.addEventListener('click',(e)=>{
+        naverLogin.logout();
+    location.replace("http://127.0.0.1:5500");
+      })
+    }
+
+
+
+             document.addEventListener('DOMContentLoaded', function() {
+                 var userInputId = getCookie("userInputId");
+                 var setCookieYN = getCookie("setCookieYN");
+
+                 if (setCookieYN == 'Y') {
+                     document.getElementById("id_save").checked = true;
+                     document.getElementById("email").value = userInputId;
+                 } else {
+                     document.getElementById("id_save").checked = false;
+                 }
+
+                 document.getElementById("loginBtn").addEventListener('click', function() {
+                     if (document.getElementById("id_save").checked) {
+                         var userInputId = document.getElementById("email").value;
+                         setCookie("userInputId", userInputId, 60);
+                         setCookie("setCookieYN", "Y", 60);
+                     } else {
+                         deleteCookie("userInputId");
+                         deleteCookie("setCookieYN");
+                     }
+                 });
+             });
+
+
+             $(document).ready(function() {
+                 $('#login-form input').on('keypress', function(e) {
+                     if (e.which == 13) { // Enter key 코드 13번
+                         e.preventDefault();
+                         $('#loginBtn').click();
+                     }
+                 });
+             });
     </script>
 </th:block>
 </html>
