@@ -48,7 +48,7 @@
     </header>
 
     <div class="super_container_admin" style="overflow-y: auto;">
-        <form role="form" action="/admin/concert/new" method="post" enctype="multipart/form-data"
+        <form role="form" action="/admin/concerts/new" method="post" enctype="multipart/form-data"
               th:object="${concertFormDto}" name="concertForm">
 
             <div class="container single_product_container">
@@ -131,9 +131,10 @@
                             </div>
 
                             <div class="form_details">
-                                <button class="btn btn-primary solid blank mt-3 submit-registration" type="button" onclick="beforeSubmit(); return false;">
+                                <button class="btn btn-primary solid blank mt-3 submit-registration" type="button" onclick="beforeSubmit();">
                                     등록하기
                                 </button>
+
                             </div>
                         </div>
                     </div>
@@ -225,7 +226,7 @@
 
 
           function beforeSubmit() {
-            document.getElementById("concertForm").submit();
+            document.concertForm.submit();
         }
 
 
