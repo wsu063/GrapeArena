@@ -6,7 +6,10 @@ import com.podoarena.entity.Goods;
 import com.podoarena.entity.GoodsImg;
 import com.podoarena.repository.GoodsImgRepository;
 import com.podoarena.repository.GoodsRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,4 +46,13 @@ public class GoodsService {
 
         return goods.getId();
     }
+
+    //굿즈 삭제하기
+    public void deleteGoods(Long goodsId) {
+        Goods goods = goodsRepository.findById(goodsId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        goodsRepository.delete(goods);
+    }
+
 }
