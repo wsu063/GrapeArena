@@ -21,9 +21,7 @@ public class Concert extends BaseEntity {
     private Long id;
     
     private String concertName; // 콘서트 이름
-    
-    private String concertPeriod; // 콘서트 기간.
-    
+
     private String concertSinger; // 콘서트 가수
     
     private ConcertState concertState; // 콘서트 상태
@@ -31,12 +29,12 @@ public class Concert extends BaseEntity {
     @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConcertImg> concertImgs;
 
-//    @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Seat> seatList;
+    @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Date> dateList;
+
 
     public void updateConcert(ConcertFormDto concertFormDto) {
         this.concertName = concertFormDto.getConcertName();
-        this.concertPeriod = concertFormDto.getConcertPeriod();
         this.concertSinger = concertFormDto.getConcertSinger();
         this.concertState = concertFormDto.getConcertState();
     }

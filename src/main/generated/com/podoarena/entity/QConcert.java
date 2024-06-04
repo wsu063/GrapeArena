@@ -26,14 +26,14 @@ public class QConcert extends EntityPathBase<Concert> {
 
     public final StringPath concertName = createString("concertName");
 
-    public final StringPath concertPeriod = createString("concertPeriod");
-
     public final StringPath concertSinger = createString("concertSinger");
 
     public final EnumPath<com.podoarena.constant.ConcertState> concertState = createEnum("concertState", com.podoarena.constant.ConcertState.class);
 
     //inherited
     public final StringPath createdBy = _super.createdBy;
+
+    public final ListPath<Date, QDate> dateList = this.<Date, QDate>createList("dateList", Date.class, QDate.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

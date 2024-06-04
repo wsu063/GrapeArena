@@ -41,7 +41,8 @@
                                 <th class="px-4 py-3">회원ID</th>
                                 <th class="px-4 py-3">콘서트</th>
                                 <th class="px-4 py-3">공연날짜</th>
-                                <th class="px-4 py-3">티켓수량</th>
+                                <th class="px-4 py-3">공연장</th>
+                                <th class="px-4 py-3">좌석</th>
                                 <th class="px-4 py-3">예매일</th>
                                 <th class="px-4 py-3">Actions</th>
                             </tr>
@@ -56,19 +57,12 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <!-- 콘서트를 가져와야한다. -->
-                                    <td class="px-4 py-3 text-sm" th:text="reserveSeat.placeConcert.concertName"></td>
-                                    <td class="px-4 py-3 text-xs">
-                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                          Approved
-                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        6/10/2020
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        6/10/2020
-                                    </td>
+                                    <td class="px-4 py-3 text-sm" th:text="reserveSeat.placeConcert.concert.concertName"></td>
+                                    <!-- 공연날짜 -->
+                                    <td class="px-4 py-3 text-xs"></td>
+                                    <td class="px-4 py-3 text-sm" th:text="reserveSeat.placeConcert.place.placeName"></td>
+                                    <td class="px-4 py-3 text-sm" th:text="reserveSeat.seat.seatName"></td>
+                                    <td class="px-4 py-3 text-xs" th:text="reserveSeat.createBy"></td>
                                     <td class="px-4 py-3">
                                         <div class="flex items-center space-x-4 text-sm">
                                             <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
@@ -99,7 +93,8 @@
                         </table>
                     </div>
                     <!-- 검색창 -->
-                    <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                    <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
+                        th:object="${reserveSeatSearchDto}">
                         <span class="flex items-center col-span-3">
                         </span>
                         <div class="col-span-2">
@@ -114,17 +109,21 @@
                                 </svg>
                             </div>
                             <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                                   type="text"
-                                   placeholder="검색어를 입력해주세요."
+                                   type="text" th:field="*{searchQuery}"
+                                   placeholder="회원 번호를 입력해주세요."
                                    aria-label="Search" />
                         </div>
                         <!-- Pagination -->
                         <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                            <nav aria-label="Table navigation">
+                            <nav aria-label="Table navigation"
+                                th:with="start=${(reserveSeatPage.number/maxPage) * maxpage + 1},
+                                 end=(${reserveSeatPage.totalPages == 0) ? 1 : (start + (maxPage -1) < reserveSeatPage.totalPages ? start + (maxPage -1) : reserveSeatPage.totalPages)})"
+                            >
                                 <ul class="inline-flex items-center">
                                   <li>
-                                    <button  class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                                            aria-label="Previous"  >
+                                    <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                                            aria-label="Previous" th:classappend="${reserveSeatPage.first} ? ' disabled'"
+                                            th:onclick="'javascript:page(' + ${boards.number - 1} + ')'">
                                       <svg class="w-4 h-4 fill-current"
                                               aria-hidden="true"
                                               viewBox="0 0 20 20" >
@@ -135,40 +134,16 @@
                                     </button>
                                   </li>
                                   <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                      1
-                                    </button>
+                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                                            th:each="page: ${#numbers.sequence(start, end)}"
+                                            th:classappend="${reserveSeatPage.number eq page-1} ? 'text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600' : ''"
+                                            th:inline="text" th:onclick="'javascript:page(' + ${page - 1} + ')'"
+                                    >[[${page}]]</button>
                                   </li>
                                   <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                      2
-                                    </button>
-                                  </li>
-                                  <li>
-                                    <button  class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                      3
-                                    </button>
-                                  </li>
-                                  <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                      4
-                                    </button>
-                                  </li>
-                                  <li>
-                                    <span class="px-3 py-1">...</span>
-                                  </li>
-                                  <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                      8
-                                    </button>
-                                  </li>
-                                  <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                      9
-                                    </button>
-                                  </li>
-                                  <li>
-                                    <button  class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next" >
+                                    <button  class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next"
+                                             th:classappend="${reserveSeatPage.last} ? ' disabled'"
+                                             th:onclick="'javascript:page(' + ${boards.number - 1} + ')'">
                                       <svg class="w-4 h-4 fill-current"
                                               aria-hidden="true"
                                               viewBox="0 0 20 20" >
@@ -189,6 +164,19 @@
 </div>
 
 <th:block layout:fragment="script">
+    <script th:inline="javascript">
+        function page(page) {
+            //입력한 값을 전부 가지고 온다.
+            var searchQuery = $("#searchQuery").val();
+
+            //주소 이동
+            location.href = "/admin/bookingMng/" + page
+                          + "&searchQuery=" + searchQuery;
+        }
+        document.querySelectorAll('button.disabled').forEach(button => {
+            button.disabled = true;
+    });
+    </script>
 </th:block>
 
 </html>
