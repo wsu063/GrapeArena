@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +56,13 @@ public class CartController {
 
         //성공적으로 추가된 항목 ID와 함께 OK 상태 코드 반환
         return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
+    }
+
+    //사용자의 장바구니 목록을 조회
+    public String orderHist(Principal principal, Model model) {
+        List<GoodsCartDto> goodsCartList = cartService.getGoodsCartDtoList(principal.getName()); //장바구니 목록 조회
+
+        return goodsCartList.toString();
     }
 
 }

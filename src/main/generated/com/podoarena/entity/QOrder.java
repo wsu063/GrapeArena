@@ -11,40 +11,42 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QReserve is a Querydsl query type for Reserve
+ * QOrder is a Querydsl query type for Order
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QReserve extends EntityPathBase<Reserve> {
+public class QOrder extends EntityPathBase<Order> {
 
-    private static final long serialVersionUID = 1580019951L;
+    private static final long serialVersionUID = -9692095L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QReserve reserve = new QReserve("reserve");
+    public static final QOrder order = new QOrder("order1");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final QMember member;
 
-    public final ListPath<ReserveSeat, QReserveSeat> reserveSeats = this.<ReserveSeat, QReserveSeat>createList("reserveSeats", ReserveSeat.class, QReserveSeat.class, PathInits.DIRECT2);
+    public final DateTimePath<java.time.LocalDateTime> orderDate = createDateTime("orderDate", java.time.LocalDateTime.class);
 
-    public QReserve(String variable) {
-        this(Reserve.class, forVariable(variable), INITS);
+    public final EnumPath<com.podoarena.constant.OrderStatus> orderStatus = createEnum("orderStatus", com.podoarena.constant.OrderStatus.class);
+
+    public QOrder(String variable) {
+        this(Order.class, forVariable(variable), INITS);
     }
 
-    public QReserve(Path<? extends Reserve> path) {
+    public QOrder(Path<? extends Order> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QReserve(PathMetadata metadata) {
+    public QOrder(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QReserve(PathMetadata metadata, PathInits inits) {
-        this(Reserve.class, metadata, inits);
+    public QOrder(PathMetadata metadata, PathInits inits) {
+        this(Order.class, metadata, inits);
     }
 
-    public QReserve(Class<? extends Reserve> type, PathMetadata metadata, PathInits inits) {
+    public QOrder(Class<? extends Order> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
     }

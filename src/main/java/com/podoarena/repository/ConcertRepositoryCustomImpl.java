@@ -1,7 +1,6 @@
 package com.podoarena.repository;
 
 import com.podoarena.entity.Concert;
-import com.podoarena.entity.QConcert;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import java.util.List;
