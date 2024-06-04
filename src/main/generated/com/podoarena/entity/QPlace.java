@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,26 +18,41 @@ public class QPlace extends EntityPathBase<Place> {
 
     private static final long serialVersionUID = -8950278L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QPlace place = new QPlace("place");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath placeBatch = createString("placeBatch");
 
+    public final QPlaceConcert placeConcert;
+
     public final StringPath placeLocation = createString("placeLocation");
 
     public final StringPath placeName = createString("placeName");
 
+    public final ListPath<Seat, QSeat> seatList = this.<Seat, QSeat>createList("seatList", Seat.class, QSeat.class, PathInits.DIRECT2);
+
     public QPlace(String variable) {
-        super(Place.class, forVariable(variable));
+        this(Place.class, forVariable(variable), INITS);
     }
 
     public QPlace(Path<? extends Place> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QPlace(PathMetadata metadata) {
-        super(Place.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QPlace(PathMetadata metadata, PathInits inits) {
+        this(Place.class, metadata, inits);
+    }
+
+    public QPlace(Class<? extends Place> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.placeConcert = inits.isInitialized("placeConcert") ? new QPlaceConcert(forProperty("placeConcert"), inits.get("placeConcert")) : null;
     }
 
 }
