@@ -1,6 +1,7 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.GoodsFormDto;
+import com.podoarena.dto.GoodsSearchDto;
 import com.podoarena.entity.Goods;
 import com.podoarena.service.GoodsService;
 import jakarta.validation.Valid;
@@ -27,7 +28,11 @@ public class GoodsController {
 
     // 굿즈 메인페이지 이동
     @GetMapping(value = "/goods/goodsIndex")
-    public String goodsPage() {
+    public String goodsPage(Model model, GoodsSearchDto goodsSearchDto,
+                            @RequestParam(value = "page") Optional<Integer> page) {
+        Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0, 20);
+//        page<> goods =
+
         return "goods/goodsIndex";
     }
 
