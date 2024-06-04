@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "seat")
@@ -31,8 +32,11 @@ public class Seat{
     private int seatPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "concert_id")
-    private Concert concert;
+    @JoinColumn(name = "place_id")
+    private Place place;
+
+    @OneToMany(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReserveSeat> reserveSeatList;
 
 
     // 좌석 생성을 어떻게 할까요?

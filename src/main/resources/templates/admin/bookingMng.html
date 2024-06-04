@@ -116,14 +116,14 @@
                         <!-- Pagination -->
                         <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
                             <nav aria-label="Table navigation"
-                                th:with="start=${(reserveSeatPage.number/maxPage) * maxpage + 1},
-                                 end=(${reserveSeatPage.totalPages == 0) ? 1 : (start + (maxPage -1) < reserveSeatPage.totalPages ? start + (maxPage -1) : reserveSeatPage.totalPages)})"
+                                 th:with="start=${(reserveSeatPage.number/maxPage) * maxPage + 1},
+                end= (${(reserveSeatPage.totalPages == 0) ? 1 : (start + (maxPage - 1) < reserveSeatPage.totalPages ? start + (maxPage - 1) : reserveSeatPage.totalPages)}) "
                             >
                                 <ul class="inline-flex items-center">
                                   <li>
                                     <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
                                             aria-label="Previous" th:classappend="${reserveSeatPage.first} ? ' disabled'"
-                                            th:onclick="'javascript:page(' + ${boards.number - 1} + ')'">
+                                            th:onclick="'javascript:page(' + ${reserveSeatPage.number - 1} + ')'">
                                       <svg class="w-4 h-4 fill-current"
                                               aria-hidden="true"
                                               viewBox="0 0 20 20" >
@@ -143,7 +143,7 @@
                                   <li>
                                     <button  class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next"
                                              th:classappend="${reserveSeatPage.last} ? ' disabled'"
-                                             th:onclick="'javascript:page(' + ${boards.number - 1} + ')'">
+                                             th:onclick="'javascript:page(' + ${reserveSeatPage.number + 1} + ')'">
                                       <svg class="w-4 h-4 fill-current"
                                               aria-hidden="true"
                                               viewBox="0 0 20 20" >
