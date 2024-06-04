@@ -11,11 +11,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @Getter
 @Setter
 @ToString
-public class Order {
+public class Order extends BaseEntity {
 
     @Id
     @Column(name = "order_id")
