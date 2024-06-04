@@ -10,6 +10,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
+
 @Entity
 @Table(name = "member")
 @Getter
@@ -47,6 +49,9 @@ public class Member extends BaseEntity {
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private Reserve reserve;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Orders> ordersList;
 
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
