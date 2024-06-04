@@ -5,6 +5,7 @@ import com.podoarena.dto.PlaceImgDto;
 import com.podoarena.entity.Place;
 import com.podoarena.entity.PlaceImg;
 import com.podoarena.repository.PlaceRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class PlaceService {
     private final PlaceRepository placeRepository;
     private final PlaceImgService placeImgService;
 
-    //1. 공연장 등록
+    //1. 공연장 등록(관리자)
     public Long savePlace(PlaceFormDto placeFormDto, MultipartFile placeImgFile) throws Exception {
         Place place = placeFormDto.createPlace();
         placeRepository.save(place);
@@ -34,6 +35,25 @@ public class PlaceService {
     //2. 공연장 목록(관리자)
     public List<Place> getPlaceList() {
         List<Place> places = placeRepository.getPlaceAll();
-        return null;
+        return places;
+    }
+
+    //3. 공연장 수정(관리자)
+    public Long updatePlace(PlaceFormDto placeFormDto, MultipartFile placeImgFile) throws Exception {
+        Place place = placeRepository.findById(placeFormDto.getId())
+                .orElseThrow(EntityNotFoundException::new);
+        Long placeImgId = placeFormDto.getPlaceImgId();
+        place.updatePlace(placeFormDto);
+        placeImgService.updatePlaceImg(placeImgId, placeImgFile);
+
+        return place.getId();
+    }
+
+    //4. 공연장 삭제(관리자)
+    public void deletePlace(Long placeId) {
+        Place place = placeRepository.findById(placeId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        placeRepository.delete(place);
     }
 }

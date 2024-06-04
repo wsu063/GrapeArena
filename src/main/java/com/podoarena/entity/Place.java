@@ -1,5 +1,6 @@
 package com.podoarena.entity;
 
+import com.podoarena.dto.PlaceFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,4 +31,13 @@ public class Place {
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seatList;
+
+    @OneToOne(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
+    private PlaceImg placeImg;
+
+    public void updatePlace(PlaceFormDto placeFormDto) {
+        this.placeName = placeFormDto.getPlaceName();
+        this.placeLocation = placeFormDto.getPlaceLocation();
+        this.placeBatch = placeFormDto.getPlaceBatch();
+    }
 }

@@ -36,14 +36,10 @@
   </header>
 
   <div class="super_container_admin" style="overflow-y: auto;">
-    <form role="form" action="/admin/goods/new" method="post" enctype="multipart/form-data"
-          th:object="${goodsFormDto}" name="goodsForm">
-
-
+    <form role="form" action="/admin/places/new" method="post" enctype="multipart/form-data"
+          th:object="${placeFormDto}" name="placeForm">
       <div class="container single_product_container">
         <div class="row">
-
-
           <!--  표지 이미지 등록  -->
           <div class="col-lg-7">
             <div class="single_product_pics">
@@ -56,59 +52,37 @@
                       <img src="" alt="미리보기 이미지" class="preview">
                     </div>
                     <label th:for="goodsImgFile" class="file-label">Choose File</label>
-                    <input class="file" name="goodsImgFile" id="goodsImgFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
+                    <input class="file" name="placeImgFile" id="goodsImgFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
                     <input type="hidden" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-
           <!-- 굿즈 상세 등록  -->
           <div class="col-lg-5">
             <div class="product_details">
-              <!-- 판매상태  -->
+              <!-- 공연장  -->
               <div class="form_details">
-                <label th:for="sellStatus" class="text-black" >상태</label>
-                <select class="form-select product-form-input" th:field="*{sellStatus}" >
-                  <option value="SELL">판매중</option>
-                  <option value="SOLD_OUT">품절</option>
-                </select>
+                <label th:for="placeName" class="text-black" >공연장 이름</label>
+                <input th:field="*{placeName}" id="placeName" type="text" class="form-control product-form-input"  placeholder="이름을 입력해주세요" />
+                <p th:if="${#fields.hasErrors('placeName')}" th:errors="*placeName" class="fieldError">Incorrect Data</p>
               </div>
-              <!-- 상품명  -->
+              <!-- 공연장 위치. 나중에 List로 바꿔야할수도?  -->
               <div class="form_details">
-                <label th:for="goodsName" class="text-black" >상품명</label>
-                <input th:field="*{goodsName}" id="goodsName" type="text" class="form-control product-form-input"  placeholder="알아서 입력" />
-                <p th:if="${#fields.hasErrors('goodsName')}" th:errors="*goodsName" class="fieldError">Incorrect Data</p>
+                <label th:for="placeLocation" class="text-black">공연장 위치</label>
+                <input th:field="*{placeLocation}" id="placeLocation" type="text" class="form-control product-form-input" placeholder="알아서 입력" />
+                <p th:if="${#fields.hasErrors('placeLocation')}" th:errors="*placeLocation" class="fieldError">Incorrect Data</p>
               </div>
-              <!-- 가격  -->
+              <!-- 공연장 배치. 아마도 hidden으로 관리자 입력 줘야될거같음 -->
               <div class="form_details">
-                <label th:for="goodsPrice" class="text-black">가격</label>
-                <input th:field="*{goodsPrice}" id="goodsPrice" type="text" class="form-control product-form-input" placeholder="알아서 입력" oninput="inputNumberFormat(this)" />
-                <p th:if="${#fields.hasErrors('goodsPrice')}" th:errors="*goodsPrice" class="fieldError">Incorrect Data</p>
+                <label th:for="placeBatch" class="text-black">공연장 배치</label>
+                <input th:field="*{placeBatch}" id="placeBatch" type="text" class="form-control product-form-input" placeholder="알아서 입력" oninput="inputNumberFormat(this)" />
+                <p th:if="${#fields.hasErrors('placeBatch')}" th:errors="*placeBatch" class="fieldError">Incorrect Data</p>
               </div>
 
               <div class="form_details">
-                <label th:for="goodsMaxAmount" class="text-black">최대구매수량</label>
-                <input th:field="*{goodsMaxAmount}" id="goodsMaxAmount" type="text" class="form-control product-form-input" placeholder="알아서 입력" oninput="inputNumberFormat(this)" />
-                <p th:if="${#fields.hasErrors('goodsMaxAmount')}" th:errors="*goodsMaxAmount" class="fieldError">Incorrect Data</p>
-              </div>
-
-              <div class="form_details">
-                <label th:for="goodsStock" class="text-black">재고</label>
-                <input th:field="*{goodsStock}" id="goodsStock" type="text" class="form-control product-form-input" placeholder="알아서 입력" oninput="inputNumberFormat(this)" />
-                <p th:if="${#fields.hasErrors('goodsStock')}" th:errors="*goodsStock" class="fieldError">Incorrect Data</p>
-              </div>
-
-              <!-- 본문 이미지 업로드  -->
-              <div class="form_details">
-                <label class="text-black" for="goodsImgFile">본문이미지</label>
-                <input type="file" id="REQ_FILE" name="goodsImgFile"  >
-              </div>
-
-              <div class="form_details">
-                <button class="btn btn-primary solid blank mt-3 submit-registration" type="button" onclick="beforeSubmit(); return false;">
+                <button class="btn btn-primary solid blank mt-3 submit-registration" type="submit" >
                   등록하기
                 </button>
               </div>
@@ -199,40 +173,6 @@ function DropFile(dropAreaId, fileListId) {
      }
 
      const dropFile = new DropFile("drop-file", "files");
-
-
-
-    // 천단위 콤마 찍는 함수
-    function inputNumberFormat(obj) {
-        let value = obj.value; // 입력한 값
-        value = Number(value.replaceAll(',', '')); // 콤마 제거
-        if (isNaN(value)) {
-            obj.value = 0; // 숫자가 아니면 0으로 설정
-        } else {
-            const formatValue = value.toLocaleString('ko-KR');
-            obj.value = formatValue;
-        }
-    }
-
-    // 상품 등록 버튼을 누르면 천단위 콤마 제거 후 전송
-        function beforeSubmit() {
-            const f = document.goodsForm;
-
-            // 가격 입력란
-            let goodsPrice = document.getElementById('goodsPrice');
-            f.goodsPrice.value = Number(goodsPrice.value.replaceAll(',', ''));
-
-            // 구매수량 입력란
-            let goodsMaxAmount = document.getElementById('goodsMaxAmount');
-            f.goodsMaxAmount.value = Number(goodsMaxAmount.value.replaceAll(',', ''));
-
-            // 재고 입력란
-            let goodsStock = document.getElementById('goodsStock');
-            f.goodsStock.value = Number(goodsStock.value.replaceAll(',', ''));
-
-            // 폼 제출
-            f.submit();
-        }
 
   </script>
 </th:block>

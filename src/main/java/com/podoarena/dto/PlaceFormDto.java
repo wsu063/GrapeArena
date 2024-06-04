@@ -25,6 +25,8 @@ public class PlaceFormDto {
 
     private PlaceImgDto placeImgDto;
 
+    private Long placeImgId;
+
     private static ModelMapper modelMapper = new ModelMapper();
 
     //dto -> entity
