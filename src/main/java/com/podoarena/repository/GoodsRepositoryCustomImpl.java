@@ -35,11 +35,11 @@ public class GoodsRepositoryCustomImpl implements GoodsRepositoryCustom{
 
 
     @Override
-    public Page<Goods> getGoodsList(GoodsSearchDto goodsSearchDto, Pageable pageable) {
+    public Page<Goods> getAdminGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable) {
         List<Goods> content = queryFactory
                 .selectFrom(QGoods.goods)
                 .where(goodsNameLike(goodsSearchDto.getSearchQuery()))
-                .orderBy(QGoods.goods.sellStatus.desc())
+                .orderBy(QGoods.goods.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();

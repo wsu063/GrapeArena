@@ -78,10 +78,18 @@ public class GoodsService {
         goodsRepository.delete(goods);
     }
 
+    @Transactional(readOnly = true)
+    public Page<Goods> getAdminGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable){
+        Page<Goods> goodsPage = goodsRepository.getAdminGoodsPage(goodsSearchDto, pageable);
+        return goodsPage;
+    }
+
     //굿즈어드민 페이징
     public Page<MainGoodsDto> getMainGoodsList(GoodsSearchDto goodsSearchDto, Pageable pageable) {
         Page<MainGoodsDto> mainGoodsDtoPage = goodsRepository.getMainGoodsPage(goodsSearchDto, pageable);
-
         return mainGoodsDtoPage;
     }
+
+
+
 }
