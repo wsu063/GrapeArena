@@ -64,35 +64,38 @@
                             <th class="px-4 py-3">판매상황</th>
                             <th class="px-4 py-3">최대구매수량</th>
                             <th class="px-4 py-3">재고</th>
-
                             <th class="px-4 py-3">Actions</th>
                         </tr>
                         </thead>
                         <tbody  class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         <tr class="text-gray-700 dark:text-gray-400"
-                            th:each="goods, status: ${goods.getContent()}">
+                            th:each="goods, status: ${posts.getContent()}">
 
                             <!-- 굿즈(MD)ID -->
-                            <td class="px-4 py-3" th:text="${goods.id}"> </td>
+                            <td th:text="${goods.id}" class="px-4 py-3" > </td>
+
                             <!-- 상품명 -->
                             <td class="px-4 py-3">
                                 <a th:href="'/admin/goodsView/' + ${goods.id}"
                                    th:text="${goods.goodsName}">
                                 </a>
                             </td>
+
                             <!-- 가격 -->
                             <td class="px-4 py-3 text-sm">
                                 &nbsp;&nbsp;[[${#numbers.formatInteger(goods.price, 0, 'COMMA')}]]원
                             </td>
+
                             <!-- 판매상황 -->
                             <td class="px-4 py-3 text-xs" th:text="${goods.sellStatus}"></td>
+
                             <!-- 최대구매수량 -->
                             <td class="px-4 py-3 text-sm" th:text="${goods.goodsMaxAmount}"></td>
+
                             <!-- 재고 -->
                             <td class="px-4 py-3 text-sm" th:text="${goods.goodsStock}"></td>
 
                             <td class="px-4 py-3">
-
                                 <div class="flex items-center space-x-4 text-sm">
                                     <!-- 수정 -->
                                     <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"

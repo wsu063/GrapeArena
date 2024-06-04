@@ -31,7 +31,6 @@ public class GoodsController {
     public String goodsPage(Model model, GoodsSearchDto goodsSearchDto,
                             @RequestParam(value = "page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0, 20);
-//        page<> goods =
 
         return "goods/goodsIndex";
     }
