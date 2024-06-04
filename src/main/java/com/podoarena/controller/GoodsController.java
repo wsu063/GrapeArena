@@ -87,6 +87,12 @@ public class GoodsController {
         goodsService.deleteGoods(goodsId);
         return new ResponseEntity<Long>(goodsId, HttpStatus.OK);
     }
+    // 굿즈 리스트 이동
+    @GetMapping(value ="/admin/goods/list")
+    public String goodsList(Model model) {
+        model.addAttribute("goodsFormDto", new GoodsFormDto());
+        return "admin/goodsList";
+    }
 
 
 

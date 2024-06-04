@@ -4,6 +4,7 @@ import com.podoarena.dto.PlaceFormDto;
 import com.podoarena.dto.PlaceImgDto;
 import com.podoarena.entity.Place;
 import com.podoarena.entity.PlaceImg;
+import com.podoarena.repository.PlaceImgRepository;
 import com.podoarena.repository.PlaceRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.List;
 public class PlaceService {
     private final PlaceRepository placeRepository;
     private final PlaceImgService placeImgService;
+    private final PlaceImgRepository placeImgRepository;
 
     //1. 공연장 등록(관리자)
     public Long savePlace(PlaceFormDto placeFormDto, MultipartFile placeImgFile) throws Exception {
@@ -47,6 +49,24 @@ public class PlaceService {
         placeImgService.updatePlaceImg(placeImgId, placeImgFile);
 
         return place.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public PlaceFormDto getPlaceDtl(Long placeId) {
+
+        //나중에 service에서 하나로 정리하기
+        PlaceImg placeImg = placeImgRepository.findByPlaceId(placeId);
+        PlaceImgDto placeImgDto = PlaceImgDto.of(placeImg);
+
+        Place place = placeRepository.findById(placeId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        PlaceFormDto placeFormDto = PlaceFormDto.of(place);
+
+        placeFormDto.setPlaceImgDto(placeImgDto);
+
+
+        return placeFormDto;
     }
 
     //4. 공연장 삭제(관리자)
