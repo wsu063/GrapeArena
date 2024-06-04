@@ -85,112 +85,118 @@
     <script src="https://developers.kakao.com/sdk/js/kakao/js"></script>
     <script th:inline="javascript">
 
-        // 카카오 로그인
-        window.Kakao.init("9cdc1b3284eb43a2c0b07ba6546601da");
 
-             function kakaoLogin() {
-               window.Kakao.Auth.login({
-                 scope: 'profile_nickname',
-                 success: function (authObj) {
-                   console.log(authObj);
-                   window.Kakao.API.request({
-                     url: '/v2/user/me',
-                     success: res => {
-                       const kakao_account = res.kakao_account;
-                       console.log(kakao_account);
-                     },
-                     fail: function (error) {
-                       console.log(error);
-                     }
-                   });
-                 },
-                 fail: function (error) {
-                   console.log(error);
-                 }
+
+        // 쿠키값이 있는지 확인 ( 체크박스 체크시 다음 로그인때 이메일저장이 되어있는지 )
+           var userInputId = getCookie("userInputId"); // 쿠키값( 이메일 )을 가져온다
+           var setCookieYN = getCookie("setCookieYN");  // 쿠키값( 이메일 저장 여부 ) 를 가져온다.
+
+           if(setCookieYN == 'Y' ) { // 이메일 저장 여부가 'Y'면
+               $("#id_save").prop("checked", true); // 이메일 저장 체크박스를 체크한다.
+               $("#email").val(userInputId);  // 이메일 input창에 쿠키에서 가져온 이메일 주소를 넣는다
+           } else { // 만약 이게 아니라면
+               $("#id_save").prop("checked", false);
+           }
+
+           // 로그인 버튼 클릭시 이메일저장이 클릭되어 있다면, 쿠키에 이메일 저장여부, 이메일 저장
+           $("#loginBtn").click(function() {
+               if($("#id_save").is(":checked")) { // 이메일저장이 체크되어 있다면
+                   var userInputId = $("#email").val(); // 입력한 이메일을 가지고 온다.
+
+                   // 쿠키 생성
+                   setCookie("userInputId", userInputId, 60); // 60일 동안 userInputId 를 저장할꺼야 이메일저장!!!
+                   setCookie("setCookieYN", "Y" , 60); // 60일 동안 이메일을 저장할껀지 저장여부를 저장저장
+                   } else { // 이메일 저장여부를 삭제했으면~
+                    // 쿠키삭제
+                    deleteCookie("userInputId");
+                    deleteCookie("setCookieYN");
+
+               }
+           });
+
+       // 카카오 로그인
+       window.Kakao.init("9cdc1b3284eb43a2c0b07ba6546601da");
+
+            function kakaoLogin() {
+              window.Kakao.Auth.login({
+                scope: 'profile_nickname',
+                success: function (authObj) {
+                  console.log(authObj);
+                  window.Kakao.API.request({
+                    url: '/v2/user/me',
+                    success: res => {
+                      const kakao_account = res.kakao_account;
+                      console.log(kakao_account);
+                    },
+                    fail: function (error) {
+                      console.log(error);
+                    }
+                  });
+                },
+                fail: function (error) {
+                  console.log(error);
+                }
+              });
+            }
+
+            // 네이버 로그인
+       var naver_id_login = new naver_id_login("3drhsh029AGKE2v99_bQ", "http://localhost/members/login");
+               var state = naver_id_login.getUniqState();
+               naver_id_login.setButton("green", 1,40);
+               naver_id_login.setDomain("http://localhost:3306");
+               naver_id_login.setState(state);
+               naver_id_login.setPopup();
+               naver_id_login.init_naver_id_login();
+
+               naverLogin.init();
+               naverLogin.getLoginStatus(function (status) {
+                 if (status) {
+                     const nickName=naverLogin.user.getNickName();
+                     const age=naverLogin.user.getAge();
+                     const birthday=naverLogin.user.getBirthday();
+
+                     if(nickName===null||nickName===undefined ){
+                       alert("별명이 필요합니다. 정보제공을 동의해주세요.");
+                       naverLogin.reprompt();
+                       return ;
+                    }else{
+                     setLoginStatus();
+                    }
+               }
                });
-             }
+               console.log(naverLogin);
 
-             // 네이버 로그인
-            var naver_id_login = new naver_id_login("3drhsh029AGKE2v99_bQ", "http://localhost/members/login");
-                var state = naver_id_login.getUniqState();
-                naver_id_login.setButton("green", 1,40);
-                naver_id_login.setDomain("http://localhost:3306");
-                naver_id_login.setState(state);
-                naver_id_login.setPopup();
-                naver_id_login.init_naver_id_login();
+       function setLoginStatus(){
 
-                 naverLogin.init();
-    naverLogin.getLoginStatus(function (status) {
-      if (status) {
-          const nickName=naverLogin.user.getNickName();
-          const age=naverLogin.user.getAge();
-          const birthday=naverLogin.user.getBirthday();
+         const message_area=document.getElementById('message');
+         message_area.innerHTML=`
+         <h3> Login 성공 </h3>
+         <div>user Nickname : ${naverLogin.user.nickname}</div>
+         <div>user Age(범위) : ${naverLogin.user.age}</div>
+         <div>user Birthday : ${naverLogin.user.birthday}</div>
+         `;
 
-          if(nickName===null||nickName===undefined ){
-            alert("별명이 필요합니다. 정보제공을 동의해주세요.");
-            naverLogin.reprompt();
-            return ;
-         }else{
-          setLoginStatus();
-         }
-    }
-    });
-    console.log(naverLogin);
+         const button_area=document.getElementById('button_area');
+         button_area.innerHTML="<button id='btn_logout'>로그아웃</button>";
 
-    function setLoginStatus(){
+         const logout=document.getElementById('btn_logout');
+         logout.addEventListener('click',(e)=>{
+           naverLogin.logout();
+       location.replace("http://127.0.0.1:5500");
+         })
+       }
 
-      const message_area=document.getElementById('message');
-      message_area.innerHTML=`
-      <h3> Login 성공 </h3>
-      <div>user Nickname : ${naverLogin.user.nickname}</div>
-      <div>user Age(범위) : ${naverLogin.user.age}</div>
-      <div>user Birthday : ${naverLogin.user.birthday}</div>
-      `;
-
-      const button_area=document.getElementById('button_area');
-      button_area.innerHTML="<button id='btn_logout'>로그아웃</button>";
-
-      const logout=document.getElementById('btn_logout');
-      logout.addEventListener('click',(e)=>{
-        naverLogin.logout();
-    location.replace("http://127.0.0.1:5500");
-      })
-    }
+       //로그인 폼에서 Enter 키를 눌렀을 때 자동으로 로그인 버튼을 클릭
+            $(document).ready(function() {
+            $('#login-form input').on('keypress', function(e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    $('#loginBtn').click();
+                }
+            });
+        });
 
 
-
-             document.addEventListener('DOMContentLoaded', function() {
-                 var userInputId = getCookie("userInputId");
-                 var setCookieYN = getCookie("setCookieYN");
-
-                 if (setCookieYN == 'Y') {
-                     document.getElementById("id_save").checked = true;
-                     document.getElementById("email").value = userInputId;
-                 } else {
-                     document.getElementById("id_save").checked = false;
-                 }
-
-                 document.getElementById("loginBtn").addEventListener('click', function() {
-                     if (document.getElementById("id_save").checked) {
-                         var userInputId = document.getElementById("email").value;
-                         setCookie("userInputId", userInputId, 60);
-                         setCookie("setCookieYN", "Y", 60);
-                     } else {
-                         deleteCookie("userInputId");
-                         deleteCookie("setCookieYN");
-                     }
-                 });
-             });
-
-
-             $(document).ready(function() {
-                 $('#login-form input').on('keypress', function(e) {
-                     if (e.which == 13) { // Enter key 코드 13번
-                         e.preventDefault();
-                         $('#loginBtn').click();
-                     }
-                 });
-             });
     </script>
 </th:block>
 </html>

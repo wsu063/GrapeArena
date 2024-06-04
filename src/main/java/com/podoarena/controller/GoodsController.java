@@ -47,14 +47,6 @@ public class GoodsController {
         return "admin/goodsForm";
     }
 
-
-    // 굿즈 리스트 이동
-    @GetMapping(value ="/admin/goods/list")
-    public String goodsList(Model model) {
-        model.addAttribute("goodsFormDto", new GoodsFormDto());
-        return "admin/goodsList";
-    }
-
     // 굿즈 등록 처리
     @PostMapping(value ="/admin/goods/new")
     public String goodsNew(@Valid GoodsFormDto goodsFormDto, BindingResult bindingResult, Model model,
