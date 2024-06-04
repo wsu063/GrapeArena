@@ -28,11 +28,16 @@ public class ReserveSeat extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_concert_id")
+    private PlaceConcert placeConcert;
+
     //생성
-    public static ReserveSeat crateReserveSeat(Seat seat, Member member, int seatCount) {
+    public static ReserveSeat crateReserveSeat(Seat seat, Member member, PlaceConcert placeConcert) {
         ReserveSeat reserveSeat = new ReserveSeat();
         reserveSeat.setSeat(seat);
         reserveSeat.setReserve(member.getReserve());
+        reserveSeat.setPlaceConcert(placeConcert);
 
         return reserveSeat;
     }

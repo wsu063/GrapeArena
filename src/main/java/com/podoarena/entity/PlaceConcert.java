@@ -20,7 +20,7 @@ public class PlaceConcert {
     @JoinColumn(name = "concert_id")
     private Concert concert;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
 
