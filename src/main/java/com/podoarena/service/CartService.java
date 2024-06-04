@@ -77,7 +77,7 @@ public class CartService {
     }
 
     //카트 아이템의 소유자 검증
-    public boolean validateGoodsCar(Long id, String email) {
+    public boolean validateGoodsCart(Long id, String email) {
         Member curMember = memberRepository.findByEmail(email); //현재 회원 정보
         GoodsCart goodsCart = goodsCartRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아옴
