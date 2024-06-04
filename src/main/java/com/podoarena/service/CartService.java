@@ -71,7 +71,7 @@ public class CartService {
         }
 
         //카트굿즈 리스트를 가져와서 반환
-        GoodsCartDtoList =  goodsCartRepository.findGoodsCartDtoList(cart.getId());
+//        GoodsCartDtoList =  goodsCartRepository.findGoodsCartDtoList(cart.getId());
         return GoodsCartDtoList;
     }
 

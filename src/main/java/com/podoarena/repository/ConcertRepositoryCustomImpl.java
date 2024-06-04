@@ -10,11 +10,12 @@ public class ConcertRepositoryCustomImpl implements  ConcertRepositoryCustom{
     private JPAQueryFactory queryFactory;
     @Override
     public List<Concert> getConcertList() {
-        List<Concert> concerts = queryFactory
-                .selectFrom(QConcert.concert)
-                .orderBy(QConcert.concert.regDate.desc())
-                .fetch();
-
-        return concerts;
+//        List<Concert> concerts = queryFactory
+//                .selectFrom(QConcert.concert)
+//                .orderBy(QConcert.concert.regDate.desc())
+//                .fetch();
+//
+//        return concerts;
+        return null;
     }
 }

@@ -11,5 +11,5 @@ import java.util.List;
 public interface GoodsCartRepository extends JpaRepository<GoodsCart, Long> {
     GoodsCart findByGoodsId(Long id);
 
-    List<GoodsCartDto> findGoodsCartDtoList (@Param("goodscartId") Long goodscartId);
+//    List<GoodsCartDto> findGoodsCartDtoList (Long goodsCartId);
 }
