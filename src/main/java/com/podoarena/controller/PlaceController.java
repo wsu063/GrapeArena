@@ -62,11 +62,41 @@ public class PlaceController {
     }
 
     //공연장 수정
-    @GetMapping(value = "/admin/places/edit")
-    public String placeModify() {
+    @GetMapping(value = "/admin/places/edit/{placeId}")
+    public String placeModify(@PathVariable("placeId") Long placeId, Model model) {
 
+        try {
+            PlaceFormDto placeFormDto = placeService.getPlaceDtl(placeId);
+            model.addAttribute("placeFormDto", placeFormDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMessage", "공연장 수정 중 오류가 발생했습니다.");
+            model.addAttribute("placeFormDto", new PlaceFormDto());
+            return "admin/placeModifyForm";
+        }
 
         return "admin/placeModifyForm";
+    }
+    //공연장 수정
+    @PostMapping(value = "/admin/places/edit/{placeId}")
+    public String placeUpdate(@Valid PlaceFormDto placeFormDto, Model model,
+                              BindingResult bindingResult, @RequestParam("placeImgFile") MultipartFile placeImgFile,
+                              @PathVariable("placeId") Long placeId) {
+        if(bindingResult.hasErrors()) return "admin/placeForm";
+
+        PlaceFormDto getPlaceFormDto = placeService.getPlaceDtl(placeId);
+
+        try {
+            placeService.updatePlace(placeFormDto, placeImgFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMessage", "공연장 수정 중 오류가 발생했습니다.");
+            model.addAttribute("placeFormDto", getPlaceFormDto);
+
+            return "admin/placeModifyForm";
+        }
+
+        return "redirect:/admin/places/list";
     }
 
     //공연장 삭제
