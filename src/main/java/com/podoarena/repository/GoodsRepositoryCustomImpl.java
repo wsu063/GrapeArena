@@ -67,8 +67,6 @@ public class GoodsRepositoryCustomImpl implements GoodsRepositoryCustom{
                                 goods.goodsMaxAmount)
                 )
                 .from(goodsImg)
-                .join(goodsImg.goods, goods)
-                .where(goodsImg.repImgYn.eq(RepImgYn.valueOf("Y")))
                 .where(goodsNameLike(goodsSearchDto.getSearchQuery()))
                 .orderBy(goods.id.desc())
                 .offset(pageable.getOffset())
@@ -78,8 +76,6 @@ public class GoodsRepositoryCustomImpl implements GoodsRepositoryCustom{
         long total = queryFactory
                 .select(Wildcard.count)
                 .from(goodsImg)
-                .join(goodsImg.goods, goods)
-                .where(goodsImg.repImgYn.eq(RepImgYn.valueOf("Y")))
                 .where(goodsNameLike(goodsSearchDto.getSearchQuery()))
                 .fetchOne();
 

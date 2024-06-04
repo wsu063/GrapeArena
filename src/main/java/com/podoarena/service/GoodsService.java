@@ -2,6 +2,7 @@ package com.podoarena.service;
 
 import com.podoarena.constant.RepImgYn;
 import com.podoarena.dto.GoodsFormDto;
+import com.podoarena.dto.GoodsImgDto;
 import com.podoarena.dto.GoodsSearchDto;
 import com.podoarena.dto.MainGoodsDto;
 import com.podoarena.entity.Goods;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,6 +51,25 @@ public class GoodsService {
         return goods.getId();
     }
 
+    //상품리스트 이미지 가져오기
+    @Transactional(readOnly = true)
+    public GoodsFormDto getGoodsDtl(Long goodsId) {
+        List<GoodsImg> goodsImgList = goodsImgRepository.findByGoodsIdOrderByIdAsc(goodsId);
+
+        List<GoodsImgDto> goodsImgDtoList = new ArrayList<>();
+        for (GoodsImg goodsImg : goodsImgList) {
+            GoodsImgDto goodsImgDto = GoodsImgDto.of(goodsImg);
+            goodsImgDtoList.add(goodsImgDto);
+        }
+
+        Goods goods = goodsRepository.findById(goodsId).orElseThrow(EntityNotFoundException::new);
+
+        GoodsFormDto goodsFormDto = GoodsFormDto.of(goods);
+        goodsFormDto.setGoodsImgDtoList(goodsImgDtoList);
+
+        return goodsFormDto;
+    }
+
     //굿즈 삭제하기
     public void deleteGoods(Long goodsId) {
         Goods goods = goodsRepository.findById(goodsId)
@@ -57,7 +78,7 @@ public class GoodsService {
         goodsRepository.delete(goods);
     }
 
-    //굿즈인덱스 페이징
+    //굿즈어드민 페이징
     public Page<MainGoodsDto> getMainGoodsList(GoodsSearchDto goodsSearchDto, Pageable pageable) {
         Page<MainGoodsDto> mainGoodsDtoPage = goodsRepository.getMainGoodsPage(goodsSearchDto, pageable);
 

@@ -93,7 +93,4 @@ public class GoodsController {
         model.addAttribute("goodsFormDto", new GoodsFormDto());
         return "admin/goodsList";
     }
-
-
-
 }
