@@ -120,7 +120,7 @@
         </div>
         
         
-        <div class="row" th:each="good, status: ${goods.getContent()}">
+        <div class="row">
           <div class="col">
             <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
               
@@ -128,48 +128,19 @@
               
               <div class="product-item TOUR">
                 <div class="product discount product_filter">
-                  <a th:href="/goods/goodsDtl/ + ${good.id}">
+                  <a href="/goods/goodsDtl">
                     <div class="product_image">
-                      <img th:src="${good.imgUrl}" th:alt="${good.goodsName}">
+                      <img src="/images/goods1.png" alt="">
                     </div>
                     <div class="favorite"></div>
                     <div class="product_info">
-                      <h6 class="product_name">[[${good.goodsName]]</h6>
-                      <div class="product_price">￦[[${#numbers.formatInteger(good.goodsPrice,0, 'COMMA')}]]</div>
+                      <h6 class="product_name">Shopper Bag</h6>
+                      <div class="product_price">￦6,000</div>
                     </div>
                   </a>
                 </div>
                 <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
               </div>
-            </div>
-          </div>
-          
-          <!-- 페이징처리 -->
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <nav aria-label="Page navigation example" th:with="start=${(goods.number/maxPage)*maxPage + 1}
-               ,end=(${(goods.totalPages == 0) ? 1 : (start + (maxPage - 1) < goods.totalPages ? start + (maxPage - 1) : goods.totalPages)})">
-                <ul class="pagination d-flex justify-content-center">
-                  <li class="page-item" th:classappend="${goods.first}?'disabled'">
-                    <a class="page-link" th:href="@{'/goods/goodsIndex' +'?searchQuery='+${goodsSearchDto.searchQuery}
-                                        +'&page='+${goods.number -1}}" >이전</a>
-                  </li>
-                  
-                  <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}"
-                      th:classappend="${goods.number eq page-1}?'active':''">
-                    <a class="page-link"
-                       th:classappend="${goods.number eq page-1}?'active':''" th:inline="text"
-                       th:href="@{'/goods/goodsIndex' +'?searchQuery='+${goodsSearchDto.searchQuery}
-                               +'&page='+${page -1}}">[[${page}]]</a>
-                  </li>
-                  
-                  <li class="page-item" th:classappend="${goods.last}?'disabled'">
-                    <a class="page-link"
-                       th:href="@{'/goods/goodsIndex' +'?searchQuery='+${goodsSearchDto.searchQuery}
-                                        +'&page='+${goods.number +1}}">다음</a>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
         </div>
