@@ -96,7 +96,22 @@ font-size: large;
   width: 100%;
   border-radius: 6px;
   cursor: pointer;
+  border: 0px;
  }
+
+ .submit-registration-input{
+   margin-top: 30px;
+   background-color: #7e3af2;
+   color: #fff;
+   text-align: center;
+   padding: 10px 0;
+   width: 15%;
+   border-radius: 6px;
+   cursor: pointer;
+   border: 0px;
+  }
+
+
 
 
 .contents .upload-box .file {

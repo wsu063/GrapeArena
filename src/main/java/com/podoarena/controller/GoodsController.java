@@ -1,19 +1,24 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.GoodsFormDto;
+import com.podoarena.entity.Goods;
 import com.podoarena.service.GoodsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,13 +43,20 @@ public class GoodsController {
         return "admin/goodsForm";
     }
 
+
+    // 굿즈 리스트 이동
+    @GetMapping(value ="/admin/goods/list")
+    public String goodsList(Model model) {
+        model.addAttribute("goodsFormDto", new GoodsFormDto());
+        return "admin/goodsList";
+    }
+
     // 굿즈 등록 처리
     @PostMapping(value ="/admin/goods/new")
     public String goodsNew(@Valid GoodsFormDto goodsFormDto, BindingResult bindingResult, Model model,
                            @RequestParam("goodsImgFile")List<MultipartFile> goodsImgFileList){
 
         if (bindingResult.hasErrors()) return "admin/goodsForm";
-
 
         if(goodsImgFileList.get(0).isEmpty()){
             model.addAttribute("errorMessage",
@@ -62,5 +74,17 @@ public class GoodsController {
         }
         return "redirect:/";
     }
+
+
+
+
+    //굿즈 삭제
+    @DeleteMapping(value = "/admin/delete/{goodsId}")
+    public @ResponseBody ResponseEntity deleteGoods(@PathVariable(value = "goodsId") Long goodsId) {
+        goodsService.deleteGoods(goodsId);
+        return new ResponseEntity<Long>(goodsId, HttpStatus.OK);
+    }
+
+
 
 }
