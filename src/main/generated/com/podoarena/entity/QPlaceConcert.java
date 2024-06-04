@@ -28,6 +28,8 @@ public class QPlaceConcert extends EntityPathBase<PlaceConcert> {
 
     public final QPlace place;
 
+    public final ListPath<ReserveSeat, QReserveSeat> reserveSeatList = this.<ReserveSeat, QReserveSeat>createList("reserveSeatList", ReserveSeat.class, QReserveSeat.class, PathInits.DIRECT2);
+
     public QPlaceConcert(String variable) {
         this(PlaceConcert.class, forVariable(variable), INITS);
     }

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Entity
 @Table(name = "place_concert")
 @Getter
@@ -20,9 +22,13 @@ public class PlaceConcert {
     @JoinColumn(name = "concert_id")
     private Concert concert;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reserve_seat_id")
+    private List<ReserveSeat> reserveSeatList;
 
     public static PlaceConcert createPlaceConcert(Place place, Concert concert) {
         PlaceConcert placeConcert = new PlaceConcert();
