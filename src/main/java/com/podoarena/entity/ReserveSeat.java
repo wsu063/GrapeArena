@@ -16,8 +16,6 @@ public class ReserveSeat extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int seatCount;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id")
     private Seat seat;
@@ -35,7 +33,6 @@ public class ReserveSeat extends BaseEntity {
         ReserveSeat reserveSeat = new ReserveSeat();
         reserveSeat.setSeat(seat);
         reserveSeat.setReserve(member.getReserve());
-        reserveSeat.setSeatCount(seatCount);
 
         return reserveSeat;
     }

@@ -41,8 +41,6 @@ public class QReserveSeat extends EntityPathBase<ReserveSeat> {
 
     public final QSeat seat;
 
-    public final NumberPath<Integer> seatCount = createNumber("seatCount", Integer.class);
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateDate = _super.updateDate;
 
