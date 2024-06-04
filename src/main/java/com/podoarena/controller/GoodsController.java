@@ -2,6 +2,7 @@ package com.podoarena.controller;
 
 import com.podoarena.dto.GoodsFormDto;
 import com.podoarena.dto.GoodsSearchDto;
+import com.podoarena.dto.MainGoodsDto;
 import com.podoarena.entity.Goods;
 import com.podoarena.service.GoodsService;
 import jakarta.validation.Valid;
@@ -31,13 +32,19 @@ public class GoodsController {
     public String goodsPage(Model model, GoodsSearchDto goodsSearchDto,
                             @RequestParam(value = "page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0, 20);
+        Page<MainGoodsDto> goods = goodsService.getMainGoodsList(goodsSearchDto, pageable);
+
+        model.addAttribute("goods", goods);
+        model.addAttribute("goodsSearchDto", goodsSearchDto);
+        model.addAttribute("maxPage", 5);
 
         return "goods/goodsIndex";
     }
 
     // 굿즈 상세 페이지 이동
-    @GetMapping(value = "/goods/goodsDtl")
-    public String goodsDtl() {
+    @GetMapping(value = "/goods/goodsDtl/{goodId}")
+    public String goodsDtl(Model model, @PathVariable(value ="goodId") Long id) {
+//        GoodsFormDto goods = goodsService.g
         return "goods/goodsDtl";
     }
 
@@ -68,7 +75,7 @@ public class GoodsController {
                     "상품 등록 중 에러가 발생했습니다.");
             return "admin/goodsForm";
         }
-        return "redirect:/";
+        return "admin/goodsList";
     }
 
 

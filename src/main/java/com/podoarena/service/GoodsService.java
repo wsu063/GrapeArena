@@ -2,6 +2,8 @@ package com.podoarena.service;
 
 import com.podoarena.constant.RepImgYn;
 import com.podoarena.dto.GoodsFormDto;
+import com.podoarena.dto.GoodsSearchDto;
+import com.podoarena.dto.MainGoodsDto;
 import com.podoarena.entity.Goods;
 import com.podoarena.entity.GoodsImg;
 import com.podoarena.repository.GoodsImgRepository;
@@ -55,4 +57,10 @@ public class GoodsService {
         goodsRepository.delete(goods);
     }
 
+    //굿즈인덱스 페이징
+    public Page<MainGoodsDto> getMainGoodsList(GoodsSearchDto goodsSearchDto, Pageable pageable) {
+        Page<MainGoodsDto> mainGoodsDtoPage = goodsRepository.getMainGoodsPage(goodsSearchDto, pageable);
+
+        return mainGoodsDtoPage;
+    }
 }
