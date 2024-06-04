@@ -1,5 +1,6 @@
 package com.podoarena.service;
 
+import com.podoarena.constant.RepImgYn;
 import com.podoarena.dto.GoodsFormDto;
 import com.podoarena.entity.Goods;
 import com.podoarena.entity.GoodsImg;
@@ -32,9 +33,9 @@ public class GoodsService {
             goodsImg.setGoods(goods);
 
             if (i == 0) {
-                goodsImg.setRepImgYn("Y");
+                goodsImg.setRepImgYn(RepImgYn.Y);
             } else {
-                goodsImg.setRepImgYn("N");
+                goodsImg.setRepImgYn(RepImgYn.N);
             }
 
             goodsImgService.saveGoodsImg(goodsImg, goodsImgFileList.get(i));

@@ -32,7 +32,7 @@ public class QGoodsImg extends EntityPathBase<GoodsImg> {
 
     public final StringPath oriImgName = createString("oriImgName");
 
-    public final StringPath repImgYn = createString("repImgYn");
+    public final EnumPath<com.podoarena.constant.RepImgYn> repImgYn = createEnum("repImgYn", com.podoarena.constant.RepImgYn.class);
 
     public QGoodsImg(String variable) {
         this(GoodsImg.class, forVariable(variable), INITS);

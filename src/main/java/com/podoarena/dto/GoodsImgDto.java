@@ -1,5 +1,6 @@
 package com.podoarena.dto;
 
+import com.podoarena.constant.RepImgYn;
 import com.podoarena.entity.GoodsImg;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ public class GoodsImgDto {
 
     private String imgUrl; // 이미지 경로
 
-    private String repImgYn; // 대표 이미지 여부(Y: 썸네일이미지, N: 일반이미지)
+    private RepImgYn repImgYn; // 대표 이미지 여부(Y: 썸네일이미지, N: 일반이미지)
 
     private static ModelMapper modelMapper = new ModelMapper();
 
