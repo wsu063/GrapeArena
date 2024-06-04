@@ -32,6 +32,7 @@ public class ReserveSeat extends BaseEntity {
     @JoinColumn(name = "place_concert_id")
     private PlaceConcert placeConcert;
 
+
     //생성
     public static ReserveSeat crateReserveSeat(Seat seat, Member member, PlaceConcert placeConcert) {
         ReserveSeat reserveSeat = new ReserveSeat();

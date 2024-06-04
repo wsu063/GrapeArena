@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout3}">
+<th:block layout:fragment="css">
+  <style>
+    .fieldError {
+       color: #bd2130;
+    }
+  </style>
+</th:block>
+
+<div layout:fragment="content" class="flex flex-col flex-1 w-full">
+  <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+    <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"  >
+      <!-- Mobile hamburger -->
+      <button  class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
+               @click="toggleSideMenu"
+               aria-label="Menu">
+        <svg class="w-6 h-6"
+             aria-hidden="true"
+             fill="currentColor"
+             viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clip-rule="evenodd"></path>
+        </svg>
+      </button>
+      <!-- Search input -->
+      <div class="flex justify-center flex-1 lg:mr-32">
+        <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500" >
+          <h4 style="text-align: center;">공연장 목록</h4>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="super_container_admin" style="overflow-y: auto;">
+    <form role="form" action="/admin/places/new" method="post" enctype="multipart/form-data"
+          th:object="${placeFormDto}" name="placeForm">
+      <div class="container single_product_container">
+        <div class="row">
+          <!--  표지 이미지 등록  -->
+          <div class="col-lg-7">
+            <div class="single_product_pics">
+              <div class="row">
+                <div class="contents">
+                  <div class="upload-box">
+                    <div id="drop-file" class="drag-file">
+                      <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
+                      <p class="message">Drag files to upload</p>
+                      <img src="" alt="미리보기 이미지" class="preview">
+                    </div>
+                    <label th:for="goodsImgFile" class="file-label">Choose File</label>
+                    <input class="file" name="placeImgFile" id="goodsImgFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
+                    <input type="hidden" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 굿즈 상세 등록  -->
+          <div class="col-lg-5">
+            <div class="product_details">
+              <!-- 공연장  -->
+              <div class="form_details">
+                <label th:for="placeName" class="text-black" >공연장 이름</label>
+                <input th:field="*{placeName}" id="placeName" type="text" class="form-control product-form-input"  placeholder="이름을 입력해주세요" />
+                <p th:if="${#fields.hasErrors('placeName')}" th:errors="*placeName" class="fieldError">Incorrect Data</p>
+              </div>
+              <!-- 공연장 위치. 나중에 List로 바꿔야할수도?  -->
+              <div class="form_details">
+                <label th:for="placeLocation" class="text-black">공연장 위치</label>
+                <input th:field="*{placeLocation}" id="placeLocation" type="text" class="form-control product-form-input" placeholder="알아서 입력" />
+                <p th:if="${#fields.hasErrors('placeLocation')}" th:errors="*placeLocation" class="fieldError">Incorrect Data</p>
+              </div>
+              <!-- 공연장 배치. 아마도 hidden으로 관리자 입력 줘야될거같음 -->
+              <div class="form_details">
+                <label th:for="placeBatch" class="text-black">공연장 배치</label>
+                <input th:field="*{placeBatch}" id="placeBatch" type="text" class="form-control product-form-input" placeholder="알아서 입력" oninput="inputNumberFormat(this)" />
+                <p th:if="${#fields.hasErrors('placeBatch')}" th:errors="*placeBatch" class="fieldError">Incorrect Data</p>
+              </div>
+
+              <div class="form_details">
+                <button class="btn btn-primary solid blank mt-3 submit-registration" type="submit" >
+                  등록하기
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+  </div>
+</div>
+<th:block layout:fragment="script">
+  <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+  <script th:src="@{/css/bootstrap4/popper.js}"></script>
+  <script th:src="@{/css/bootstrap4/bootstrap.min.js}"></script>
+  <script th:src="@{/plugins/Isotope/isotope.pkgd.min.js}"></script>
+  <script th:src="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+  <script th:src="@{/plugins/easing/easing.js}"></script>
+  <script th:src="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+  <script th:src="@{/js/single_custom.js}"></script>
+
+  <script th:inline="javascript">
+    var errorMessage = [[${errorMessage}]];
+     if(errorMessage != null) alert(errorMessage);
+
+// 미리보기 이미지 업로드
+function DropFile(dropAreaId, fileListId) {
+       let dropArea = document.getElementById(dropAreaId);
+       let fileList = document.getElementById(fileListId);
+
+       function preventDefaults(e) {
+         e.preventDefault();
+         e.stopPropagation();
+       }
+
+       function highlight(e) {
+         preventDefaults(e);
+         dropArea.classList.add("highlight");
+       }
+
+       function unhighlight(e) {
+         preventDefaults(e);
+         dropArea.classList.remove("highlight");
+       }
+
+       function handleDrop(e) {
+         unhighlight(e);
+         let dt = e.dataTransfer;
+         let files = dt.files;
+
+         handleFiles(files);
+
+         const fileList = document.getElementById(fileListId);
+         if (fileList) {
+           fileList.scrollTo({ top: fileList.scrollHeight });
+         }
+       }
+
+       function handleFiles(files) {
+         files = [...files];
+         // files.forEach(uploadFile);
+         files.forEach(previewFile);
+       }
+
+       function previewFile(file) {
+         console.log(file);
+         renderFile(file);
+       }
+
+       function renderFile(file) {
+         let reader = new FileReader();
+         reader.readAsDataURL(file);
+         reader.onloadend = function () {
+           let img = dropArea.getElementsByClassName("preview")[0];
+           img.src = reader.result;
+           img.style.display = "block";
+         };
+       }
+
+       dropArea.addEventListener("dragenter", highlight, false);
+       dropArea.addEventListener("dragover", highlight, false);
+       dropArea.addEventListener("dragleave", unhighlight, false);
+       dropArea.addEventListener("drop", handleDrop, false);
+
+       return {
+         handleFiles
+       };
+     }
+
+     const dropFile = new DropFile("drop-file", "files");
+
+  </script>
+</th:block>
+</html>

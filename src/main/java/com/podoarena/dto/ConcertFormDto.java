@@ -19,11 +19,7 @@ public class ConcertFormDto {
     @NotBlank(message = "이름은 필수 입력입니다.")
     private String concertName;
 
-    private String concertPeriod;
-
     private String concertSinger;
-
-    private String concertTime;
 
     private ConcertState concertState;
 

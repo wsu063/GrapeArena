@@ -31,27 +31,36 @@ public class ConcertController {
 
     //콘서트 등록
     @GetMapping(value = "/admin/concerts/new")
-    public String concertWrite(Model model) {
+    public String concertForm(Model model) {
         model.addAttribute("concertFormDto", new ConcertFormDto());
-        return "concert/concertForm";
+        return "admin/concertForm";
     }
+
+    // 콘서트 등록 처리
 
     @PostMapping(value = "/admin/concerts/new")
-    public String concertInsert(@Valid ConcertFormDto concertFormDto, BindingResult bindingResult,
-                                Model model, @RequestParam("concertImgFile") List<MultipartFile> concertImgFileList) {
-        if (bindingResult.hasErrors()) return "concert/concertForm";
+    public String concertNew(@Valid ConcertFormDto concertFormDto, BindingResult bindingResult, Model model,
+                             @RequestParam("concertImgFile") List<MultipartFile> concertImgFileList) {
 
+        if (bindingResult.hasErrors()) return "admin/concertForm";
+
+        if(concertImgFileList.get(0).isEmpty()){
+            model.addAttribute("errorMessage",
+                    "대표 이미지는 필수 입력입니다.");
+
+            return "admin/concertForm";
+        }
         try {
             concertService.saveConcert(concertFormDto, concertImgFileList);
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
-            model.addAttribute("errorMessage", "콘서트 등록 중 에러가 발생했습니다.");
-            return "admin/concert/concertForm";
+            model.addAttribute("errorMessage",
+                    "콘서트 등록 중 에러가 발생했습니다.");
+            return "admin/concertForm";
         }
-        //등록하고 메인화면으로 돌아간다.
-        //다른 화면으로 해야할 필요가 있는가?
         return "redirect:/";
     }
+
 
     //콘서트 상세 페이지
     @GetMapping(value = "/concerts/detail/{concertId}")

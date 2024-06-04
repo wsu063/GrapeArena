@@ -26,8 +26,7 @@ public class PlaceConcert {
     @JoinColumn(name = "place_id")
     private Place place;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reserve_seat_id")
+    @OneToMany(mappedBy = "placeConcert", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReserveSeat> reserveSeatList;
 
     public static PlaceConcert createPlaceConcert(Place place, Concert concert) {

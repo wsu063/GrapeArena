@@ -29,6 +29,7 @@ public class ConcertImgService {
         String oriImgName = concertImgFile.getOriginalFilename();
         String imgName = "";
         String imgUrl = "";
+
         if (!StringUtils.isEmpty(oriImgName)) { // 빈 문자열인지 아닌지 검사
             //빈 문자열이 아니면 업로드
             imgName = fileService.uploadFile(concertImgLocation,
