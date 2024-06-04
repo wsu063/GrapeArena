@@ -10,7 +10,7 @@ import lombok.Setter;
 public class GoodsCartDto {
 
     @NotNull(message = "상품 아이디는 필수 입력 값입니다.")
-    private Long goodCartId;
+    private Long goodsCartId;
 
     @Min(value = 1, message = "굿즈는 최소 1개 이상 담아주세요")
     private int goodsCount;

@@ -1,6 +1,7 @@
 package com.podoarena.service;
 
 import com.podoarena.dto.GoodsCartDto;
+import com.podoarena.dto.OrderDto;
 import com.podoarena.entity.Cart;
 import com.podoarena.entity.Goods;
 import com.podoarena.entity.GoodsCart;
@@ -31,7 +32,7 @@ public class CartService {
     public Long addCart(GoodsCartDto goodsCartDto, Member member) {
 
         //상품을 ID로 조회
-        Goods goods = goodsRepository.findById(goodsCartDto.getGoodCartId())
+        Goods goods = goodsRepository.findById(goodsCartDto.getGoodsCartId())
                 .orElseThrow(EntityNotFoundException::new);
 
         //회원 장바구니(카트) 조회
@@ -96,4 +97,14 @@ public class CartService {
 
         goodsCart.setGoodsCount(count); //수량 업데이트
     }
+
+    // 카트 굿즈 삭제
+    public void deleteGoodsCart(Long goodsCartId) {
+        GoodsCart goodsCart = goodsCartRepository.findById(goodsCartId)
+                .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아옴
+        goodsCartRepository.delete(goodsCart); //카트 아이템 삭제
+    }
+
+    //카트 굿즈 주문
+    public Long orderGoodsCart(List<OrderDto>)
 }

@@ -60,7 +60,7 @@ public class CartController {
 
     //사용자의 장바구니 목록을 조회
     public String orderHist(Principal principal, Model model) {
-        List<GoodsCartDto> goodsCartList = cartService.getCartList(principal.getName()); //장바구니 목록 조회
+        List<GoodsCartDto> goodsCartList = cartService.getGoodsCartDtoList(principal.getName()); //장바구니 목록 조회
     }
 
 }
