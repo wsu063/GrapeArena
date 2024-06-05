@@ -1,12 +1,15 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.ConcertFormDto;
+import com.podoarena.dto.PlaceFormDto;
 import com.podoarena.dto.ReserveSeatSearchDto;
 import com.podoarena.entity.Concert;
+import com.podoarena.entity.Place;
 import com.podoarena.entity.ReserveSeat;
 import com.podoarena.entity.Seat;
 import com.podoarena.service.ConcertService;
 import com.podoarena.service.PlaceConcertService;
+import com.podoarena.service.PlaceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,17 +33,28 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ConcertController {
     private final ConcertService concertService;
+    private final PlaceService placeService;
 
     //콘서트 등록
     @GetMapping(value = "/admin/concerts/new")
     public String concertForm(Model model) {
-        model.addAttribute("concertFormDto", new ConcertFormDto());
+        ConcertFormDto concertFormDto = new ConcertFormDto();
+
+        List<Place> places = placeService.getPlaceList();
+
+        for(Place place : places) {
+            PlaceFormDto placeFormDto = PlaceFormDto.of(place);
+            concertFormDto.getPlaceFormDtoList().add(placeFormDto);
+        }
+        model.addAttribute("concertFormDto", concertFormDto);
         return "admin/concertForm";
     }
 
     // 콘서트 등록 처리
     @PostMapping(value = "/admin/concerts/new")
     public String concertNew(@Valid ConcertFormDto concertFormDto, BindingResult bindingResult, Model model,
+                             @RequestParam("dateTime") List<LocalDateTime> dateTimeList,
+                             @RequestParam("placeId") Long placeId,
                              @RequestParam("concertImgFile") List<MultipartFile> concertImgFileList) {
 
         if (bindingResult.hasErrors()) return "admin/concertForm";
@@ -51,6 +66,11 @@ public class ConcertController {
             return "admin/concertForm";
         }
         try {
+            concertFormDto.setPlaceId(placeId);
+            for(LocalDateTime dateTime : dateTimeList) {
+                concertFormDto.getDateList().add(dateTime);
+            }
+
             concertService.saveConcert(concertFormDto, concertImgFileList);
 
         } catch (Exception e){

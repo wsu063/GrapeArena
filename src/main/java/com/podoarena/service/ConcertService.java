@@ -50,9 +50,10 @@ public class ConcertService {
             //이미지 파일 하나씩 저장
             concertImgService.saveConcertImg(concertImg, concertImgFileList.get(i));
         }
-        
+        concertFormDto.setId(concert.getId());
         //3. PC 등록
         placeConcertService.savePlaceConcert(concertFormDto);
+
         return concertFormDto.getId();
     }
 

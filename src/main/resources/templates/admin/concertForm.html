@@ -50,7 +50,6 @@
     <div class="super_container_admin" style="overflow-y: auto;">
         <form role="form" action="/admin/concerts/new" method="post" enctype="multipart/form-data"
               th:object="${concertFormDto}" name="concertForm">
-
             <div class="container single_product_container">
                 <div class="row">
                     <!--  표지 이미지 등록  -->
@@ -87,35 +86,33 @@
                             <!-- 콘서트명  -->
                             <div class="form_details">
                                 <label th:for="concertName" class="text-black">콘 서 트 </label>
-                                <input th:field="*{concertName}" id="concertName" type="text" class="form-control product-form-input" placeholder="알아서 입력" oninput="inputNumberFormat(this)" />
+                                <input th:field="*{concertName}" id="concertName" type="text" class="form-control product-form-input" placeholder="콘서트 명을 입력해주세요" />
                                 <p th:if="${#fields.hasErrors('concertName')}" th:errors="*concertName" class="fieldError">Incorrect Data</p>
-                            </div>
-
-                            <div class="form_details" th:each="num : ${numbers.sequence(1,3)}">
-                                <label class="text-black" th:for="concertDate">공&nbsp;&nbsp;연&nbsp;&nbsp;일</label>
-                                <input type="datetime-local" class="form-control product-form-input"
-                                    th:field="concertDate"/>
                             </div>
 
                             <!-- 아티스트 -->
                             <div class="form_details">
-                                <label th:for="concertSinger" class="text-black">아티스트 </label>
-                                <input th:field="*{concertSinger}" id="concertSinger" type="text" class="form-control product-form-input" placeholder="알아서 입력" oninput="inputNumberFormat(this)" />
+                                <label th:for="concertSinger" class="text-black">아티스트</label>
+                                <input th:field="*{concertSinger}" id="concertSinger" type="text" class="form-control product-form-input" placeholder="알아서 입력" />
                                 <p th:if="${#fields.hasErrors('concertSinger')}" th:errors="*concertSinger" class="fieldError">Incorrect Data</p>
                             </div>
 
-                            <!--   어떻게 할꾸라고.,?     -->
-<!--                            <div class="form_details">-->
-<!--                                <label  class="text-black">장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</label>-->
-<!--                                <select class="form-control product-form-input">-->
-<!--                                    &lt;!&ndash;  장소를 선택하세요 옆에 화살표가 있으면 좋을 것 같습니다.&ndash;&gt;-->
-<!--                                    <option value="" disabled selected>장소를 선택하세요</option>-->
-<!--                                    <option value="location1">장소 1</option>-->
-<!--                                    <option value="location2">장소 2</option>-->
-<!--                                    <option value="location3">장소 3</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
+                            <!-- 공연장 -->
+                            <div class="form_details">
+                                <label class="text-black">공 연 장</label>
+                                <select class="form-control product-form-input" id="placeSelect">
+                                    <option th:each="place: *{placeFormDtoList}" th:value="${place.id}" th:text="${place.placeName}"
+                                    ></option>
+                                </select>
+                                <input type="hidden" id="placeId" name="placeId" value>
+                            </div>
 
+                            <div th:each="num : ${#numbers.sequence(1, 3)}">
+                                <div class="form_details">
+                                    <label class="text-black" th:for="dateTime">공&nbsp;&nbsp;연&nbsp;&nbsp;일</label>
+                                    <input type="datetime-local" class="form-control product-form-input" name="dateTime"/>
+                                </div>
+                            </div>
 
                             <!-- 본문 이미지 업로드  -->
                             <div class="form_details">
@@ -150,6 +147,12 @@
     <script th:inline="javascript">
         var errorMessage = [[${errorMessage}]];
         if(errorMessage != null) alert(errorMessage);
+
+            // 선택된 옵션의 값을 추출하여 placeId 필드에 할당
+        document.getElementById('placeSelect').addEventListener('change', function() {
+            var selectedPlaceId = this.value; // 선택된 옵션의 값
+            document.getElementById('placeId').value = selectedPlaceId; // placeId 필드에 값 할당
+        });
 
      // 미리보기 이미지 업로드
     function DropFile(dropAreaId, fileListId) {

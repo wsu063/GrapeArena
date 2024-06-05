@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,15 +28,13 @@ public class PlaceConcert {
     private Place place;
 
     @OneToMany(mappedBy = "placeConcert", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReserveSeat> reserveSeatList;
+    private List<ReserveSeat> reserveSeatList = new ArrayList<>();
 
     @OneToMany(mappedBy = "placeConcert", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Date> dateList;
+    private List<Date> dateList = new ArrayList<>();
 
     public PlaceConcert createPlaceConcert(Place place, Concert concert, List<Date> dateList) {
         PlaceConcert placeConcert = new PlaceConcert();
-        placeConcert.setConcert(concert);
-        placeConcert.setPlace(place);
 
         for(Date date : dateList) {
             date.setPlaceConcert(placeConcert);

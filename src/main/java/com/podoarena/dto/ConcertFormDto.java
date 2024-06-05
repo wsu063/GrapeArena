@@ -31,10 +31,9 @@ public class ConcertFormDto {
 
     private List<LocalDateTime> dateList = new ArrayList<>();
 
+    private List<PlaceFormDto> placeFormDtoList = new ArrayList<>();
+
     private Long placeId;
-
-    private LocalDateTime dateTime;
-
 
     private static ModelMapper modelMapper = new ModelMapper();
 

@@ -10,7 +10,6 @@ import lombok.ToString;
 @Table(name="place_img")
 @Getter
 @Setter
-@ToString
 public class PlaceImg {
 
     @Id

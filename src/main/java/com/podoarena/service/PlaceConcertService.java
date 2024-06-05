@@ -6,6 +6,7 @@ import com.podoarena.entity.Date;
 import com.podoarena.entity.Place;
 import com.podoarena.entity.PlaceConcert;
 import com.podoarena.repository.ConcertRepository;
+import com.podoarena.repository.DateRepository;
 import com.podoarena.repository.PlaceConcertRepository;
 import com.podoarena.repository.PlaceRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,6 +25,7 @@ public class PlaceConcertService {
     private final PlaceConcertRepository placeConcertRepository;
     private final PlaceRepository placeRepository;
     private final ConcertRepository concertRepository;
+    private final DateRepository dateRepository;
 
     //1. PC 등록
     public Long savePlaceConcert(ConcertFormDto concertFormDto) throws Exception {
@@ -42,10 +44,13 @@ public class PlaceConcertService {
             Date date = new Date();
             date.setDateTime(time);
             dateList.add(date);
+            dateRepository.save(date); // date 저장
         }
 
         placeConcert.createPlaceConcert(place, concert, dateList);
-        placeConcertRepository.save(placeConcert);
+        placeConcertRepository.save(placeConcert); // placeConcert 저장
+        placeConcert.setPlace(place);
+        placeConcert.setConcert(concert);
 
 
         for(Date date : dateList) {

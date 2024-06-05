@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "place")
 @Getter
 @Setter
-@ToString
 public class Place {
     @Id
     @Column(name = "place_id")
