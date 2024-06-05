@@ -51,6 +51,7 @@ public class OrderService {
 
     //주문 목록 가져오기(OrderHistDto 필요해서 PASS)
 
+
     //본인확인
     public boolean validateOrder(Long orderId, String email) {
         Member curMember = memberRepository.findByEmail(email); //로그인한 사용자 찾기
