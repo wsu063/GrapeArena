@@ -2,6 +2,7 @@ package com.podoarena.entity;
 
 
 import com.podoarena.constant.SellStatus;
+import com.podoarena.constant.Sort;
 import com.podoarena.dto.GoodsFormDto;
 import com.podoarena.dto.PlaceFormDto;
 import com.podoarena.exception.OutOfStockException;
@@ -25,6 +26,9 @@ public class Goods extends BaseEntity {
     private int goodsPrice; // 가격
     private int goodsStock; // 재고
     private int goodsMaxAmount; // 수량
+
+    @Enumerated(EnumType.STRING)
+    private Sort sort;
 
     @Enumerated(EnumType.STRING)
     private SellStatus sellStatus; // 판매상태

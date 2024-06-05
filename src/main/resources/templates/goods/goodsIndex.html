@@ -100,7 +100,7 @@
                       data-filter=".TOUR">TOUR MERCH
                   </li>
                   <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
-                      data-filter=".OFF">OFFICIAL STICK
+                      data-filter=".STICK">OFFICIAL STICK
                   </li>
                   <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
                       data-filter=".ALBUM">ALBUM
@@ -123,7 +123,8 @@
             <div class="col">
               <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
                 <!-- Product 1 -->
-                <div class="product-item TOUR" th:each="good : ${goods}">
+                <th:block th:each="good : ${goods}" >
+                <div class="product-item TOUR"  >
                   <div class="product discount product_filter">
                     <a th:href="'/goods/goodsDtl/'+${good.id}">
                       <div class="product_image">
@@ -138,6 +139,7 @@
                   </div>
                   <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
                 </div>
+                </th:block>
               </div>
             </div>
           </div>

@@ -47,6 +47,8 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final EnumPath<com.podoarena.constant.SellStatus> sellStatus = createEnum("sellStatus", com.podoarena.constant.SellStatus.class);
 
+    public final EnumPath<com.podoarena.constant.Sort> sort = createEnum("sort", com.podoarena.constant.Sort.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateDate = _super.updateDate;
 
