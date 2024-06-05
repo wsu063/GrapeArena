@@ -21,7 +21,7 @@ public class ReserveController {
     private final ReserveSeatService reserveSeatService;
 
     // 고객 관리 페이지로 이동
-    @GetMapping(value = {"/admin/reserve/list", "/admin/reserve/list/{page}"})
+    @GetMapping(value = {"/admin/reserves/list", "/admin/reserves/list/{page}"})
     public String ReserveConcertPage(ReserveSeatSearchDto reserveSeatSearchDto, @PathVariable("page")Optional<Integer> page,
                                      Model model) {
         //page변수가 존재하면 가져오고, 없으면 0. 목록은 최대 10개 페이지
