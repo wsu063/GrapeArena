@@ -2,7 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-
+  <head>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  </head>
+  
 <th:block layout:fragment="css">
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
@@ -41,10 +45,6 @@
                                 <div class="single_product_image">
                                   <img class="single_product_image_background"
                                   th:src="${goods.getGoodsImgDtoList().get(0).getImgUrl()}"/>
-
-<!--                                    <div class="single_product_image_background"-->
-<!--                                         style="background-image:url(/images/goods1.png)">-->
-<!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -67,36 +67,35 @@
                         <div>
                             <span th:text="${goods.goodsName}" >BONGBONGEE Mini Shoulder Bag</span>
                         </div>
-                        <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-
-                            <div class="quantity_selector">
-                                <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                <span id="quantity_value">1</span>
-                                <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                            </div>
-
-                            <div>
-                                <div  class="product_price">￦&nbsp;&nbsp;[[${#numbers.formatInteger(goods.goodsPrice,0, 'COMMA')}]]</div>
-                            </div>
+                      <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                        <div class="quantity_selector">
+                          <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                          <span id="quantity_value">1</span>
+                          <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
                         </div>
+                        <div>
+                          <div class="product_price">
+                            <span id="total_price" th:text="'￦' +${#numbers.formatInteger(goods.goodsPrice, 0, 'COMMA')}"></span>
+                          </div>
+                        </div>
+                      </div>
 
                         <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
-
                             <i class="fa-solid fa-circle-exclamation"></i>&nbsp;
                             <span th:text="'최대 ' + ${goods.goodsMaxAmount} + '개까지 구입 가능합니다.'" > 최대 3개까지 구매 가능합니다.</span>
                         </div>
                         <div class="quantity">
-                            <div> <b>총 상품 금액(1개)</b></div>
-                            <div>￦&nbsp;&nbsp;[[${#numbers.formatInteger(goods.goodsPrice,0, 'COMMA')}]]</div>
+                            <div> <b>총 상품 금액</b></div>
+                            <div id="total_price2" th:text="'￦' +${#numbers.formatInteger(goods.goodsPrice, 0, 'COMMA')}" ></div>
                         </div>
                         <div style="display: flex; justify-content: center; margin-top: 30px;">
-                            <div class="red_button add_to_cart_button"><a href="/members/cart">카트 추가</a></div>
+                            <div class="red_button add_to_cart_button"><button onclick="cartItem()">카트 추가</button></div>
                             <div class="red_button add_to_cart_button"><a href="#">바로 구매</a></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <input type="hidden" th:value="${goods}" />
+            <input id="goods" type="hidden" th:value="${goods}" />
           </form>
         </div>
 
@@ -154,7 +153,57 @@
 
 
     <script th:inline="javascript">
-
+      $(document).ready(function() {
+        var pricePerItem = parseInt(/*[[${goods.goodsPrice}]]*/, 10); // 개별 가격
+        var quantity = parseInt($('#quantity_value').text(), 10); // 초기 수량
+        
+        function updateTotalPrice() {
+          var totalPrice = pricePerItem * quantity;
+          var totalPrice2 = pricePerItem * quantity;
+          $('#total_price').text(totalPrice.toLocaleString()); // 총 가격 업데이트
+          $('#total_price2').text(totalPrice2.toLocaleString());
+        }
+        
+        $('.plus').click(function() {
+          quantity++;
+          $('#quantity_value').text(quantity);
+          updateTotalPrice();
+        });
+        
+        $('.minus').click(function() {
+          if (quantity > 1) { // 최소 수량 1로 제한
+            quantity--;
+            $('#quantity_value').text(quantity);
+            updateTotalPrice();
+          }
+        });
+      });
+      function cartItem() {
+        var goodsFormDto= $("#goods").val();
+        
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        
+        $.ajax({
+          url: "/members/cart",
+          type: "POST",
+          contentType: "application/json",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          dataType: "text",
+          cache: false,
+          data: JSON.stringify(goodsFormDto),
+          success: function(result, status, xhr, formData) {
+            confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?");
+            location.href= "/members/cart";
+           
+          },
+          error: function(jqXHR, status, error) {
+            alert("장바구니에 추가를 실패했습니다. 관리자에게 문의하세요.")
+          }
+        });
+      }
     </script>
 </th:block>
 </html>
