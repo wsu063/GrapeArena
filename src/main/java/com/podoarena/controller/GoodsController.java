@@ -28,9 +28,9 @@ public class GoodsController {
     private final GoodsService goodsService;
 
     // 굿즈 메인페이지 이동
-    @GetMapping(value = "/goods/goodsIndex")
+    @GetMapping(value = {"/goods/goodsIndex", "/goods/goodsIndex/page"})
     public String goodsPage(Model model, GoodsSearchDto goodsSearchDto,
-                            @RequestParam(value = "page") Optional<Integer> page) {
+                            @PathVariable(value = "page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0, 20);
         Page<MainGoodsDto> goods = goodsService.getMainGoodsPage(goodsSearchDto, pageable);
 
@@ -70,7 +70,7 @@ public class GoodsController {
                     "상품 등록 중 에러가 발생했습니다.");
             return "admin/goodsForm";
         }
-        return "admin/goodsList";
+         return "redirect:/admin/goodsList";
     }
 
 

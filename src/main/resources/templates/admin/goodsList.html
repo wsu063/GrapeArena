@@ -80,10 +80,12 @@
 
                             <!-- 상품명 -->
                             <td class="px-4 py-3">
-                                <a th:href="'/admin/goodsView/' + ${goods.id}"
-                                   th:text="${goods.goodsName}">
+                                <a th:href="'/admin/goodsDtl/' + ${goods.id}"
+                                   th:text="${goods.goodsName}"
+                                   style="font-weight: bold;">
                                 </a>
                             </td>
+
 
                             <!-- 가격 -->
                             <td class="px-4 py-3 text-sm">
@@ -134,43 +136,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-                    <span class="flex items-center col-span-3">
-                      Showing 21-30 of 100
-                    </span>
-                    <span class="col-span-2"></span>
-                    <!-- Pagination -->
-                    <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                        <nav aria-label="Page navigation example"
-                             th:with="start=${(posts.number/maxPage) * maxPage + 1},
-                             end= (${(posts.totalPages == 0) ? 1 : (start + (maxPage - 1) < posts.totalPages ? start + (maxPage - 1) : posts.totalPages)}) ">
-                            <ul class="pagination d-flex justify-content-center">
-                                <li class="page-item" th:classappend="${posts.first} ? ' disabled'">
-                                    <a class="page-link"
-                                       th:onclick="'javascript:page(' + ${posts.number - 1} + ')'"
-                                    >이전</a>
-                                </li>
 
-                                <li class="page-item"
-                                    th:each="page: ${#numbers.sequence(start, end)}"
-                                    th:classappend="${posts.number eq page-1} ? 'active' : ''"
-                                >
-                                    <a class="page-link" th:inline="text"
-                                       th:onclick="'javascript:page(' + ${page - 1} + ')'"
-                                    >[[${page}]]</a>
-                                </li>
-
-                                <li class="page-item" th:classappend="${posts.last}?' disabled'">
-                                    <a class="page-link"
-                                       th:onclick="'javascript:page(' + ${posts.number + 1} + ')'"
-                                    >다음</a>
-                                </li>
-                            </ul>
-                        </nav>
-
-                    </span>
-                </div>
-                </form>
+                 </form>
             </div>
         </div>
     </main>
