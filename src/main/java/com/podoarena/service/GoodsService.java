@@ -1,12 +1,10 @@
 package com.podoarena.service;
 
 import com.podoarena.constant.RepImgYn;
-import com.podoarena.dto.GoodsFormDto;
-import com.podoarena.dto.GoodsImgDto;
-import com.podoarena.dto.GoodsSearchDto;
-import com.podoarena.dto.MainGoodsDto;
+import com.podoarena.dto.*;
 import com.podoarena.entity.Goods;
 import com.podoarena.entity.GoodsImg;
+import com.podoarena.entity.Place;
 import com.podoarena.repository.GoodsImgRepository;
 import com.podoarena.repository.GoodsRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -68,6 +66,25 @@ public class GoodsService {
         goodsFormDto.setGoodsImgDtoList(goodsImgDtoList);
 
         return goodsFormDto;
+    }
+
+    //3. 굿즈 수정(관리자)
+    public Long updateGoods(GoodsFormDto goodsFormDto,
+                            List<MultipartFile> goodsImgFileList) throws Exception {
+
+        Goods goods = goodsRepository.findById(goodsFormDto.getId())
+                .orElseThrow(EntityNotFoundException::new);
+
+        goods.updateGoods(goodsFormDto);
+
+        List<Long> goodsImgIds = goodsFormDto.getGoodsImgIds(); // 상품 이미지 아이디 리스트 조회
+
+        // 5개의 이미지 파일을 업로드 했으므로 아래처럼 for문을 이용해 하나씩 이미지 업데이트를 진행
+        for (int i = 0; i < goodsImgFileList.size(); i++) {
+            goodsImgService.updateGoodsImg(goodsImgIds.get(i), goodsImgFileList.get(i) );
+        }
+
+        return goods.getId();
     }
 
     //굿즈 삭제하기

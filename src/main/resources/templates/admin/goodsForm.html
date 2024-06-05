@@ -101,7 +101,7 @@
                                 <input th:field="*{goodsPrice}" id="goodsPrice" type="text" class="form-control product-form-input" placeholder="알아서 입력" oninput="inputNumberFormat(this)" />
                                 <p th:if="${#fields.hasErrors('goodsPrice')}" th:errors="*goodsPrice" class="fieldError">Incorrect Data</p>
                             </div>
-
+                            <!-- 최대구매수량  -->
                             <div class="form_details">
                                 <label th:for="goodsMaxAmount" class="text-black">최대구매수량</label>
                                 <input th:field="*{goodsMaxAmount}" id="goodsMaxAmount" type="text" class="form-control product-form-input" placeholder="알아서 입력" oninput="inputNumberFormat(this)" />

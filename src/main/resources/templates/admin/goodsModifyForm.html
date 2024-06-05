@@ -26,37 +26,22 @@
                           clip-rule="evenodd"></path>
                 </svg>
             </button>
+            <!-- Search input -->
             <div class="flex justify-center flex-1 lg:mr-32">
                 <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500" >
-                    <div class="absolute inset-y-0 flex items-center pl-2">
-                        <svg  class="w-4 h-4"
-                              aria-hidden="true"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"  >
-                            <path fill-rule="evenodd"
-                                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-
-                    <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                           type="text"
-                           placeholder="검색어를 입력해주세요."
-                           aria-label="Search" />
+                    <h4 style="text-align: center;">굿즈 목록</h4>
                 </div>
             </div>
         </div>
     </header>
 
     <div class="super_container_admin" style="overflow-y: auto;">
-        <form role="form" action="/admin/goods/new" method="post" enctype="multipart/form-data"
+
+        <form role="form" th:action="@{'/goods/' + ${goodsFormDto.id}}" method="post" enctype="multipart/form-data"
               th:object="${goodsFormDto}" name="goodsForm">
 
-
-            <div class="container single_product_container">
+        <div class="container single_product_container">
                 <div class="row">
-
-
                     <!--  표지 이미지 등록  -->
                     <div class="col-lg-7">
                         <div class="single_product_pics">
@@ -101,7 +86,7 @@
                                 <input th:field="*{goodsPrice}" id="goodsPrice" type="text" class="form-control product-form-input" placeholder="알아서 입력" oninput="inputNumberFormat(this)" />
                                 <p th:if="${#fields.hasErrors('goodsPrice')}" th:errors="*goodsPrice" class="fieldError">Incorrect Data</p>
                             </div>
-
+                            <!-- 최대구매수량  -->
                             <div class="form_details">
                                 <label th:for="goodsMaxAmount" class="text-black">최대구매수량</label>
                                 <input th:field="*{goodsMaxAmount}" id="goodsMaxAmount" type="text" class="form-control product-form-input" placeholder="알아서 입력" oninput="inputNumberFormat(this)" />
@@ -121,8 +106,8 @@
                             </div>
 
                             <div class="form_details">
-                                <button class="btn btn-primary solid blank mt-3 submit-registration" type="button" onclick="beforeSubmit(); return false;">
-                                    등록하기
+                                <button class="btn btn-primary solid blank mt-3 submit-registration" type="submit" >
+                                    수정하기
                                 </button>
                             </div>
                         </div>
@@ -144,6 +129,74 @@
     <script th:src="@{/js/single_custom.js}"></script>
 
     <script th:inline="javascript">
+        var errorMessage = [[${errorMessage}]];
+         if(errorMessage != null) alert(errorMessage);
+
+    // 미리보기 이미지 업로드
+    function DropFile(dropAreaId, fileListId) {
+           let dropArea = document.getElementById(dropAreaId);
+           let fileList = document.getElementById(fileListId);
+
+           function preventDefaults(e) {
+             e.preventDefault();
+             e.stopPropagation();
+           }
+
+           function highlight(e) {
+             preventDefaults(e);
+             dropArea.classList.add("highlight");
+           }
+
+           function unhighlight(e) {
+             preventDefaults(e);
+             dropArea.classList.remove("highlight");
+           }
+
+           function handleDrop(e) {
+             unhighlight(e);
+             let dt = e.dataTransfer;
+             let files = dt.files;
+
+             handleFiles(files);
+
+             const fileList = document.getElementById(fileListId);
+             if (fileList) {
+               fileList.scrollTo({ top: fileList.scrollHeight });
+             }
+           }
+
+           function handleFiles(files) {
+             files = [...files];
+             // files.forEach(uploadFile);
+             files.forEach(previewFile);
+           }
+
+           function previewFile(file) {
+             console.log(file);
+             renderFile(file);
+           }
+
+           function renderFile(file) {
+             let reader = new FileReader();
+             reader.readAsDataURL(file);
+             reader.onloadend = function () {
+               let img = dropArea.getElementsByClassName("preview")[0];
+               img.src = reader.result;
+               img.style.display = "block";
+             };
+           }
+
+           dropArea.addEventListener("dragenter", highlight, false);
+           dropArea.addEventListener("dragover", highlight, false);
+           dropArea.addEventListener("dragleave", unhighlight, false);
+           dropArea.addEventListener("drop", handleDrop, false);
+
+           return {
+             handleFiles
+           };
+         }
+
+         const dropFile = new DropFile("drop-file", "files");
 
     </script>
 </th:block>

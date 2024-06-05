@@ -2,6 +2,8 @@ package com.podoarena.entity;
 
 
 import com.podoarena.constant.SellStatus;
+import com.podoarena.dto.GoodsFormDto;
+import com.podoarena.dto.PlaceFormDto;
 import com.podoarena.exception.OutOfStockException;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -54,4 +56,12 @@ public class Goods extends BaseEntity {
 
     //재고 증가
     public void addStock(int goodsStock) { this.goodsStock += goodsStock; }
+
+    public void updateGoods(GoodsFormDto goodsFormDto) {
+        this.sellStatus = goodsFormDto.getSellStatus();
+        this.goodsName = goodsFormDto.getGoodsName();
+        this.goodsPrice = goodsFormDto.getGoodsPrice();
+        this.goodsMaxAmount = goodsFormDto.getGoodsMaxAmount();
+        this.goodsStock = goodsFormDto.getGoodsStock();
+    }
 }

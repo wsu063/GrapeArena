@@ -77,6 +77,8 @@ public class PlaceController {
 
         return "admin/placeModifyForm";
     }
+
+
     //공연장 수정
     @PostMapping(value = "/admin/places/edit/{placeId}")
     public String placeUpdate(@Valid PlaceFormDto placeFormDto, Model model,

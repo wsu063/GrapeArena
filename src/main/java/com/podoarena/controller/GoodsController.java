@@ -3,6 +3,7 @@ package com.podoarena.controller;
 import com.podoarena.dto.GoodsFormDto;
 import com.podoarena.dto.GoodsSearchDto;
 import com.podoarena.dto.MainGoodsDto;
+import com.podoarena.dto.PlaceFormDto;
 import com.podoarena.entity.Goods;
 import com.podoarena.service.GoodsService;
 import jakarta.validation.Valid;
@@ -98,7 +99,58 @@ public class GoodsController {
     }
 
 
-    //굿즈 삭제
+
+    //공연장 수정
+    @GetMapping(value = "/admin/goods/edit/{goodsId}")
+    public String goodsModify(@PathVariable("goodsId") Long goodsId, Model model) {
+
+        try {
+            GoodsFormDto goodsFormDto = goodsService.getGoodsDtl(goodsId);
+            model.addAttribute("goodsFormDto", goodsFormDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMessage", "굿즈(MD) 수정 중 오류가 발생했습니다.");
+            model.addAttribute("goodsFormDto", new GoodsFormDto());
+            return "admin/goodsModifyForm";
+        }
+
+        return "admin/goodsModifyForm";
+    }
+
+
+    // 굿즈 수정
+    @PostMapping(value = "/admin/goods/edit/{goodsId}")
+    public String goodsUpdate(@Valid GoodsFormDto goodsFormDto, Model model,
+                              BindingResult bindingResult, @RequestParam("goodsImgFile") List<MultipartFile> goodsImgFileList,
+                              @PathVariable("goodsId") Long goodsId) {
+
+        if (bindingResult.hasErrors()) return "admin/goodsForm";
+
+        GoodsFormDto getGoodsFormDto = goodsService.getGoodsDtl(goodsId);
+
+        //상품등록 전에 첫번째 이미지가 있는지 없는지 검사(첫번째 이미지는 필수 입력값)
+        if (goodsImgFileList.get(0).isEmpty() && goodsFormDto.getId() == null) {
+            model.addAttribute("errorMessage",
+                    "첫번째 상품 이미지는 필수 입력입니다.");
+            model.addAttribute("goodsFormDto", getGoodsFormDto);
+            return "admin/goodsModifyForm";
+        }
+
+        try {
+            goodsService.updateGoods(goodsFormDto, goodsImgFileList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMessage",
+                    "굿즈(MD) 수정중 에러가 발생했습니다.");
+            model.addAttribute("goodsFormDto", getGoodsFormDto);
+            return "admin/goodsModifyForm";
+        }
+
+        return "redirect:/admin/goodsList";
+
+    }
+
+        //굿즈 삭제
     @DeleteMapping(value = "/admin/goods/delete/{goodsId}")
     public @ResponseBody ResponseEntity deleteGoods(@PathVariable(value = "goodsId") Long goodsId) {
 
@@ -106,6 +158,5 @@ public class GoodsController {
 
         return new ResponseEntity<Long>(goodsId, HttpStatus.OK);
     }
-
 
 }
