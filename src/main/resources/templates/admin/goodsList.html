@@ -55,7 +55,7 @@
             </div>
             <div class="w-full overflow-hidden rounded-lg shadow-xs">
 
-                <form th:action="@{'/admin/goodsList/' + ${posts.number}}"
+                <form th:action="@{'/admin/goods/list/' + ${posts.number}}"
                       method="get" th:object="${posts}">
 
                 <div class="w-full overflow-x-auto">
@@ -168,7 +168,7 @@
                      cache : false,
                      success : function(result, status) {
                        //삭제 후에 원래 페이지로 이동시켜준다.
-                       location.href = '/admin/goodsList';
+                       location.href = '/admin/goods/list';
                      },
                      error : function(jqXHR, status, error) {
                        if(jqXHR.status == '401') {

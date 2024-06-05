@@ -71,12 +71,12 @@ public class GoodsController {
                     "상품 등록 중 에러가 발생했습니다.");
             return "admin/goodsForm";
         }
-         return "redirect:/admin/goodsList";
+         return "redirect:/admin/goods/list";
     }
 
 
     // 굿즈 리스트 이동
-    @GetMapping(value = {"/admin/goodsList", "/admin/goodsList/{page}"})
+    @GetMapping(value = {"/admin/goods/list", "/admin/goods/list/{page}"})
     public String goodsList(Model model, GoodsSearchDto goodsSearchDto,
                             @PathVariable("page") Optional<Integer> page) {
 
@@ -148,7 +148,7 @@ public class GoodsController {
             return "admin/goodsModifyForm";
         }
 
-        return "redirect:/admin/goodsList";
+        return "redirect:/admin/goods/list";
 
     }
 
