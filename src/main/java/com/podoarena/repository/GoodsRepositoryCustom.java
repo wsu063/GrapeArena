@@ -10,7 +10,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface GoodsRepositoryCustom {
+
+    //굿즈 구매내역
+    List<Goods> getGoodsList();
     Page<Goods> getAdminGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable);
 
-    Page<MainGoodsDto> getMainGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable);
+    Page<Goods> getMainGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable);
 }

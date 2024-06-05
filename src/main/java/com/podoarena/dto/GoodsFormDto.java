@@ -3,6 +3,8 @@ package com.podoarena.dto;
 
 import com.podoarena.constant.SellStatus;
 import com.podoarena.entity.Goods;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -29,6 +31,10 @@ public class GoodsFormDto {
     private int goodsMaxAmount;
 
     private SellStatus sellStatus;
+
+    @Min(value = 1, message = "최소 주문수량은 1개 입니다.")
+    @Max(value = 999, message = "최대 주문수량은 999개 입니다.")
+    private int count;
 
     private List<GoodsImgDto> goodsImgDtoList = new ArrayList<>();
 
