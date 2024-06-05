@@ -6,6 +6,7 @@ import com.podoarena.entity.Concert;
 import com.podoarena.entity.ReserveSeat;
 import com.podoarena.entity.Seat;
 import com.podoarena.service.ConcertService;
+import com.podoarena.service.PlaceConcertService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -37,7 +38,6 @@ public class ConcertController {
     }
 
     // 콘서트 등록 처리
-
     @PostMapping(value = "/admin/concerts/new")
     public String concertNew(@Valid ConcertFormDto concertFormDto, BindingResult bindingResult, Model model,
                              @RequestParam("concertImgFile") List<MultipartFile> concertImgFileList) {
@@ -52,6 +52,7 @@ public class ConcertController {
         }
         try {
             concertService.saveConcert(concertFormDto, concertImgFileList);
+
         } catch (Exception e){
             e.printStackTrace();
             model.addAttribute("errorMessage",

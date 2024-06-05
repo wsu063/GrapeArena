@@ -29,10 +29,18 @@ public class PlaceConcert {
     @OneToMany(mappedBy = "placeConcert", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReserveSeat> reserveSeatList;
 
-    public static PlaceConcert createPlaceConcert(Place place, Concert concert) {
+    @OneToMany(mappedBy = "placeConcert", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Date> dateList;
+
+    public PlaceConcert createPlaceConcert(Place place, Concert concert, List<Date> dateList) {
         PlaceConcert placeConcert = new PlaceConcert();
         placeConcert.setConcert(concert);
         placeConcert.setPlace(place);
+
+        for(Date date : dateList) {
+            date.setPlaceConcert(placeConcert);
+            placeConcert.dateList.add(date);
+        }
 
         return placeConcert;
     }

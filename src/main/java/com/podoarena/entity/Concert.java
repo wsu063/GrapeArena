@@ -30,7 +30,7 @@ public class Concert extends BaseEntity {
     private List<ConcertImg> concertImgs;
 
     @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Date> dateList;
+    private List<PlaceConcert> placeConcertList;
 
 
     public void updateConcert(ConcertFormDto concertFormDto) {

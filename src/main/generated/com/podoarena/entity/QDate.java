@@ -22,13 +22,11 @@ public class QDate extends EntityPathBase<Date> {
 
     public static final QDate date = new QDate("date");
 
-    public final QConcert concert;
-
-    public final StringPath dateDay = createString("dateDay");
-
-    public final StringPath dateTime = createString("dateTime");
+    public final DateTimePath<java.time.LocalDateTime> dateTime = createDateTime("dateTime", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final QPlaceConcert placeConcert;
 
     public QDate(String variable) {
         this(Date.class, forVariable(variable), INITS);
@@ -48,7 +46,7 @@ public class QDate extends EntityPathBase<Date> {
 
     public QDate(Class<? extends Date> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.concert = inits.isInitialized("concert") ? new QConcert(forProperty("concert")) : null;
+        this.placeConcert = inits.isInitialized("placeConcert") ? new QPlaceConcert(forProperty("placeConcert"), inits.get("placeConcert")) : null;
     }
 
 }

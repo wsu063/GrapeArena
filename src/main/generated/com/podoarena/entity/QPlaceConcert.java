@@ -24,6 +24,8 @@ public class QPlaceConcert extends EntityPathBase<PlaceConcert> {
 
     public final QConcert concert;
 
+    public final ListPath<Date, QDate> dateList = this.<Date, QDate>createList("dateList", Date.class, QDate.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final QPlace place;

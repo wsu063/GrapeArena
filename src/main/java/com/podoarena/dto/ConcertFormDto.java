@@ -2,6 +2,8 @@ package com.podoarena.dto;
 
 import com.podoarena.constant.ConcertState;
 import com.podoarena.entity.Concert;
+import com.podoarena.entity.Date;
+import com.podoarena.entity.Place;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +28,13 @@ public class ConcertFormDto {
     private List<ConcertImgDto> concertImgDtoList = new ArrayList<>();
 
     private List<Long> boardImgIds = new ArrayList<>(); // 이미지 아이디 저장(수정할때씀)
+
+    private List<LocalDateTime> dateList = new ArrayList<>();
+
+    private Long placeId;
+
+    private LocalDateTime dateTime;
+
 
     private static ModelMapper modelMapper = new ModelMapper();
 

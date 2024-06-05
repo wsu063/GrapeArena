@@ -4,11 +4,9 @@ import com.podoarena.constant.RepImgYn;
 import com.podoarena.dto.ConcertFormDto;
 import com.podoarena.dto.ConcertImgDto;
 import com.podoarena.dto.ReserveSeatSearchDto;
-import com.podoarena.entity.Concert;
-import com.podoarena.entity.ConcertImg;
-import com.podoarena.entity.ReserveSeat;
-import com.podoarena.entity.Seat;
+import com.podoarena.entity.*;
 import com.podoarena.repository.ConcertRepository;
+import com.podoarena.repository.PlaceRepository;
 import com.podoarena.repository.ReserveSeatRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +25,9 @@ public class ConcertService {
     // Concert, ReserveSeat Service
     private final ConcertRepository concertRepository;
     private final ReserveSeatRepository reserveSeatRepository;
-
     private final ConcertImgService concertImgService;
+
+    private final PlaceConcertService placeConcertService;
 
     //1. 콘서트 등록
     public Long saveConcert(ConcertFormDto concertFormDto,
@@ -51,6 +50,9 @@ public class ConcertService {
             //이미지 파일 하나씩 저장
             concertImgService.saveConcertImg(concertImg, concertImgFileList.get(i));
         }
+        
+        //3. PC 등록
+        placeConcertService.savePlaceConcert(concertFormDto);
         return concertFormDto.getId();
     }
 
@@ -101,6 +103,9 @@ public class ConcertService {
 
         return concerts;
     }
+
+
+
     // 예매내역 가져오기(관리자)
     public Page<ReserveSeat> getReserveSeatPage(ReserveSeatSearchDto reserveSeatSearchDto, Pageable pageable) {
         Page<ReserveSeat> reserveSeatPage = reserveSeatRepository.getReserveSeatPage(reserveSeatSearchDto, pageable);

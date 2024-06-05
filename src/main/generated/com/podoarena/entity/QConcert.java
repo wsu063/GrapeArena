@@ -33,12 +33,12 @@ public class QConcert extends EntityPathBase<Concert> {
     //inherited
     public final StringPath createdBy = _super.createdBy;
 
-    public final ListPath<Date, QDate> dateList = this.<Date, QDate>createList("dateList", Date.class, QDate.class, PathInits.DIRECT2);
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
     public final StringPath modifiedBy = _super.modifiedBy;
+
+    public final ListPath<PlaceConcert, QPlaceConcert> placeConcertList = this.<PlaceConcert, QPlaceConcert>createList("placeConcertList", PlaceConcert.class, QPlaceConcert.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
