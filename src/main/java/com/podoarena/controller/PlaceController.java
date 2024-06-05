@@ -101,7 +101,7 @@ public class PlaceController {
 
     //공연장 삭제
     @DeleteMapping(value = "/admin/places/delete/{placeId}")
-    public @ResponseBody ResponseEntity deletePlace(@PathVariable("placeId") Long placeId, Principal principal) {
+    public @ResponseBody ResponseEntity deletePlace(@PathVariable("placeId") Long placeId) {
 
         placeService.deletePlace(placeId);
 

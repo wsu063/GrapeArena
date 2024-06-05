@@ -41,13 +41,8 @@ public class GoodsController {
         return "goods/goodsIndex";
     }
 
-    // 굿즈 상세 페이지 이동
-    @GetMapping(value = "/goods/goodsDtl/{goodId}")
-    public String goodsDtl(Model model, @PathVariable(value ="goodId") Long id) {
-    //GoodsFormDto goods = goodsService.g
-        return "goods/goodsDtl";
-    }
 
+    // 굿즈 등록 처리
     @GetMapping(value ="/admin/goods/new")
     public String goodsForm(Model model) {
         model.addAttribute("goodsFormDto", new GoodsFormDto());
@@ -79,15 +74,6 @@ public class GoodsController {
     }
 
 
-
-
-    //굿즈 삭제
-    @DeleteMapping(value = "/admin/goodsDelete/{goodsId}")
-    public @ResponseBody ResponseEntity deleteGoods(@PathVariable(value = "goodsId") Long goodsId) {
-        goodsService.deleteGoods(goodsId);
-        return new ResponseEntity<Long>(goodsId, HttpStatus.OK);
-    }
-
     // 굿즈 리스트 이동
     @GetMapping(value = {"/admin/goodsList", "/admin/goodsList/{page}"})
     public String goodsList(Model model, GoodsSearchDto goodsSearchDto,
@@ -103,5 +89,23 @@ public class GoodsController {
 
         return "admin/goodsList";
     }
+
+
+    // 굿즈 상세 페이지 이동
+    @GetMapping(value = "/goods/goodsDtl/{goodId}")
+    public String goodsDtl(Model model, @PathVariable(value ="goodId") Long id) {
+        return "goods/goodsDtl";
+    }
+
+
+    //굿즈 삭제
+    @DeleteMapping(value = "/admin/goods/delete/{goodsId}")
+    public @ResponseBody ResponseEntity deleteGoods(@PathVariable(value = "goodsId") Long goodsId) {
+
+        goodsService.deleteGoods(goodsId);
+
+        return new ResponseEntity<Long>(goodsId, HttpStatus.OK);
+    }
+
 
 }

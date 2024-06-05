@@ -4,6 +4,10 @@
       layout:decorate="~{layouts/layout3}">
 <th:block layout:fragment="css">
 </th:block>
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 
 <div layout:fragment="content" class="flex flex-col flex-1 w-full" >
     <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
@@ -97,6 +101,7 @@
 
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-4 text-sm">
+                                    <th:block>
                                     <!-- 수정 -->
                                     <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                             aria-label="Edit"  >
@@ -109,7 +114,8 @@
                                     </button>
                                     <!-- 삭제 -->
                                     <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                            aria-label="Delete" >
+                                            aria-label="Delete"
+                                            th:onclick="'deleteGoods(' + ${goods.id} + ')'" >
                                         <svg class="w-5 h-5"
                                              aria-hidden="true"
                                              fill="currentColor"
@@ -120,6 +126,7 @@
                                             </path>
                                         </svg>
                                     </button>
+                                    </th:block>
                                 </div>
 
                             </td>
@@ -172,10 +179,11 @@
 <th:block layout:fragment="script">
     <script th:inline="javascript">
         function goToGoodsNewPage() {
-        window.location.href = "/admin/goods/new";
-         }
+        window.location.href = "/admin/goods/new"; }
 
-       function deleteGoods(goodsId) {
+
+
+        function deleteGoods(goodsId) {
                    const deleteConf = confirm("굿즈(MD)를 삭제하시겠습니까?");
                    if(!deleteConf) return; //취소버튼 선택시
 
@@ -183,7 +191,7 @@
                    var header = $("meta[name='_csrf_header']").attr("content");
 
                    $.ajax({
-                     url : "/admin/delete/" + goodsId,
+                     url : "/admin/goods/delete/" + goodsId,
                      type : "DELETE",
                      contentType : "application/json",
                      beforeSend : function(xhr) {

@@ -14,7 +14,6 @@ import java.util.List;
 @Table(name = "goods")
 @Getter
 @Setter
-@ToString
 public class Goods extends BaseEntity {
     @Id
     @Column(name = "goods_id")
