@@ -77,7 +77,7 @@ public class GoodsController {
     // 굿즈 리스트 이동
     @GetMapping(value = {"/admin/goodsList", "/admin/goodsList/{page}"})
     public String goodsList(Model model, GoodsSearchDto goodsSearchDto,
-                            @PathVariable(value = "page")Optional<Integer> page) {
+                            @PathVariable("page") Optional<Integer> page) {
 
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,10);
 
