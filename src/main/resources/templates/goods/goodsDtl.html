@@ -50,8 +50,8 @@
                     <div class="product_details">
                         <!-- 상품 타이틀, 가격 -->
                         <div class="product_details_title">
-                            <h3>BONGBONGEE Mini Shoulder Bag</h3>
-                            <strong style="font-size: 1.5rem;">￦42,000</strong>
+                            <h3 th:text="${goods.goodsName}"></h3>
+                            <strong style="font-size: 1.5rem;">￦&nbsp;&nbsp;[[${#numbers.formatInteger(goods.goodsPrice,0, 'COMMA')}]]</strong>
                             <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
                                 <span class="ti-truck">&nbsp;무료배송</span>
                             </div>
@@ -61,7 +61,7 @@
 
                         <!-- 상품 개수 -->
                         <div>
-                            <span>BONGBONGEE Mini Shoulder Bag</span>
+                            <span th:text="${goods.goodsName}" >BONGBONGEE Mini Shoulder Bag</span>
                         </div>
                         <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
 
@@ -72,19 +72,18 @@
                             </div>
 
                             <div>
-                                <div class="original_price">￦49,000</div>
-                                <div class="product_price">￦42,000</div>
+                                <div  class="product_price">￦&nbsp;&nbsp;[[${#numbers.formatInteger(goods.goodsPrice,0, 'COMMA')}]]</div>
                             </div>
                         </div>
 
                         <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
 
                             <i class="fa-solid fa-circle-exclamation"></i>&nbsp;
-                            <span> 최대 3개까지 구매 가능합니다.</span>
+                            <span th:text="'최대 ' + ${goods.goodsMaxAmount} + '개까지 구입 가능합니다.'" > 최대 3개까지 구매 가능합니다.</span>
                         </div>
                         <div class="quantity">
                             <div> <b>총 상품 금액(1개)</b></div>
-                            <div>￦42,000 </div>
+                            <div>￦&nbsp;&nbsp;[[${#numbers.formatInteger(goods.goodsPrice,0, 'COMMA')}]]</div>
                         </div>
                         <div style="display: flex; justify-content: center; margin-top: 30px;">
                             <div class="red_button add_to_cart_button"><a href="#">카트 추가</a></div>
@@ -112,7 +111,9 @@
                                 <span>
                                     <b>[판매공지]</b>
                                     <br>
+                                  <th:block th:text="'최대 구매 수량은' + ${goods.goodsMaxAmount} + '개입니다.'" >
                                     ● 최대 구매 수량은 3개 입니다.
+                                    </th:block>
                                 </span>
                                     </div>
                                 </div>

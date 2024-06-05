@@ -60,20 +60,26 @@ public class CartService {
     //카트 목록 가져옴
     @Transactional(readOnly = true)
     public List<GoodsCartDto> getGoodsCartDtoList(String email) {
-        List<GoodsCartDto> GoodsCartDtoList = new ArrayList<>(); //빈 리스트 생성
+        List<GoodsCartDto> goodsCartDtoList = new ArrayList<>(); //빈 리스트 생성
 
         //이메일로 회원 조회
         Member member = memberRepository.findByEmail(email);
 
         //회원의 장바구니를 조회
         Cart cart = cartRepository.findByMemberId(member.getId());
+
         if(cart == null) {
-            return GoodsCartDtoList; //카트가 없으면 빈 리스트 반환
+            return goodsCartDtoList; //카트가 없으면 빈 리스트 반환
         }
 
-        //카트굿즈 리스트를 가져와서 반환
-//        GoodsCartDtoList =  goodsCartRepository.findGoodsCartDtoList(cart.getId());
-        return GoodsCartDtoList;
+        List<GoodsCart> getGoodsCartList = goodsCartRepository.findGoodsCartList(cart.getId());
+
+        for(GoodsCart goodsCart : getGoodsCartList) {
+            GoodsCartDto goodsCartDto = GoodsCartDto.of(goodsCart);
+            goodsCartDtoList.add(goodsCartDto);
+        }
+
+        return goodsCartDtoList;
     }
 
     //카트 아이템의 소유자 검증

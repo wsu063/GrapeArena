@@ -29,11 +29,11 @@ public class GoodsController {
     private final GoodsService goodsService;
 
     // 굿즈 메인페이지 이동
-    @GetMapping(value = {"/goods/goodsIndex", "/goods/goodsIndex/page"})
+    @GetMapping(value = {"/goods/goodsIndex", "/goods/goodsIndex/{page}"})
     public String goodsPage(Model model, GoodsSearchDto goodsSearchDto,
                             @PathVariable(value = "page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0, 20);
-        Page<MainGoodsDto> goods = goodsService.getMainGoodsPage(goodsSearchDto, pageable);
+        Page<Goods> goods = goodsService.getMainGoodsPage(goodsSearchDto, pageable);
 
         model.addAttribute("goods", goods);
         model.addAttribute("goodsSearchDto", goodsSearchDto);
@@ -43,7 +43,7 @@ public class GoodsController {
     }
 
 
-    // 굿즈 등록 처리
+    // 굿즈 등록 페이지
     @GetMapping(value ="/admin/goods/new")
     public String goodsForm(Model model) {
         model.addAttribute("goodsFormDto", new GoodsFormDto());
@@ -94,7 +94,9 @@ public class GoodsController {
 
     // 굿즈 상세 페이지 이동
     @GetMapping(value = "/goods/goodsDtl/{goodId}")
-    public String goodsDtl(Model model, @PathVariable(value ="goodId") Long id) {
+    public String goodsDtl(Model model, @PathVariable(value ="goodId") Long goodId) {
+        GoodsFormDto goodsFormDto = goodsService.getGoodsDtl(goodId);
+        model.addAttribute("goods", goodsFormDto);
         return "goods/goodsDtl";
     }
 

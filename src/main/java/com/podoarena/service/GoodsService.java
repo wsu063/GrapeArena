@@ -101,12 +101,17 @@ public class GoodsService {
         return goodsPage;
     }
 
-    //굿즈리스트 페이징
-    public Page<MainGoodsDto> getMainGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable) {
-        Page<MainGoodsDto> mainGoodsDtoPage = goodsRepository.getMainGoodsPage(goodsSearchDto, pageable);
-        return mainGoodsDtoPage;
+    //굿즈구매내역 가져오기
+    public List<Goods> getGoodsList() {
+        List<Goods> goods = goodsRepository.getGoodsList();
+        return goods;
     }
 
+    //굿즈리스트 페이징
+    public Page<Goods> getMainGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable) {
+        Page<Goods> mainGoodsPage = goodsRepository.getMainGoodsPage(goodsSearchDto, pageable);
+        return mainGoodsPage;
+    }
 
 
 }

@@ -53,22 +53,12 @@ public class GoodsRepositoryCustomImpl implements GoodsRepositoryCustom{
     }
 
     @Override
-    public Page<MainGoodsDto> getMainGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable) {
+    public Page<Goods> getMainGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable) {
         QGoods goods = QGoods.goods;
         QGoodsImg goodsImg = QGoodsImg.goodsImg;
 
-        List<MainGoodsDto> content = queryFactory
-                .select(
-                        new QMainGoodsDto(
-                                goods.id,
-                                goods.goodsName,
-                                goods.goodsPrice,
-                                goods.goodsStock,
-                                goods.goodsMaxAmount,
-                                goodsImg.imgUrl)
-                )
-                .from(goodsImg)
-                .join(goodsImg.goods, goods)
+        List<Goods> content = queryFactory
+                .selectFrom(QGoods.goods)
                 .where(goodsNameLike(goodsSearchDto.getSearchQuery()))
                 .orderBy(goods.id.desc())
                 .offset(pageable.getOffset())
@@ -77,12 +67,23 @@ public class GoodsRepositoryCustomImpl implements GoodsRepositoryCustom{
 
         long total = queryFactory
                 .select(Wildcard.count)
-                .from(goodsImg)
-                .join(goodsImg.goods, goods)
+                .from(QGoods.goods)
                 .where(goodsNameLike(goodsSearchDto.getSearchQuery()))
                 .orderBy(goods.id.desc())
                 .fetchOne();
 
         return new PageImpl<>(content, pageable, total);
+    }
+
+    //굿즈 구매내역 리스트 가져오기
+    @Override
+    public List<Goods> getGoodsList() {
+        List<Goods> goods = queryFactory
+                .selectFrom(QGoods.goods)
+                .orderBy(QGoods.goods.id.desc())
+                .fetch();
+
+        return goods;
+
     }
 }
