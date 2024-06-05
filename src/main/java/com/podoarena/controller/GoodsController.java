@@ -44,7 +44,7 @@ public class GoodsController {
     // 굿즈 상세 페이지 이동
     @GetMapping(value = "/goods/goodsDtl/{goodId}")
     public String goodsDtl(Model model, @PathVariable(value ="goodId") Long id) {
-//        GoodsFormDto goods = goodsService.g
+    //GoodsFormDto goods = goodsService.g
         return "goods/goodsDtl";
     }
 
@@ -82,18 +82,26 @@ public class GoodsController {
 
 
     //굿즈 삭제
-    @DeleteMapping(value = "/admin/delete/{goodsId}")
+    @DeleteMapping(value = "/admin/goodsDelete/{goodsId}")
     public @ResponseBody ResponseEntity deleteGoods(@PathVariable(value = "goodsId") Long goodsId) {
         goodsService.deleteGoods(goodsId);
         return new ResponseEntity<Long>(goodsId, HttpStatus.OK);
     }
+
     // 굿즈 리스트 이동
-    @GetMapping(value ="/admin/goods/list")
-    public String goodsList(Model model) {
+    @GetMapping(value = {"/admin/goodsList", "/admin/goodsList/{page}"})
+    public String goodsList(Model model, GoodsSearchDto goodsSearchDto,
+                            @PathVariable(value = "page")Optional<Integer> page) {
+
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0,10);
+
+        Page<Goods> goods = goodsService.getAdminGoodsPage(goodsSearchDto, pageable);
+
+        model.addAttribute("posts", goods );
         model.addAttribute("goodsFormDto", new GoodsFormDto());
+        model.addAttribute("maxPage", 5);
+
         return "admin/goodsList";
     }
-
-
 
 }
