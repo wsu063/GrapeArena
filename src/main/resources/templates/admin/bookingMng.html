@@ -30,7 +30,7 @@
         </div>
     </header>
     <main class="h-full pb-16 overflow-y-auto">
-        <div class="container grid px-6 mx-auto" style="margin-top:5rem;">
+        <div class="container grid px-6 mx-auto">
             <div class="w-full overflow-hidden rounded-lg shadow-xs">
                 <form th:action="@{'/admin/bookingMng/' + ${reserveSeatPage.number}}"
                       method="get" th:object="${reserveSeatPage}">
