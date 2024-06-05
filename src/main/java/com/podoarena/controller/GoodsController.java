@@ -32,7 +32,7 @@ public class GoodsController {
     public String goodsPage(Model model, GoodsSearchDto goodsSearchDto,
                             @RequestParam(value = "page") Optional<Integer> page) {
         Pageable pageable = PageRequest.of(page.isPresent()? page.get() : 0, 20);
-        Page<MainGoodsDto> goods = goodsService.getMainGoodsList(goodsSearchDto, pageable);
+        Page<MainGoodsDto> goods = goodsService.getMainGoodsPage(goodsSearchDto, pageable);
 
         model.addAttribute("goods", goods);
         model.addAttribute("goodsSearchDto", goodsSearchDto);

@@ -84,8 +84,8 @@ public class GoodsService {
         return goodsPage;
     }
 
-    //굿즈어드민 페이징
-    public Page<MainGoodsDto> getMainGoodsList(GoodsSearchDto goodsSearchDto, Pageable pageable) {
+    //굿즈리스트 페이징
+    public Page<MainGoodsDto> getMainGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable) {
         Page<MainGoodsDto> mainGoodsDtoPage = goodsRepository.getMainGoodsPage(goodsSearchDto, pageable);
         return mainGoodsDtoPage;
     }

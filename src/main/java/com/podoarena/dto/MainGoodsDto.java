@@ -15,15 +15,16 @@ public class MainGoodsDto {
     private int goodsPrice;
     private int goodsStock;
     private int goodsMaxAccount;
-    private List<GoodsImg> goodsImgs;
+    private String imgUrl;
 
     @QueryProjection
     public MainGoodsDto(Long id, String goodsName, int goodsPrice, int goodsStock,
-                        int goodsMaxAccount) {
+                        int goodsMaxAccount, String imgUrl) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsPrice = goodsPrice;
         this.goodsStock = goodsStock;
         this.goodsMaxAccount = goodsMaxAccount;
+        this.imgUrl = imgUrl;
     }
 }
