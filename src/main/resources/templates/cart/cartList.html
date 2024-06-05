@@ -29,7 +29,7 @@
             <div class="row mb-5">
                 <form class="col-md-12" method="post">
                     <div class="site-blocks-table">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" style="text-align: center;">
                             <thead>
                             <tr>
                                 <th class="product-remove"> <input type="checkbox" id="checkall" onclick="checkAll()" /> 전체선택</th>
@@ -99,7 +99,7 @@
                             </div>
                             <div class="row mb-5">
                                 <div class="col-md-6">
-                                    <span class="text-black">총 주문금액</span>
+                                    <span class="text-black">총 상품금액</span>
                                 </div>
                                 <div class="col-md-6 text-right">
                                     <strong class="text-black"><span id="orderTotalPrice" class="text-danger">0원</span></strong>
@@ -129,8 +129,8 @@
               var orderTotalPrice = 0;
               $("input[name=cartChkBox]:checked").each(function() {
                   var id = $(this).val();
-                  var price = $("#price_" + cartItemId).attr("data-price");
-                  var count = $("#count_" + cartItemId).val();
+                  var price = $("#price_" + goodsCartId).attr("data-price");
+                  var count = $("#count_" + goodsCartId).val();
                   orderTotalPrice += price*count;
               });
 
@@ -139,12 +139,12 @@
 
         function changeCount($obj){
           var count = $obj.val();
-          var cartItemId = $obj.attr('id').split('_')[1];
-          var price = $("#price_" + cartItemId).data("price");
+          var goodsCartId = $obj.attr('id').split('_')[1];
+          var price = $("#price_" + function getOrderTotalPrice()).data("price");
           var totalPrice = count*price;
-          $("#totalPrice_" + cartItemId).html(totalPrice.toLocaleString('ko-KR') + "원");
+          $("#totalPrice_" + goodsCartId).html(totalPrice.toLocaleString('ko-KR') + "원");
           getOrderTotalPrice();
-          updateCartItemCount(cartItemId, count);
+          updateCartItemCount(goodsCartId, count);
       }
 
         function checkAll(){
@@ -180,7 +180,7 @@
           var token = $("meta[name='_csrf']").attr("content");
           var header = $("meta[name='_csrf_header']").attr("content");
 
-          var url = "/cartItem/" + cartItemId+"?count=" + count;
+          var url = "/goodsCart/" + goodsCartId+"?count=" + count;
 
           $.ajax({
               url      : url,
@@ -192,7 +192,7 @@
               dataType : "json",
               cache   : false,
               success  : function(result, status){
-                  console.log("cartItem count update success");
+                  console.log("goodsCart count update success");
               },
               error : function(jqXHR, status, error){
 
