@@ -26,7 +26,7 @@ public class CartController {
     @GetMapping(value = "/members/cart")
     public String orderHist(Principal principal, Model model) {
         List<GoodsCartDto> goodsCartDtoList = cartService.getGoodsCartDtoList(principal.getName());
-        model.addAttribute("goodsCart", goodsCartDtoList); //model에 카트 목록 추가
+        model.addAttribute("goodsCarts", goodsCartDtoList); //model에 카트 목록 추가
         return "cart/cartList";
     }
 
