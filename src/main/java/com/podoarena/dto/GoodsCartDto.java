@@ -21,8 +21,8 @@ public class GoodsCartDto {
     private static ModelMapper modelMapper = new ModelMapper();
 
     //dto -> entity
-    public Concert createGoodsCart() {
-        return modelMapper.map(this, Concert.class);
+    public GoodsCart createGoodsCart() {
+        return modelMapper.map(this, GoodsCart.class);
     }
     //entity -> dto
     public static GoodsCartDto of(GoodsCart goodsCart) {

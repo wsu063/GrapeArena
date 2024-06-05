@@ -14,112 +14,17 @@
 </th:block>
 
 <div layout:fragment="content">
-    <!--<section class="ftco-section ftco-cart">
+    <div class="bg-light py-3" style="margin-top: 2rem;">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 ftco-animate">
-                    <div class="cart-list">
-                        <table class="table">
-                            <thead class="thead-primary">
-                            <tr class="text-center">
-                                <th>&nbsp;</th>
-                                <th>이미지</th>
-                                <th>제품</th>
-                                <th>가격</th>
-                                <th>수량</th>
-                                <th>총금액</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="text-center">
-                                <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-
-                                <td class="image-prod">
-                                    <div class="img" style="background-image:url(images/album1.png);"></div>
-                                </td>
-
-                                <td class="product-name">
-                                    <h3>상품명</h3>
-                                </td>
-
-                                <td class="price">가격</td>
-
-                                <td class="quantity">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                    </div>
-                                </td>
-
-                                <td class="total">총금액</td>
-                            </tr>
-                            &lt;!&ndash; END TR&ndash;&gt;
-
-                            <tr class="text-center">
-                                <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-
-                                <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
-
-                                <td class="product-name">
-                                    <h3>상품명</h3>
-                                </td>
-
-                                <td class="price">가격</td>
-
-                                <td class="quantity">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                    </div>
-                                </td>
-
-                                <td class="total">총금액</td>
-                            </tr>
-                            &lt;!&ndash; END TR&ndash;&gt;
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-start">
-                <div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
-                    <div class="cart-total mb-3">
-                        <h3>Cart Totals</h3>
-                        <p class="d-flex">
-                            <span>Subtotal</span>
-                            <span>$20.60</span>
-                        </p>
-                        <p class="d-flex">
-                            <span>Delivery</span>
-                            <span>$0.00</span>
-                        </p>
-                        <p class="d-flex">
-                            <span>Discount</span>
-                            <span>$3.00</span>
-                        </p>
-                        <hr>
-                        <p class="d-flex total-price">
-                            <span>Total</span>
-                            <span>$17.60</span>
-                        </p>
-                    </div>
-                    <p class="text-center"><a href="checkout.html" class="btn btn-success py-3 px-4">결제하기</a></p>
-                </div>
-            </div>
-        </div>
-    </section>-->
-
-
-    <!--  버전 2  -->
-    <div class="bg-light py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 mb-0"><a href="/" style="text-decoration-line: none;">Home</a> <span class="mx-2 mb-0">/</span>
-                    <strong class="text-black">Cart</strong>
+                <div class="col-md-12 mb-0"><a href="/" style="text-decoration-line: none; color: #ffc107;">Home</a> <span class="mx-2 mb-0">/</span>
+                    <strong class="text-black">MD Cart</strong>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="site-section">
+    <div class="site-section" style="margin-top: 1rem;">
         <div class="container">
             <div class="row mb-5">
                 <form class="col-md-12" method="post">
@@ -223,7 +128,7 @@
         function getOrderTotalPrice(){
               var orderTotalPrice = 0;
               $("input[name=cartChkBox]:checked").each(function() {
-                  var cartItemId = $(this).val();
+                  var id = $(this).val();
                   var price = $("#price_" + cartItemId).attr("data-price");
                   var count = $("#count_" + cartItemId).val();
                   orderTotalPrice += price*count;
@@ -367,7 +272,7 @@
               cache   : false,
               success  : function(result, status){
                   alert("주문이 완료 되었습니다.");
-                  location.href='/orders';
+                  location.href='members/orders';
               },
               error : function(jqXHR, status, error){
 

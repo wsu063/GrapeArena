@@ -1,6 +1,7 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.GoodsCartDto;
+import com.podoarena.dto.GoodsFormDto;
 import com.podoarena.repository.MemberRepository;
 import com.podoarena.service.CartService;
 import jakarta.validation.Valid;
@@ -33,7 +34,7 @@ public class CartController {
 
     // 카트에 상품을 추가
     @PostMapping(value = "/members/cart")
-    public @ResponseBody ResponseEntity order(@RequestBody @Valid GoodsCartDto goodsCartDto, BindingResult bindingResult, Principal principal) {
+    public @ResponseBody ResponseEntity order(@RequestBody @Valid GoodsFormDto goodsFormDto, BindingResult bindingResult, Principal principal) {
         //유효성 검증에서 오류있는 경우
         if (bindingResult.hasErrors()) {
             StringBuilder sb = new StringBuilder();
@@ -47,6 +48,9 @@ public class CartController {
             //BAD_REQUEST 상태 코드와 함께 오류 메시지 반환
             return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST); // 에러 메시지와 함께 400 상태 코드 반환
         }
+
+        GoodsCartDto goodsCartDto = new GoodsCartDto();
+        goodsCartDto.createGoodsCart();
 
         //현재 사용자 이메일 가져오기
         String email = principal.getName();
