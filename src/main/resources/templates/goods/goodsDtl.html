@@ -2,7 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-
+  <head>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  </head>
+  
 <th:block layout:fragment="css">
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
@@ -90,13 +94,13 @@
                             <div>￦&nbsp;&nbsp;[[${#numbers.formatInteger(goods.goodsPrice,0, 'COMMA')}]]</div>
                         </div>
                         <div style="display: flex; justify-content: center; margin-top: 30px;">
-                            <div class="red_button add_to_cart_button"><a href="/members/cart">카트 추가</a></div>
+                            <div class="red_button add_to_cart_button"><button onclick="cartItem()">카트 추가</button></div>
                             <div class="red_button add_to_cart_button"><a href="#">바로 구매</a></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <input type="hidden" th:value="${goods}" />
+            <input id="goods" type="hidden" th:value="${goods}" />
           </form>
         </div>
 
@@ -154,7 +158,33 @@
 
 
     <script th:inline="javascript">
-
+      function  cartItem() {
+        var goodsFormDto= $("#goods").val();
+        
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        
+        
+        $.ajax({
+          url: "/members/cart",
+          type: "POST",
+          contentType: "application/json",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          dataType: "text",
+          cache: false,
+          data: JSON.stringify(goodsFormDto),
+          success: function(result, status, xhr, formData) {
+            confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?");
+            location.href= "/members/cart";
+           
+          },
+          error: function(jqXHR, status, error) {
+            alert("장바구니에 추가를 실패했습니다. 관리자에게 문의하세요.")
+          }
+        });
+      }
     </script>
 </th:block>
 </html>
