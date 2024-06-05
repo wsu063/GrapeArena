@@ -100,7 +100,7 @@ public class GoodsController {
 
 
 
-    //공연장 수정
+    // 굿즈 수정
     @GetMapping(value = "/admin/goods/edit/{goodsId}")
     public String goodsModify(@PathVariable("goodsId") Long goodsId, Model model) {
 

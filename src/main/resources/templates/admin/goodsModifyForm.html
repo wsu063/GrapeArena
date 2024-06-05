@@ -37,8 +37,9 @@
 
     <div class="super_container_admin" style="overflow-y: auto;">
 
-        <form role="form" th:action="@{'/goods/' + ${goodsFormDto.id}}" method="post" enctype="multipart/form-data"
+        <form role="form" th:action="@{'/admin/goods/edit/' + ${goodsFormDto.id}}" method="post" enctype="multipart/form-data"
               th:object="${goodsFormDto}" name="goodsForm">
+            <input type="hidden" th:field="*{id}"/>
 
         <div class="container single_product_container">
                 <div class="row">
