@@ -1,7 +1,6 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.GoodsCartDto;
-import com.podoarena.entity.Member;
 import com.podoarena.repository.MemberRepository;
 import com.podoarena.service.CartService;
 import jakarta.validation.Valid;
@@ -23,6 +22,7 @@ public class CartController {
     private final CartService cartService;
     private final MemberRepository memberRepository;
 
+    //회원의 장바구니 목록을 조회
     @GetMapping(value = "/members/cart")
     public String orderHist(Principal principal, Model model) {
         List<GoodsCartDto> goodsCartDtoList = cartService.getGoodsCartDtoList(principal.getName());
@@ -30,6 +30,8 @@ public class CartController {
         return "cart/cartList";
     }
 
+
+    // 카트에 상품을 추가
     @PostMapping(value = "/members/cart")
     public @ResponseBody ResponseEntity order(@RequestBody @Valid GoodsCartDto goodsCartDto, BindingResult bindingResult, Principal principal) {
         //유효성 검증에서 오류있는 경우
@@ -63,21 +65,35 @@ public class CartController {
     }
 
 
+    // 카트 굿즈 수량을 수정
+    public @ResponseBody ResponseEntity updateGoodsCart(@PathVariable("goodsCartId") Long goodsCartId, @RequestParam("goodsCount") int count, Principal principal){
+
+        if (count <= 0) {
+            return new ResponseEntity<String>("최소 1개 이상 담아주세요.", HttpStatus.BAD_REQUEST);
+        } else if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
+            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
+        cartService.updateGoodsCartCount(goodsCartId, count);
+        return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
+    }
+
+
+
+    //카트 굿즈 삭제
     @DeleteMapping(value = "/goodsCart/goodsCartId")
     public @ResponseBody ResponseEntity deleteGoodsCart(@PathVariable("goodsCartId") Long goodsCartId, Principal principal) {
         if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
             return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
         }
-        cartService.deleteGoodsCart(goodsCartId);
+        cartService.deleteGoodsCart(goodsCartId); // 굿즈 삭제
 
         return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
     }
 
-    //사용자의 장바구니 목록을 조회
-//    public String orderHist(Principal principal, Model model) {
-//        List<GoodsCartDto> goodsCartList = cartService.getGoodsCartDtoList(principal.getName()); //장바구니 목록 조회
-//
-//        return goodsCartList.toString();
+
+    //카트에 담긴 굿즈 주문
+//    public @ResponseBody ResponseEntity orderGoodsCart(@RequestBody OrderDto orderDto, Principal principal) {
+//        List<OrderDto> orderDtoList = orderDto.get();
 //    }
 
 
