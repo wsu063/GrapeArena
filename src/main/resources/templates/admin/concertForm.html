@@ -101,6 +101,7 @@
                             <div class="form_details">
                                 <label class="text-black">공 연 장</label>
                                 <select class="form-control product-form-input" id="placeSelect">
+                                    <option value="" disabled selected>공연장을 선택하세요</option>
                                     <option th:each="place: *{placeFormDtoList}" th:value="${place.id}" th:text="${place.placeName}"
                                     ></option>
                                 </select>

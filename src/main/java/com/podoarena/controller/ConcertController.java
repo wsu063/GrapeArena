@@ -79,7 +79,7 @@ public class ConcertController {
                     "콘서트 등록 중 에러가 발생했습니다.");
             return "admin/concertForm";
         }
-        return "redirect:/";
+        return "redirect:/admin/concerts/list";
     }
 
 
@@ -140,7 +140,7 @@ public class ConcertController {
         //최대 페이지 번호 5개씩
         model.addAttribute("maxPage", 5);
 
-        return "admin/concertMng"; // 임시
+        return "admin/concertList"; // 임시
     }
 
 
