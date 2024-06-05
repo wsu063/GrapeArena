@@ -50,7 +50,7 @@ public class QPlaceConcert extends EntityPathBase<PlaceConcert> {
 
     public QPlaceConcert(Class<? extends PlaceConcert> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.concert = inits.isInitialized("concert") ? new QConcert(forProperty("concert")) : null;
+        this.concert = inits.isInitialized("concert") ? new QConcert(forProperty("concert"), inits.get("concert")) : null;
         this.place = inits.isInitialized("place") ? new QPlace(forProperty("place"), inits.get("place")) : null;
     }
 

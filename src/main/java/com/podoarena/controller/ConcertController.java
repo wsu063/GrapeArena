@@ -1,6 +1,7 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.ConcertFormDto;
+import com.podoarena.dto.ConcertSearchDto;
 import com.podoarena.dto.PlaceFormDto;
 import com.podoarena.dto.ReserveSeatSearchDto;
 import com.podoarena.entity.Concert;
@@ -83,22 +84,6 @@ public class ConcertController {
     }
 
 
-    //콘서트 상세 페이지
-    @GetMapping(value = "/concerts/detail/{concertId}")
-    private String concertDtl(Model model, @PathVariable(value = "concertId") Long concertId, Principal principal) {
-        ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
-
-        model.addAttribute("concert", concertFormDto);
-        return "concert/concertDtl";
-    }
-
-    //임시 상세 페이지(db 만들고 나서 지우기)
-    @GetMapping(value = "/concerts/detail")
-    private String concertDtltemp(Model model, Principal principal) {
-
-        return "concert/concertDtl";
-    }
-
     //콘서트 수정
     @GetMapping(value = "/admin/concerts/rewrite/{concertId}")
     private String concertRewrite(@PathVariable("concertId") Long concertId, Model model) {
@@ -115,6 +100,25 @@ public class ConcertController {
         return "admin/concertModifyForm";
     }
 
+    //콘서트 목록 (관리자)
+    @GetMapping(value = {"/admin/concerts/list", "/admin/concerts/list/{page}"})
+    public String concertReserveListAdmin(ConcertSearchDto concertSearchDto,
+                                          @PathVariable("page")Optional<Integer> page, Model model) {
+        // page가 있으면 번호 조회, 아니면 0
+        // 한 페이지에 10개
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+
+        Page<Concert> concerts = concertService.getAdminConcertPage(concertSearchDto, pageable);
+
+        model.addAttribute("concerts", concerts);
+        model.addAttribute("concertSearchDto", concertSearchDto);
+
+        //최대 페이지 번호 5개씩
+        model.addAttribute("maxPage", 5);
+
+        return "admin/concertList";
+    }
+
     //콘서트 예매 내역 (유저)
     @GetMapping(value = "/concerts/list")
     public String concertReserveList(Model model) {
@@ -124,24 +128,20 @@ public class ConcertController {
         return "concerts/list";
     }
 
-    //콘서트 예매 내역 (관리자)
-    @GetMapping(value = {"/admin/concerts/list", "/admin/concerts/list/{page}"})
-    public String concertReserveListAdmin(ReserveSeatSearchDto reserveSeatSearchDto,
-                                          @PathVariable("page")Optional<Integer> page, Model model) {
-        // page가 있으면 번호 조회, 아니면 0
-        // 한 페이지에 10개
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
-        
-        Page<ReserveSeat> reserveSeats = concertService.getReserveSeatPage(reserveSeatSearchDto, pageable);
+    //콘서트 상세 페이지
+    @GetMapping(value = "/concerts/detail/{concertId}")
+    private String concertDtl(Model model, @PathVariable(value = "concertId") Long concertId, Principal principal) {
+        ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
 
-        model.addAttribute("reserveSeats", reserveSeats);
-        model.addAttribute("reserveSeatSearchDto", reserveSeatSearchDto);
-        
-        //최대 페이지 번호 5개씩
-        model.addAttribute("maxPage", 5);
-
-        return "admin/concertList"; // 임시
+        model.addAttribute("concert", concertFormDto);
+        return "concert/concertDtl";
     }
 
+    //임시 상세 페이지(db 만들고 나서 지우기)
+    @GetMapping(value = "/concerts/detail")
+    private String concertDtltemp(Model model, Principal principal) {
+
+        return "concert/concertDtl";
+    }
 
 }

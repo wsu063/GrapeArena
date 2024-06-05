@@ -18,6 +18,8 @@ public class QConcert extends EntityPathBase<Concert> {
 
     private static final long serialVersionUID = 1433968345L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QConcert concert = new QConcert("concert");
 
     public final QBaseEntity _super = new QBaseEntity(this);
@@ -38,7 +40,7 @@ public class QConcert extends EntityPathBase<Concert> {
     //inherited
     public final StringPath modifiedBy = _super.modifiedBy;
 
-    public final ListPath<PlaceConcert, QPlaceConcert> placeConcertList = this.<PlaceConcert, QPlaceConcert>createList("placeConcertList", PlaceConcert.class, QPlaceConcert.class, PathInits.DIRECT2);
+    public final QPlaceConcert placeConcert;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
@@ -47,15 +49,24 @@ public class QConcert extends EntityPathBase<Concert> {
     public final DateTimePath<java.time.LocalDateTime> updateDate = _super.updateDate;
 
     public QConcert(String variable) {
-        super(Concert.class, forVariable(variable));
+        this(Concert.class, forVariable(variable), INITS);
     }
 
     public QConcert(Path<? extends Concert> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QConcert(PathMetadata metadata) {
-        super(Concert.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QConcert(PathMetadata metadata, PathInits inits) {
+        this(Concert.class, metadata, inits);
+    }
+
+    public QConcert(Class<? extends Concert> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.placeConcert = inits.isInitialized("placeConcert") ? new QPlaceConcert(forProperty("placeConcert"), inits.get("placeConcert")) : null;
     }
 
 }

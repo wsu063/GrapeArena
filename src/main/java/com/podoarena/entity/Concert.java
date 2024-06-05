@@ -29,8 +29,8 @@ public class Concert extends BaseEntity {
     @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConcertImg> concertImgs;
 
-    @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PlaceConcert> placeConcertList;
+    @OneToOne(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
+    private PlaceConcert placeConcert;
 
 
     public void updateConcert(ConcertFormDto concertFormDto) {

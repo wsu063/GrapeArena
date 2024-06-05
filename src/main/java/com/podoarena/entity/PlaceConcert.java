@@ -23,8 +23,7 @@ public class PlaceConcert {
     @JoinColumn(name = "concert_id")
     private Concert concert;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id")
+    @OneToOne(fetch = FetchType.LAZY)
     private Place place;
 
     @OneToMany(mappedBy = "placeConcert", cascade = CascadeType.ALL, orphanRemoval = true)

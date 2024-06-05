@@ -3,6 +3,7 @@ package com.podoarena.service;
 import com.podoarena.constant.RepImgYn;
 import com.podoarena.dto.ConcertFormDto;
 import com.podoarena.dto.ConcertImgDto;
+import com.podoarena.dto.ConcertSearchDto;
 import com.podoarena.dto.ReserveSeatSearchDto;
 import com.podoarena.entity.*;
 import com.podoarena.repository.ConcertRepository;
@@ -103,6 +104,13 @@ public class ConcertService {
         List<Concert> concerts = concertRepository.getConcertList();
 
         return concerts;
+    }
+
+    // 콘서트 페이징 리스트 가져오기
+    public Page<Concert> getAdminConcertPage(ConcertSearchDto concertSearchDto, Pageable pageable) {
+        Page<Concert> getAdminConcertPage = concertRepository.getAdminConcertPage(concertSearchDto, pageable);
+
+        return getAdminConcertPage;
     }
 
 

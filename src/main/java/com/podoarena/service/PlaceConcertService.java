@@ -57,7 +57,7 @@ public class PlaceConcertService {
             date.setPlaceConcert(placeConcert);
         }
         place.setPlaceConcert(placeConcert);
-        concert.getPlaceConcertList().add(placeConcert);
+        concert.setPlaceConcert(placeConcert);
 
 
         return placeConcert.getId();
