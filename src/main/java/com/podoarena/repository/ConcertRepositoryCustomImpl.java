@@ -41,7 +41,7 @@ public class ConcertRepositoryCustomImpl implements  ConcertRepositoryCustom{
             dateTime = dateTime.minusMonths(6);
         }
 
-        return QConcert.concert.placeConcert.dateList.get(0).dateTime.after(dateTime); // 몇일전 이후부터
+        return QConcert.concert.placeConcert.dateList.any().dateTime.after(dateTime); // 몇일전 이후부터
     }
 
     private BooleanExpression searchTypeStatusEq(ConcertState concertState) {

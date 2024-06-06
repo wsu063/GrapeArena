@@ -104,8 +104,30 @@
                     <!-- 검색창 -->
                     <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
                          th:object="${concertSearchDto}">
-                            <span class="flex items-center col-span-3">
-                            </span>
+                        <span class="flex items-center col-span-3">
+                            <!-- 상품 등록일 -->
+                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                    th:field="*{searchDateType}">
+                                <option value="all" >전체기간</option>
+                                <option value="1d">1일</option>
+                                <option value="1w">1주</option>
+                                <option value="1m">1개월</option>
+                                <option value="6m">6개월</option>
+                            </select>
+                            <!-- 상품판매 상태 -->
+                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                    th:field="*{searchTypeStatus}">
+                                <option value="">콘서트상태(전체)</option>
+                                <option value="PLAY">예매중</option>
+                                <option value="STOP">예매종료</option>
+                            </select>
+                            <!-- 상품명, 등록자 선택 -->
+                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                    th:field="*{searchBy}">
+                                <option value="concert">콘서트명</option>
+                                <option value="place">공연장명</option>
+                            </select>
+                        </span>
                         <div class="col-span-2">
                             <div class="absolute inset-y-0 flex items-center pl-2">
                                 <svg  class="w-4 h-4"
