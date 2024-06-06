@@ -164,20 +164,22 @@ h2.first:hover {
 .header_bottom {
     width: 100%;
     padding-bottom: 2px;
+    text-align: -webkit-center;
 }
 
 .header_bottom_wrap {
     display: flex;
     text-align: center;
     justify-content: space-around;
-    padding-bottom: 10px;
+    margin : 1rem;
+    width: 60%;
 }
 
 .header_bottom_wrap > div > a {
     color: black;
     text-decoration: none;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 /* clip */
