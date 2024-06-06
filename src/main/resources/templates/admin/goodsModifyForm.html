@@ -54,9 +54,9 @@
                                             <p class="message">Drag files to upload</p>
                                             <img src="" alt="미리보기 이미지" class="preview">
                                         </div>
+                                        <input type="hidden" name="goodsImgIds" th:value="${goodsFormDto.goodsImgDtoList[0].id}" />
                                         <label th:for="goodsImgFile" class="file-label">Choose File</label>
                                         <input class="file" name="goodsImgFile" id="goodsImgFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
-                                        <input type="hidden" />
                                     </div>
                                 </div>
                             </div>
@@ -101,10 +101,14 @@
                             </div>
 
                             <!-- 본문 이미지 업로드  -->
-                            <div class="form_details">
-                                <label class="text-black" for="goodsImgFile">본문이미지</label>
-                                <input type="file" id="REQ_FILE" name="goodsImgFile"  >
+                            <div class="form_details" th:each="goodsImgDto, status: ${goodsFormDto.goodsImgDtoList}" th:if="${status.index == 1}">
+                                <label class="text-black" for="goodsImgFile"
+                                       th:text="${not #strings.isEmpty(goodsImgDto.oriImgName)}
+                                       ? ${goodsImgDto.oriImgName} : '본문이미지' + ${status.index+1} "></label>
+                                <input type="hidden" name="goodsImgIds" th:value="${goodsImgDto.id}"/>
+                                <input type="file" name="goodsImgFile"  >
                             </div>
+
 
                             <div class="form_details">
                                 <button class="btn btn-primary solid blank mt-3 submit-registration" type="submit" >

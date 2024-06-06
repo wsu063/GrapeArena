@@ -79,11 +79,8 @@
                             <td th:text="${goods.id}" class="px-4 py-3" > </td>
 
                             <!-- 상품명 -->
-                            <td class="px-4 py-3">
-                                <a th:href="'/admin/goodsDtl/' + ${goods.id}"
-                                   th:text="${goods.goodsName}"
-                                   style="font-weight: bold;">
-                                </a>
+                            <td class="px-4 py-3 text-xs">
+                                <strong th:text="${goods.goodsName}"></strong>
                             </td>
 
 

@@ -102,16 +102,17 @@ public class GoodsController {
 
 
 
-    // 굿즈 수정
+    // 굿즈 수정페이지 보기
     @GetMapping(value = "/admin/goods/edit/{goodsId}")
     public String goodsModify(@PathVariable("goodsId") Long goodsId, Model model) {
-
         try {
             GoodsFormDto goodsFormDto = goodsService.getGoodsDtl(goodsId);
             model.addAttribute("goodsFormDto", goodsFormDto);
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("errorMessage", "굿즈(MD) 수정 중 오류가 발생했습니다.");
+            model.addAttribute("errorMessage",
+                    "굿즈(MD) 수정 중 오류가 발생했습니다.");
+
             model.addAttribute("goodsFormDto", new GoodsFormDto());
             return "admin/goodsModifyForm";
         }
