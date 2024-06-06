@@ -84,7 +84,7 @@ public class ConcertController {
     @GetMapping(value = "/admin/concerts/rewrite/{concertId}")
     private String concertRewrite(@PathVariable("concertId") Long concertId, Model model) {
         try {
-
+                // 구상중?
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMessage", "콘서트 정보를 가져오는 도중 에러가 발생했습니다.");
@@ -139,5 +139,7 @@ public class ConcertController {
 
         return "concert/concertDtl";
     }
+
+
 
 }

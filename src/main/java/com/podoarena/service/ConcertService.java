@@ -125,4 +125,11 @@ public class ConcertService {
 
         return reserveSeatPage;
     }
+
+    public Concert getConcert(Long concertId) {
+        Concert concert = concertRepository.findById(concertId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        return concert;
+    }
 }
