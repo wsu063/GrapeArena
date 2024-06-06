@@ -2,10 +2,7 @@ package com.podoarena.dto;
 
 
 import com.podoarena.constant.SellStatus;
-import com.podoarena.constant.Sort;
 import com.podoarena.entity.Goods;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -35,7 +32,7 @@ public class GoodsFormDto {
 
     private int count;
 
-    private Sort sort;
+    private String sort;
 
     private List<GoodsImgDto> goodsImgDtoList = new ArrayList<>();
 

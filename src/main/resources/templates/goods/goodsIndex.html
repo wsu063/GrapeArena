@@ -123,8 +123,8 @@
             <div class="col">
               <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
                 <!-- Product 1 -->
-                <th:block th:each="good : ${goods}" >
-                <div class="product-item TOUR"  >
+                <th:block th:each="good : ${goods}" th:switch="${good.sort}" >
+                <div th:case="'TOUR'" class="product-item TOUR"  >
                   <div class="product discount product_filter">
                     <a th:href="'/goods/goodsDtl/'+${good.id}">
                       <div class="product_image">
@@ -139,6 +139,36 @@
                   </div>
                   <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
                 </div>
+                  <div th:case="'STICK'" class="product-item STICK"  >
+                    <div class="product discount product_filter">
+                      <a th:href="'/goods/goodsDtl/'+${good.id}">
+                        <div class="product_image">
+                          <img th:src="${good.goodsImgs.get(0).getImgUrl()}" alt="">
+                        </div>
+                        <div class="favorite"></div>
+                        <div class="product_info">
+                          <h6 class="product_name" th:text="${good.goodsName}"></h6>
+                          <div class="product_price" >&nbsp;&nbsp;￦[[${#numbers.formatInteger(good.goodsPrice,0, 'COMMA')}]]</div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+                  </div>
+                  <div th:case="'ALBUM'" class="product-item ALBUM"  >
+                    <div class="product discount product_filter">
+                      <a th:href="'/goods/goodsDtl/'+${good.id}">
+                        <div class="product_image">
+                          <img th:src="${good.goodsImgs.get(0).getImgUrl()}" alt="">
+                        </div>
+                        <div class="favorite"></div>
+                        <div class="product_info">
+                          <h6 class="product_name" th:text="${good.goodsName}"></h6>
+                          <div class="product_price" >&nbsp;&nbsp;￦[[${#numbers.formatInteger(good.goodsPrice,0, 'COMMA')}]]</div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+                  </div>
                 </th:block>
               </div>
             </div>
