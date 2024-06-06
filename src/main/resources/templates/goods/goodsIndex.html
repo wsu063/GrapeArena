@@ -79,7 +79,7 @@
     
     
     <!-- 상품 리스트 -->
-    <form th:object="${goods}">
+    <form th:object="${goods}" method="get" th:action="@{'/goods/goodsIndex/' + ${goods.number}}">
       <div class="new_arrivals">
         <div class="container">
           <div class="row">
@@ -107,8 +107,10 @@
                   </li>
                 </ul>
                 <div>
-                  <div class="goods_searchbar">
-                    <input type="text" placeholder="검색할 상품을 입력해주세요."/>
+                  <!-- 검색 인풋 -->
+                  <div class="goods_searchbar" th:object="${goodsSearchDto}">
+                    <input type="text"  th:field="*{searchQuery}"
+                           placeholder="검색할 상품을 입력해주세요."/>
                     <a role="button" tabindex="0" class="search_btn">
                       <i class="fa-solid fa-magnifying-glass fa-beat" style="width: 30px; color: #FFD43B;"></i>
                     </a>
