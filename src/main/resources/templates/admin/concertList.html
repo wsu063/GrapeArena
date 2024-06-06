@@ -196,8 +196,8 @@
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-        function deleteConcert(placeId) {
-            const cancelConf = confirm("공연장을 삭제하시겠습니까?");
+        function deleteConcert(concertId) {
+            const cancelConf = confirm("콘서트를 삭제하시겠습니까?");
             if(!cancelConf) return; // 취소 선택시 끝
 
             var token = $("meta[name='_csrf']").attr("content");
