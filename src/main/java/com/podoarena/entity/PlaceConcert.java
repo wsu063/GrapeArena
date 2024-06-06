@@ -12,18 +12,18 @@ import java.util.List;
 @Table(name = "place_concert")
 @Getter
 @Setter
-@ToString
 public class PlaceConcert {
     @Id
     @Column(name = "place_concert_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concert_id")
     private Concert concert;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id")
     private Place place;
 
     @OneToMany(mappedBy = "placeConcert", cascade = CascadeType.ALL, orphanRemoval = true)

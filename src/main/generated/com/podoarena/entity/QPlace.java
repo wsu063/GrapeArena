@@ -26,7 +26,7 @@ public class QPlace extends EntityPathBase<Place> {
 
     public final StringPath placeBatch = createString("placeBatch");
 
-    public final QPlaceConcert placeConcert;
+    public final ListPath<PlaceConcert, QPlaceConcert> placeConcertList = this.<PlaceConcert, QPlaceConcert>createList("placeConcertList", PlaceConcert.class, QPlaceConcert.class, PathInits.DIRECT2);
 
     public final QPlaceImg placeImg;
 
@@ -54,7 +54,6 @@ public class QPlace extends EntityPathBase<Place> {
 
     public QPlace(Class<? extends Place> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.placeConcert = inits.isInitialized("placeConcert") ? new QPlaceConcert(forProperty("placeConcert"), inits.get("placeConcert")) : null;
         this.placeImg = inits.isInitialized("placeImg") ? new QPlaceImg(forProperty("placeImg"), inits.get("placeImg")) : null;
     }
 

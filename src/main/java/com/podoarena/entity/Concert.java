@@ -13,7 +13,6 @@ import java.util.List;
 @Table(name = "concert")
 @Getter
 @Setter
-@ToString
 public class Concert extends BaseEntity {
     @Id
     @Column(name = "concert_id")
@@ -30,6 +29,7 @@ public class Concert extends BaseEntity {
     private List<ConcertImg> concertImgs;
 
     @OneToOne(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "place_concert_id")
     private PlaceConcert placeConcert;
 
 

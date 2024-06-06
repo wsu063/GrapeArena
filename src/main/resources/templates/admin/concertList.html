@@ -28,7 +28,7 @@
             </button>
             <div class="flex justify-center flex-1 lg:mr-32">
                 <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500" >
-                    <h4 style="text-align: center;">고객 목록</h4>
+                    <h4 style="text-align: center;">콘서트 목록</h4>
                 </div>
             </div>
         </div>
@@ -41,8 +41,8 @@
                 </button>
             </div>
             <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                <form th:action="@{'/admin/concerts/list/' + ${placeConcert.number}}"
-                      method="get" th:object="${placeConcertPage}">
+                <form th:action="@{'/admin/concerts/list/' + ${concertPage.number}}"
+                      method="get" th:object="${concertPage}">
                     <div class="w-full overflow-x-auto">
                         <table class="w-full whitespace-no-wrap">
                             <thead>
@@ -55,23 +55,27 @@
                             </thead>
                             <tbody  class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                                 <tr class="text-gray-700 dark:text-gray-400"
-                                    th:each="placeConcert, status: ${placeConcertPage.getContent()}">
+                                    th:each="concert, status: ${concertPage.getContent()}">
                                     <td class="px-4 py-3">
                                         <div class="flex items-center text-sm">
                                             <div>
-                                                <p class="font-semibold"></p>
+                                                <p class="font-semibold" th:text="${concert.concertName}"></p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-3 text-sm" th:text="placeConcert.concert.concertName"></td>
-                                    <td class="px-4 py-3 text-xs"></td>
-                                    <td class="px-4 py-3 text-sm" th:text="placeConcert.place.placeName"></td>
+                                    <td class="px-4 py-3 text-sm" th:text="${concert.placeConcert.place.placeName}"></td>
                                     <!-- 공연날짜 여러개(3개) -->
-                                    <td class="px-4 py-3 text-sm" th:text=""></td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <div class="flex items-center text-sm" th:each="date, index : ${concert.placeConcert.dateList}">
+                                            <div>
+                                                <p class="font-semibold"  th:text="${index.count} + '회 : ' + ${#temporals.format(date.dateTime, 'yyyy년 MM월 dd일 HH시')}"></p>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="px-4 py-3">
                                         <div class="flex items-center space-x-4 text-sm">
                                             <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                    th:onclick="'window.location.href=\'/admin/concerts/edit/' + ${placeConcert.concert.id} + '\';'" aria-label="Edit"  >
+                                                    th:onclick="'window.location.href=\'/admin/concerts/edit/' + ${concert.id} + '\';'" aria-label="Edit"  >
                                                 <svg class="w-5 h-5"
                                                      aria-hidden="true"
                                                      fill="currentColor"
@@ -80,7 +84,7 @@
                                                 </svg>
                                             </button>
                                             <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                    th:onclick="'deletePlaceConcert(' + ${placeConcert.id} + ')'" aria-label="Delete" >
+                                                    th:onclick="'deleteConcert(' + ${concert.id} + ')'" aria-label="Delete" >
                                                 <svg class="w-5 h-5"
                                                      aria-hidden="true"
                                                      fill="currentColor"
@@ -99,7 +103,7 @@
                     </div>
                     <!-- 검색창 -->
                     <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
-                         th:object="${placeConcertSearchDto}">
+                         th:object="${concertSearchDto}">
                             <span class="flex items-center col-span-3">
                             </span>
                         <div class="col-span-2">
@@ -115,20 +119,20 @@
                             </div>
                             <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                    type="text" th:field="*{searchQuery}"
-                                   placeholder="회원 번호를 입력해주세요."
+                                   placeholder="검색어를 입력해주세요."
                                    aria-label="Search" />
                         </div>
                         <!-- Pagination -->
                         <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
                             <nav aria-label="Table navigation"
-                                 th:with="start=${(reserveSeatPage.number/maxPage) * maxPage + 1},
-                end= (${(reserveSeatPage.totalPages == 0) ? 1 : (start + (maxPage - 1) < reserveSeatPage.totalPages ? start + (maxPage - 1) : reserveSeatPage.totalPages)}) "
+                                 th:with="start=${(concertPage.number/maxPage) * maxPage + 1},
+                end= (${(concertPage.totalPages == 0) ? 1 : (start + (maxPage - 1) < concertPage.totalPages ? start + (maxPage - 1) : concertPage.totalPages)}) "
                             >
                                 <ul class="inline-flex items-center">
                                   <li>
                                     <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                                            aria-label="Previous" th:classappend="${reserveSeatPage.first} ? ' disabled'"
-                                            th:onclick="'javascript:page(' + ${reserveSeatPage.number - 1} + ')'">
+                                            aria-label="Previous" th:classappend="${concertPage.first} ? ' disabled'"
+                                            th:onclick="'javascript:page(' + ${concertPage.number - 1} + ')'">
                                       <svg class="w-4 h-4 fill-current"
                                            aria-hidden="true"
                                            viewBox="0 0 20 20" >
@@ -141,14 +145,14 @@
                                   <li>
                                     <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
                                             th:each="page: ${#numbers.sequence(start, end)}"
-                                            th:classappend="${reserveSeatPage.number eq page-1} ? 'text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600' : ''"
+                                            th:classappend="${concertPage.number eq page-1} ? 'text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600' : ''"
                                             th:inline="text" th:onclick="'javascript:page(' + ${page - 1} + ')'"
                                     >[[${page}]]</button>
                                   </li>
                                   <li>
                                     <button  class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next"
-                                             th:classappend="${reserveSeatPage.last} ? ' disabled'"
-                                             th:onclick="'javascript:page(' + ${reserveSeatPage.number + 1} + ')'">
+                                             th:classappend="${concertPage.last} ? ' disabled'"
+                                             th:onclick="'javascript:page(' + ${concertPage.number + 1} + ')'">
                                       <svg class="w-4 h-4 fill-current"
                                            aria-hidden="true"
                                            viewBox="0 0 20 20" >
@@ -170,7 +174,7 @@
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-        function deletePlaceConcert(placeId) {
+        function deleteConcert(placeId) {
             const cancelConf = confirm("공연장을 삭제하시겠습니까?");
             if(!cancelConf) return; // 취소 선택시 끝
 
@@ -178,7 +182,7 @@
             var header = $("meta[name='_csrf_header']").attr("content");
 
             $.ajax({
-                url : "/admin/places/delete/" + placeId,
+                url : "/admin/concerts/delete/" + concertId,
                 type : "DELETE",
                 contentType : "application/json",
                 beforeSend : function(xhr) {

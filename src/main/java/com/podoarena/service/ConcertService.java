@@ -37,6 +37,10 @@ public class ConcertService {
         Concert concert = concertFormDto.createConcert();
         concertRepository.save(concert);
 
+        concertFormDto.setId(concert.getId());
+
+        placeConcertService.savePlaceConcert(concertFormDto);
+
         //2. 이미지 등록
         for (int i = 0; i < concertImgFileList.size(); i++) {
             ConcertImg concertImg = new ConcertImg();
@@ -53,7 +57,7 @@ public class ConcertService {
         }
         concertFormDto.setId(concert.getId());
         //3. PC 등록
-        placeConcertService.savePlaceConcert(concertFormDto);
+
 
         return concertFormDto.getId();
     }

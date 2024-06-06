@@ -24,9 +24,8 @@ public class Place {
 
     private String placeBatch;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_concert_id")
-    private PlaceConcert placeConcert;
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PlaceConcert> placeConcertList;
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seatList;

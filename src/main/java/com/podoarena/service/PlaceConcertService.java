@@ -56,7 +56,7 @@ public class PlaceConcertService {
         for(Date date : dateList) {
             date.setPlaceConcert(placeConcert);
         }
-        place.setPlaceConcert(placeConcert);
+        place.getPlaceConcertList().add(placeConcert);
         concert.setPlaceConcert(placeConcert);
 
 

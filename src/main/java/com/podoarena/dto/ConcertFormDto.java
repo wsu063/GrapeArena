@@ -39,7 +39,12 @@ public class ConcertFormDto {
 
     //dto -> entity
     public Concert createConcert() {
-        return modelMapper.map(this, Concert.class);
+        Concert concert = new Concert();
+        concert.setConcertName(this.concertName);
+        concert.setConcertSinger(this.concertSinger);
+        concert.setConcertState(this.concertState);
+
+        return concert;
     }
     //entity -> dto
     public static ConcertFormDto of(Concert concert) {

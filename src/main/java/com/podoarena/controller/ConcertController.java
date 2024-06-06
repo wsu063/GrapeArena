@@ -108,9 +108,9 @@ public class ConcertController {
         // 한 페이지에 10개
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 
-        Page<Concert> concerts = concertService.getAdminConcertPage(concertSearchDto, pageable);
+        Page<Concert> concertPage = concertService.getAdminConcertPage(concertSearchDto, pageable);
 
-        model.addAttribute("concerts", concerts);
+        model.addAttribute("concertPage", concertPage);
         model.addAttribute("concertSearchDto", concertSearchDto);
 
         //최대 페이지 번호 5개씩
