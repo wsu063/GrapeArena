@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:x-transition="http://www.w3.org/1999/xhtml"
@@ -47,83 +48,83 @@
                 <form th:action="@{'/admin/goods/list/' + ${goods.number}}"
                       method="get" th:object="${goods}">
 
-                <div class="w-full overflow-x-auto">
-                    <table class="w-full whitespace-no-wrap">
-                        <thead>
-                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                            <th class="px-4 py-3">굿즈(MD)ID</th>
-                            <th class="px-4 py-3">상품명</th>
-                            <th class="px-4 py-3">굿즈(MD)</th>
-                            <th class="px-4 py-3">가격</th>
-                            <th class="px-4 py-3">판매상황</th>
-                            <th class="px-4 py-3">최대구매수량</th>
-                            <th class="px-4 py-3">재고</th>
-                            <th class="px-4 py-3">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody  class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                        <tr class="text-gray-700 dark:text-gray-400"
-                            th:each="goods, status: ${goods.getContent()}">
+                    <div class="w-full overflow-x-auto">
+                        <table class="w-full whitespace-no-wrap">
+                            <thead>
+                            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                <th class="px-4 py-3">굿즈(MD)ID</th>
+                                <th class="px-4 py-3">상품명</th>
+                                <th class="px-4 py-3">굿즈(MD)</th>
+                                <th class="px-4 py-3">가격</th>
+                                <th class="px-4 py-3">판매상황</th>
+                                <th class="px-4 py-3">최대구매수량</th>
+                                <th class="px-4 py-3">재고</th>
+                                <th class="px-4 py-3">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody  class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                            <tr class="text-gray-700 dark:text-gray-400"
+                                th:each="goods, status: ${goods.getContent()}">
 
-                            <!-- 굿즈(MD)ID -->
-                            <td th:text="${goods.id}" class="px-4 py-3" > </td>
+                                <!-- 굿즈(MD)ID -->
+                                <td th:text="${goods.id}" class="px-4 py-3" > </td>
 
-                            <!-- 상품명 -->
-                            <td class="px-4 py-3 text-xs">
-                                <strong th:text="${goods.goodsName}"></strong>
-                            </td>
+                                <!-- 상품명 -->
+                                <td class="px-4 py-3 text-xs">
+                                    <strong th:text="${goods.goodsName}"></strong>
+                                </td>
 
-                            <!-- 굿즈(MD)종류 -->
-                            <td th:text="${goods.sort}" class="px-4 py-3" > </td>
+                                <!-- 굿즈(MD)종류 -->
+                                <td th:text="${goods.sort}" class="px-4 py-3" > </td>
 
-                            <!-- 가격 -->
-                            <td class="px-4 py-3 text-sm">
-                                &nbsp;&nbsp;[[${#numbers.formatInteger(goods.goodsPrice, 0, 'COMMA')}]]원
-                            </td>
+                                <!-- 가격 -->
+                                <td class="px-4 py-3 text-sm">
+                                    &nbsp;&nbsp;[[${#numbers.formatInteger(goods.goodsPrice, 0, 'COMMA')}]]원
+                                </td>
 
-                            <!-- 판매상황 -->
-                            <td class="px-4 py-3 text-xs" th:text="${goods.sellStatus}"></td>
+                                <!-- 판매상황 -->
+                                <td class="px-4 py-3 text-xs" th:text="${goods.sellStatus}"></td>
 
-                            <!-- 최대구매수량 -->
-                            <td class="px-4 py-3 text-sm" th:text="${goods.goodsMaxAmount}"></td>
+                                <!-- 최대구매수량 -->
+                                <td class="px-4 py-3 text-sm" th:text="${goods.goodsMaxAmount}"></td>
 
-                            <!-- 재고 -->
-                            <td class="px-4 py-3 text-sm" th:text="${goods.goodsStock}"></td>
+                                <!-- 재고 -->
+                                <td class="px-4 py-3 text-sm" th:text="${goods.goodsStock}"></td>
 
-                            <td class="px-4 py-3">
-                                <div class="flex items-center space-x-4 text-sm">
-                                    <!-- 수정 -->
-                                    <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                            type="button"
-                                            th:onclick="'window.location.href=\'/admin/goods/edit/' + ${goods.id} + '\';'"
-                                            aria-label="Edit" >
-                                        <svg class="w-5 h-5"
-                                             aria-hidden="true"
-                                             fill="currentColor"
-                                             viewBox="0 0 20 20"  >
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                        </svg>
-                                    </button>
-                                    <!-- 삭제 -->
-                                    <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                            aria-label="Delete" type="button"
-                                            th:onclick="'deleteGoods(' + ${goods.id} + ')'" >
-                                        <svg class="w-5 h-5"
-                                             aria-hidden="true"
-                                             fill="currentColor"
-                                             viewBox="0 0 20 20" >
-                                            <path fill-rule="evenodd"
-                                                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                  clip-rule="evenodd" >
-                                            </path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <!-- 수정 -->
+                                        <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                type="button"
+                                                th:onclick="'window.location.href=\'/admin/goods/edit/' + ${goods.id} + '\';'"
+                                                aria-label="Edit" >
+                                            <svg class="w-5 h-5"
+                                                 aria-hidden="true"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 20 20"  >
+                                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                            </svg>
+                                        </button>
+                                        <!-- 삭제 -->
+                                        <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                aria-label="Delete" type="button"
+                                                th:onclick="'deleteGoods(' + ${goods.id} + ')'" >
+                                            <svg class="w-5 h-5"
+                                                 aria-hidden="true"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 20 20" >
+                                                <path fill-rule="evenodd"
+                                                      d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                      clip-rule="evenodd" >
+                                                </path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
 
                     <!-- 검색창 -->
@@ -131,7 +132,11 @@
                          th:object="${goodsSearchDto}">
                         <span class="flex items-center col-span-3">
                              <!-- 상품 등록일 -->
+<<<<<<< HEAD
                             <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+=======
+                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input search_box"
+>>>>>>> 6ae49d6e39875fc97dcdb6ea959925a2125ada7c
                                     th:field="*{searchDateType}">
                                 <option value="all" >전체기간</option>
                                 <option value="1d">1일</option>
@@ -139,15 +144,24 @@
                                 <option value="1m">1개월</option>
                                 <option value="6m">6개월</option>
                             </select>
+<<<<<<< HEAD
                               <!-- 상품판매 상태 -->
                             <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+=======
+                            <!-- 상품판매 상태 -->
+                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input search_box"
+>>>>>>> 6ae49d6e39875fc97dcdb6ea959925a2125ada7c
                                     th:field="*{searchSellStatus}">
                                 <option value="">굿즈(MD)상태</option>
                                 <option value="SELL">판매중</option>
                                 <option value="SOLD_OUT">품절</option>
                             </select>
                             <!-- 상품명, 등록자 선택 -->
+<<<<<<< HEAD
                             <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+=======
+                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input search_box"
+>>>>>>> 6ae49d6e39875fc97dcdb6ea959925a2125ada7c
                                     th:field="*{searchBy}">
                                 <option value="goods">굿즈(MD)명</option>
                             </select>
@@ -163,7 +177,7 @@
                                           clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                            <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                            <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input search_box"
                                    type="text" th:field="*{searchQuery}"
                                    placeholder="상품명을 입력해주세요."
                                    aria-label="Search" />
@@ -211,7 +225,7 @@
                               </nav>
                         </span>
                     </div>
-                 </form>
+                </form>
             </div>
         </div>
     </main>
@@ -251,6 +265,7 @@
            });
            }
 
+<<<<<<< HEAD
          function page(page) {
             //입력한 값을 전부 가지고 온다.
             var searchQuery = $("#searchQuery").val();
@@ -262,6 +277,22 @@
                 document.querySelectorAll('button.disabled').forEach(button => {
                     button.disabled = true;
             });
+=======
+    function page(page) {
+        //입력한 값을 전부 가지고 온다.
+        var searchDateType = $("#searchDateType").val();
+        var searchTypeStatus = $("#searchTypeStatus").val();
+        var searchBy = $("#searchBy").val();
+        var searchQuery = $("#searchQuery").val();
+
+        //주소 이동
+        location.href = "/posts/list/" + page
+                      + "?searchDateType=" + searchDateType
+                      + "&searchTypeStatus=" + searchTypeStatus
+                      + "&searchBy=" + searchBy
+                      + "&searchQuery=" + searchQuery;
+    }
+>>>>>>> 6ae49d6e39875fc97dcdb6ea959925a2125ada7c
 
     </script>
 
