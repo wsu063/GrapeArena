@@ -169,10 +169,9 @@
 
     <script th:inline="javascript">
       $(document).ready(function() {
-        // 상품의 개별 가격을 템플릿 엔진으로 동적으로 삽입
-        var pricePerItem = parseInt([[${goods.goodsPrice}]]); // 서버에서 데이터 가져오기
-        var maxAmount =  parseInt([[${goods.goodsMaxAmount}]]); // 최대 수량 설정
-        var quantity = parseInt($('#quantity_value').text()); // 초기 수량
+        var pricePerItem = parseInt([[${goods.goodsPrice}]]);
+        var maxAmount =  parseInt([[${goods.goodsMaxAmount}]]);
+        var quantity = parseInt($('#quantity_value').text());
         
         function updateTotalPrice() {
           var totalPrice = pricePerItem * quantity;
@@ -182,7 +181,7 @@
         
         $('.plus').click(function() {
           if (quantity < maxAmount) {
-            quantity++; // 최대 수량에 도달하지 않은 경우에만 수량을 증가시킵니다.
+            quantity++;
             $('#quantity_value').text(quantity);
             updateTotalPrice();
           } else {
