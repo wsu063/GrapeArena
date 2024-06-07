@@ -58,6 +58,7 @@ public class Goods extends BaseEntity {
 
     public void updateGoods(GoodsFormDto goodsFormDto) {
         this.sellStatus = goodsFormDto.getSellStatus();
+        this.sort = goodsFormDto.getSort();
         this.goodsName = goodsFormDto.getGoodsName();
         this.goodsPrice = goodsFormDto.getGoodsPrice();
         this.goodsMaxAmount = goodsFormDto.getGoodsMaxAmount();

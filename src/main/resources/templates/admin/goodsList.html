@@ -64,6 +64,7 @@
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                             <th class="px-4 py-3">굿즈(MD)ID</th>
                             <th class="px-4 py-3">상품명</th>
+                            <th class="px-4 py-3">굿즈(MD)</th>
                             <th class="px-4 py-3">가격</th>
                             <th class="px-4 py-3">판매상황</th>
                             <th class="px-4 py-3">최대구매수량</th>
@@ -83,6 +84,8 @@
                                 <strong th:text="${goods.goodsName}"></strong>
                             </td>
 
+                            <!-- 굿즈(MD)종류 -->
+                            <td th:text="${goods.sort}" class="px-4 py-3" > </td>
 
                             <!-- 가격 -->
                             <td class="px-4 py-3 text-sm">
@@ -132,7 +135,71 @@
                         </tbody>
                     </table>
                 </div>
-
+                    <!-- 검색창 -->
+                    <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
+                         th:object="${goodsSearchDto}">
+                        <span class="flex items-center col-span-3">
+                        </span>
+                        <div class="col-span-2">
+                            <div class="absolute inset-y-0 flex items-center pl-2">
+                                <svg  class="w-4 h-4"
+                                      aria-hidden="true"
+                                      fill="currentColor"
+                                      viewBox="0 0 20 20"  >
+                                    <path fill-rule="evenodd"
+                                          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                          clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                   type="text" th:field="*{searchQuery}"
+                                   placeholder="상품명을 입력해주세요."
+                                   aria-label="Search" />
+                        </div>
+                        <!-- Pagination -->
+                        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                            <nav aria-label="Table navigation"
+                                 th:with="start=${(posts.number/maxPage) * maxPage + 1},
+                                 end= (${(posts.totalPages == 0) ? 1 : (start + (maxPage - 1) < posts.totalPages ? start + (maxPage - 1) : posts.totalPages)}) "
+                            >
+                                <ul class="inline-flex items-center">
+                                  <li>
+                                    <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                                            aria-label="Previous" th:classappend="${posts.first} ? ' disabled'"
+                                            th:onclick="'javascript:page(' + ${posts.number - 1} + ')'">
+                                      <svg class="w-4 h-4 fill-current"
+                                           aria-hidden="true"
+                                           viewBox="0 0 20 20" >
+                                        <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                              clip-rule="evenodd"
+                                              fill-rule="evenodd"></path>
+                                      </svg>
+                                    </button>
+                                  </li>
+                                  <li>
+                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                                            th:each="page: ${#numbers.sequence(start, end)}"
+                                            th:classappend="${posts.number eq page-1} ? 'text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600' : ''"
+                                            th:inline="text" th:onclick="'javascript:page(' + ${page - 1} + ')'"
+                                    >[[${page}]]</button>
+                                  </li>
+                                  <li>
+                                    <button  class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next"
+                                             th:classappend="${posts.last} ? ' disabled'"
+                                             th:onclick="'javascript:page(' + ${posts.number + 1} + ')'">
+                                      <svg class="w-4 h-4 fill-current"
+                                           aria-hidden="true"
+                                           viewBox="0 0 20 20" >
+                                        <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                              clip-rule="evenodd"
+                                              fill-rule="evenodd" ></path>
+                                      </svg>
+                                    </button>
+                                  </li>
+                                </ul>
+                              </nav>
+                        </span>
+                    </div>
                  </form>
             </div>
         </div>
@@ -141,42 +208,50 @@
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-        function goToGoodsNewPage() {
-        window.location.href = "/admin/goods/new"; }
-
-
-
         function deleteGoods(goodsId) {
-                   const deleteConf = confirm("굿즈(MD)를 삭제하시겠습니까?");
-                   if(!deleteConf) return; //취소버튼 선택시
+           const deleteConf = confirm("굿즈(MD)를 삭제하시겠습니까?");
+           if(!deleteConf) return; //취소버튼 선택시
 
-                   var token = $("meta[name='_csrf']").attr("content");
-                   var header = $("meta[name='_csrf_header']").attr("content");
+           var token = $("meta[name='_csrf']").attr("content");
+           var header = $("meta[name='_csrf_header']").attr("content");
 
-                   $.ajax({
-                     url : "/admin/goods/delete/" + goodsId,
-                     type : "DELETE",
-                     contentType : "application/json",
-                     beforeSend : function(xhr) {
-                       //데이터를 전송하기 전에 헤더에 csrf 값을 설정
-                       xhr.setRequestHeader(header, token);
-                     },
-                     dataType : "json",
-                     cache : false,
-                     success : function(result, status) {
-                       //삭제 후에 원래 페이지로 이동시켜준다.
-                       location.href = '/admin/goods/list';
-                     },
-                     error : function(jqXHR, status, error) {
-                       if(jqXHR.status == '401') {
-                         alert('로그인 후 이용해주세요.');
-                         location.href = '/members/login';
-                       } else {
-                         alert(jqXHR.responseText);
-                       }
-                     }
-                   });
-                   }
+           $.ajax({
+             url : "/admin/goods/delete/" + goodsId,
+             type : "DELETE",
+             contentType : "application/json",
+             beforeSend : function(xhr) {
+               //데이터를 전송하기 전에 헤더에 csrf 값을 설정
+               xhr.setRequestHeader(header, token);
+             },
+             dataType : "json",
+             cache : false,
+             success : function(result, status) {
+               //삭제 후에 원래 페이지로 이동시켜준다.
+               location.href = '/admin/goods/list';
+             },
+             error : function(jqXHR, status, error) {
+               if(jqXHR.status == '401') {
+                 alert('로그인 후 이용해주세요.');
+                 location.href = '/members/login';
+               } else {
+                 alert(jqXHR.responseText);
+               }
+             }
+           });
+           }
+
+         function page(page) {
+            //입력한 값을 전부 가지고 온다.
+            var searchQuery = $("#searchQuery").val();
+
+            //주소 이동
+            location.href = "/admin/goodsList/" + page
+                          + "&searchQuery=" + searchQuery;
+            }
+                document.querySelectorAll('button.disabled').forEach(button => {
+                    button.disabled = true;
+            });
+
     </script>
 
 </th:block>

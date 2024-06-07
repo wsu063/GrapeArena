@@ -13,6 +13,7 @@ public interface GoodsRepositoryCustom {
 
     //굿즈 구매내역
     List<Goods> getGoodsList();
+
     Page<Goods> getAdminGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable);
 
     Page<Goods> getMainGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable);

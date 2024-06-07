@@ -94,7 +94,8 @@ public class GoodsService {
 
         goodsRepository.delete(goods);
     }
-
+    
+    // 굿즈 관리자 페이지 리스트
     @Transactional(readOnly = true)
     public Page<Goods> getAdminGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable){
         Page<Goods> goodsPage = goodsRepository.getAdminGoodsPage(goodsSearchDto, pageable);
@@ -107,7 +108,7 @@ public class GoodsService {
         return goods;
     }
 
-    //굿즈리스트 페이징
+    //굿즈 메인 리스트 페이징
     public Page<Goods> getMainGoodsPage(GoodsSearchDto goodsSearchDto, Pageable pageable) {
         Page<Goods> mainGoodsPage = goodsRepository.getMainGoodsPage(goodsSearchDto, pageable);
         return mainGoodsPage;
