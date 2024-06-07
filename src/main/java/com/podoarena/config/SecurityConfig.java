@@ -19,7 +19,7 @@ public class SecurityConfig {
         // 1. 페이지 접근에 대한 설정(인가)
         httpSecurity.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/css/**", "/js/**", "/img/**", "/images/**", "/fonts/**","/plugins/**").permitAll()
-                        .requestMatchers("/", "/members/**", "/goods/**", "/concerts/**").permitAll()
+                        .requestMatchers("/", "/members/**", "/goods/**", "/concerts/**","/orders/**").permitAll()
                         .requestMatchers("/favicon.ico", "/error").permitAll()
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                         .anyRequest().authenticated()

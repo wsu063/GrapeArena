@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-          <form action="/members/cart" method="post">
+          <form>
             <div class="row">
                 <div class="col-lg-7">
                     <div class="single_product_pics">
@@ -225,7 +225,6 @@
           success: function(result, status, xhr, formData) {
             confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?");
             location.href= "/members/cart";
-           
           },
           error: function(jqXHR, status, error) {
             alert("장바구니에 추가를 실패했습니다. 관리자에게 문의하세요.")
