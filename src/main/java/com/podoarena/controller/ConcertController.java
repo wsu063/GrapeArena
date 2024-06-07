@@ -7,7 +7,6 @@ import com.podoarena.entity.Concert;
 import com.podoarena.entity.Date;
 import com.podoarena.entity.Place;
 import com.podoarena.service.ConcertService;
-import com.podoarena.service.DateService;
 import com.podoarena.service.PlaceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,6 @@ import java.util.Optional;
 public class ConcertController {
     private final ConcertService concertService;
     private final PlaceService placeService;
-    private final DateService dateService;
 
     //콘서트 등록
     @GetMapping(value = "/admin/concerts/new")
