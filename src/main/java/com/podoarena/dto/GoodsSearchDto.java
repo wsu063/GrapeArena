@@ -9,4 +9,8 @@ import lombok.Setter;
 public class GoodsSearchDto {
     private String searchQuery = "";
     private SellStatus searchSellStatus;
+    private String searchBy;
+    private String searchDateType;
+
+
 }

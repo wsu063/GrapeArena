@@ -84,9 +84,10 @@ public class GoodsController {
 
         Page<Goods> goods = goodsService.getAdminGoodsPage(goodsSearchDto, pageable);
 
-        model.addAttribute("posts", goods );
+        model.addAttribute("goods", goods );
         model.addAttribute("goodsFormDto", new GoodsFormDto());
         model.addAttribute("maxPage", 5);
+        model.addAttribute("goodsSearchDto", goodsSearchDto);
 
         return "admin/goodsList";
     }

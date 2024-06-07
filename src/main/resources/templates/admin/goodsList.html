@@ -12,38 +12,27 @@
 <div layout:fragment="content" class="flex flex-col flex-1 w-full" >
     <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
         <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"  >
-            <!-- Mobile hamburger -->
-            <button  class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
-                     @click="toggleSideMenu"
-                     aria-label="Menu">
-                <svg class="w-6 h-6"
-                     aria-hidden="true"
-                     fill="currentColor"
-                     viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"></path>
-                </svg>
-            </button>
-            <!-- Search input -->
-            <div class="flex justify-center flex-1 lg:mr-32">
-                <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500" >
-                    <div class="absolute inset-y-0 flex items-center pl-2">
-                        <svg  class="w-4 h-4"
-                              aria-hidden="true"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"  >
-                            <path fill-rule="evenodd"
-                                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
+            <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"  >
+                <!-- Mobile hamburger -->
+                <button  class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
+                         @click="toggleSideMenu"
+                         aria-label="Menu">
+                    <svg class="w-6 h-6"
+                         aria-hidden="true"
+                         fill="currentColor"
+                         viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <div class="flex justify-center flex-1 lg:mr-32">
+                    <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500" >
+                        <h4 style="text-align: center;">굿즈(MD) 목록</h4>
                     </div>
-                    <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                           type="text"
-                           placeholder="검색어를 입력해주세요."
-                           aria-label="Search" />
                 </div>
             </div>
+
         </div>
     </header>
     <main class="h-full pb-16 overflow-y-auto">
@@ -55,8 +44,8 @@
             </div>
             <div class="w-full overflow-hidden rounded-lg shadow-xs">
 
-                <form th:action="@{'/admin/goods/list/' + ${posts.number}}"
-                      method="get" th:object="${posts}">
+                <form th:action="@{'/admin/goods/list/' + ${goods.number}}"
+                      method="get" th:object="${goods}">
 
                 <div class="w-full overflow-x-auto">
                     <table class="w-full whitespace-no-wrap">
@@ -74,7 +63,7 @@
                         </thead>
                         <tbody  class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         <tr class="text-gray-700 dark:text-gray-400"
-                            th:each="goods, status: ${posts.getContent()}">
+                            th:each="goods, status: ${goods.getContent()}">
 
                             <!-- 굿즈(MD)ID -->
                             <td th:text="${goods.id}" class="px-4 py-3" > </td>
@@ -117,7 +106,7 @@
                                     </button>
                                     <!-- 삭제 -->
                                     <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                            aria-label="Delete"
+                                            aria-label="Delete" type="button"
                                             th:onclick="'deleteGoods(' + ${goods.id} + ')'" >
                                         <svg class="w-5 h-5"
                                              aria-hidden="true"
@@ -135,10 +124,33 @@
                         </tbody>
                     </table>
                 </div>
+
+
                     <!-- 검색창 -->
                     <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800"
                          th:object="${goodsSearchDto}">
                         <span class="flex items-center col-span-3">
+                             <!-- 상품 등록일 -->
+                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                    th:field="*{searchDateType}">
+                                <option value="all" >전체기간</option>
+                                <option value="1d">1일</option>
+                                <option value="1w">1주</option>
+                                <option value="1m">1개월</option>
+                                <option value="6m">6개월</option>
+                            </select>
+                              <!-- 상품판매 상태 -->
+                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                    th:field="*{searchSellStatus}">
+                                <option value="">굿즈(MD)상태</option>
+                                <option value="SELL">판매중</option>
+                                <option value="SOLD_OUT">품절</option>
+                            </select>
+                            <!-- 상품명, 등록자 선택 -->
+                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                    th:field="*{searchBy}">
+                                <option value="goods">굿즈(MD)명</option>
+                            </select>
                         </span>
                         <div class="col-span-2">
                             <div class="absolute inset-y-0 flex items-center pl-2">
@@ -159,14 +171,13 @@
                         <!-- Pagination -->
                         <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
                             <nav aria-label="Table navigation"
-                                 th:with="start=${(posts.number/maxPage) * maxPage + 1},
-                                 end= (${(posts.totalPages == 0) ? 1 : (start + (maxPage - 1) < posts.totalPages ? start + (maxPage - 1) : posts.totalPages)}) "
-                            >
+                                 th:with="start=${(goods.number/maxPage) * maxPage + 1},
+                                 end= (${(goods.totalPages == 0) ? 1 : (start + (maxPage - 1) < goods.totalPages ? start + (maxPage - 1) : goods.totalPages)}) ">
                                 <ul class="inline-flex items-center">
                                   <li>
                                     <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                                            aria-label="Previous" th:classappend="${posts.first} ? ' disabled'"
-                                            th:onclick="'javascript:page(' + ${posts.number - 1} + ')'">
+                                            aria-label="Previous" th:classappend="${goods.first} ? ' disabled'"
+                                            th:onclick="'javascript:page(' + ${goods.number - 1} + ')'">
                                       <svg class="w-4 h-4 fill-current"
                                            aria-hidden="true"
                                            viewBox="0 0 20 20" >
@@ -179,14 +190,14 @@
                                   <li>
                                     <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
                                             th:each="page: ${#numbers.sequence(start, end)}"
-                                            th:classappend="${posts.number eq page-1} ? 'text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600' : ''"
+                                            th:classappend="${goods.number eq page-1} ? 'text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600' : ''"
                                             th:inline="text" th:onclick="'javascript:page(' + ${page - 1} + ')'"
                                     >[[${page}]]</button>
                                   </li>
                                   <li>
                                     <button  class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next"
-                                             th:classappend="${posts.last} ? ' disabled'"
-                                             th:onclick="'javascript:page(' + ${posts.number + 1} + ')'">
+                                             th:classappend="${goods.last} ? ' disabled'"
+                                             th:onclick="'javascript:page(' + ${goods.number + 1} + ')'">
                                       <svg class="w-4 h-4 fill-current"
                                            aria-hidden="true"
                                            viewBox="0 0 20 20" >
@@ -246,7 +257,7 @@
 
             //주소 이동
             location.href = "/admin/goodsList/" + page
-                          + "&searchQuery=" + searchQuery;
+<!--                          + "&searchQuery=" + searchQuery;-->
             }
                 document.querySelectorAll('button.disabled').forEach(button => {
                     button.disabled = true;
