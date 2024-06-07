@@ -78,12 +78,12 @@
 
                         <!-- 상품 개수 -->
                         <div>
-                            <span th:text="${goods.goodsName}" >BONGBONGEE Mini Shoulder Bag</span>
+                            <span th:text="${goods.goodsName}" >상품명</span>
                         </div>
                       <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
                         <div class="quantity_selector">
                           <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                          <span id="quantity_value">1</span>
+                          <span id="quantity_value" class="count">1</span>
                           <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
                         </div>
                         <div>
@@ -95,15 +95,15 @@
 
                         <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
                             <i class="fa-solid fa-circle-exclamation"></i>&nbsp;
-                            <span th:text="'최대 ' + ${goods.goodsMaxAmount} + '개까지 구입 가능합니다.'" > 최대 3개까지 구매 가능합니다.</span>
+                            <span th:text="'최대 ' + ${goods.goodsMaxAmount} + '개까지 구입 가능합니다.'" > 최대 n개까지 구매 가능합니다.</span>
                         </div>
                         <div class="quantity">
                             <div> <b>총 상품 금액</b></div>
                             <div id="total_price2" th:text="'￦' +${#numbers.formatInteger(goods.goodsPrice, 0, 'COMMA')}" ></div>
                         </div>
                         <div style="display: flex; justify-content: center; margin-top: 30px;">
-                            <div class="red_button add_to_cart_button" onclick="addCartGoods()" style="color: white; cursor: pointer;">카트 추가</div>
-                            <div class="red_button add_to_cart_button"><a href="/orders/ordersIndex">바로 구매</a></div>
+                            <button class="red_button add_to_cart_button" onclick="addCartGoods()" style="color: white; cursor: pointer; border:none;">카트 추가</button>
+                            <button class="red_button add_to_cart_button" style="border:none;"><a href="/orders/ordersIndex">바로 구매</a></button>
                         </div>
                     </div>
                 </div>
@@ -202,9 +202,15 @@
       });
       function addCartGoods() {
         var goodsFormDto= $("#goods").val();
+        var count = parseInt($('#quantity_value').text());
         
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
+        
+        var formData = {
+          count: count,
+          goodsFormDto: goodsFormDto
+        };
         
         $.ajax({
           url: "/members/cart",
@@ -215,7 +221,7 @@
           },
           dataType: "text",
           cache: false,
-          data: JSON.stringify(goodsFormDto),
+          data: JSON.stringify(formData),
           success: function(result, status, xhr, formData) {
             confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?");
             location.href= "/members/cart";
