@@ -26,7 +26,7 @@ import java.util.Optional;
 public class OrderController {
     private final OrderService orderService;
 
-    @PostMapping(value = "/order")
+    @PostMapping(value = "/orders/ordersIndex")
     public @ResponseBody ResponseEntity order(@RequestBody @Valid OrderDto orderDto,
              BindingResult bindingResult,Principal principal) {
 
@@ -57,7 +57,7 @@ public class OrderController {
     }
 
     //주문내역
-    @GetMapping(value = "/members/order")
+    @GetMapping(value = "/orders/ordersIndex")
     public String orderHist(@PathVariable("page")Optional<Integer> page,
                             Principal principal, Model model) {
 
@@ -72,7 +72,7 @@ public class OrderController {
         model.addAttribute("orders", orderHistDtoList);
         model.addAttribute("maxPage", 5); //하단에 보여줄 최대 페이지
         //model.addAttribute("page", pageable.getPageNumber()); //현재페이지
-        return "order/orderHist";
+        return "orders/ordersIndex";
     }
 
     // 주문 취소
