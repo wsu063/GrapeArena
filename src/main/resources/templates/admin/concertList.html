@@ -147,7 +147,7 @@
                                 <ul class="inline-flex items-center">
                                   <li>
                                     <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                                            aria-label="Previous" th:classappend="${concertPage.first} ? ' disabled'"
+                                            aria-label="Previous" th:classappend="${concertPage.first} ? ' disabled'" type="button"
                                             th:onclick="'javascript:page(' + ${concertPage.number - 1} + ')'">
                                       <svg class="w-4 h-4 fill-current"
                                            aria-hidden="true"
@@ -159,14 +159,14 @@
                                     </button>
                                   </li>
                                   <li>
-                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                                    <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" type="button"
                                             th:each="page: ${#numbers.sequence(start, end)}"
                                             th:classappend="${concertPage.number eq page-1} ? 'text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600' : ''"
                                             th:inline="text" th:onclick="'javascript:page(' + ${page - 1} + ')'"
                                     >[[${page}]]</button>
                                   </li>
                                   <li>
-                                    <button  class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next"
+                                    <button  class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next" type="button"
                                              th:classappend="${concertPage.last} ? ' disabled'"
                                              th:onclick="'javascript:page(' + ${concertPage.number + 1} + ')'">
                                       <svg class="w-4 h-4 fill-current"
@@ -228,7 +228,7 @@
         var searchQuery = $("#searchQuery").val();
 
         //주소 이동
-        location.href = "/posts/list/" + page
+        location.href = "/admin/concerts/list/" + page
                       + "?searchDateType=" + searchDateType
                       + "&searchTypeStatus=" + searchTypeStatus
                       + "&searchBy=" + searchBy
