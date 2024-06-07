@@ -3,18 +3,225 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout3}">
 <th:block layout:fragment="css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
+    <style>
+        .fieldError {
+           color: #bd2130;
+        }
+    </style>
 </th:block>
+<div layout:fragment="content" class="flex flex-col flex-1 w-full">
+    <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+        <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"  >
+            <button  class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
+                     @click="toggleSideMenu"
+                     aria-label="Menu">
+                <svg class="w-6 h-6"
+                     aria-hidden="true"
+                     fill="currentColor"
+                     viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                          clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            <div class="flex justify-center flex-1 lg:mr-32">
+                <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500" >
+                    <h4 style="text-align: center;">콘서트 목록</h4>
+                </div>
+            </div>
+        </div>
+    </header>
 
+    <div class="super_container_admin" style="overflow-y: auto;">
+        <form role="form" th:action="@{'/admin/concerts/edit/' + ${concertFormDto.id}}" method="post" enctype="multipart/form-data"
+              th:object="${concertFormDto}" name="concertForm">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="container single_product_container">
+                <div class="row">
+                    <!--  표지 이미지 등록  -->
+                    <div class="col-lg-7">
+                        <div class="single_product_pics">
+                            <div class="row">
+                                <div class="contents">
+                                    <div class="upload-box">
+                                        <div id="drop-file" class="drag-file" th:each="concertImgDto, status: ${concertFormDto.concertImgDtoList}" th:if="${status.index == 0}">
+                                            <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
+                                            <p class="message">Drag files to upload</p>
+                                            <img th:src="@{${concertImgDto.imgUrl}}" alt="미리보기 이미지" class="preview" th:if="${not #lists.isEmpty(concertFormDto.concertImgDtoList[0])}" style="display:block;">
+                                        </div>
+                                        <input type="hidden" name="concertImgIds" th:value="${concertFormDto.concertImgDtoList[0].id}" />
+                                        <label th:for="concertImgFile" class="file-label">Choose File</label>
+                                        <input class="file" name="concertImgFile" id="concertImgFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!--   콘서트 상세 등록     -->
+                    <div class="col-lg-5">
+                        <div class="product_details">
+                            <!-- 판매상태  -->
+                            <div class="form_details">
+                                <label th:for="concertState" class="text-black" >상태</label>
+                                <select class="form-select product-form-input" th:field="*{concertState}" >
+                                    <option value="PLAY">상영중</option>
+                                    <option value="STOP">마감</option>
+                                </select>
+                            </div>
+                            <!-- 콘서트명  -->
+                            <div class="form_details">
+                                <label th:for="concertName" class="text-black">콘 서 트 </label>
+                                <input th:field="*{concertName}" id="concertName" type="text" class="form-control product-form-input" placeholder="콘서트 명을 입력해주세요" />
+                                <p th:if="${#fields.hasErrors('concertName')}" th:errors="*concertName" class="fieldError">Incorrect Data</p>
+                            </div>
 
-<div layout:fragment="content">
+                            <!-- 아티스트 -->
+                            <div class="form_details">
+                                <label th:for="concertSinger" class="text-black">아티스트</label>
+                                <input th:field="*{concertSinger}" id="concertSinger" type="text" class="form-control product-form-input" placeholder="알아서 입력" />
+                                <p th:if="${#fields.hasErrors('concertSinger')}" th:errors="*concertSinger" class="fieldError">Incorrect Data</p>
+                            </div>
 
+                            <!-- 공연장 -->
+                            <div class="form_details">
+                                <label class="text-black">공 연 장</label>
+                                <select class="form-control product-form-input" id="placeSelect">
+                                    <option value="" disabled selected>공연장을 선택하세요</option>
+                                    <option th:each="place: *{placeFormDtoList}" th:value="${place.id}" th:text="${place.placeName}"
+                                    ></option>
+                                </select>
+                                <input type="hidden" id="placeId" name="placeId" value>
+                            </div>
+
+                            <div th:each="num : ${#numbers.sequence(0, 2)}">
+                                <div class="form_details">
+                                    <label class="text-black" th:for="dateList">공&nbsp;&nbsp;연&nbsp;&nbsp;일</label>
+                                    <input type="datetime-local" class="form-control product-form-input" name="dateList"
+                                        th:value="${concertFormDto.dates[num].dateTime}"
+                                    />
+                                    <input type="hidden" name="dateIds" th:value="${concertFormDto.dates[num].id}">
+                                </div>
+                            </div>
+
+                            <!-- 본문 이미지 업로드  -->
+                            <div class="form_details" th:each="concertImgDto, status: ${concertFormDto.concertImgDtoList}" th:if="${status.index == 1}">
+                                <label class="text-black" for="concertImgFile"
+                                       th:text="${not #strings.isEmpty(concertImgDto.oriImgName)}
+                                       ? ${concertImgDto.oriImgName} : '본문이미지' + ${status.index+1} "></label>
+                                <input type="hidden" name="concertImgIds" th:value="${concertImgDto.id}"/>
+                                <input type="file" name="concertImgFile"  >
+                            </div>
+
+                            <div class="form_details">
+                                <button class="btn btn-primary solid blank mt-3 submit-registration" type="button" onclick="beforeSubmit();">
+                                    수정하기
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        </form>
+    </div>
 </div>
-
-
-
 <th:block layout:fragment="script">
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/css/bootstrap4/popper.js}"></script>
+    <script th:src="@{/css/bootstrap4/bootstrap.min.js}"></script>
+    <script th:src="@{/plugins/Isotope/isotope.pkgd.min.js}"></script>
+    <script th:src="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+    <script th:src="@{/plugins/easing/easing.js}"></script>
+    <script th:src="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
+    <script th:src="@{/js/single_custom.js}"></script>
+
+    <script th:inline="javascript">
+        var errorMessage = [[${errorMessage}]];
+        if(errorMessage != null) alert(errorMessage);
+
+            // 선택된 옵션의 값을 추출하여 placeId 필드에 할당
+        document.getElementById('placeSelect').addEventListener('change', function() {
+            var selectedPlaceId = this.value; // 선택된 옵션의 값
+            document.getElementById('placeId').value = selectedPlaceId; // placeId 필드에 값 할당
+        });
+
+     // 미리보기 이미지 업로드
+    function DropFile(dropAreaId, fileListId) {
+           let dropArea = document.getElementById(dropAreaId);
+           let fileList = document.getElementById(fileListId);
+
+           function preventDefaults(e) {
+             e.preventDefault();
+             e.stopPropagation();
+           }
+
+           function highlight(e) {
+             preventDefaults(e);
+             dropArea.classList.add("highlight");
+           }
+
+           function unhighlight(e) {
+             preventDefaults(e);
+             dropArea.classList.remove("highlight");
+           }
+
+           function handleDrop(e) {
+             unhighlight(e);
+             let dt = e.dataTransfer;
+             let files = dt.files;
+
+             handleFiles(files);
+
+             const fileList = document.getElementById(fileListId);
+             if (fileList) {
+               fileList.scrollTo({ top: fileList.scrollHeight });
+             }
+           }
+
+           function handleFiles(files) {
+             files = [...files];
+             // files.forEach(uploadFile);
+             files.forEach(previewFile);
+           }
+
+           function previewFile(file) {
+             console.log(file);
+             renderFile(file);
+           }
+
+           function renderFile(file) {
+             let reader = new FileReader();
+             reader.readAsDataURL(file);
+             reader.onloadend = function () {
+               let img = dropArea.getElementsByClassName("preview")[0];
+               img.src = reader.result;
+               img.style.display = "block";
+             };
+           }
+
+           dropArea.addEventListener("dragenter", highlight, false);
+           dropArea.addEventListener("dragover", highlight, false);
+           dropArea.addEventListener("dragleave", unhighlight, false);
+           dropArea.addEventListener("drop", handleDrop, false);
+
+           return {
+             handleFiles
+           };
+         }
+
+         const dropFile = new DropFile("drop-file", "files");
+
+
+          function beforeSubmit() {
+            document.concertForm.submit();
+        }
+
+
+    </script>
+
+
 </th:block>
 
 </html>

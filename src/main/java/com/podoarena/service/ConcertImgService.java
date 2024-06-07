@@ -36,7 +36,7 @@ public class ConcertImgService {
                     oriImgName, concertImgFile.getBytes());
             //itemImgFile.getBytes(): 이미지 파일을 byte배열로 만들어준다.
 
-            imgUrl = "/images/concert/" + imgName;
+            imgUrl = "/images/concerts/" + imgName;
         }
         //DB에 insert를 하기전 유저가 직접 입력하지 못하는 값들을 개발자가 넣어준다.
         concertImg.updateConcertImg(oriImgName, imgName, imgUrl);

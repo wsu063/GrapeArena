@@ -7,6 +7,7 @@ import com.podoarena.dto.ConcertSearchDto;
 import com.podoarena.dto.ReserveSeatSearchDto;
 import com.podoarena.entity.*;
 import com.podoarena.repository.ConcertRepository;
+import com.podoarena.repository.DateRepository;
 import com.podoarena.repository.PlaceRepository;
 import com.podoarena.repository.ReserveSeatRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -27,6 +28,7 @@ public class ConcertService {
     private final ConcertRepository concertRepository;
     private final ReserveSeatRepository reserveSeatRepository;
     private final ConcertImgService concertImgService;
+    private final DateService dateService;
 
     private final PlaceConcertService placeConcertService;
 
@@ -65,15 +67,18 @@ public class ConcertService {
     //2. 콘서트 상세페이지
     @Transactional
     public ConcertFormDto getConcertDtl(Long concertId) {
-        //1. concertImgDtoList를 가져온다.
+        //concertImgDtoList를 가져온다.
         List<ConcertImgDto> concertImgList = concertImgService.getConcertImgDtoList(concertId);
 
-        //2. Concert 가져오기
+        List<Date> dateList = dateService.getDateByConcertId(concertId);
+
+        //Concert 가져오기
         Concert concert = concertRepository.findById(concertId).orElseThrow(EntityNotFoundException::new);
         ConcertFormDto concertFormDto = ConcertFormDto.of(concert);
 
-        //2. 가져온 concertFormDto에 이미지 리스트를 넣어준다.
+        //가져온 concertFormDto에 이미지 리스트를 넣어준다.
         concertFormDto.setConcertImgDtoList(concertImgList);
+        concertFormDto.setDates(dateList);
 
         return concertFormDto;
     }
@@ -81,14 +86,22 @@ public class ConcertService {
     //3. 콘서트 수정
     public Long updateConcert(ConcertFormDto concertFormDto, List<MultipartFile> concertImgFileList) throws Exception {
         // concert 수정
-        Concert concert = concertRepository.findById(concertFormDto.getId()).orElseThrow(EntityNotFoundException::new);
+        Concert concert = concertRepository.findById(concertFormDto.getId())
+                .orElseThrow(EntityNotFoundException::new);
+
         concert.updateConcert(concertFormDto);
 
         // concertImg 수정
-        List<Long> concertImgIds = concertFormDto.getBoardImgIds();
+        List<Long> concertImgIds = concertFormDto.getConcertImgIds();
 
         for (int i = 0; i < concertImgFileList.size(); i++) {
             concertImgService.updateConcertImg(concertImgIds.get(i), concertImgFileList.get(i));
+        }
+
+        // Date 수정
+        List<Long> dateIds = concertFormDto.getDateIds();
+        for(int i = 0; i < dateIds.size(); i++) {
+            dateService.updateDate(dateIds.get(i), concertFormDto.getDateList().get(i));
         }
         return concert.getId();
     }

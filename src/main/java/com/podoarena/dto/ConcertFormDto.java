@@ -27,9 +27,13 @@ public class ConcertFormDto {
 
     private List<ConcertImgDto> concertImgDtoList = new ArrayList<>();
 
-    private List<Long> boardImgIds = new ArrayList<>(); // 이미지 아이디 저장(수정할때씀)
+    private List<Long> concertImgIds = new ArrayList<>(); // 이미지 아이디 저장(수정할때씀)
 
     private List<LocalDateTime> dateList = new ArrayList<>();
+
+    private List<Date> dates = new ArrayList<>();
+
+    private List<Long> dateIds = new ArrayList<>();
 
     private List<PlaceFormDto> placeFormDtoList = new ArrayList<>();
 

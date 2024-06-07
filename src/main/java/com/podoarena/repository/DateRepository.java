@@ -2,6 +2,10 @@ package com.podoarena.repository;
 
 import com.podoarena.entity.Date;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-public interface DateRepository extends JpaRepository<Date, Long> {
+import java.util.List;
+
+public interface DateRepository extends JpaRepository<Date, Long>, DateRepositoryCustom,
+        QuerydslPredicateExecutor<Date> {
 }

@@ -4,8 +4,10 @@ import com.podoarena.dto.ConcertFormDto;
 import com.podoarena.dto.ConcertSearchDto;
 import com.podoarena.dto.PlaceFormDto;
 import com.podoarena.entity.Concert;
+import com.podoarena.entity.Date;
 import com.podoarena.entity.Place;
 import com.podoarena.service.ConcertService;
+import com.podoarena.service.DateService;
 import com.podoarena.service.PlaceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,7 @@ import java.util.Optional;
 public class ConcertController {
     private final ConcertService concertService;
     private final PlaceService placeService;
+    private final DateService dateService;
 
     //콘서트 등록
     @GetMapping(value = "/admin/concerts/new")
@@ -81,19 +84,53 @@ public class ConcertController {
 
 
     //콘서트 수정
-    @GetMapping(value = "/admin/concerts/rewrite/{concertId}")
-    private String concertRewrite(@PathVariable("concertId") Long concertId, Model model) {
+    @GetMapping(value = "/admin/concerts/edit/{concertId}")
+    private String concertModify(@PathVariable("concertId") Long concertId, Model model) {
+
         try {
-                // 구상중?
+            ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
+            List<Place> places = placeService.getPlaceList();
+
+            for(Place place : places) {
+                PlaceFormDto placeFormDto = PlaceFormDto.of(place);
+                concertFormDto.getPlaceFormDtoList().add(placeFormDto);
+            }
+
+            model.addAttribute("concertFormDto", concertFormDto);
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMessage", "콘서트 정보를 가져오는 도중 에러가 발생했습니다.");
-
             //에러 발생시 비어있는 객체를 넘긴다
             model.addAttribute("concertFormDto", new ConcertFormDto());
             return "admin/concertModifyForm";
         }
         return "admin/concertModifyForm";
+    }
+    //콘서트 수정
+    @PostMapping(value = "/admin/concerts/edit/{concertId}")
+    public String concertUpdate(@Valid ConcertFormDto concertFormDto, Model model,
+                              BindingResult bindingResult, @RequestParam("concertImgFile") List<MultipartFile> concertImgFileList,
+                              @PathVariable("concertId") Long concertId) {
+        if (bindingResult.hasErrors()) return "admin/placeForm";
+
+        ConcertFormDto getConcertFormDto = concertService.getConcertDtl(concertId);
+        List<Place> places = placeService.getPlaceList();
+
+        for(Place place : places) {
+            PlaceFormDto placeFormDto = PlaceFormDto.of(place);
+            getConcertFormDto.getPlaceFormDtoList().add(placeFormDto);
+        }
+        try {
+            concertService.updateConcert(concertFormDto, concertImgFileList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMessage", "공연장 수정 중 오류가 발생했습니다.");
+            model.addAttribute("concertFormDto", getConcertFormDto);
+
+            return "admin/concertModifyForm";
+        }
+
+        return "redirect:/admin/concerts/list";
     }
 
     @DeleteMapping(value = "/admin/concerts/delete/{concertId}")
