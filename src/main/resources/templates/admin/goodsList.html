@@ -251,17 +251,20 @@
            });
            }
 
-         function page(page) {
-            //입력한 값을 전부 가지고 온다.
-            var searchQuery = $("#searchQuery").val();
+    function page(page) {
+        //입력한 값을 전부 가지고 온다.
+        var searchDateType = $("#searchDateType").val();
+        var searchTypeStatus = $("#searchTypeStatus").val();
+        var searchBy = $("#searchBy").val();
+        var searchQuery = $("#searchQuery").val();
 
-            //주소 이동
-            location.href = "/admin/goodsList/" + page
-<!--                          + "&searchQuery=" + searchQuery;-->
-            }
-                document.querySelectorAll('button.disabled').forEach(button => {
-                    button.disabled = true;
-            });
+        //주소 이동
+        location.href = "/posts/list/" + page
+                      + "?searchDateType=" + searchDateType
+                      + "&searchTypeStatus=" + searchTypeStatus
+                      + "&searchBy=" + searchBy
+                      + "&searchQuery=" + searchQuery;
+    }
 
     </script>
 
