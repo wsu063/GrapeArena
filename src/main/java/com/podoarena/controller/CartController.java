@@ -28,11 +28,9 @@ public class CartController {
     public String orderHist(Principal principal, Model model) {
         List<GoodsCartDto> goodsCartDtoList = cartService.getGoodsCartDtoList(principal.getName());
         model.addAttribute("goodsCarts", goodsCartDtoList); //model에 카트 목록 추가
-        return "cart/cartList";
+        return "members/cart";
     }
-
-
-    // 카트에 상품을 추가
+    
     @PostMapping(value = "/members/cart")
     public @ResponseBody ResponseEntity order(@RequestBody @Valid GoodsFormDto goodsFormDto, BindingResult bindingResult, Principal principal) {
         //유효성 검증에서 오류있는 경우
