@@ -172,17 +172,7 @@ public class ConcertController {
     private String concertDtl(Model model, @PathVariable(value = "concertId") Long concertId, Principal principal) {
         ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
 
-        model.addAttribute("concert", concertFormDto);
+        model.addAttribute("concertFormDto", concertFormDto);
         return "concert/concertDtl";
     }
-
-    //임시 상세 페이지(db 만들고 나서 지우기)
-    @GetMapping(value = "/concerts/detail")
-    private String concertDtltemp(Model model, Principal principal) {
-
-        return "concert/concertDtl";
-    }
-
-
-
 }

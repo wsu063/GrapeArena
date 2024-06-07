@@ -5,7 +5,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/swiper.css}">
 </th:block>
-
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 <div layout:fragment="content">
     <div class="index_wrap">
         <div class="index_swiper">
@@ -23,7 +26,7 @@
             </div>
         </div>
 
-    <section class="index_wrap">
+        <section class="index_wrap">
         <div class="clip">
             <h2 class="first" style="font-weight: 800;">CONCERT CLIP</h2>
         </div>
@@ -53,144 +56,27 @@
         </div>
     </section>
 
-        <!-- concert cards -->
         <section class="index_wrap">
             <div class="clip">
                 <h2 class="first" style="font-weight: 800;">ALL CONCERT</h2>
             </div>
-
-            <div class="card-1">
-                <div class="card">
-                    <a href="/concerts/detail">
-                    <img src="/images/con_1.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">2024 SVT 8TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h5>
+            <!-- concert cards -->
+            <th:block th:object="${concerts}">
+                <div class="card-1">
+                    <div class="card" th:each="concert : ${concerts}">
+                        <a th:href="'/concerts/detail/' + ${concert.id}">
+                        <img th:src="@{${concert.concertImgs[0].imgUrl}}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${concert.concertName}"></h5>
+                        </div>
+                        </a>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" th:text="${concert.placeConcert.place.placeName}"></li>
+                            <li class="list-group-item" th:text="${concert.concertSinger}"></li>
+                        </ul>
                     </div>
-                    </a>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">고척스카이돔</li>
-                        <li class="list-group-item">2024.07.23 ~ 2024.07.24</li>
-                        <li class="list-group-item">세븐틴</li>
-                    </ul>
                 </div>
-
-                <div class="card">
-                    <a href="/concerts/detail">
-                        <img src="/images/con_1.jpg" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">2024 SVT 8TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h5>
-                        </div>
-                    </a>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">고척스카이돔</li>
-                        <li class="list-group-item">2024.07.23 ~ 2024.07.24</li>
-                        <li class="list-group-item">세븐틴</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <a href="/concerts/detail">
-                        <img src="/images/con_1.jpg" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">2024 SVT 8TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h5>
-                        </div>
-                    </a>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">고척스카이돔</li>
-                        <li class="list-group-item">2024.07.23 ~ 2024.07.24</li>
-                        <li class="list-group-item">세븐틴</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card-1">
-                <div class="card">
-                    <a href="/concerts/detail">
-                        <img src="/images/con_1.jpg" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">2024 SVT 8TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h5>
-                        </div>
-                    </a>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">고척스카이돔</li>
-                        <li class="list-group-item">2024.07.23 ~ 2024.07.24</li>
-                        <li class="list-group-item">세븐틴</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <a href="/concerts/detail">
-                        <img src="/images/con_1.jpg" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">2024 SVT 8TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h5>
-                        </div>
-                    </a>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">고척스카이돔</li>
-                        <li class="list-group-item">2024.07.23 ~ 2024.07.24</li>
-                        <li class="list-group-item">세븐틴</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <a href="/concerts/detail">
-                        <img src="/images/con_1.jpg" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">2024 SVT 8TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h5>
-                        </div>
-                    </a>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">고척스카이돔</li>
-                        <li class="list-group-item">2024.07.23 ~ 2024.07.24</li>
-                        <li class="list-group-item">세븐틴</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card-1">
-                <div class="card">
-                    <a href="/concerts/detail">
-                        <img src="/images/con_1.jpg" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">2024 SVT 8TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h5>
-                        </div>
-                    </a>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">고척스카이돔</li>
-                        <li class="list-group-item">2024.07.23 ~ 2024.07.24</li>
-                        <li class="list-group-item">세븐틴</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <a href="/concerts/detail">
-                        <img src="/images/con_1.jpg" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">2024 SVT 8TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h5>
-                        </div>
-                    </a>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">고척스카이돔</li>
-                        <li class="list-group-item">2024.07.23 ~ 2024.07.24</li>
-                        <li class="list-group-item">세븐틴</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <a href="/concerts/detail">
-                        <img src="/images/con_1.jpg" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">2024 SVT 8TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h5>
-                        </div>
-                    </a>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">고척스카이돔</li>
-                        <li class="list-group-item">2024.07.23 ~ 2024.07.24</li>
-                        <li class="list-group-item">세븐틴</li>
-                    </ul>
-                </div>
-            </div>
-
+            </th:block>
         </section>
     </div>
 
