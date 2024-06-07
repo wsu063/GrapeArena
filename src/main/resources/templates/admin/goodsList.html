@@ -132,11 +132,7 @@
                          th:object="${goodsSearchDto}">
                         <span class="flex items-center col-span-3">
                              <!-- 상품 등록일 -->
-<<<<<<< HEAD
-                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-=======
                             <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input search_box"
->>>>>>> 6ae49d6e39875fc97dcdb6ea959925a2125ada7c
                                     th:field="*{searchDateType}">
                                 <option value="all" >전체기간</option>
                                 <option value="1d">1일</option>
@@ -144,24 +140,15 @@
                                 <option value="1m">1개월</option>
                                 <option value="6m">6개월</option>
                             </select>
-<<<<<<< HEAD
-                              <!-- 상품판매 상태 -->
-                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-=======
                             <!-- 상품판매 상태 -->
                             <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input search_box"
->>>>>>> 6ae49d6e39875fc97dcdb6ea959925a2125ada7c
                                     th:field="*{searchSellStatus}">
                                 <option value="">굿즈(MD)상태</option>
                                 <option value="SELL">판매중</option>
                                 <option value="SOLD_OUT">품절</option>
                             </select>
                             <!-- 상품명, 등록자 선택 -->
-<<<<<<< HEAD
-                            <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-=======
                             <select class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input search_box"
->>>>>>> 6ae49d6e39875fc97dcdb6ea959925a2125ada7c
                                     th:field="*{searchBy}">
                                 <option value="goods">굿즈(MD)명</option>
                             </select>
@@ -265,19 +252,6 @@
            });
            }
 
-<<<<<<< HEAD
-         function page(page) {
-            //입력한 값을 전부 가지고 온다.
-            var searchQuery = $("#searchQuery").val();
-
-            //주소 이동
-            location.href = "/admin/goodsList/" + page
-<!--                          + "&searchQuery=" + searchQuery;-->
-            }
-                document.querySelectorAll('button.disabled').forEach(button => {
-                    button.disabled = true;
-            });
-=======
     function page(page) {
         //입력한 값을 전부 가지고 온다.
         var searchDateType = $("#searchDateType").val();
@@ -292,7 +266,6 @@
                       + "&searchBy=" + searchBy
                       + "&searchQuery=" + searchQuery;
     }
->>>>>>> 6ae49d6e39875fc97dcdb6ea959925a2125ada7c
 
     </script>
 
