@@ -87,7 +87,8 @@ public class PlaceController {
         if(bindingResult.hasErrors()) return "admin/placeForm";
 
         PlaceFormDto getPlaceFormDto = placeService.getPlaceDtl(placeId);
-
+        placeFormDto.setPlaceImgId(getPlaceFormDto.getPlaceImgId());
+        placeFormDto.setPlaceImgDto(getPlaceFormDto.getPlaceImgDto());
         try {
             placeService.updatePlace(placeFormDto, placeImgFile);
         } catch (Exception e) {

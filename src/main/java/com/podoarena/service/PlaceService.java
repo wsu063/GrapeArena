@@ -44,6 +44,7 @@ public class PlaceService {
     public Long updatePlace(PlaceFormDto placeFormDto, MultipartFile placeImgFile) throws Exception {
         Place place = placeRepository.findById(placeFormDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
+
         Long placeImgId = placeFormDto.getPlaceImgId();
         place.updatePlace(placeFormDto);
         placeImgService.updatePlaceImg(placeImgId, placeImgFile);
