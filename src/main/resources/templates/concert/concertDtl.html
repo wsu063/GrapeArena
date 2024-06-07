@@ -15,222 +15,220 @@
 </th:block>
 
 <div layout:fragment="content">
-    <div class="super_container">
-        <div class="fs_menu_overlay"></div>
-        <div class="container single_product_container">
-
-            <div class="row">
-                <div class="col">
-                    <!-- 세부정보 -->
-                    <div class="breadcrumbs d-flex flex-row align-items-center">
-                        <ul>
-                            <li><a href="/">CONCERT</a></li>
-                            <li><a href="/"><i class="fa fa-angle-right" aria-hidden="true"></i>FAN MEETING</a></li>
-                            <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>SVT</a></li>
-                        </ul>
+    <th:block th:object="${concertFormDto}">
+        <div class="super_container">
+            <div class="fs_menu_overlay"></div>
+                <div class="container single_product_container">
+                    <div class="row">
+                        <div class="col">
+                            <!-- 세부정보 -->
+                            <div class="breadcrumbs d-flex flex-row align-items-center">
+                                <ul>
+                                    <li><a href="/">CONCERT</a></li>
+                                    <li class="active">
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        <a href="#"><span th:text="${concertFormDto.concertName}"></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    <div class="row" >
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="font-weight: 700;" th:text="${concertFormDto.concertName}"></h3>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="single_product_pics">
 
-            <div class="row" >
-                <div style="margin-bottom: 20px;">
-                    <h3 style="font-weight: 700;">2023 SVT 7TH FAN MEETING 〈SEVENTEEN in CARAT LAND〉</h3>
-                </div>
-                <div class="col-md-4">
-                    <div class="single_product_pics">
+                                <div class="row" style="margin-right: 3rem;">
+                                    <!-- 상품 이미지 -->
+                                    <div class="col-md-12">
+                                        <div class="single_product_image">
+                                            <div class="single_product_image_background_concert"
+                                                 th:style="'background-image: url(' + ${concertFormDto.concertImgDtoList[0].imgUrl} + '); background-size: contain;'">
+                                            </div>
+                                        </div>
+                                    </div>
 
-                        <div class="row" style="margin-right: 3rem;">
-                            <!-- 상품 이미지 -->
-                            <div class="col-md-12">
-                                <div class="single_product_image">
-                                    <div class="single_product_image_background_concert"
-                                         style="background-image:url(/images/con_1.jpg); background-size: contain;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="product_details">
+                                <!-- 콘서트 타이틀, 정보 -->
+                                <div class="product_details_title">
+                                    <div class="product_details">
+                                        <!-- 장소 -->
+                                        <div class="form_details">
+                                            <label class="text-black">장소</label>
+                                            <span class="text-uppercase font-sm letter-spacing-1">고척스카이돔</span>
+                                        </div>
+
+                                        <div class="form_details">
+                                            <label class="text-black">공연기간</label>
+                                            <span class="text-uppercase font-sm letter-spacing-1">2024.07.23 ~ 2024.07.24</span>
+                                        </div>
+
+                                        <div class="form_details">
+                                            <label class="text-black">아티스트</label>
+                                            <span class="text-uppercase font-sm letter-spacing-1">세븐틴</span>
+                                        </div>
+
+                                        <div class="form_details">
+                                            <label class="text-black">공연시간</label>
+                                            <span class="text-uppercase font-sm letter-spacing-1">180분</span>
+                                        </div>
+
+                                        <div class="form_details">
+                                            <label class="text-black">가격</label>
+                                            <span class="text-uppercase font-sm letter-spacing-1">VIP석 198,000원</span><br>
+                                            <label class="text-black"></label>
+                                            <span class="text-uppercase font-sm letter-spacing-1">R석 154,000원</span><br>
+                                            <label class="text-black"></label>
+                                            <span class="text-uppercase font-sm letter-spacing-1">S석 132,000원</span><br>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="container">
 
+                                <div class="calendar-container">
+
+                                    <header>
+
+                                        <div class="day">관람일</div>
+                                        <div class="month">2024.07</div>
+
+                                    </header>
+
+                                    <table class="calendar">
+
+                                        <thead>
+                                        <tr>
+                                            <td>Mon</td>
+                                            <td>Tue</td>
+                                            <td>Wed</td>
+                                            <td>Thu</td>
+                                            <td>Fri</td>
+                                            <td>Sat</td>
+                                            <td>Sun</td>
+                                        </tr>
+
+                                        </thead>
+
+                                        <tbody>
+
+                                        <tr>
+                                            <td class="prev-month">29</td>
+                                            <td class="prev-month">30</td>
+                                            <td class="prev-month">31</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                            <td>4</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>5</td>
+                                            <td>6</td>
+                                            <td>7</td>
+                                            <td>8</td>
+                                            <td>9</td>
+                                            <td>10</td>
+                                            <td>11</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>12</td>
+                                            <td>13</td>
+                                            <td>14</td>
+                                            <td>15</td>
+                                            <td>16</td>
+                                            <td>17</td>
+                                            <td class="current-day">18</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>19</td>
+                                            <td>20</td>
+                                            <td>21</td>
+                                            <td>22</td>
+                                            <td>23</td>
+                                            <td>24</td>
+                                            <td>25</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>26</td>
+                                            <td>27</td>
+                                            <td>28</td>
+                                            <td>29</td>
+                                            <td>30</td>
+                                            <td>31</td>
+                                            <td class="next-month">1</td>
+                                        </tr>
+                                        </tbody>
+
+                                    </table>
+
+                                    <div class="form-group">
+                                        <div class="md-12 btn_div">
+                                            <button type="submit" class="ticket_btn">예매하기</button>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="ring-left"></div>
+                                    <div class="ring-right"></div>
+
+                                </div> <!-- end calendar-container -->
+
+                            </div> <!-- end container -->
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="product_details">
-                        <!-- 콘서트 타이틀, 정보 -->
-                        <div class="product_details_title">
-                            <div class="product_details">
-
-                                <!-- 장소 -->
-                                <div class="form_details">
-                                    <label class="text-black">장소</label>
-                                    <span class="text-uppercase font-sm letter-spacing-1">고척스카이돔</span>
-                                </div>
-
-                                <div class="form_details">
-                                    <label class="text-black">공연기간</label>
-                                    <span class="text-uppercase font-sm letter-spacing-1">2024.07.23 ~ 2024.07.24</span>
-                                </div>
-
-                                <div class="form_details">
-                                    <label class="text-black">아티스트</label>
-                                    <span class="text-uppercase font-sm letter-spacing-1">세븐틴</span>
-                                </div>
-
-                                <div class="form_details">
-                                    <label class="text-black">공연시간</label>
-                                    <span class="text-uppercase font-sm letter-spacing-1">180분</span>
-                                </div>
-
-                                <div class="form_details">
-                                    <label class="text-black">가격</label>
-                                    <span class="text-uppercase font-sm letter-spacing-1">VIP석 198,000원</span><br>
-                                    <label class="text-black"></label>
-                                    <span class="text-uppercase font-sm letter-spacing-1">R석 154,000원</span><br>
-                                    <label class="text-black"></label>
-                                    <span class="text-uppercase font-sm letter-spacing-1">S석 132,000원</span><br>
-                                </div>
+            <!-- Tabs -->
+            <div class="tabs_section_container" style="margin-top: 30px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="tab_text_block">
+                                <p style="font-weight: 800; font-size:20px;">공연시간 정보</p>
+                                <p>
+                                    예매가능시간: 관람 6시간 전까지
+                                    2024년 7월 24일(수) 오후 6시 30분(예시)
+                                    <br>
+<!--                                    <th:block th:each="date, index : ${concertFormDto}"  th:text="">-->
+<!--                                        <br>-->
+<!--                                    </th:block>-->
+                                </p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="container">
-
-                        <div class="calendar-container">
-
-                            <header>
-
-                                <div class="day">관람일</div>
-                                <div class="month">2024.07</div>
-
-                            </header>
-
-                            <table class="calendar">
-
-                                <thead>
-                                <tr>
-                                    <td>Mon</td>
-                                    <td>Tue</td>
-                                    <td>Wed</td>
-                                    <td>Thu</td>
-                                    <td>Fri</td>
-                                    <td>Sat</td>
-                                    <td>Sun</td>
-                                </tr>
-
-                                </thead>
-
-                                <tbody>
-
-                                <tr>
-                                    <td class="prev-month">29</td>
-                                    <td class="prev-month">30</td>
-                                    <td class="prev-month">31</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
-                                </tr>
-
-                                <tr>
-                                    <td>5</td>
-                                    <td>6</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>9</td>
-                                    <td>10</td>
-                                    <td>11</td>
-                                </tr>
-
-                                <tr>
-                                    <td>12</td>
-                                    <td>13</td>
-                                    <td>14</td>
-                                    <td>15</td>
-                                    <td>16</td>
-                                    <td>17</td>
-                                    <td class="current-day">18</td>
-                                </tr>
-
-                                <tr>
-                                    <td>19</td>
-                                    <td>20</td>
-                                    <td>21</td>
-                                    <td>22</td>
-                                    <td>23</td>
-                                    <td>24</td>
-                                    <td>25</td>
-                                </tr>
-
-                                <tr>
-                                    <td>26</td>
-                                    <td>27</td>
-                                    <td>28</td>
-                                    <td>29</td>
-                                    <td>30</td>
-                                    <td>31</td>
-                                    <td class="next-month">1</td>
-                                </tr>
-                                </tbody>
-
-                            </table>
-
-                            <div class="form-group">
-                                <div class="md-12 btn_div">
-                                    <button type="submit" class="ticket_btn">예매하기</button>
-                                </div>
+                            <div class="tab_text_block">
+                                <p style="font-weight: 800; font-size:20px;" >공지사항</p>
+                                <p>
+                                    * 공연당일 현장판매는 진행되지 않습니다.<br>
+                                   * 잔여석에 한해 공연 당일 공연시작 6시간 전까지 인터넷으로 구매 가능하나, 미리 티켓을 구매하여 주시기 바랍니다.
+                                </p>
                             </div>
 
-
-                            <div class="ring-left"></div>
-                            <div class="ring-right"></div>
-
-                        </div> <!-- end calendar-container -->
-
-                    </div> <!-- end container -->
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Tabs -->
-
-        <div class="tabs_section_container" style="margin-top: 30px;">
-
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-
-                        <div class="tab_text_block">
-                            <p style="font-weight: 800; font-size:20px;">공연시간 정보</p>
-                            <p>
-                                예매가능시간: 관람 6시간 전까지<br>
-                                <br>
-                                2024년 7월 23일(화) 오후 6시 30분<br>
-                                2024년 7월 24일(수) 오후 6시 30분<br>
-                            </p>
-                        </div>
-                        <div class="tab_text_block">
-                            <p style="font-weight: 800; font-size:20px;" >공지사항</p>
-                            <p>
-                                * 공연당일 현장판매는 진행되지 않습니다.<br>
-                               * 잔여석에 한해 공연 당일 공연시작 6시간 전까지 인터넷으로 구매 가능하나, 미리 티켓을 구매하여 주시기 바랍니다.
-                            </p>
-                        </div>
-
-                        <div id="tab_1" class="tab_container active">
-                            <div class="title">
-                                <h4 style="padding: 2rem 0 3rem 0;">
-                                    <strong>공연상세 / 출연진정보
-                                    </strong></h4>
-                            </div>
-                            <div style="display: flex; justify-content: center;">
-                                <img src="/images/con_dtl1.jpg" alt="">
+                            <div id="tab_1" class="tab_container active">
+                                <div class="title">
+                                    <h4 style="padding: 2rem 0 3rem 0;">
+                                        <strong>공연상세 / 출연진정보
+                                        </strong></h4>
+                                </div>
+                                <div style="display: flex; justify-content: center;">
+                                    <img src="/images/con_dtl1.jpg" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </th:block>
 </div>
 
 <th:block layout:fragment="script">
