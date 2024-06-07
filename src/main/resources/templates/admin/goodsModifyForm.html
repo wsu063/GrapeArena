@@ -75,6 +75,15 @@
                                     <option value="SOLD_OUT">품절</option>
                                 </select>
                             </div>
+                            <!-- 굿즈종류-->
+                            <div class="form_details">
+                                <label th:for="sort" class="text-black">분류</label>
+                                <select class="form-select product-form-input" th:field="*{sort}">
+                                    <option value="TOUR">콘서트 굿즈</option>
+                                    <option value="STICK">응원봉</option>
+                                    <option value="ALBUM">앨범</option>
+                                </select>
+                            </div>
                             <!-- 상품명  -->
                             <div class="form_details">
                                 <label th:for="goodsName" class="text-black" >상품명</label>

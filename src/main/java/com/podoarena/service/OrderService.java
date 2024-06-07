@@ -1,16 +1,19 @@
 package com.podoarena.service;
 
+import com.podoarena.constant.RepImgYn;
+import com.podoarena.dto.GoodsCartDto;
 import com.podoarena.dto.OrderDto;
-import com.podoarena.entity.Goods;
-import com.podoarena.entity.Member;
-import com.podoarena.entity.OrderGoods;
-import com.podoarena.entity.Orders;
+import com.podoarena.dto.OrderHistDto;
+import com.podoarena.entity.*;
 import com.podoarena.repository.GoodsImgRepository;
 import com.podoarena.repository.GoodsRepository;
 import com.podoarena.repository.MemberRepository;
 import com.podoarena.repository.OrderRepository;
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
@@ -49,8 +52,35 @@ public class OrderService {
 
     }
 
-    //주문 목록 가져오기(OrderHistDto 필요해서 PASS)
+    //주문 목록 가져오기
+    @Transactional(readOnly = true)
+    public Page<OrderHistDto> getOrderList(String email, Pageable pageable) {
+        // 유저 아이디를 이용해서 주문 목록 조회
+        List<Orders> ordersList = orderRepository.findOrders(email, pageable);
 
+        // 유저의 총 주문 개수를 구한다
+        Long totalCount = orderRepository.countOrder(email);
+
+        // 주문내역은 여러개이므로 리스티에 저장
+        List<OrderHistDto> orderHistDtos = new ArrayList<>();
+
+        // 주문 리스트 ordersList를 순회하면서 컨트롤러에 전달할 OrderHistDto 생성
+        for (Orders orders : ordersList) {
+            OrderHistDto orderHistDto = new OrderHistDto(orders);
+
+            List<OrderGoods> orderGoodsList = orders.getOrderGoodsList();
+
+            for (OrderGoods orderGoods : orderGoodsList) {
+
+
+//                orderHistDto.addGoodsCartDto(goodsCartDto);
+            }
+
+            orderHistDtos.add(orderHistDto);
+        }
+
+        return new PageImpl<>(orderHistDtos, pageable, totalCount); //페이지 구현 객체를 생성하여 return
+    }
 
     //본인확인
     public boolean validateOrder(Long orderId, String email) {

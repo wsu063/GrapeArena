@@ -214,20 +214,22 @@ jQuery(document).ready(function($)
 			var minus = $('.minus');
 			var value = $('#quantity_value');
 
-			plus.on('click', function()
-			{
-				var x = parseInt(value.text());
-				value.text(x + 1);
-			});
+            //해당 실행 부분 goodsDtl에 구현해놓은 자바스크립트랑 클래스명이 겹쳐서 중복 실행되는 현상 발생으로 주석처리함 -승찬-
 
-			minus.on('click', function()
-			{
-				var x = parseInt(value.text());
-				if(x > 1)
-				{
-					value.text(x - 1);
-				}
-			});
+			// plus.on('click', function()
+			// {
+			// 	var x = parseInt(value.text());
+			// 	value.text(x + 1);
+			// });
+            //
+			// minus.on('click', function()
+			// {
+			// 	var x = parseInt(value.text());
+			// 	if(x > 1)
+			// 	{
+			// 		value.text(x - 1);
+			// 	}
+			// });
 		}
 	}
 
