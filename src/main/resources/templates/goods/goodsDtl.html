@@ -8,6 +8,19 @@
   </head>
   
 <th:block layout:fragment="css">
+    <style>
+        .addCart {
+        display: block;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 500;
+        text-align: center;
+        line-height: 40px;
+        width: 100%;
+        }
+
+    </style>
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
@@ -89,14 +102,15 @@
                             <div id="total_price2" th:text="'￦' +${#numbers.formatInteger(goods.goodsPrice, 0, 'COMMA')}" ></div>
                         </div>
                         <div style="display: flex; justify-content: center; margin-top: 30px;">
-                            <div class="red_button add_to_cart_button"><button onclick="cartItem()">카트 추가</button></div>
+                            <div class="red_button add_to_cart_button" onclick="addCartGoods()" style="color: white; cursor: pointer;">카트 추가</div>
                             <div class="red_button add_to_cart_button"><a href="#">바로 구매</a></div>
                         </div>
                     </div>
                 </div>
             </div>
             <input id="goods" type="hidden" th:value="${goods}" />
-            <input id="maxAmount" type="hidden" th:value="${goods.goodsMaxAmount}" />
+            <input id="goods_max_amount" type="hidden" th:value="${goods.goodsMaxAmount}" />
+            <input id="price_per_goods" type="hidden" th:value="${goods.goodsPrice}" />
           </form>
         </div>
 
@@ -155,32 +169,39 @@
 
     <script th:inline="javascript">
       $(document).ready(function() {
-        var pricePerItem = parseInt(/*[[${goods.goodsPrice}]]*/, 10); // 개별 가격
-        var quantity = parseInt($('#quantity_value').text(), 10); // 초기 수량
-        var maxAmount = parseInt($('#maxAmout').text())
+        // 상품의 개별 가격을 템플릿 엔진으로 동적으로 삽입
+        var pricePerItem = parseInt([[${goods.goodsPrice}]]); // 서버에서 데이터 가져오기
+        var maxAmount =  parseInt([[${goods.goodsMaxAmount}]]); // 최대 수량 설정
+        var quantity = parseInt($('#quantity_value').text()); // 초기 수량
         
         function updateTotalPrice() {
           var totalPrice = pricePerItem * quantity;
-          var totalPrice2 = pricePerItem * quantity;
-          $('#total_price').text(totalPrice.toLocaleString()); // 총 가격 업데이트
-          $('#total_price2').text(totalPrice2.toLocaleString());
+          $('#total_price').text('￦' + totalPrice.toLocaleString('ko-KR'));
+          $('#total_price2').text('￦' + totalPrice.toLocaleString('ko-KR'));
         }
         
         $('.plus').click(function() {
-          if (quantity <= maxAmount) {quantity++;}
-          $('#quantity_value').text(quantity);
-          updateTotalPrice();
+          if (quantity < maxAmount) {
+            quantity++; // 최대 수량에 도달하지 않은 경우에만 수량을 증가시킵니다.
+            $('#quantity_value').text(quantity);
+            updateTotalPrice();
+          } else {
+            alert('최대 수량은 ' + maxAmount + '개입니다.');
+          }
         });
         
+        
         $('.minus').click(function() {
-          if (quantity > 1) { // 최소 수량 1로 제한
+          if (quantity > 1) {
             quantity--;
             $('#quantity_value').text(quantity);
             updateTotalPrice();
           }
         });
+        
+        updateTotalPrice();
       });
-      function cartItem() {
+      function addCartGoods() {
         var goodsFormDto= $("#goods").val();
         
         var token = $("meta[name='_csrf']").attr("content");
