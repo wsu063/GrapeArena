@@ -96,6 +96,7 @@
                 </div>
             </div>
             <input id="goods" type="hidden" th:value="${goods}" />
+            <input id="maxAmount" type="hidden" th:value="${goods.goodsMaxAmount}" />
           </form>
         </div>
 
@@ -156,6 +157,7 @@
       $(document).ready(function() {
         var pricePerItem = parseInt(/*[[${goods.goodsPrice}]]*/, 10); // 개별 가격
         var quantity = parseInt($('#quantity_value').text(), 10); // 초기 수량
+        var maxAmount = parseInt($('#maxAmout').text())
         
         function updateTotalPrice() {
           var totalPrice = pricePerItem * quantity;
@@ -165,7 +167,7 @@
         }
         
         $('.plus').click(function() {
-          quantity++;
+          if (quantity <= maxAmount) {quantity++;}
           $('#quantity_value').text(quantity);
           updateTotalPrice();
         });
