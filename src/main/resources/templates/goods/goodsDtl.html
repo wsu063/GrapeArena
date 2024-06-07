@@ -111,6 +111,7 @@
             <input id="goods" type="hidden" th:value="${goods}" />
             <input id="goods_max_amount" type="hidden" th:value="${goods.goodsMaxAmount}" />
             <input id="price_per_goods" type="hidden" th:value="${goods.goodsPrice}" />
+            <input id="goodsId" type="hidden" th:value="${goods.id}">
           </form>
         </div>
 
@@ -201,15 +202,14 @@
         updateTotalPrice();
       });
       function addCartGoods() {
-        var goodsFormDto= $("#goods").val();
+        var goodsId= $("#goodsId").val();
         var count = parseInt($('#quantity_value').text());
         
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
         
         var formData = {
-          count: count,
-          goodsFormDto: goodsFormDto
+         goodsId = goodsId
         };
         
         $.ajax({
