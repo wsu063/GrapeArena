@@ -143,7 +143,7 @@ public class ConcertController {
     //콘서트 목록 (관리자)
     @GetMapping(value = {"/admin/concerts/list", "/admin/concerts/list/{page}"})
     public String concertReserveListAdmin(ConcertSearchDto concertSearchDto,
-                                          @PathVariable("page")Optional<Integer> page, Model model) {
+                                          @PathVariable(value = "page") Optional<Integer> page, Model model) {
         // page가 있으면 번호 조회, 아니면 0
         // 한 페이지에 10개
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
