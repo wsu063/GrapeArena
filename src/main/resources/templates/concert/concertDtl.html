@@ -102,9 +102,9 @@
                                     <header>
                                         <div class="day">관람일</div>
                                         <div class="month">
-                                            <button id="prevMonth">‹</button>
+                                            <button onclick="showPreviousMonth()">‹</button>
                                             <span id="monthYear">2024.07</span>
-                                            <button id="nextMonth">›</button>
+                                            <button onclick="showNextMonth()">›</button>
                                         </div>
                                     </header>
                                     <table class="calendar">
@@ -250,6 +250,25 @@
         ];
 
         generateCalendar(currentYear, currentMonth, highlightedDates);
+
+
+        function showPreviousMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11; // 0부터 11까지의 값으로 월을 나타내므로 0 미만이면 11로 설정합니다.
+                currentYear--; // 이전 해로 이동합니다.
+            }
+            generateCalendar(currentYear, currentMonth, highlightedDates);
+        }
+
+        function showNextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0; // 0부터 11까지의 값으로 월을 나타내므로 11을 초과하면 0으로 설정합니다.
+                currentYear++; // 다음 해로 이동합니다.
+            }
+            generateCalendar(currentYear, currentMonth, highlightedDates);
+        }
 
     </script>
 </th:block>
