@@ -67,8 +67,9 @@
 
                                         <div class="form_details">
                                             <label class="text-black">공연기간</label>
-                                            <span class="text-uppercase font-sm letter-spacing-1"
-                                            >2024.07.23 ~ 2024.07.24</span>
+                                            <span class="text-uppercase font-sm letter-spacing-1" th:text="${#temporals.format(concertFormDto.dates[0].dateTime, 'yyyy.MM.dd')}"></span>
+                                            <span> ~ </span>
+                                            <span th:text="${#temporals.format(concertFormDto.dates[concertFormDto.dates.size() - 1].dateTime, 'yyyy.MM.dd')}"></span>
                                         </div>
 
                                         <div class="form_details">
