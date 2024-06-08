@@ -12,12 +12,13 @@ public class DateRepositoryCustomImpl implements DateRepositoryCustom {
     }
     private JPAQueryFactory queryFactory;
     @Override
-    public List<Date> getDateByConcertId(Long concertId) {
+    public List<Date> getDateByConcertIdAsc(Long concertId) {
         List<Date> content = queryFactory
                 .selectFrom(QDate.date)
                 .join(QPlaceConcert.placeConcert).on(QDate.date.placeConcert.eq(QPlaceConcert.placeConcert))
                 .join(QConcert.concert).on(QPlaceConcert.placeConcert.concert.eq(QConcert.concert))
                 .where(QConcert.concert.id.eq(concertId))
+                .orderBy(QDate.date.dateTime.asc())
                 .fetch();
         return content;
     }

@@ -25,19 +25,21 @@ public class ConcertFormDto {
 
     private ConcertState concertState;
 
-    private List<ConcertImgDto> concertImgDtoList = new ArrayList<>();
+    private int concertPlayTime;
 
-    private List<Long> concertImgIds = new ArrayList<>(); // 이미지 아이디 저장(수정할때씀)
+    private List<Long> concertImgIds = new ArrayList<>(); // 이미지 수정을 위해 필요함
 
-    private List<LocalDateTime> dateList = new ArrayList<>();
+    private List<LocalDateTime> dateList = new ArrayList<>(); // Date 등록을 위해 필요함
 
     private List<Date> dates = new ArrayList<>();
 
-    private List<Long> dateIds = new ArrayList<>();
+    private List<Long> dateIds = new ArrayList<>(); // 날짜 수정을 위해 필요함
 
     private List<PlaceFormDto> placeFormDtoList = new ArrayList<>();
 
-    private Long placeId;
+    private List<ConcertImgDto> concertImgDtoList = new ArrayList<>();
+
+    private Long placeId; // 공연장 수정을 위해 필요함
 
     private static ModelMapper modelMapper = new ModelMapper();
 
@@ -47,6 +49,7 @@ public class ConcertFormDto {
         concert.setConcertName(this.concertName);
         concert.setConcertSinger(this.concertSinger);
         concert.setConcertState(this.concertState);
+        concert.setConcertPlayTime(this.concertPlayTime);
 
         return concert;
     }

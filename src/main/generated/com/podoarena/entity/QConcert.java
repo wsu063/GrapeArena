@@ -28,6 +28,8 @@ public class QConcert extends EntityPathBase<Concert> {
 
     public final StringPath concertName = createString("concertName");
 
+    public final NumberPath<Integer> concertPlayTime = createNumber("concertPlayTime", Integer.class);
+
     public final StringPath concertSinger = createString("concertSinger");
 
     public final EnumPath<com.podoarena.constant.ConcertState> concertState = createEnum("concertState", com.podoarena.constant.ConcertState.class);

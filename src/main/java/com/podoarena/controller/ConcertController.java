@@ -3,6 +3,7 @@ package com.podoarena.controller;
 import com.podoarena.dto.ConcertFormDto;
 import com.podoarena.dto.ConcertSearchDto;
 import com.podoarena.dto.PlaceFormDto;
+import com.podoarena.dto.ReserveFormDto;
 import com.podoarena.entity.Concert;
 import com.podoarena.entity.Date;
 import com.podoarena.entity.Place;
@@ -171,8 +172,10 @@ public class ConcertController {
     @GetMapping(value = "/concerts/detail/{concertId}")
     private String concertDtl(Model model, @PathVariable(value = "concertId") Long concertId, Principal principal) {
         ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
+        ReserveFormDto reserveFormDto = new ReserveFormDto();
 
         model.addAttribute("concertFormDto", concertFormDto);
+
         return "concert/concertDtl";
     }
 }

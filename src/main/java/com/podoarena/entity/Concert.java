@@ -24,6 +24,8 @@ public class Concert extends BaseEntity {
     private String concertSinger; // 콘서트 가수
     
     private ConcertState concertState; // 콘서트 상태
+    
+    private int concertPlayTime; // 콘서트 공연시간
 
     @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConcertImg> concertImgs;

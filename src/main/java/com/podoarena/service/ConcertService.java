@@ -1,10 +1,7 @@
 package com.podoarena.service;
 
 import com.podoarena.constant.RepImgYn;
-import com.podoarena.dto.ConcertFormDto;
-import com.podoarena.dto.ConcertImgDto;
-import com.podoarena.dto.ConcertSearchDto;
-import com.podoarena.dto.ReserveSeatSearchDto;
+import com.podoarena.dto.*;
 import com.podoarena.entity.*;
 import com.podoarena.repository.ConcertRepository;
 import com.podoarena.repository.DateRepository;
@@ -67,18 +64,21 @@ public class ConcertService {
     //2. 콘서트 상세페이지
     @Transactional
     public ConcertFormDto getConcertDtl(Long concertId) {
-        //concertImgDtoList를 가져온다.
-        List<ConcertImgDto> concertImgList = concertImgService.getConcertImgDtoList(concertId);
-
-        List<Date> dateList = dateService.getDateByConcertId(concertId);
-
         //Concert 가져오기
         Concert concert = concertRepository.findById(concertId).orElseThrow(EntityNotFoundException::new);
         ConcertFormDto concertFormDto = ConcertFormDto.of(concert);
 
+        //필요한 요소를 가져온다.
+        List<ConcertImgDto> concertImgList = concertImgService.getConcertImgDtoList(concertId);
+        List<Date> dateList = dateService.getDateByConcertIdAsc(concertId);
+        PlaceFormDto placeFormDto = PlaceFormDto.of(concert.getPlaceConcert().getPlace());
+
         //가져온 concertFormDto에 이미지 리스트를 넣어준다.
         concertFormDto.setConcertImgDtoList(concertImgList);
+        //가져온 concertFormDto에 date를 세팅한다.
         concertFormDto.setDates(dateList);
+        //가져온 concertFormDto에 place를 세팅한다.
+        concertFormDto.getPlaceFormDtoList().add(placeFormDto);
 
         return concertFormDto;
     }

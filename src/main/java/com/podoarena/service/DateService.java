@@ -25,7 +25,7 @@ public class DateService {
     }
 
     //날짜 받아오기
-    public List<Date> getDateByConcertId(Long placeConcertId) {
-        return dateRepository.getDateByConcertId(placeConcertId);
+    public List<Date> getDateByConcertIdAsc(Long placeConcertId) {
+        return dateRepository.getDateByConcertIdAsc(placeConcertId);
     }
 }

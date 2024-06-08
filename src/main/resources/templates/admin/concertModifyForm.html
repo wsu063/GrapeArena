@@ -79,8 +79,15 @@
                             <!-- 아티스트 -->
                             <div class="form_details">
                                 <label th:for="concertSinger" class="text-black">아티스트</label>
-                                <input th:field="*{concertSinger}" id="concertSinger" type="text" class="form-control product-form-input" placeholder="알아서 입력" />
+                                <input th:field="*{concertSinger}" id="concertSinger" type="text" class="form-control product-form-input" placeholder="아티스트를 입력해주세요" />
                                 <p th:if="${#fields.hasErrors('concertSinger')}" th:errors="*concertSinger" class="fieldError">Incorrect Data</p>
+                            </div>
+
+                            <!-- 공연시간 -->
+                            <div class="form_details">
+                                <label th:for="concertPlayTime" class="text-black">공연시간</label>
+                                <input th:field="*{concertPlayTime}" id="concertPlayTime" type="number" class="form-control product-form-input" placeholder="공연시간을 입력해주세요" />
+                                <p th:if="${#fields.hasErrors('concertPlayTime')}" th:errors="*concertPlayTime" class="fieldError">Incorrect Data</p>
                             </div>
 
                             <!-- 공연장 -->
