@@ -47,6 +47,7 @@
                                 <th class="px-4 py-3">콘서트</th>
                                 <th class="px-4 py-3">공연장</th>
                                 <th class="px-4 py-3">공연날짜</th>
+                                <th class="px-4 py-3">공연시간</th>
                                 <th class="px-4 py-3">Actions</th>
                             </tr>
                             </thead>
@@ -61,7 +62,6 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 text-sm" th:text="${concert.placeConcert.place.placeName}"></td>
-                                    <!-- 공연날짜 여러개(3개) -->
                                     <td class="px-4 py-3 text-sm">
                                         <div class="flex items-center text-sm" th:each="date, index : ${concert.placeConcert.dateList}">
                                             <div>
@@ -69,6 +69,7 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <td class="px-4 py-3 text-sm" th:text="${concert.concertPlayTime}"></td>
                                     <td class="px-4 py-3">
                                         <div class="flex items-center space-x-4 text-sm">
                                             <a class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"

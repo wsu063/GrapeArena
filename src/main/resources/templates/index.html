@@ -72,6 +72,11 @@
                         </a>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item" th:text="${concert.placeConcert.place.placeName}"></li>
+                            <li class="list-group-item">
+                                <span th:text="${#temporals.format(concert.placeConcert.dateList[0].dateTime, 'yyyy.MM.dd')}"></span>
+                                <span> ~ </span>
+                                <span th:text="${#temporals.format(concert.placeConcert.dateList[concert.placeConcert.dateList.size() - 1].dateTime, 'yyyy.MM.dd')}"></span>
+                            </li>
                             <li class="list-group-item" th:text="${concert.concertSinger}"></li>
                         </ul>
                     </div>

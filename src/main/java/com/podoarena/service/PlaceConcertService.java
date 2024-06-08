@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -40,7 +41,10 @@ public class PlaceConcertService {
 
         List<Date> dateList = new ArrayList<>();
 
-        for(LocalDateTime time : concertFormDto.getDateList()) {
+        List<LocalDateTime> sortDateList = concertFormDto.getDateList();
+        Collections.sort(sortDateList); // 날짜가 저장될때 오름차순으로 정렬된 이후 저장된다.
+
+        for (LocalDateTime time : sortDateList) {
             Date date = new Date();
             date.setDateTime(time);
             dateList.add(date);

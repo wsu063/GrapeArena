@@ -39,6 +39,7 @@ public class Concert extends BaseEntity {
         this.concertName = concertFormDto.getConcertName();
         this.concertSinger = concertFormDto.getConcertSinger();
         this.concertState = concertFormDto.getConcertState();
+        this.concertPlayTime = concertFormDto.getConcertPlayTime();
     }
 
 }
