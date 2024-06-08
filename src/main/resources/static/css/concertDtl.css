@@ -36,9 +36,17 @@ td {
 }
 
 .month {
+    display: flex;
+    justify-content: space-around;
 	font-size: 3.5em;
 	line-height: 1em;
 	text-transform: lowercase;
+}
+
+.month button {
+    background: none;
+    border: none;
+    color: white;
 }
 
 .calendar {
@@ -113,4 +121,12 @@ td {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.highlighted {
+    background-color: #e66b6b;
+    color: white;
+}
+.highlighted:hover {
+    background: #e66b6b !important;
 }

@@ -55,7 +55,7 @@ public class ConcertService {
             concertImgService.saveConcertImg(concertImg, concertImgFileList.get(i));
         }
         concertFormDto.setId(concert.getId());
-        //3. PC 등록
+        //3. PC 등록?
 
 
         return concertFormDto.getId();
