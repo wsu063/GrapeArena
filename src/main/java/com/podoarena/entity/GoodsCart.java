@@ -34,8 +34,8 @@ public class GoodsCart {
     public static GoodsCart createGoodsCart(Goods goods, Member member, int goodsCount) {
         GoodsCart goodsCart = new GoodsCart();
         goodsCart.setGoods(goods);
-        goodsCart.setCart(member.getCart());
         goodsCart.setGoodsCount(goodsCount);
+        goodsCart.setMember(member);
 
         return goodsCart;
     }

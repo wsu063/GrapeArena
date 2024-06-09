@@ -26,8 +26,6 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath address = createString("address");
 
-    public final QCart cart;
-
     //inherited
     public final StringPath createdBy = _super.createdBy;
 
@@ -80,7 +78,6 @@ public class QMember extends EntityPathBase<Member> {
 
     public QMember(Class<? extends Member> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.cart = inits.isInitialized("cart") ? new QCart(forProperty("cart"), inits.get("cart")) : null;
         this.reserve = inits.isInitialized("reserve") ? new QReserve(forProperty("reserve"), inits.get("reserve")) : null;
     }
 

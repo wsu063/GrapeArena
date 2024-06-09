@@ -44,8 +44,8 @@ public class Member extends BaseEntity {
 
     private String extraAddress;
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Cart cart;
+//    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Cart cart;
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private Reserve reserve;

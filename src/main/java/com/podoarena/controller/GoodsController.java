@@ -5,7 +5,9 @@ import com.podoarena.dto.GoodsSearchDto;
 import com.podoarena.dto.MainGoodsDto;
 import com.podoarena.dto.PlaceFormDto;
 import com.podoarena.entity.Goods;
+import com.podoarena.entity.Member;
 import com.podoarena.service.GoodsService;
+import com.podoarena.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GoodsController {
     private final GoodsService goodsService;
+    private final MemberService memberService;
 
     // 굿즈 메인페이지 이동
     @GetMapping(value = {"/goods/goodsIndex", "/goods/goodsIndex/{page}"})
@@ -95,9 +98,12 @@ public class GoodsController {
 
     // 굿즈 상세 페이지 이동
     @GetMapping(value = "/goods/goodsDtl/{goodId}")
-    public String goodsDtl(Model model, @PathVariable(value ="goodId") Long goodId) {
+    public String goodsDtl(Model model, @PathVariable(value ="goodId") Long goodId, Principal principal) {
+        String email = principal.getName();
         GoodsFormDto goodsFormDto = goodsService.getGoodsDtl(goodId);
+        Member member = memberService.getMember(email);
         model.addAttribute("goods", goodsFormDto);
+        model.addAttribute("member", member);
         return "goods/goodsDtl";
     }
 

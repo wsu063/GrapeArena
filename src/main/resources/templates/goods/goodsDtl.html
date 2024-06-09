@@ -111,7 +111,8 @@
             <input id="goods" type="hidden" th:value="${goods}" />
             <input id="goods_max_amount" type="hidden" th:value="${goods.goodsMaxAmount}" />
             <input id="price_per_goods" type="hidden" th:value="${goods.goodsPrice}" />
-            <input id="goodsId" type="hidden" th:value="${goods.id}">
+            <input id="goodsId" type="hidden" th:value="${goods.id}" />
+            <input id="memberId" type="hidden" th:value="${member.id}" />
           </form>
         </div>
 
@@ -203,18 +204,20 @@
       });
       function addCartGoods() {
         var goodsId= $("#goodsId").val();
-        var count = parseInt($('#quantity_value').text());
+        var memberId = $("#memberId").val();
+        var goodsCount = parseInt($('#quantity_value').text());
         
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
         
         var formData = {
           goodsId : goodsId,
-          count : count,
+          goodsCount : goodsCount,
+            memberId : memberId,
         };
         
         $.ajax({
-          url: "/members/cart",
+          url: "/members/addCart",
           type: "POST",
           contentType: "application/json",
           beforeSend: function(xhr) {
@@ -224,8 +227,10 @@
           cache: false,
           data: JSON.stringify(formData),
           success: function(result, status, xhr, formData) {
+              if(result.equals("true")){
             confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?");
-            location.href= "/members/cart";
+            location.href= "cart/cartList";
+              }
             
           },
           error: function(jqXHR, status, error) {
