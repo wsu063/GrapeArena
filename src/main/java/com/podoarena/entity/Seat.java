@@ -40,8 +40,8 @@ public class Seat{
     @JoinColumn(name = "place_concert_id")
     private PlaceConcert placeConcert;
 
-    @OneToMany(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReserveSeat> reserveSeatList;
+    @OneToOne(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ReserveSeat reserveSeat;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "date_id")

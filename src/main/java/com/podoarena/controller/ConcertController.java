@@ -92,6 +92,11 @@ public class ConcertController {
 
             for(Place place : places) {
                 PlaceFormDto placeFormDto = PlaceFormDto.of(place);
+                //이미 선택한 place라면 패스한다.
+                if(concertFormDto.getPlaceFormDtoList().get(0).getId().equals(placeFormDto.getId())) {
+                    continue;
+                }
+
                 concertFormDto.getPlaceFormDtoList().add(placeFormDto);
             }
 

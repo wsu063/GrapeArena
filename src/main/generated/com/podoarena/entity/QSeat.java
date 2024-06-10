@@ -28,7 +28,7 @@ public class QSeat extends EntityPathBase<Seat> {
 
     public final QPlaceConcert placeConcert;
 
-    public final ListPath<ReserveSeat, QReserveSeat> reserveSeatList = this.<ReserveSeat, QReserveSeat>createList("reserveSeatList", ReserveSeat.class, QReserveSeat.class, PathInits.DIRECT2);
+    public final QReserveSeat reserveSeat;
 
     public final EnumPath<com.podoarena.constant.SeatGrade> seatGrade = createEnum("seatGrade", com.podoarena.constant.SeatGrade.class);
 
@@ -64,6 +64,7 @@ public class QSeat extends EntityPathBase<Seat> {
         super(type, metadata, inits);
         this.date = inits.isInitialized("date") ? new QDate(forProperty("date"), inits.get("date")) : null;
         this.placeConcert = inits.isInitialized("placeConcert") ? new QPlaceConcert(forProperty("placeConcert"), inits.get("placeConcert")) : null;
+        this.reserveSeat = inits.isInitialized("reserveSeat") ? new QReserveSeat(forProperty("reserveSeat"), inits.get("reserveSeat")) : null;
     }
 
 }
