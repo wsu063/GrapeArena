@@ -55,7 +55,7 @@ td {
 	-webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, .2), 0 3px 1px #fff;
 	box-shadow: 0 2px 1px rgba(0, 0, 0, .2), 0 3px 1px #fff;
 	color: #555;
-	display: inline-block;
+	display: block;
 	padding: 2em;
 }
 
@@ -84,14 +84,6 @@ td {
 	color: #cacaca;
 }
 
-.ring-left,
-.ring-right {
-	position: absolute;
-	top: 130px;
-}
-
-.ring-left { left: 2em; }
-.ring-right { right: 2em; }
 
 .ring-left:before,
 .ring-left:after,

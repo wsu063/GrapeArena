@@ -1,7 +1,6 @@
 package com.podoarena.dto;
 
 import com.podoarena.constant.OrderStatus;
-import com.podoarena.entity.OrderGoods;
 import com.podoarena.entity.Orders;
 import lombok.Getter;
 import lombok.Setter;
