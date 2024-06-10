@@ -13,7 +13,7 @@
       /* 스타일 정의 */
     </style>
   </th:block>
-  
+
   <div layout:fragment="content">
     <div class="bg-light py-3" style="margin-top: 2rem;">
       <div class="container">
@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="site-section" style="margin-top: 1rem;">
       <div class="container">
         <div class="row mb-5">
@@ -89,21 +89,21 @@
                             </span>
                           </td>
                           <td>
-                            <a href="#" th:data-id="${goodsCart.goodsId}" onclick="deleteGoodsCart(this); return false;"
+                            <a href="#"  th:onclick="'deleteGoodsCart(' + ${goodsCart.goodsCartId} + ')'"
                                class="btn btn-primary height-auto btn-sm">X</a>
                           </td>
                         </tr>
-                       
+
                       </table>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-          
+
           </form>
         </div>
-        
+
         <div class="row">
           <div class="col-md-6">
             <!-- 추가 내용 -->
@@ -124,7 +124,7 @@
                     <strong class="text-black"><span id="orderTotalPrice" class="text-danger">0원</span></strong>
                   </div>
                 </div>
-                
+
                 <div class="row">
                   <div class="col-md-12">
                     <button class="btn btn-success btn-lg btn-block" onclick="orders()">주문하기</button>
@@ -137,29 +137,44 @@
       </div>
     </div>
   </div>
-  
+
   <th:block layout:fragment="script">
     <script th:inline="javascript">
-      
-      // JavaScript 함수 및 이벤트 핸들러
-      function checkAll() {
-        if ($("#checkall").prop("checked")) {
-          $("input[name=cartChkBox]").prop("checked", true);
-        } else {
-          $("input[name=cartChkBox]").prop("checked", false);
-        }
+      function deleteGoodsCart(goodsCartId) {
+          const cancelConf = confirm("굿즈를 삭제하시겠습니까?");
+          if(!cancelConf) return; // 취소 선택시 끝
+
+          var token = $("meta[name='_csrf']").attr("content");
+          var header = $("meta[name='_csrf_header']").attr("content");
+
+          $.ajax({
+              url : "/goodsCart/" + goodsCartId,
+              type : "DELETE",
+              contentType : "application/json",
+              beforeSend : function(xhr) {
+                  //데이터를 전송하기 전에 헤더에 csrf 값을 설정
+                  xhr.setRequestHeader(header, token);
+              },
+              dataType : "json",
+              cache : false,
+              success : function(result, status) {
+                  location.reload();
+              },
+              error : function(jqXHR, status, error) {
+                  if(jqXHR.status == '401') {
+                   alert('로그인 후 이용해주세요.');
+                   location.href = '/members/login';
+                  } else {
+                    alert(jqXHR.responseText);
+                  }
+              }
+          });
       }
-      
-      function deleteGoodsCart(element) {
-        let goodsId = $(element).data("id");
-        console.log("Deleting goods with ID:", goodsId);
-        // 실제 삭제 요청 로직을 추가
-      }
-      
-      function orders() {
-        console.log("Order button clicked");
-        // 주문 처리 로직을 추가
-      }
+
+    function orders() {
+      console.log("Order button clicked");
+      // 주문 처리 로직을 추가
+    }
     </script>
   </th:block>
 </html>

@@ -83,6 +83,21 @@ public class CartController {
 
         return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
     }
+
+    // 카트 굿즈 수량을 수정
+    @PatchMapping(value = "/goodsCart/{goodsCartId}")
+    public @ResponseBody ResponseEntity updateGoodsCart(@PathVariable("goodsCartId") Long goodsCartId, @RequestParam("goodsCount") int count, Principal principal){
+
+        if (count <= 0) {
+            return new ResponseEntity<String>("최소 1개 이상 담아주세요.", HttpStatus.BAD_REQUEST);
+        } else if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
+            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
+        cartService.updateGoodsCartCount(goodsCartId, count);
+        return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
+    }
+
+
 }
 
 
@@ -122,21 +137,6 @@ public class CartController {
 //        // 성공 시 굿즈ID와 함께 200 상태 코드 반환
 //        return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
 //    }
-
-
-//    // 카트 굿즈 수량을 수정
-//    public @ResponseBody ResponseEntity updateGoodsCart(@PathVariable("goodsCartId") Long goodsCartId, @RequestParam("goodsCount") int count, Principal principal){
-//
-//        if (count <= 0) {
-//            return new ResponseEntity<String>("최소 1개 이상 담아주세요.", HttpStatus.BAD_REQUEST);
-//        } else if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
-//            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
-//        }
-//        cartService.updateGoodsCartCount(goodsCartId, count);
-//        return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
-//    }
-
-
 
 
 

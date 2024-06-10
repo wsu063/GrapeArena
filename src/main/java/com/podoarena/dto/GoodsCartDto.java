@@ -23,6 +23,7 @@ public class GoodsCartDto {
         this.goodsMaxAmount = goodsCart.getGoodsmaxAmount();
     }
     private Long goodsId;
+    private Long goodsCartId;
     private String goodsName;
     private int goodsPrice;
     private Long memberId;

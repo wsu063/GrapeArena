@@ -134,15 +134,15 @@ public class CartService {
         }
         return true; //같으면 ture 반환
     }
-//
-//    // 카트 굿즈 수량 업데이트
-//    public void  updateGoodsCartCount(Long goodsCartId, int count) {
-//        GoodsCart goodsCart = goodsCartRepository.findById(goodsCartId)
-//                .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아옴
-//
-//        goodsCart.setGoodsCount(count); //수량 업데이트
-//    }
-//
+
+    // 카트 굿즈 수량 업데이트
+    public void updateGoodsCartCount(Long goodsCartId, int count) {
+        GoodsCart goodsCart = goodsCartRepository.findById(goodsCartId)
+                .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아옴
+
+        goodsCart.setGoodsCount(count); //수량 업데이트
+    }
+
     // 카트 굿즈 삭제
     public void deleteGoodsCart(Long goodsCartId) {
         GoodsCart goodsCart = goodsCartRepository.findById(goodsCartId)
