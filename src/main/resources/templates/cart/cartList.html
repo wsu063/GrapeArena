@@ -140,40 +140,6 @@
   
   <th:block layout:fragment="script">
     <script th:inline="javascript">
-      $(document).ready(function() {
-        var pricePerItem = parseInt([[${goods.goodsPrice}]]);
-        var maxAmount =  parseInt([[${goods.goodsMaxAmount}]]);
-        var quantity = parseInt([[${goodsCart.goodsCount}]]);
-        
-        function updateTotalPrice() {
-          var totalPrice = pricePerItem * quantity;
-          $('#total_price').text('￦' + totalPrice.toLocaleString('ko-KR'));
-          $('#total_price2').text('￦' + totalPrice.toLocaleString('ko-KR'));
-        }
-        
-        $('.plus').click(function() {
-          if (quantity < maxAmount) {
-            quantity++;
-            $('#quantity_value').text(quantity);
-            updateTotalPrice();
-          } else {
-            alert('최대 수량은 ' + maxAmount + '개입니다.');
-          }
-        });
-        
-        
-        $('.minus').click(function() {
-          if (quantity > 1) {
-            quantity--;
-            $('#quantity_value').text(quantity);
-            updateTotalPrice();
-          }
-        });
-        
-        updateTotalPrice();
-      });
-      
-      
       
       // JavaScript 함수 및 이벤트 핸들러
       function checkAll() {
