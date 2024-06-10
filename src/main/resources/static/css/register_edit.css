@@ -20,7 +20,6 @@
     line-height: 68px;
     border-bottom: 1px solid rgba(0, 0, 0, .08);
 }
-
 .register_wrap,
 .edit_wrap {
     max-width: 40rem;
@@ -121,13 +120,13 @@ input {
 
 .post_btn
 {
-    box-shadow: 0px 4px 0px #73B9C9;
     background-color: #7fccde;
     text-decoration: none;
     border: 0;
     color: white;
     border-radius: 5px;
-    padding: 5px 10px;
+    margin-top: 0.3rem;
+    height: 2.5rem;
     margin-left: 1rem;
     width: 15rem;
 }
@@ -150,4 +149,8 @@ input {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.fieldError {
+    color: red;
 }

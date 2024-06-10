@@ -115,9 +115,10 @@ public class MemberController {
 
     //찾은 아이디 표시
     @PostMapping(value = "/members/showid")
-    public ResponseEntity<String> findId(@RequestBody  Map<String, String> requestData, Model model){
+    public ResponseEntity<String> findId(@RequestBody Map<String, String> requestData, Model model){
         String name = requestData.get("name");
         String phone = requestData.get("phone");
+
 
         Member findId = memberRepository.findByPhoneAndName(phone, name);
         String email = findId.getEmail();
@@ -152,7 +153,7 @@ public class MemberController {
             return "redirect:/members/editprofile";
         } else {
             model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
-            return "redirect:/members/mypage";
+            return "member/mypage";
         }
     }
 
@@ -190,7 +191,7 @@ public class MemberController {
 
     @GetMapping(value = "/members/login/error")
     public String loginError(Model model){
-        model.addAttribute("loginErrorMsg","아이디 또는 비밀번호를 입력해주세요. ");
+        model.addAttribute("loginErrorMsg","아이디 또는 비밀번호를 확인 해주세요. ");
         return "member/login";
 
     }

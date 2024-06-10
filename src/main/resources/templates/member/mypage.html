@@ -25,7 +25,10 @@
               </label>
             </div>
           </div>
+          <p style="color:red;" th:if="${error}" th:text="${error}" class="error"></p>
+          
         </div>
+        
         <div class="mypage_style">
           <button type="submit" class="mypage_btn" id="mypageBtn">
             <span>확인</span>

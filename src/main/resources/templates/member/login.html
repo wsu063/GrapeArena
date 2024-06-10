@@ -33,7 +33,7 @@
             </div>
 
             <div class="check_style">
-                <p th:if="${loginErrorMsg}" th:text="${loginErrorMsg}" class="error"></p>
+                <p style="color:red;" th:if="${loginErrorMsg}" th:text="${loginErrorMsg}" class="error"></p>
                 <label for="id_save">
                     <input type="checkbox" name="id_save" id="id_save">아이디 저장
                 </label>
