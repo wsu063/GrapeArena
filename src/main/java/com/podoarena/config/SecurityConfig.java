@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -21,6 +22,7 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/js/**", "/img/**", "/images/**", "/fonts/**","/plugins/**").permitAll()
                         .requestMatchers("/", "/members/**", "/goods/**", "/concerts/**","/orders/**","/reserves/**").permitAll()
                         .requestMatchers("/favicon.ico", "/error").permitAll()
+                        .requestMatchers("/members/carts/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                         .anyRequest().authenticated()
                 )        // 2. 로그인에 관한 설정
@@ -36,6 +38,7 @@ public class SecurityConfig {
                 ) // 4. 인증되지 않은 사용자의 접근에 관한 설정
                 .exceptionHandling(handling -> handling
                         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                        .accessDeniedPage("/members/login") // 인증되지 않은 사용자 접근 시 이동할 페이지
                 ) // 로그인 이후 세션을 통해 로그인 유지
                 .rememberMe(Customizer.withDefaults());
 
