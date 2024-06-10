@@ -73,6 +73,16 @@ public class CartController {
         return new ResponseEntity<String>(e.getMessage() ,HttpStatus.BAD_REQUEST);
     }
 }
+    //카트 굿즈 삭제
+    @DeleteMapping(value = "/goodsCart/{goodsCartId}")
+    public @ResponseBody ResponseEntity deleteGoodsCart(@PathVariable("goodsCartId") Long goodsCartId, Principal principal) {
+        if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
+            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
+        cartService.deleteGoodsCart(goodsCartId); // 굿즈 삭제
+
+        return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
+    }
 }
 
 
@@ -128,16 +138,6 @@ public class CartController {
 
 
 
-//    //카트 굿즈 삭제
-//    @DeleteMapping(value = "/goodsCart/goodsCartId")
-//    public @ResponseBody ResponseEntity deleteGoodsCart(@PathVariable("goodsCartId") Long goodsCartId, Principal principal) {
-//        if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
-//            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
-//        }
-//        cartService.deleteGoodsCart(goodsCartId); // 굿즈 삭제
-//
-//        return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
-//    }
 
 
     //카트에 담긴 굿즈 주문

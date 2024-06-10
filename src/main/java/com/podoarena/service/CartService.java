@@ -120,20 +120,20 @@ public class CartService {
 //        return goodsCartDtoList;
 //    }
 //
-//    //카트 아이템의 소유자 검증
-//    public boolean validateGoodsCart(Long id, String email) {
-//        Member curMember = memberRepository.findByEmail(email); //현재 회원 정보
-//        GoodsCart goodsCart = goodsCartRepository.findById(id)
-//                .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아옴
-//
-//        Member savedMember = goodsCart.getCart().getMember(); //카트 아이템의 소유자
-//
-//        //현재 회원과 카트 굿즈 소유자의 이메일이 같은지 확인
-//        if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
-//            return false; //다르면 false 반환
-//        }
-//        return true; //같으면 ture 반환
-//    }
+    //카트 아이템의 소유자 검증
+    public boolean validateGoodsCart(Long id, String email) {
+        Member curMember = memberRepository.findByEmail(email); //현재 회원 정보
+        GoodsCart goodsCart = goodsCartRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아옴
+
+        Member savedMember = goodsCart.getCart().getMember(); //카트 아이템의 소유자
+
+        //현재 회원과 카트 굿즈 소유자의 이메일이 같은지 확인
+        if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
+            return false; //다르면 false 반환
+        }
+        return true; //같으면 ture 반환
+    }
 //
 //    // 카트 굿즈 수량 업데이트
 //    public void  updateGoodsCartCount(Long goodsCartId, int count) {
@@ -143,12 +143,12 @@ public class CartService {
 //        goodsCart.setGoodsCount(count); //수량 업데이트
 //    }
 //
-//    // 카트 굿즈 삭제
-//    public void deleteGoodsCart(Long goodsCartId) {
-//        GoodsCart goodsCart = goodsCartRepository.findById(goodsCartId)
-//                .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아옴
-//        goodsCartRepository.delete(goodsCart); //카트 아이템 삭제
-//    }
+    // 카트 굿즈 삭제
+    public void deleteGoodsCart(Long goodsCartId) {
+        GoodsCart goodsCart = goodsCartRepository.findById(goodsCartId)
+                .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아옴
+        goodsCartRepository.delete(goodsCart); //카트 아이템 삭제
+    }
 //
 //    //카트 굿즈 주문
 //    public Long orderGoodsCart(List<GoodsCartDto> goodsCartDtoList, String email) {
