@@ -120,23 +120,28 @@
                                         </tr>
                                         </thead>
                                         <tbody id="calendarBody">
-
-                                        <!-- JavaScript will dynamically populate this tbody -->
                                         </tbody>
                                     </table>
+
                                     <div class="calendar" style="line-height: 4;">
-                                        <h5 class="card-title">회차</h5>
-                                        <a href="#" class="btn btn-danger" style="background: #e66b6b;">1회차</a>
+                                        <th:block th:each="date, index : ${concertFormDto.dates}">
+                                            <a href="javascript:void(0);" class="btn btn-danger" style="background: #e66b6b;"
+                                               th:text="${index.count} + '회차'" ></a>
+                                            <span style="margin-left: 1rem;"
+                                                    th:text="${#temporals.format(date.dateTime, 'yyyy년 MM월 dd일(EEE) a hh시 mm분')}"></span>
+                                            <br>
+                                        </th:block>
                                         <p class="card-text">잔여석 안내 서비스를 제공하지 않습니다.</p>
                                     </div>
+
                                 </div>
                                     <div class="form-group">
                                         <div class="md-12 btn_div" style="width: 450px;">
                                             <button type="submit" class="ticket_btn">예매하기</button>
                                         </div>
                                     </div>
-                                </div> <!-- end calendar-container -->
-                            </div> <!-- end container -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
