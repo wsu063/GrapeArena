@@ -3,10 +3,7 @@ package com.podoarena.service;
 import com.podoarena.constant.RepImgYn;
 import com.podoarena.dto.*;
 import com.podoarena.entity.*;
-import com.podoarena.repository.ConcertRepository;
-import com.podoarena.repository.DateRepository;
-import com.podoarena.repository.PlaceRepository;
-import com.podoarena.repository.ReserveSeatRepository;
+import com.podoarena.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,6 +25,7 @@ public class ConcertService {
     private final DateService dateService;
 
     private final PlaceConcertService placeConcertService;
+    private final PlaceConcertRepository placeConcertRepository;
 
     //1. 콘서트 등록
     public Long saveConcert(ConcertFormDto concertFormDto,
@@ -39,6 +37,7 @@ public class ConcertService {
         concertFormDto.setId(concert.getId());
 
         placeConcertService.savePlaceConcert(concertFormDto);
+
 
         //2. 이미지 등록
         for (int i = 0; i < concertImgFileList.size(); i++) {
@@ -55,8 +54,6 @@ public class ConcertService {
             concertImgService.saveConcertImg(concertImg, concertImgFileList.get(i));
         }
         concertFormDto.setId(concert.getId());
-        //3. PC 등록?
-
 
         return concertFormDto.getId();
     }
@@ -115,6 +112,10 @@ public class ConcertService {
                 .orElseThrow(EntityNotFoundException::new);
 
         concertRepository.delete(concert);
+        PlaceConcert placeConcert = concert.getPlaceConcert();
+        placeConcert.getPlace().getPlaceConcertList().remove(placeConcert);
+        placeConcertRepository.delete(placeConcert);
+
     }
 
     // 콘서트 리스트 가져오기

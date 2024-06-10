@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="date")
@@ -25,7 +26,10 @@ public class Date {
     @JoinColumn(name = "place_concert_id")
     private PlaceConcert placeConcert;
 
-    //2. 혹은 날짜(day)를 골랐을때, dateDay, dateTime이 존재하지 않으면 생성하는 방식으로 해야된다.
+    @OneToMany(mappedBy = "date", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Seat> seatList;
+
+
 
 
 }

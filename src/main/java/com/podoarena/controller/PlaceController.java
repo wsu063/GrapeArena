@@ -108,6 +108,7 @@ public class PlaceController {
 
         placeService.deletePlace(placeId);
 
+
         return new ResponseEntity<Long>(placeId, HttpStatus.OK);
     }
 }

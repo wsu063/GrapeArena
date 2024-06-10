@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,32 +23,44 @@ public class Seat{
     private Long id;
 
     private String seatName;
-
+    
     private SeatStatus seatStatus;
 
-    private String seatLocation;
+    private String seatLocation; // 현재 사용 안하는중
 
     private SeatGrade seatGrade;
+
+    private int seatRow;
+
+    private int seatLine;
 
     private int seatPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id")
-    private Place place;
+    @JoinColumn(name = "place_concert_id")
+    private PlaceConcert placeConcert;
 
-    @OneToMany(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReserveSeat> reserveSeatList;
+    @OneToOne(mappedBy = "seat", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ReserveSeat reserveSeat;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "date_id")
+    private Date date;
 
-    // 좌석 생성을 어떻게 할까요?
-    // 1. 콘서트를 만들면
-    // 2. 자동으로 미리 설정한 좌석을 만든다.
-//    public Seat() {
-//        if(this.seatGrade == SeatGrade.VIP)
-//            this.seatPrice = 198000;
-//        if(this.seatGrade == SeatGrade.R)
-//            this.seatPrice = 154000;
-//        if(this.seatGrade == SeatGrade.S)
-//            this.seatPrice = 132000;
-//    }
+    public Seat() {};
+
+    public Seat(PlaceConcert placeConcert, int row, int line, int seatStatus, Date date) {
+        this.seatName = String.valueOf(row) + String.valueOf(line);
+        this.seatStatus = SeatStatus.fromInt(seatStatus);
+        //3열이내면 VIP, 5열이내면 R, 그외면 S
+        this.seatGrade = row <= 3 ? SeatGrade.VIP : row <= 5 ? SeatGrade.R : SeatGrade.S;
+        //좌석 등급에 따른 가격 책정
+        this.seatPrice =
+                seatGrade == SeatGrade.VIP ? 198000 : seatGrade == SeatGrade.R ? 154000 : 132000;
+        this.placeConcert = placeConcert;
+        this.seatLocation = placeConcert.getPlace().getPlaceLocation();
+        this.date = date;
+        this.seatLine = line;
+        this.seatRow = row;
+    }
 }

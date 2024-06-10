@@ -34,8 +34,6 @@ public class QPlace extends EntityPathBase<Place> {
 
     public final StringPath placeName = createString("placeName");
 
-    public final ListPath<Seat, QSeat> seatList = this.<Seat, QSeat>createList("seatList", Seat.class, QSeat.class, PathInits.DIRECT2);
-
     public QPlace(String variable) {
         this(Place.class, forVariable(variable), INITS);
     }

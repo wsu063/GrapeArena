@@ -3,7 +3,10 @@ package com.podoarena.service;
 import com.podoarena.dto.PlaceFormDto;
 import com.podoarena.dto.PlaceImgDto;
 import com.podoarena.entity.Place;
+import com.podoarena.entity.PlaceConcert;
 import com.podoarena.entity.PlaceImg;
+import com.podoarena.repository.ConcertRepository;
+import com.podoarena.repository.PlaceConcertRepository;
 import com.podoarena.repository.PlaceImgRepository;
 import com.podoarena.repository.PlaceRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -21,6 +24,8 @@ public class PlaceService {
     private final PlaceRepository placeRepository;
     private final PlaceImgService placeImgService;
     private final PlaceImgRepository placeImgRepository;
+    private final PlaceConcertRepository placeConcertRepository;
+    private final ConcertRepository concertRepository;
 
     //1. 공연장 등록(관리자)
     public Long savePlace(PlaceFormDto placeFormDto, MultipartFile placeImgFile) throws Exception {
@@ -76,5 +81,10 @@ public class PlaceService {
                 .orElseThrow(EntityNotFoundException::new);
 
         placeRepository.delete(place);
+        List<PlaceConcert> placeConcertList = place.getPlaceConcertList();
+        for(PlaceConcert placeConcert : placeConcertList) {
+            concertRepository.delete(placeConcert.getConcert());
+        }
+        placeConcertRepository.deleteAll(placeConcertList);
     }
 }

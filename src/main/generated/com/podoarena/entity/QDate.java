@@ -28,6 +28,8 @@ public class QDate extends EntityPathBase<Date> {
 
     public final QPlaceConcert placeConcert;
 
+    public final ListPath<Seat, QSeat> seatList = this.<Seat, QSeat>createList("seatList", Seat.class, QSeat.class, PathInits.DIRECT2);
+
     public QDate(String variable) {
         this(Date.class, forVariable(variable), INITS);
     }

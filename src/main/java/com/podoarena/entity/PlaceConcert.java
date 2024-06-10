@@ -32,6 +32,9 @@ public class PlaceConcert {
     @OneToMany(mappedBy = "placeConcert", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Date> dateList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "placeConcert", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Seat> seatList = new ArrayList<>();
+
     public PlaceConcert createPlaceConcert(Place place, Concert concert, List<Date> dateList) {
         PlaceConcert placeConcert = new PlaceConcert();
 
