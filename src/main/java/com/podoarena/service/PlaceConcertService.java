@@ -5,10 +5,7 @@ import com.podoarena.entity.Concert;
 import com.podoarena.entity.Date;
 import com.podoarena.entity.Place;
 import com.podoarena.entity.PlaceConcert;
-import com.podoarena.repository.ConcertRepository;
-import com.podoarena.repository.DateRepository;
-import com.podoarena.repository.PlaceConcertRepository;
-import com.podoarena.repository.PlaceRepository;
+import com.podoarena.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +24,8 @@ public class PlaceConcertService {
     private final PlaceRepository placeRepository;
     private final ConcertRepository concertRepository;
     private final DateRepository dateRepository;
+    private final SeatService seatService;
+
 
     //1. PC 등록
     public Long savePlaceConcert(ConcertFormDto concertFormDto) throws Exception {
@@ -59,6 +58,9 @@ public class PlaceConcertService {
 
         for(Date date : dateList) {
             date.setPlaceConcert(placeConcert);
+            //좌석 생성
+            seatService.createSeatList(placeConcert, date);
+
         }
         place.getPlaceConcertList().add(placeConcert);
         concert.setPlaceConcert(placeConcert);
@@ -67,6 +69,6 @@ public class PlaceConcertService {
         return placeConcert.getId();
     }
 
-    //2. pc 불러오기
+
 
 }

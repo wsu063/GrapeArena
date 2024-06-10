@@ -27,9 +27,6 @@ public class Place {
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlaceConcert> placeConcertList;
 
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Seat> seatList;
-
     @OneToOne(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
     private PlaceImg placeImg;
 
