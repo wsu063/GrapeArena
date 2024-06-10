@@ -50,7 +50,7 @@ public class CartService {
     }
  //카트리스트 가져오기
     @Transactional(readOnly = true)
-    public List<CartListDto> getCartDtoList(String email) {
+    public List<CartListDto> getCartList(String email) {
         List<Cart> cartList = cartRepository.findCart(email);
 
         List<CartListDto> cartListDtoList = new ArrayList<>();

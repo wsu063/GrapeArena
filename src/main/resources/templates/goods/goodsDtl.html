@@ -227,10 +227,8 @@
           cache: false,
           data: JSON.stringify(formData),
           success: function(result, status, xhr, formData) {
-              if(result.equals("true")){
             confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?");
-            location.href= "cart/cartList";
-              }
+            location.href= "/members/cart";
             
           },
           error: function(jqXHR, status, error) {

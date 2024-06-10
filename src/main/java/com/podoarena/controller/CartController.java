@@ -39,8 +39,9 @@ public class CartController {
 
     @GetMapping(value = "/members/cart")
     public String cart(Principal principal, Model model) {
-        List<CartListDto> cartListDtoList = cartService.getCartDtoList(principal.getName());
-        model.addAttribute("carts", cartListDtoList);
+        List<CartListDto> cartListDtoList =
+                cartService.getCartList(principal.getName());
+        model.addAttribute("goodsCarts", cartListDtoList);
 
         return "cart/cartList";
     }
@@ -66,7 +67,7 @@ public class CartController {
         Long cartId = cartService.addToCart(cartDto,email, cartDto.getGoodsCount());
         model.addAttribute("member", memberService.getMember(email));
         model.addAttribute("memberFormDto", new MemberFormDto());
-        return new ResponseEntity<String>("true", HttpStatus.OK);
+        return new ResponseEntity<String>("formData", HttpStatus.OK);
     } catch (Exception e){
         e.printStackTrace();
         return new ResponseEntity<String>(e.getMessage() ,HttpStatus.BAD_REQUEST);

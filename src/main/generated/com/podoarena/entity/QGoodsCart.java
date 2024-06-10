@@ -28,6 +28,8 @@ public class QGoodsCart extends EntityPathBase<GoodsCart> {
 
     public final NumberPath<Integer> goodsCount = createNumber("goodsCount", Integer.class);
 
+    public final NumberPath<Integer> goodsmaxAmount = createNumber("goodsmaxAmount", Integer.class);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final QMember member;

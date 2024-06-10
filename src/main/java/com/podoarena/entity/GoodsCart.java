@@ -18,6 +18,8 @@ public class GoodsCart {
 
     private int goodsCount;
 
+    private int goodsmaxAmount;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private Cart cart;
