@@ -1,6 +1,7 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.ConcertFormDto;
+import com.podoarena.dto.GoodsFormDto;
 import com.podoarena.dto.ReserveFormDto;
 import com.podoarena.dto.ReserveSeatSearchDto;
 import com.podoarena.entity.Concert;
@@ -34,6 +35,21 @@ public class ReserveController {
     private final ConcertService concertService;
     private final PlaceRepository placeRepository;
 
+
+    // 콘서트 예약 페이지 이동
+    @GetMapping(value ="/reserves/reserveDtl")
+    public String reserveDtl(Model model) {
+        model.addAttribute("reserveFormDto", new ReserveFormDto());
+        return "reserve/reserveDtl";
+    }
+
+    @GetMapping(value ="/reserves/reserveForm")
+    public String reserveForm(Model model) {
+        model.addAttribute("reserveFormDto", new ReserveFormDto());
+        return "reserve/reserveForm";
+    }
+
+
     @GetMapping(value = "/reserves/new/{concertId}")
     public String reserveForm(@PathVariable("concertId") Long concertId,
                               Model model) {
@@ -56,7 +72,7 @@ public class ReserveController {
         return "reserve/reserveForm";
     }
 
-    @PostMapping(value = "/reserve/new/{concertId}")
+    @PostMapping(value = "/reserves/new/{concertId}")
     public String reserve(@Valid ReserveFormDto reserveFormDto, BindingResult bindingResult, Model model) {
         //responseBody로 해서 화면따로? 아니면 한 HTML에서 전부다 할까?
         if(bindingResult.hasErrors()){
