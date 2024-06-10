@@ -670,7 +670,7 @@ input[type=text] {
     border: 1px solid #dddddd;
     padding: 5px 7px 0px 7px;
     background-color: #f7f7f8;
-    margin-bottom: 3px;
+    margin-bottom: 2rem;
     margin-top: 1rem;
     }
 
@@ -1045,3 +1045,67 @@ thead {
 #bankSelect option {
     padding: 5px;
 }
+
+/* 좌석에 관한 css */
+
+.s13 {
+    position: absolute;
+    background: url(http://tkfile.yes24.com/images/ticket_new/ic_seat13.gif) no-repeat;
+    height: 12px;
+    width: 11px;
+    z-index: 10;
+}
+
+.s6 {
+    position: absolute;
+    background: url(http://tkfile.yes24.com/images/ticket_new/ic_seat6.gif) no-repeat;
+    height: 12px;
+    width: 11px;
+    z-index: 10;
+}
+
+.s8 {
+    position: absolute;
+    background: url(http://tkfile.yes24.com/images/ticket_new/ic_seat8.gif) no-repeat;
+    height: 12px;
+    width: 11px;
+    z-index: 10;
+}
+
+.son {
+    position: absolute;
+    background: url(http://tkfile.yes24.com/images/ticket_new/ic_seat_on.gif) no-repeat;
+    height: 12px;
+    width: 11px;
+    z-index: 10;
+}
+
+.bx_seatbg .seatinfo {
+    float: right;
+    margin-top: 0 !important;
+    width: 223px;
+    height: 636px;
+    font-size: 12px;
+    border-left: 1px solid #f1f1f1;
+}
+
+.bx_seatbg .seatarea {
+    float: left;
+    background: #fff;
+}
+
+.bx_seatbg .seatarea .bx_con1 {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+    overflow: auto;
+    width: 680;
+
+    background: #fff url(http://tkfile.yes24.com/images/ticket_new/bx2_seat2.jpg) no-repeat left bottom;
+    text-align: center;
+}
+
+ span {
+             font-weight: bold;
+        }

@@ -30,8 +30,8 @@
                 <!-- 제 1 단계 : 관람일/회차 -->
                 <div id="step01">
                     <div style="display: flex;">
-                            <div class="calendar-container">
-                                <header style="width: 82%; background: gray;">
+                            <div class="calendar-container" style="padding-top: 2rem;">
+                                <header style=" height: 7rem; width: 82%; background: gray;">
                                     <div class="day">관람일</div>
                                     <div class="month">
                                         <button onclick="showPreviousMonth()">‹</button>
@@ -66,26 +66,38 @@
                                 </div>
                             </div> <!-- end calendar-container -->
                         <div>
-                            <div style="margin-top:2rem;
+                            <div style="margin-top:1rem;
                                          text-align: center;">
-                             <span>
-                                    회차선택
-                             </span>
-                                <div style="
-                                     text-align-last: left;
-                                     margin-top: 1rem;
-                                     border: 1px solid;
-                                     width: 11rem;
-                                     height: 19rem;
-                                     padding : 1rem
-                                   ">
-                                    <ul>
-                                        <li>야아</li>
-                                        <li>야아</li>
-                                        <li>야아</li>
+                             <span>회차선택</span>
+                            <div style="
+                                 text-align-last: left;
+                                 margin: 1rem 0;
+                                 border: 1px solid;
+                                 width: 11rem;
+                                 height: 9rem;
+                                 padding : 1rem ">
+                                <ul>
+                                    <li>야아</li>
+                                    <li>야아</li>
+                                    <li>야아</li>
+                                </ul>
+                            </div>
 
+                            <span>좌석등급</span>
+                                <div style="
+                                 text-align-last: left;
+                                 margin-top: 1rem;
+                                 border: 1px solid;
+                                 width: 11rem;
+                                 height: 9rem;
+                                 padding : 1rem ">
+                                    <ul>
+                                        <li>R석 77,000원</li>
+                                        <li>S석 55,000원</li>
                                     </ul>
                                 </div>
+
+
                                 <button onclick="window.location.href='링크주소를_입력하세요';"
                                         style="background-color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
                                         color: white;
