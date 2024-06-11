@@ -119,18 +119,23 @@ public class MemberController {
 
     //찾은 아이디 표시
     @PostMapping(value = "/members/showid")
-    public ResponseEntity<String> findId(@RequestBody Map<String, String> requestData, Model model){
+    public ResponseEntity<String> findId(@RequestBody Map<String, String> requestData) {
         String name = requestData.get("name");
         String phone = requestData.get("phone");
 
+        if (name == null || name.trim().isEmpty()) {
+            return new ResponseEntity<>("nameError", HttpStatus.BAD_REQUEST);
+        }
+        if (phone == null || phone.trim().isEmpty()) {
+            return new ResponseEntity<>("phoneError", HttpStatus.BAD_REQUEST);
+        }
 
         Member findId = memberRepository.findByPhoneAndName(phone, name);
-        String email = findId.getEmail();
-
-        if(findId != null) {
-            return new ResponseEntity<String>(email, HttpStatus.OK);
+        if (findId != null) {
+            String email = findId.getEmail();
+            return new ResponseEntity<>(email, HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>("해당 정보로 가입한 내역이 없습니다.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("해당 정보로 가입한 내역이 없습니다.", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -176,18 +181,9 @@ public class MemberController {
 
     //회원정보 수정 처리
     @PostMapping(value = "/members/editprofile")
-    public String editProfile(@Validated MemberFormDto memberFormDto, Model model, BindingResult bindingResult ) {
-        if(bindingResult.hasErrors()) {
-            return "member/editprofile";
-        }
-
-        try {
-            memberService.editMember(memberFormDto, passwordEncoder);
-            return "redirect:/";
-        } catch (Exception e){
-            model.addAttribute("errorMessage", e.getMessage());
-            return "member/editprofile";
-        }
+    public String editProfile(Model model, MemberFormDto memberFormDto) {
+        memberService.editMember(memberFormDto, passwordEncoder);
+        return "redirect:/";
     }
 
     @DeleteMapping(value = "/members/deleteMember")

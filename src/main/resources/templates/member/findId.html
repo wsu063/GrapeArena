@@ -35,6 +35,7 @@
               </label>
             </div>
           </div>
+          <div id="find_id_error"></div>
         </div>
         <div class="findid_style">
           <button onclick="findId()"
@@ -100,25 +101,28 @@
           url: "/members/showid",
           type: "POST",
           contentType: "application/json",
-          beforeSend: function(xhr) {
+          beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
           },
           dataType: "text",
           cache: false,
           data: JSON.stringify(formData), // 데이터를 JSON 형식으로 전송
-          success: function(result, status, xhr, formData) {
+          success: function (result, status, xhr, formData) {
             alert('인증에 성공하셨습니다.')
+            $("#find_id_error").hide();
             $("#findIdModal").modal("show");
             $("#id_text").text(result);
           },
-          error: function(jqXHR, status, error) {
-            if (jqXHR.responseText === '가입되지 않은 이름입니다. 확인 후 다시 입력해주세요.') {
-              alert('가입되지 않은 이름입니다. 확인 후 다시 입력해주세요.');
-              location.href = '/members/findid'
-            } else if(jqXHR.responseText === '가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.') {
-              alert('가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.');
-              location.href = '/members/findid'
+          error: function (jqXHR) {
+            var errorMessage;
+            if (jqXHR.responseText === 'nameError') {
+              errorMessage = '이름을 입력해주세요.';
+            } else if (jqXHR.responseText === 'phoneError') {
+              errorMessage = '전화번호를 입력해주세요.';
+            } else {
+              errorMessage = jqXHR.responseText || "오류가 발생했습니다.";
             }
+            $("#find_id_error").html("<p>" + errorMessage + "</p>");
           }
         });
       }

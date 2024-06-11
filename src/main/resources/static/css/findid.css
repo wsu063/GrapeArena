@@ -66,7 +66,6 @@
 .findid_btn:hover {
     cursor: pointer;
     transition: background-color 0.3s ease;
-    border: 2px solid black;
 }
 
 .findid_btn span {
@@ -106,5 +105,9 @@
     margin:2rem;
 }
 
+#find_id_error p {
+    color:red;
+    margin: 10px 0;
+}
 
 
