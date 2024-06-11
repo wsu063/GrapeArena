@@ -67,28 +67,33 @@ public class MemberController {
     }
 
     //이메일 전화번호 검사 페이지
-    @GetMapping(value = "/members/chkuser")
+    @GetMapping(value = "/members/findpw")
     public String chkUserPage(Model model) {
         model.addAttribute("member", new MemberFormDto());
-        return "member/chkuser";
+        return "member/findpw";
     }
 
     //이메일 전화번호 체크
-    @PostMapping(value = "/members/chkuser")
+    @PostMapping(value = "/members/findpw")
     public ResponseEntity<String> chkUser(@RequestBody Map<String, String> requestData) {
-        try {
+
             String email = requestData.get("email");
             String phone = requestData.get("phone");
-            boolean chkUser = memberService.chkUser(email, phone);
 
-            if (chkUser) {
-                return new ResponseEntity<String>("인증 성공", HttpStatus.OK);
-            } else {
-                return new ResponseEntity<String>("인증 실패", HttpStatus.BAD_REQUEST);
-            }
-        } catch (IllegalStateException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+
+        if (email == null || email.trim().isEmpty()) {
+            return new ResponseEntity<>("emailError", HttpStatus.BAD_REQUEST);
         }
+        if (phone == null || phone.trim().isEmpty()) {
+            return new ResponseEntity<>("phoneError", HttpStatus.BAD_REQUEST);
+        }
+        Member findPw = memberRepository.findByEmailAndPhone(email, phone);
+        if (findPw != null) {
+            return new ResponseEntity<>(email, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("해당 정보로 가입한 내역이 없습니다.", HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     //비밀번호 재설정

@@ -4,7 +4,7 @@
        layout:decorate="~{layouts/layout2}">
   
   <th:block layout:fragment="css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/findid.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/find_id_pw.css}">
   </th:block>
   <head>
     <meta name="_csrf" th:content="${_csrf.token}" />
@@ -50,7 +50,7 @@
             </li>
             |
             <li>
-              <a id="findPwd" href="/members/chkuser">비밀번호 찾기</a>
+              <a id="findPwd" href="/members/findpw">비밀번호 찾기</a>
             </li>
             |
             <li>
@@ -111,7 +111,6 @@
             alert('인증에 성공하셨습니다.')
             $("#find_id_error").hide();
             $("#findIdModal").modal("show");
-            $("#id_text").text(result);
           },
           error: function (jqXHR) {
             var errorMessage;
