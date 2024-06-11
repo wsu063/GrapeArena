@@ -49,8 +49,11 @@ public class ReserveController {
         return "reserve/reserveForm";
     }
 
-    @GetMapping(value ="/reserves/reserveSeat")
-    public String reserveSeat(Model model) {
+    @GetMapping(value ="/reserves/reserveSeat/{concertId}")
+    public String reserveSeat(@PathVariable("concertId") Long concertId, Model model) {
+        ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
+
+        model.addAttribute("concertFormDto", concertFormDto);
         model.addAttribute("reserveFormDto", new ReserveFormDto());
         return "reserve/reserveSeat";
     }

@@ -175,9 +175,8 @@ public class ConcertController {
 
     //콘서트 상세 페이지
     @GetMapping(value = "/concerts/detail/{concertId}")
-    private String concertDtl(Model model, @PathVariable(value = "concertId") Long concertId, Principal principal) {
+    private String concertDtl(Model model, @PathVariable(value = "concertId") Long concertId) {
         ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
-        ReserveFormDto reserveFormDto = new ReserveFormDto();
 
         model.addAttribute("concertFormDto", concertFormDto);
 
