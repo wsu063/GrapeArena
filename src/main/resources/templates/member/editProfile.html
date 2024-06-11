@@ -34,7 +34,7 @@
                   <input type="text" class="form-control" readonly th:field="*{email}"  />
                 <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect Data</p>
                 <!-- 버튼 css 만져주세요. -->
-                <button type="button" class="btn delete_btn btn-primary" onclick="deleteMember()">탈퇴하기</button>
+                <button type="button" class="btn delete_btn btn-primary" onclick="showModal()">탈퇴하기</button>
               </div>
             </div>
             
@@ -128,6 +128,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                  <button type="button" class="btn btn-danger btn-secondary" data-bs-dismiss="modal" onclick="deleteMember()">확인</button>
                 </div>
               </div>
             </div>
@@ -165,6 +166,10 @@
         }
       }
       
+      function showModal() {
+        $("#deleteModal").modal("show")
+      }
+      
       function deleteMember() {
         var confirmDelete = confirm("정말 탈퇴 하시겠습니까?");
         if (!confirmDelete) return;
@@ -180,6 +185,8 @@
           email: email,
           deleteMemberText: deleteMemberText
         };
+        
+        console.log(formData);
         
         $.ajax({
           url: "/members/deleteMember",

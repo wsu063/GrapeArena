@@ -176,7 +176,7 @@ public class MemberController {
     }
 
     @DeleteMapping(value = "/members/deleteMember")
-    public @ResponseBody ResponseEntity deleteMember(@RequestBody Map<String, String> requestData){
+    public @ResponseBody ResponseEntity deleteMember(@RequestBody Map<String, String> requestData) {
         String email = requestData.get("email");
         String deleteMemberText = requestData.get("deleteMemberText");
         if (deleteMemberText.equals("탈퇴")) {
