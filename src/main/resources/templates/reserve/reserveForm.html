@@ -16,13 +16,13 @@
             <!--상단 메뉴 -->
             <div id="header" class="header">
                 <ul class="gnb">
-                    <li class="m01 on"><span>관람일/회차</span></li>
+                    <li class="m01 "><span>관람일/회차</span></li>
                     <li class="m02"><span>좌석선택</span></li>
-                    <li class="m03"><span>결제하기</span></li>
+                    <li class="m03 on"><span>결제하기</span></li>
                 </ul>
             </div>
 
-            <div id="ContentsArea" class="container" style="display: block;">
+            <div id="ContentsArea" class="main_contents" style="display: block;">
                 <div id="step01">
 
                     <div class="step01_contents" >
@@ -142,24 +142,18 @@
                     </div>
 
                     <!-- 다음단계 이전단계 버튼  -->
-                    <div class="btn">
-                        <div id="StepCtrlBtnPanel" class="tc">
-                            <div id="StepCtrlBtn01" style="display: block;">
-                                <a class="dcursor" onclick="fdc_VerifySelSeatNumber();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next04.gif" alt="다음단계"></a>
-                            </div>
-                            <div id="StepCtrlBtn03" style="display:none;">
-                                <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP1);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                <a class="dcursor" onclick="fdc_PromotionEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
-                            </div>
-                            <div id="StepCtrlBtn04" style="display:none;">
-                                <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP3);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                <a class="dcursor" onclick="fdc_DeliveryEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
-                            </div>
-                            <div id="StepCtrlBtn05" style="display:none;">
-                                <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP4);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                <a class="dcursor" onclick="fdc_PrePayCheck();"><img id="imgPayEnd" src="http://tkfile.yes24.com/img/perfsale/btn_succ.gif" alt="결제하기"></a>
-                            </div>
-                        </div>
+                    <div class="step_btn">
+                        <!-- 이전 버튼 -->
+                        <button onclick="window.location.href='/reserves/reserveSeat/5';"
+                                class="back_button"
+                                type="button">
+                            이전 단계
+                        </button>
+                        <!-- 다음 버튼 -->
+                        <button class="payment_button"
+                                type="button">
+                            결제하기
+                        </button>
                     </div>
                 </div>
             </div>
@@ -172,5 +166,36 @@
 </div>
 
 <th:block layout:fragment="script">
+    <script th:inline="javascript">
+    // 개인정보 동의서
+    function fdc_AllAgree() {
+    var cbxAllAgree = document.getElementById("cbxAllAgree");
+    var chkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    for (var i = 0; i < chkboxes.length; i++) {
+    chkboxes[i].checked = cbxAllAgree.checked;
+    }
+    }
+
+    function onPaymentButtonClick() {
+        var bankSelect = document.getElementById("bankSelect");
+
+        // 은행 선택 여부 확인
+        if (bankSelect.value === "") {
+            alert("은행을 선택해주세요.");
+
+          } else {
+        window.location.href='/';
+    }
+}
+
+$('.payment_button').click(function(event) {
+    event.preventDefault(); // 기본 동작(링크 이동) 막기
+    onPaymentButtonClick(); // 다음 버튼 처리 함수 호출
+});
+
+    </script>
+
+    </script>
 </th:block>
 </html>
