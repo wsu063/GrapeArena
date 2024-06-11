@@ -10,11 +10,40 @@
 
 <th:block layout:fragment="css">
   <style>
-    /* 스타일 정의 */
+    table {
+    border: transparent !important;
+   border-spacing: 1;
+   border-collapse: collapse;
+   border-radius:6px;
+   overflow:hidden;
+   max-width:1000px;
+   width:100%;
+   margin:0 auto;
+   position:relative;
+}
+ caption {
+     font-weight: bold;
+ }
+
+ table td {
+
+     padding: 10px;
+ }
+
+ table th {
+     color: #fff;
+     padding: 10px;
+ }
+
+ .cart-img {
+     width: 100px;
+ }
+
   </style>
 </th:block>
 
 <div layout:fragment="content">
+
   <div class="bg-light py-3" style="margin-top: 2rem;">
     <div class="container">
       <div class="row">
@@ -49,51 +78,49 @@
               <tbody>
               <!-- 장바구니 항목들을 순회하며 출력 -->
               <tr th:each="cart : ${goodsCarts}">
-                <td colspan="7" th:each="goodsCart : ${cart.goodsCartDtoList}">
-                  <table style="width: 100%;">
-                    <tr >
-                      <!-- 각 장바구니 항목의 상품들을 순회하며 출력 -->
-                      <td class="product-remove">
-                        <input type="checkbox" name="cartChkBox" th:value="${cart.cartId}"/>
-                      </td>
-                      <td class="product-thumbnail">
-                        <img th:src="${goodsCart.imgUrl}" class="img-fluid" th:alt="${goodsCart.goodsName}">
-                      </td>
-                      <td class="product-name">
-                        <span th:text="${goodsCart.goodsName}"></span>
-                        <span th:text="${goodsMaxAmount}"></span>
-                      </td>
-                      <td>
-                             <span th:id="'price_' + ${cart.cartId}"
-                                   th:data-price="${goodsCart.goodsPrice}"
-                                   th:text="${#numbers.formatInteger(goodsCart.goodsPrice, 0, 'COMMA')} + '원'">
-                             </span>
-                      </td>
-                      <td>
-                        <div class="input-group mb-3" style="max-width: 120px;">
-                          <div class="input-group-prepend">
-                            <button class="btn btn-outline-primary js-btn-minus" id="minus" type="button">&minus;</button>
-                          </div>
-                          <input type="text" class="form-control text-center" th:id="'count_' + ${cart.cartId}"
-                                 th:value="${goodsCart.goodsCount}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                          <div class="input-group-append">
-                            <button class="btn btn-outline-primary js-btn-plus" id="plus" type="button">&plus;</button>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                            <span th:id="'totalPrice_' + ${cart.cartId}"
-                                  name="totalPrice"
-                                  th:text="${#numbers.formatInteger(goodsCart.goodsPrice * goodsCart.goodsCount, 0, 'COMMA')} + '원'">
-                            </span>
-                      </td>
-                      <td>
-                        <a role="button" th:id="'cartId' + ${cart.cartId}"  th:value="${cart.cartId}" th:onclick="'deleteGoodsCart(' + ${cart.cartId} + ')'"
-                           class="btn btn-primary height-auto btn-sm">X</a>
-                      </td>
-                    </tr>
-                  </table>
+                <th:block th:each="goodsCart : ${cart.goodsCartDtoList}">
+                  <!-- 각 장바구니 항목의 상품들을 순회하며 출력 -->
+                  <td class="product-remove">
+                    <input type="checkbox" name="cartChkBox" th:value="${cart.cartId}"/>
+                  </td>
+                  <td class="product-thumbnail">
+                    <img th:src="${goodsCart.imgUrl}" class="img-fluid cart-img" th:alt="${goodsCart.goodsName}">
+                  </td>
+                  <td class="product-name">
+                    <span th:text="${goodsCart.goodsName}"></span>
+                    <span th:text="${goodsMaxAmount}"></span>
+                  </td>
+                  <td>
+                         <span th:id="'price_' + ${cart.cartId}"
+                               th:data-price="${goodsCart.goodsPrice}"
+                               th:text="${#numbers.formatInteger(goodsCart.goodsPrice, 0, 'COMMA')} + '원'">
+                         </span>
+                  </td>
+                  <td>
+                    <div class="input-group mb-3" style="max-width: 120px;">
+                      <div class="input-group-prepend">
+                        <button class="btn btn-outline-primary js-btn-minus" id="minus" type="button">&minus;</button>
+                      </div>
+                      <input type="text" class="form-control text-center" th:id="'count_' + ${cart.cartId}"
+                             th:value="${goodsCart.goodsCount}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-primary js-btn-plus" id="plus" type="button">&plus;</button>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                        <span th:id="'totalPrice_' + ${cart.cartId}"
+                              name="totalPrice"
+                              th:text="${#numbers.formatInteger(goodsCart.goodsPrice * goodsCart.goodsCount, 0, 'COMMA')} + '원'">
+                        </span>
+                  </td>
+                  <td>
+                    <a role="button" th:id="'cartId' + ${cart.cartId}"  th:value="${cart.cartId}" th:onclick="'deleteGoodsCart(' + ${cart.cartId} + ')'"
+                       class="btn btn-primary height-auto btn-sm">X</a>
+                  </td>
                 </td>
+              </th:block>
+
               </tr>
               </tbody>
             </table>
