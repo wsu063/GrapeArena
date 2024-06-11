@@ -1,10 +1,16 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.*;
+import com.podoarena.entity.Cart;
+import com.podoarena.entity.Goods;
+import com.podoarena.entity.GoodsCart;
 import com.podoarena.entity.Member;
+import com.podoarena.repository.CartRepository;
 import com.podoarena.repository.MemberRepository;
 import com.podoarena.service.CartService;
+import com.podoarena.service.GoodsService;
 import com.podoarena.service.MemberService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +30,8 @@ public class CartController {
     private final CartService cartService;
     private final MemberRepository memberRepository;
     private final MemberService memberService;
-
+    private final CartRepository cartRepository;
+    private final GoodsService goodsService;
 
 
 
@@ -48,54 +55,76 @@ public class CartController {
 
 
     //카트 추가
-@PostMapping(value = "/members/addCart")
+    @PostMapping(value = "/members/addCart")
     public @ResponseBody ResponseEntity addtoCart(@Valid @RequestBody CartDto cartDto,
-                                                  BindingResult bindingResult,Model model,Principal principal) {
-    if(bindingResult.hasErrors()) {
-        StringBuilder sb = new StringBuilder();
-
-        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-        for(FieldError fieldError : fieldErrors) {
-
-            sb.append(fieldError.getDefaultMessage());
+                                                  BindingResult bindingResult, Model model, Principal principal) {
+        if (bindingResult.hasErrors()) {
+            StringBuilder sb = new StringBuilder();
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            for (FieldError fieldError : fieldErrors) {
+                sb.append(fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<String>(sb.toString(),HttpStatus.BAD_REQUEST);
-    }
-    String email = principal.getName();
+        String email = principal.getName();
 
-    try{
-        Long cartId = cartService.addToCart(cartDto,email, cartDto.getGoodsCount());
-        model.addAttribute("member", memberService.getMember(email));
-        model.addAttribute("memberFormDto", new MemberFormDto());
-        return new ResponseEntity<String>("formData", HttpStatus.OK);
-    } catch (Exception e){
-        e.printStackTrace();
-        return new ResponseEntity<String>(e.getMessage() ,HttpStatus.BAD_REQUEST);
+        try {
+            // Goods 엔티티의 정보를 가져옵니다.
+            Goods goods = goodsService.getGoodsById(cartDto.getGoodsId());
+
+            // Goods 엔티티에서 goodsMaxAmount 속성을 가져옵니다.
+            int goodsMaxAmount = goods.getGoodsMaxAmount();
+
+            Long cartId = cartService.addToCart(cartDto, email, cartDto.getGoodsCount());
+            model.addAttribute("member", memberService.getMember(email));
+            model.addAttribute("memberFormDto", new MemberFormDto());
+            model.addAttribute("goodsMaxAmount", goodsMaxAmount); // goodsMaxAmount를 모델에 추가합니다.
+
+            return new ResponseEntity<String>("formData", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
-}
+
+
     //카트 굿즈 삭제
-    @DeleteMapping(value = "/goodsCart/{goodsCartId}")
-    public @ResponseBody ResponseEntity deleteGoodsCart(@PathVariable("goodsCartId") Long goodsCartId, Principal principal) {
-        if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
-            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
-        }
-        cartService.deleteGoodsCart(goodsCartId); // 굿즈 삭제
+    @DeleteMapping(value = "/goodsCart/{cartId}")
+    public @ResponseBody ResponseEntity deleteGoodsCart(@PathVariable("cartId") Long cartId, Principal principal) {
+//        if (!cartService.validateGoodsCart(cartId, principal.getName())) {
+//            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
+//        }
+        cartService.deleteCart(cartId);
+//        cartService.deleteGoodsCart(goodsCartId); // 굿즈 삭제
 
-        return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
+        return new ResponseEntity<Long>(cartId, HttpStatus.OK);
     }
 
     // 카트 굿즈 수량을 수정
-    @PatchMapping(value = "/goodsCart/{goodsCartId}")
-    public @ResponseBody ResponseEntity updateGoodsCart(@PathVariable("goodsCartId") Long goodsCartId, @RequestParam("goodsCount") int count, Principal principal){
-
+    @PatchMapping(value = "/goodsCart/{cartId}")
+    public @ResponseBody ResponseEntity updateGoodsCart(@PathVariable("cartId") Long cartId,
+                                                        @RequestParam("count") int count,
+                                                        Principal principal){
+        Cart cart = cartRepository.findById(cartId).
+                orElseThrow(EntityNotFoundException::new);
+        GoodsCart goodsCart = cart.getGoodsCarts().get(0);
         if (count <= 0) {
             return new ResponseEntity<String>("최소 1개 이상 담아주세요.", HttpStatus.BAD_REQUEST);
-        } else if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
+        } else if (!cartService.validateGoodsCart(cartId, principal.getName())) {
             return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
         }
+
+
+        Long goodsCartId = goodsCart.getId();
         cartService.updateGoodsCartCount(goodsCartId, count);
         return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
     }
+
+    //카트에 담긴 굿즈 주문
+//    @PostMapping(value = "/cart/orders")
+//    public @ResponseBody ResponseEntity orderGoodsCart(@RequestBody OrderDto orderDto, Principal principal) {
+//        List<OrderDto> orderDtoList = orderDto.
+//    }
 
 
 }
@@ -140,10 +169,7 @@ public class CartController {
 
 
 
-    //카트에 담긴 굿즈 주문
-//    public @ResponseBody ResponseEntity orderGoodsCart(@RequestBody OrderDto orderDto, Principal principal) {
-//        List<OrderDto> orderDtoList = orderDto.get();
-//    }
+
 
 
 

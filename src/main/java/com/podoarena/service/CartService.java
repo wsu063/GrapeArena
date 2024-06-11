@@ -147,7 +147,15 @@ public class CartService {
     public void deleteGoodsCart(Long goodsCartId) {
         GoodsCart goodsCart = goodsCartRepository.findById(goodsCartId)
                 .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아옴
+        Long cartId = goodsCart.getId();
         goodsCartRepository.delete(goodsCart); //카트 아이템 삭제
+        deleteCart(cartId);
+    }
+    // 카트 굿즈 삭제
+    public void deleteCart(Long cartId) {
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아옴
+        cartRepository.delete(cart); //카트 아이템 삭제
     }
 //
 //    //카트 굿즈 주문

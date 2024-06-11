@@ -1,6 +1,6 @@
-.container {
+.main_contents {
     float: left;
-    width: 689px;
+    width: 46rem;
     height: 555px;
     background-color: #FFFFFF;
     padding: 10px;
@@ -134,8 +134,16 @@ h1 {
     background-position: -120px 0 !important;
 }
 
+.m02.on {
+    background-position: -120px -52px !important;
+}
+
 .m03 {
     background-position: -240px 0 !important;
+}
+
+.m03.on {
+    background-position: -240px -52px !important;
 }
 
 .m04 {
@@ -189,7 +197,7 @@ a:hover {
 
 .select_infor {
     padding: 10px 15px 5px 15px;
-    padding-bottom: 50px;
+    padding-bottom: 36px;
     _padding-bottom: 30px;
 }
 
@@ -197,8 +205,8 @@ a:hover {
     margin-bottom: 10px;
 }
 .select_infor ul li {
-    margin-bottom: 4px;
-    font-size: 11px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
     color: #FFF;
     height: 16px;
 }
@@ -1124,14 +1132,57 @@ thead {
       padding : 1rem;
  }
 
- .seat_selector_button{
+ .grade_select{
+     text-align-last: left;
+      margin: 1rem 0;
+      border: 1px solid;
+      width: 11rem;
+      height: 9rem;
+      padding : 1rem;
+ }
+
+.grade_select ul li{
+     margin-bottom: 0.3rem;
+ }
+
+ .next_button{
+     margin: 0 0 1rem 2rem;
      background-color: rgba(var(--bs-link-color-rgb),
      var(--bs-link-opacity, 1));
      color: white;
-     padding: 10px 20px;
+     height: 2.5rem;
+     width: 12rem;
      border: none;
      cursor: pointer;
  }
+  .back_button{
+      margin: 0 0 1rem 2rem;
+      background-color: #888888;
+      color: white;
+      height: 2.5rem;
+      width: 12rem;
+      border: none;
+      cursor: pointer;
+  }
+
+ .payment_button{
+      margin:0 0 1rem 2rem;
+      background-color: red;
+      color: white;
+      height: 2.5rem;
+      width: 12rem;
+      border: none;
+      cursor: pointer;
+  }
+
+ .step_btn{
+        font-size: 1rem;
+        line-height:1.5;
+        padding-x: 0.75rem;
+        margin-left: 0.8rem;
+        }
+
+
 
  .concert_poster{
     width:9rem;
@@ -1143,3 +1194,26 @@ thead {
     margin-left: 3rem;
 }
 
+
+.choice_selector ul li.on, .choice_selector ul li.on:hover{
+        margin-bottom: 1px;
+        font-size: 11px;
+        padding: 4px 1px 0px 15px;
+        background: url(https://stkfile.yes24.com/img/perfsale/img_select02.gif) no-repeat 0 -20px;
+        color: #fff;}
+
+.choice_selector ul li{
+    margin-bottom: 1px;
+    font-size: 11px;
+    padding: 4px 1px 0px 15px;
+    background: url(https://stkfile.yes24.com/img/perfsale/img_select02.gif) no-repeat 0 0;
+    cursor: pointer;
+}
+
+.choice_selector ul li:hover{
+margin-bottom:1px;
+font-size:11px;
+padding:4px 1px 0px 15px;
+background:url(https://stkfile.yes24.com/img/perfsale/img_select02.gif) no-repeat 0 -43px;
+color:#fff;
+}

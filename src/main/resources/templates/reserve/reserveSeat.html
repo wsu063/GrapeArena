@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout4}">
+<head>
+
+</head>
+<th:block layout:fragment="css">
+
+</th:block>
+<div layout:fragment="content">
+    <div id="warp">
+        <div id="all" style="display: block;">
+            <div id="header" class="header">
+                <ul class="gnb">
+                    <li class="m01"><span>관람일/회차</span></li>
+                    <li class="m02 on"><span>좌석선택</span></li>
+                    <li class="m03"><span>결제하기</span></li>
+                </ul>
+            </div>
+
+            <div id="ContentsArea" class="main_contents" style="display: block;">
+                <div id="step01">
+                    <!-- 좌석선택 배치도 -->
+                    <div style="display: flex;">
+                        <div class="bx_seatbg">
+                            <div class="seatarea">
+                                <div class="bx_top"></div>
+                                <div id="divGuide" class="bx_con1">
+                                    <div id="divContainer" class="raffer" style="width:40rem; height:36rem; background-image: url(&quot;http://tkfile.yes24.com/upload2/hallimg/11000/11919/11919b_0_240424142243.jpg&quot;); background-repeat: no-repeat; background-position: 0px 0px;">
+                                        <div id="divSeatArray">
+                                            <div class="s13" id="t600008" style="LEFT: 204px; TOP: 151px" name="tk" value="600008"></div>
+                                            <div class="s13" id="t600009" style="LEFT: 215px; TOP: 151px" name="tk" value="600009"></div>
+                                            <div class="s13" id="t600010" style="LEFT: 226px; TOP: 151px" name="tk" value="600010"></div>
+                                            <div class="s13" id="t600011" style="LEFT: 237px; TOP: 151px" name="tk" value="600011"></div>
+                                            <div class="s13" id="t600015" style="LEFT: 281px; TOP: 151px" name="tk" value="600015"></div>
+                                            <div class="s13" id="t600016" style="LEFT: 292px; TOP: 151px" name="tk" value="600016"></div>
+                                            <div class="s13" id="t600017" style="LEFT: 303px; TOP: 151px" name="tk" value="600017"></div>
+                                            <div class="s13" id="t600018" style="LEFT: 314px; TOP: 151px" name="tk" value="600018"></div>
+                                            <div class="s13" id="t600019" style="LEFT: 325px; TOP: 151px" name="tk" value="600019"></div>
+                                            <div class="s13" id="t600020" style="LEFT: 336px; TOP: 151px" name="tk" value="600020"></div>
+                                            <div class="s13" id="t600021" style="LEFT: 347px; TOP: 151px" name="tk" value="600021"></div>
+                                            <div class="s13" id="t600022" style="LEFT: 358px; TOP: 151px" name="tk" value="600022"></div>
+                                            <div class="s13" id="t600023" style="LEFT: 369px; TOP: 151px" name="tk" value="600023"></div>
+                                            <div class="s13" id="t600024" style="LEFT: 380px; TOP: 151px" name="tk" value="600024"></div>
+                                            <div class="s13" id="t600025" style="LEFT: 391px; TOP: 151px" name="tk" value="600025"></div>
+                                            <div class="s13" id="t600028" style="LEFT: 424px; TOP: 151px" name="tk" value="600028"></div>
+                                            <div class="s13" id="t600029" style="LEFT: 435px; TOP: 151px" name="tk" value="600029"></div>
+                                            <div class="s13" id="t600030" style="LEFT: 446px; TOP: 151px" name="tk" value="600030"></div>
+                                            <div class="s13" id="t700008" style="LEFT: 204px; TOP: 163px" name="tk" value="700008"></div>
+                                            <div class="s13" id="t700009" style="LEFT: 215px; TOP: 163px" name="tk" value="700009"></div>
+                                            <div class="s13" id="t700010" style="LEFT: 226px; TOP: 163px" name="tk" value="700010"></div>
+                                            <div class="s13" id="t700011" style="LEFT: 237px; TOP: 163px" name="tk" value="700011"></div>
+                                            <div class="s13" id="t700014" style="LEFT: 270px; TOP: 163px" name="tk" value="700014"></div>
+                                            <div class="s13" id="t700015" style="LEFT: 281px; TOP: 163px" name="tk" value="700015"></div>
+                                            <div class="s13" id="t700016" style="LEFT: 292px; TOP: 163px" name="tk" value="700016"></div>
+                                            <div class="s13" id="t700017" style="LEFT: 303px; TOP: 163px" name="tk" value="700017"></div>
+                                            <div class="s13" id="t700018" style="LEFT: 314px; TOP: 163px" name="tk" value="700018"></div>
+                                            <div class="s13" id="t700019" style="LEFT: 325px; TOP: 163px" name="tk" value="700019"></div>
+                                            <div class="s13" id="t700020" style="LEFT: 336px; TOP: 163px" name="tk" value="700020"></div>
+                                            <div class="s13" id="t700021" style="LEFT: 347px; TOP: 163px" name="tk" value="700021"></div>
+                                            <div class="s13" id="t700022" style="LEFT: 358px; TOP: 163px" name="tk" value="700022"></div>
+                                            <div class="s13" id="t700023" style="LEFT: 369px; TOP: 163px" name="tk" value="700023"></div>
+                                            <div class="s13" id="t700024" style="LEFT: 380px; TOP: 163px" name="tk" value="700024"></div>
+                                            <div class="s13" id="t700025" style="LEFT: 391px; TOP: 163px" name="tk" value="700025"></div>
+                                            <div class="s13" id="t700028" style="LEFT: 424px; TOP: 163px" name="tk" value="700028"></div>
+                                            <div class="s13" id="t700029" style="LEFT: 435px; TOP: 163px" name="tk" value="700029"></div>
+                                            <div class="s13" id="t700030" style="LEFT: 446px; TOP: 163px" name="tk" value="700030"></div>
+                                            <div class="s13" id="t800008" style="LEFT: 204px; TOP: 175px" name="tk" value="800008"></div>
+                                            <div class="s13" id="t800009" style="LEFT: 215px; TOP: 175px" name="tk" value="800009"></div>
+                                            <div class="s13" id="t800010" style="LEFT: 226px; TOP: 175px" name="tk" value="800010"></div>
+                                            <div class="s13" id="t800011" style="LEFT: 237px; TOP: 175px" name="tk" value="800011"></div>
+                                            <div class="s13" id="t800015" style="LEFT: 281px; TOP: 175px" name="tk" value="800015"></div>
+                                            <div class="s13" id="t800016" style="LEFT: 292px; TOP: 175px" name="tk" value="800016"></div>
+                                            <div class="s13" id="t800017" style="LEFT: 303px; TOP: 175px" name="tk" value="800017"></div>
+                                            <div class="s13" id="t800018" style="LEFT: 314px; TOP: 175px" name="tk" value="800018"></div>
+                                            <div class="s13" id="t800019" style="LEFT: 325px; TOP: 175px" name="tk" value="800019"></div>
+                                            <div class="s13" id="t800020" style="LEFT: 336px; TOP: 175px" name="tk" value="800020"></div>
+                                            <div class="s13" id="t800021" style="LEFT: 347px; TOP: 175px" name="tk" value="800021"></div>
+                                            <div class="s13" id="t800022" style="LEFT: 358px; TOP: 175px" name="tk" value="800022"></div>
+                                            <div class="s13" id="t800023" style="LEFT: 369px; TOP: 175px" name="tk" value="800023"></div>
+                                            <div class="s13" id="t800024" style="LEFT: 380px; TOP: 175px" name="tk" value="800024"></div>
+                                            <div class="s13" id="t800025" style="LEFT: 391px; TOP: 175px" name="tk" value="800025"></div>
+                                            <div class="s13" id="t800028" style="LEFT: 424px; TOP: 175px" name="tk" value="800028"></div>
+                                            <div class="s13" id="t800029" style="LEFT: 435px; TOP: 175px" name="tk" value="800029"></div>
+                                            <div class="s13" id="t800030" style="LEFT: 446px; TOP: 175px" name="tk" value="800030"></div>
+                                            <div class="s13" id="t800031" style="LEFT: 457px; TOP: 175px" name="tk" value="800031"></div>
+                                            <div class="s13" id="t900008" style="LEFT: 204px; TOP: 187px" name="tk" value="900008"></div>
+                                            <div class="s13" id="t900009" style="LEFT: 215px; TOP: 187px" name="tk" value="900009"></div>
+                                            <div class="s13" id="t900010" style="LEFT: 226px; TOP: 187px" name="tk" value="900010"></div>
+                                            <div class="s13" id="t900011" style="LEFT: 237px; TOP: 187px" name="tk" value="900011"></div>
+                                            <div class="s13" id="t900014" style="LEFT: 270px; TOP: 187px" name="tk" value="900014"></div>
+                                            <div class="s13" id="t900015" style="LEFT: 281px; TOP: 187px" name="tk" value="900015"></div>
+                                            <div class="s13" id="t900016" style="LEFT: 292px; TOP: 187px" name="tk" value="900016"></div>
+                                            <div class="s13" id="t900017" style="LEFT: 303px; TOP: 187px" name="tk" value="900017"></div>
+                                            <div class="s13" id="t900018" style="LEFT: 314px; TOP: 187px" name="tk" value="900018"></div>
+                                            <div class="s13" id="t900019" style="LEFT: 325px; TOP: 187px" name="tk" value="900019"></div>
+                                            <div class="s13" id="t900020" style="LEFT: 336px; TOP: 187px" name="tk" value="900020"></div>
+                                            <div class="s13" id="t900021" style="LEFT: 347px; TOP: 187px" name="tk" value="900021"></div>
+                                            <div class="s13" id="t900022" style="LEFT: 358px; TOP: 187px" name="tk" value="900022"></div>
+                                            <div class="s13" id="t900023" style="LEFT: 369px; TOP: 187px" name="tk" value="900023"></div>
+                                            <div class="s13" id="t900024" style="LEFT: 380px; TOP: 187px" name="tk" value="900024"></div>
+                                            <div class="s13" id="t900025" style="LEFT: 391px; TOP: 187px" name="tk" value="900025"></div>
+                                            <div class="s13" id="t900028" style="LEFT: 424px; TOP: 187px" name="tk" value="900028"></div>
+                                            <div class="s13" id="t900029" style="LEFT: 435px; TOP: 187px" name="tk" value="900029"></div>
+                                            <div class="s6" id="t900030" style="LEFT: 446px; TOP: 187px" name="tk" value="900030" title="1층 D열 019번" grade="R석" oldclass="s6"></div>
+                                            <div class="s13" id="t900031" style="LEFT: 457px; TOP: 187px" name="tk" value="900031"></div>
+                                            <div class="s13" id="t1000008" style="LEFT: 204px; TOP: 199px" name="tk" value="1000008"></div>
+                                            <div class="s13" id="t1000009" style="LEFT: 215px; TOP: 199px" name="tk" value="1000009"></div>
+                                            <div class="s13" id="t1000010" style="LEFT: 226px; TOP: 199px" name="tk" value="1000010"></div>
+                                            <div class="s13" id="t1000011" style="LEFT: 237px; TOP: 199px" name="tk" value="1000011"></div>
+                                            <div class="s13" id="t1000015" style="LEFT: 281px; TOP: 199px" name="tk" value="1000015"></div>
+                                            <div class="s13" id="t1000016" style="LEFT: 292px; TOP: 199px" name="tk" value="1000016"></div>
+                                            <div class="s13" id="t1000017" style="LEFT: 303px; TOP: 199px" name="tk" value="1000017"></div>
+                                            <div class="s13" id="t1000018" style="LEFT: 314px; TOP: 199px" name="tk" value="1000018"></div>
+                                            <div class="s13" id="t1000019" style="LEFT: 325px; TOP: 199px" name="tk" value="1000019"></div>
+                                            <div class="s13" id="t1000020" style="LEFT: 336px; TOP: 199px" name="tk" value="1000020"></div>
+                                            <div class="s13" id="t1000021" style="LEFT: 347px; TOP: 199px" name="tk" value="1000021"></div>
+                                            <div class="s13" id="t1000022" style="LEFT: 358px; TOP: 199px" name="tk" value="1000022"></div>
+                                            <div class="s13" id="t1000023" style="LEFT: 369px; TOP: 199px" name="tk" value="1000023"></div>
+                                            <div class="s13" id="t1000024" style="LEFT: 380px; TOP: 199px" name="tk" value="1000024"></div>
+                                            <div class="s13" id="t1000025" style="LEFT: 391px; TOP: 199px" name="tk" value="1000025"></div>
+                                            <div class="s13" id="t1000028" style="LEFT: 424px; TOP: 199px" name="tk" value="1000028"></div>
+                                            <div class="s13" id="t1000029" style="LEFT: 435px; TOP: 199px" name="tk" value="1000029"></div>
+                                            <div class="s13" id="t1000030" style="LEFT: 446px; TOP: 199px" name="tk" value="1000030"></div>
+                                            <div class="s13" id="t1000031" style="LEFT: 457px; TOP: 199px" name="tk" value="1000031"></div>
+                                            <div class="s13" id="t1100008" style="LEFT: 204px; TOP: 211px" name="tk" value="1100008"></div>
+                                            <div class="s13" id="t1100009" style="LEFT: 215px; TOP: 211px" name="tk" value="1100009"></div>
+                                            <div class="s13" id="t1100010" style="LEFT: 226px; TOP: 211px" name="tk" value="1100010"></div>
+                                            <div class="s13" id="t1100011" style="LEFT: 237px; TOP: 211px" name="tk" value="1100011"></div>
+                                            <div class="s13" id="t1100014" style="LEFT: 270px; TOP: 211px" name="tk" value="1100014"></div>
+                                            <div class="s13" id="t1100015" style="LEFT: 281px; TOP: 211px" name="tk" value="1100015"></div>
+                                            <div class="s13" id="t1100016" style="LEFT: 292px; TOP: 211px" name="tk" value="1100016"></div>
+                                            <div class="s13" id="t1100017" style="LEFT: 303px; TOP: 211px" name="tk" value="1100017"></div>
+                                            <div class="s13" id="t1100018" style="LEFT: 314px; TOP: 211px" name="tk" value="1100018"></div>
+                                            <div class="s13" id="t1100019" style="LEFT: 325px; TOP: 211px" name="tk" value="1100019"></div>
+                                            <div class="s13" id="t1100020" style="LEFT: 336px; TOP: 211px" name="tk" value="1100020"></div>
+                                            <div class="s13" id="t1100021" style="LEFT: 347px; TOP: 211px" name="tk" value="1100021"></div>
+                                            <div class="s13" id="t1100022" style="LEFT: 358px; TOP: 211px" name="tk" value="1100022"></div>
+                                            <div class="s13" id="t1100023" style="LEFT: 369px; TOP: 211px" name="tk" value="1100023"></div>
+                                            <div class="s13" id="t1100024" style="LEFT: 380px; TOP: 211px" name="tk" value="1100024"></div>
+                                            <div class="s13" id="t1100025" style="LEFT: 391px; TOP: 211px" name="tk" value="1100025"></div>
+                                            <div class="s13" id="t1100028" style="LEFT: 424px; TOP: 211px" name="tk" value="1100028"></div>
+                                            <div class="s6" id="t1100029" style="LEFT: 435px; TOP: 211px" name="tk" value="1100029" title="1층 F열 018번" grade="R석"></div>
+                                            <div class="s13" id="t1100030" style="LEFT: 446px; TOP: 211px" name="tk" value="1100030"></div>
+                                            <div class="s13" id="t1100031" style="LEFT: 457px; TOP: 211px" name="tk" value="1100031"></div>
+                                            <div class="s13" id="t1200008" style="LEFT: 204px; TOP: 223px" name="tk" value="1200008"></div>
+                                            <div class="s13" id="t1200009" style="LEFT: 215px; TOP: 223px" name="tk" value="1200009"></div>
+                                            <div class="s13" id="t1200010" style="LEFT: 226px; TOP: 223px" name="tk" value="1200010"></div>
+                                            <div class="s13" id="t1200011" style="LEFT: 237px; TOP: 223px" name="tk" value="1200011"></div>
+                                            <div class="s13" id="t1200015" style="LEFT: 281px; TOP: 223px" name="tk" value="1200015"></div>
+                                            <div class="s13" id="t1200016" style="LEFT: 292px; TOP: 223px" name="tk" value="1200016"></div>
+                                            <div class="s13" id="t1200017" style="LEFT: 303px; TOP: 223px" name="tk" value="1200017"></div>
+                                            <div class="s13" id="t1200018" style="LEFT: 314px; TOP: 223px" name="tk" value="1200018"></div>
+                                            <div class="s13" id="t1200019" style="LEFT: 325px; TOP: 223px" name="tk" value="1200019"></div>
+                                            <div class="s13" id="t1200020" style="LEFT: 336px; TOP: 223px" name="tk" value="1200020"></div>
+                                            <div class="s13" id="t1200021" style="LEFT: 347px; TOP: 223px" name="tk" value="1200021"></div>
+                                            <div class="s13" id="t1200022" style="LEFT: 358px; TOP: 223px" name="tk" value="1200022"></div>
+                                            <div class="s13" id="t1200023" style="LEFT: 369px; TOP: 223px" name="tk" value="1200023"></div>
+                                            <div class="s13" id="t1200024" style="LEFT: 380px; TOP: 223px" name="tk" value="1200024"></div>
+                                            <div class="s13" id="t1200025" style="LEFT: 391px; TOP: 223px" name="tk" value="1200025"></div>
+                                            <div class="s13" id="t1200028" style="LEFT: 424px; TOP: 223px" name="tk" value="1200028"></div>
+                                            <div class="s13" id="t1200029" style="LEFT: 435px; TOP: 223px" name="tk" value="1200029"></div>
+                                            <div class="s13" id="t1200030" style="LEFT: 446px; TOP: 223px" name="tk" value="1200030"></div>
+                                            <div class="s13" id="t1200031" style="LEFT: 457px; TOP: 223px" name="tk" value="1200031"></div>
+                                            <div class="s13" id="t1300008" style="LEFT: 204px; TOP: 235px" name="tk" value="1300008"></div>
+                                            <div class="s13" id="t1300009" style="LEFT: 215px; TOP: 235px" name="tk" value="1300009"></div>
+                                            <div class="s13" id="t1300010" style="LEFT: 226px; TOP: 235px" name="tk" value="1300010"></div>
+                                            <div class="s13" id="t1300011" style="LEFT: 237px; TOP: 235px" name="tk" value="1300011"></div>
+                                            <div class="s13" id="t1300014" style="LEFT: 270px; TOP: 235px" name="tk" value="1300014"></div>
+                                            <div class="s13" id="t1300015" style="LEFT: 281px; TOP: 235px" name="tk" value="1300015"></div>
+                                            <div class="s13" id="t1300016" style="LEFT: 292px; TOP: 235px" name="tk" value="1300016"></div>
+                                            <div class="s13" id="t1300017" style="LEFT: 303px; TOP: 235px" name="tk" value="1300017"></div>
+                                            <div class="s13" id="t1300018" style="LEFT: 314px; TOP: 235px" name="tk" value="1300018"></div>
+                                            <div class="s13" id="t1300019" style="LEFT: 325px; TOP: 235px" name="tk" value="1300019"></div>
+                                            <div class="s13" id="t1300020" style="LEFT: 336px; TOP: 235px" name="tk" value="1300020"></div>
+                                            <div class="s13" id="t1300021" style="LEFT: 347px; TOP: 235px" name="tk" value="1300021"></div>
+                                            <div class="s13" id="t1300022" style="LEFT: 358px; TOP: 235px" name="tk" value="1300022"></div>
+                                            <div class="s13" id="t1300023" style="LEFT: 369px; TOP: 235px" name="tk" value="1300023"></div>
+                                            <div class="s13" id="t1300024" style="LEFT: 380px; TOP: 235px" name="tk" value="1300024"></div>
+                                            <div class="s13" id="t1300025" style="LEFT: 391px; TOP: 235px" name="tk" value="1300025"></div>
+                                            <div class="s13" id="t1300028" style="LEFT: 424px; TOP: 235px" name="tk" value="1300028"></div>
+                                            <div class="s6" id="t1300029" style="LEFT: 435px; TOP: 235px" name="tk" value="1300029" title="1층 H열 018번" grade="R석" oldclass="s6"></div>
+                                            <div class="s13" id="t1300030" style="LEFT: 446px; TOP: 235px" name="tk" value="1300030"></div>
+                                            <div class="s13" id="t1300031" style="LEFT: 457px; TOP: 235px" name="tk" value="1300031"></div>
+                                            <div class="s13" id="t1400008" style="LEFT: 204px; TOP: 247px" name="tk" value="1400008"></div>
+                                            <div class="s13" id="t1400009" style="LEFT: 215px; TOP: 247px" name="tk" value="1400009"></div>
+                                            <div class="s13" id="t1400010" style="LEFT: 226px; TOP: 247px" name="tk" value="1400010"></div>
+                                            <div class="s13" id="t1400011" style="LEFT: 237px; TOP: 247px" name="tk" value="1400011"></div>
+                                            <div class="s13" id="t1400014" style="LEFT: 270px; TOP: 247px" name="tk" value="1400014"></div>
+                                            <div class="s13" id="t1400015" style="LEFT: 281px; TOP: 247px" name="tk" value="1400015"></div>
+                                            <div class="s13" id="t1400016" style="LEFT: 292px; TOP: 247px" name="tk" value="1400016"></div>
+                                            <div class="s13" id="t1400017" style="LEFT: 303px; TOP: 247px" name="tk" value="1400017"></div>
+                                            <div class="s13" id="t1400018" style="LEFT: 314px; TOP: 247px" name="tk" value="1400018"></div>
+                                            <div class="s13" id="t1400019" style="LEFT: 325px; TOP: 247px" name="tk" value="1400019"></div>
+                                            <div class="s13" id="t1400020" style="LEFT: 336px; TOP: 247px" name="tk" value="1400020"></div>
+                                            <div class="s13" id="t1400021" style="LEFT: 347px; TOP: 247px" name="tk" value="1400021"></div>
+                                            <div class="s13" id="t1400022" style="LEFT: 358px; TOP: 247px" name="tk" value="1400022"></div>
+                                            <div class="s13" id="t1400023" style="LEFT: 369px; TOP: 247px" name="tk" value="1400023"></div>
+                                            <div class="s13" id="t1400024" style="LEFT: 380px; TOP: 247px" name="tk" value="1400024"></div>
+                                            <div class="s13" id="t1400025" style="LEFT: 391px; TOP: 247px" name="tk" value="1400025"></div>
+                                            <div class="s13" id="t1400028" style="LEFT: 424px; TOP: 247px" name="tk" value="1400028"></div>
+                                            <div class="s13" id="t1400029" style="LEFT: 435px; TOP: 247px" name="tk" value="1400029"></div>
+                                            <div class="s13" id="t1400030" style="LEFT: 446px; TOP: 247px" name="tk" value="1400030"></div>
+                                            <div class="s13" id="t1400031" style="LEFT: 457px; TOP: 247px" name="tk" value="1400031"></div>
+                                            <div class="s13" id="t1600008" style="LEFT: 204px; TOP: 271px" name="tk" value="1600008"></div>
+                                            <div class="s13" id="t1600009" style="LEFT: 215px; TOP: 271px" name="tk" value="1600009"></div>
+                                            <div class="s13" id="t1600010" style="LEFT: 226px; TOP: 271px" name="tk" value="1600010"></div>
+                                            <div class="s13" id="t1600011" style="LEFT: 237px; TOP: 271px" name="tk" value="1600011"></div>
+                                            <div class="s13" id="t1600014" style="LEFT: 270px; TOP: 271px" name="tk" value="1600014"></div>
+                                            <div class="s13" id="t1600015" style="LEFT: 281px; TOP: 271px" name="tk" value="1600015"></div>
+                                            <div class="s13" id="t1600016" style="LEFT: 292px; TOP: 271px" name="tk" value="1600016"></div>
+                                            <div class="s13" id="t1600017" style="LEFT: 303px; TOP: 271px" name="tk" value="1600017"></div>
+                                            <div class="s13" id="t1600018" style="LEFT: 314px; TOP: 271px" name="tk" value="1600018"></div>
+                                            <div class="s13" id="t1600019" style="LEFT: 325px; TOP: 271px" name="tk" value="1600019"></div>
+                                            <div class="s13" id="t1600020" style="LEFT: 336px; TOP: 271px" name="tk" value="1600020"></div>
+                                            <div class="s13" id="t1600021" style="LEFT: 347px; TOP: 271px" name="tk" value="1600021"></div>
+                                            <div class="s13" id="t1600022" style="LEFT: 358px; TOP: 271px" name="tk" value="1600022"></div>
+                                            <div class="s13" id="t1600023" style="LEFT: 369px; TOP: 271px" name="tk" value="1600023"></div>
+                                            <div class="s13" id="t1600024" style="LEFT: 380px; TOP: 271px" name="tk" value="1600024"></div>
+                                            <div class="s13" id="t1600025" style="LEFT: 391px; TOP: 271px" name="tk" value="1600025"></div>
+                                            <div class="s13" id="t1600028" style="LEFT: 424px; TOP: 271px" name="tk" value="1600028"></div>
+                                            <div class="s13" id="t1600029" style="LEFT: 435px; TOP: 271px" name="tk" value="1600029"></div>
+                                            <div class="s13" id="t1600030" style="LEFT: 446px; TOP: 271px" name="tk" value="1600030"></div>
+                                            <div class="s13" id="t1700008" style="LEFT: 204px; TOP: 283px" name="tk" value="1700008"></div>
+                                            <div class="s13" id="t1700009" style="LEFT: 215px; TOP: 283px" name="tk" value="1700009"></div>
+                                            <div class="s13" id="t1700010" style="LEFT: 226px; TOP: 283px" name="tk" value="1700010"></div>
+                                            <div class="s13" id="t1700011" style="LEFT: 237px; TOP: 283px" name="tk" value="1700011"></div>
+                                            <div class="s13" id="t1700014" style="LEFT: 270px; TOP: 283px" name="tk" value="1700014"></div>
+                                            <div class="s13" id="t1700015" style="LEFT: 281px; TOP: 283px" name="tk" value="1700015"></div>
+                                            <div class="s13" id="t1700016" style="LEFT: 292px; TOP: 283px" name="tk" value="1700016"></div>
+                                            <div class="s13" id="t1700017" style="LEFT: 303px; TOP: 283px" name="tk" value="1700017"></div>
+                                            <div class="s13" id="t1700018" style="LEFT: 314px; TOP: 283px" name="tk" value="1700018"></div>
+                                            <div class="s13" id="t1700019" style="LEFT: 325px; TOP: 283px" name="tk" value="1700019"></div>
+                                            <div class="s13" id="t1700020" style="LEFT: 336px; TOP: 283px" name="tk" value="1700020"></div>
+                                            <div class="s13" id="t1700021" style="LEFT: 347px; TOP: 283px" name="tk" value="1700021"></div>
+                                            <div class="s13" id="t1700022" style="LEFT: 358px; TOP: 283px" name="tk" value="1700022"></div>
+                                            <div class="s13" id="t1700023" style="LEFT: 369px; TOP: 283px" name="tk" value="1700023"></div>
+                                            <div class="s13" id="t1700024" style="LEFT: 380px; TOP: 283px" name="tk" value="1700024"></div>
+                                            <div class="s13" id="t1700025" style="LEFT: 391px; TOP: 283px" name="tk" value="1700025"></div>
+                                            <div class="s13" id="t1700028" style="LEFT: 424px; TOP: 283px" name="tk" value="1700028"></div>
+                                            <div class="s13" id="t1700029" style="LEFT: 435px; TOP: 283px" name="tk" value="1700029"></div>
+                                            <div class="s13" id="t1700030" style="LEFT: 446px; TOP: 283px" name="tk" value="1700030"></div>
+                                            <div class="s13" id="t1700031" style="LEFT: 457px; TOP: 283px" name="tk" value="1700031"></div>
+                                            <div class="s13" id="t1800008" style="LEFT: 204px; TOP: 295px" name="tk" value="1800008"></div>
+                                            <div class="s13" id="t1800009" style="LEFT: 215px; TOP: 295px" name="tk" value="1800009"></div>
+                                            <div class="s13" id="t1800010" style="LEFT: 226px; TOP: 295px" name="tk" value="1800010"></div>
+                                            <div class="s13" id="t1800011" style="LEFT: 237px; TOP: 295px" name="tk" value="1800011"></div>
+                                            <div class="s13" id="t1800014" style="LEFT: 270px; TOP: 295px" name="tk" value="1800014"></div>
+                                            <div class="s13" id="t1800015" style="LEFT: 281px; TOP: 295px" name="tk" value="1800015"></div>
+                                            <div class="s13" id="t1800016" style="LEFT: 292px; TOP: 295px" name="tk" value="1800016"></div>
+                                            <div class="s13" id="t1800017" style="LEFT: 303px; TOP: 295px" name="tk" value="1800017"></div>
+                                            <div class="s13" id="t1800018" style="LEFT: 314px; TOP: 295px" name="tk" value="1800018"></div>
+                                            <div class="s13" id="t1800019" style="LEFT: 325px; TOP: 295px" name="tk" value="1800019"></div>
+                                            <div class="s13" id="t1800020" style="LEFT: 336px; TOP: 295px" name="tk" value="1800020"></div>
+                                            <div class="s13" id="t1800021" style="LEFT: 347px; TOP: 295px" name="tk" value="1800021"></div>
+                                            <div class="s13" id="t1800022" style="LEFT: 358px; TOP: 295px" name="tk" value="1800022"></div>
+                                            <div class="s6" id="t1800023" style="LEFT: 369px; TOP: 295px" name="tk" value="1800023" title="1층 L열 014번" grade="R석"></div>
+                                            <div class="s13" id="t1800024" style="LEFT: 380px; TOP: 295px" name="tk" value="1800024"></div>
+                                            <div class="s13" id="t1800025" style="LEFT: 391px; TOP: 295px" name="tk" value="1800025"></div>
+                                            <div class="s13" id="t1800028" style="LEFT: 424px; TOP: 295px" name="tk" value="1800028"></div>
+                                            <div class="s13" id="t1800029" style="LEFT: 435px; TOP: 295px" name="tk" value="1800029"></div>
+                                            <div class="s13" id="t1800030" style="LEFT: 446px; TOP: 295px" name="tk" value="1800030"></div>
+                                            <div class="s13" id="t1800031" style="LEFT: 457px; TOP: 295px" name="tk" value="1800031"></div>
+                                            <div class="s13" id="t1900008" style="LEFT: 204px; TOP: 307px" name="tk" value="1900008"></div>
+                                            <div class="s13" id="t1900009" style="LEFT: 215px; TOP: 307px" name="tk" value="1900009"></div>
+                                            <div class="s13" id="t1900010" style="LEFT: 226px; TOP: 307px" name="tk" value="1900010"></div>
+                                            <div class="s13" id="t1900011" style="LEFT: 237px; TOP: 307px" name="tk" value="1900011"></div>
+                                            <div class="s13" id="t1900014" style="LEFT: 270px; TOP: 307px" name="tk" value="1900014"></div>
+                                            <div class="s13" id="t1900015" style="LEFT: 281px; TOP: 307px" name="tk" value="1900015"></div>
+                                            <div class="s13" id="t1900016" style="LEFT: 292px; TOP: 307px" name="tk" value="1900016"></div>
+                                            <div class="s13" id="t1900017" style="LEFT: 303px; TOP: 307px" name="tk" value="1900017"></div>
+                                            <div class="s13" id="t1900018" style="LEFT: 314px; TOP: 307px" name="tk" value="1900018"></div>
+                                            <div class="s13" id="t1900019" style="LEFT: 325px; TOP: 307px" name="tk" value="1900019"></div>
+                                            <div class="s13" id="t1900020" style="LEFT: 336px; TOP: 307px" name="tk" value="1900020"></div>
+                                            <div class="s13" id="t1900021" style="LEFT: 347px; TOP: 307px" name="tk" value="1900021"></div>
+                                            <div class="s13" id="t1900022" style="LEFT: 358px; TOP: 307px" name="tk" value="1900022"></div>
+                                            <div class="s13" id="t1900023" style="LEFT: 369px; TOP: 307px" name="tk" value="1900023"></div>
+                                            <div class="s13" id="t1900024" style="LEFT: 380px; TOP: 307px" name="tk" value="1900024"></div>
+                                            <div class="s13" id="t1900025" style="LEFT: 391px; TOP: 307px" name="tk" value="1900025"></div>
+                                            <div class="s13" id="t1900028" style="LEFT: 424px; TOP: 307px" name="tk" value="1900028"></div>
+                                            <div class="s13" id="t1900029" style="LEFT: 435px; TOP: 307px" name="tk" value="1900029"></div>
+                                            <div class="s13" id="t1900030" style="LEFT: 446px; TOP: 307px" name="tk" value="1900030"></div>
+                                            <div class="s13" id="t2000008" style="LEFT: 204px; TOP: 319px" name="tk" value="2000008"></div>
+                                            <div class="s13" id="t2000009" style="LEFT: 215px; TOP: 319px" name="tk" value="2000009"></div>
+                                            <div class="s13" id="t2000010" style="LEFT: 226px; TOP: 319px" name="tk" value="2000010"></div>
+                                            <div class="s13" id="t2000011" style="LEFT: 237px; TOP: 319px" name="tk" value="2000011"></div>
+                                            <div class="s13" id="t2000012" style="LEFT: 248px; TOP: 319px" name="tk" value="2000012"></div>
+                                            <div class="s13" id="t2000013" style="LEFT: 259px; TOP: 319px" name="tk" value="2000013"></div>
+                                            <div class="s13" id="t2000014" style="LEFT: 270px; TOP: 319px" name="tk" value="2000014"></div>
+                                            <div class="s13" id="t2000015" style="LEFT: 281px; TOP: 319px" name="tk" value="2000015"></div>
+                                            <div class="s13" id="t2000016" style="LEFT: 292px; TOP: 319px" name="tk" value="2000016"></div>
+                                            <div class="s13" id="t2000017" style="LEFT: 303px; TOP: 319px" name="tk" value="2000017"></div>
+                                            <div class="s13" id="t2000018" style="LEFT: 314px; TOP: 319px" name="tk" value="2000018"></div>
+                                            <div class="s13" id="t2000019" style="LEFT: 325px; TOP: 319px" name="tk" value="2000019"></div>
+                                            <div class="s13" id="t2000020" style="LEFT: 336px; TOP: 319px" name="tk" value="2000020"></div>
+                                            <div class="s13" id="t2000021" style="LEFT: 347px; TOP: 319px" name="tk" value="2000021"></div>
+                                            <div class="s13" id="t2000022" style="LEFT: 358px; TOP: 319px" name="tk" value="2000022"></div>
+                                            <div class="s13" id="t2000023" style="LEFT: 369px; TOP: 319px" name="tk" value="2000023"></div>
+                                            <div class="s13" id="t2000026" style="LEFT: 402px; TOP: 319px" name="tk" value="2000026"></div>
+                                            <div class="s13" id="t2000027" style="LEFT: 413px; TOP: 319px" name="tk" value="2000027"></div>
+                                            <div class="s13" id="t2000028" style="LEFT: 424px; TOP: 319px" name="tk" value="2000028"></div>
+                                            <div class="s13" id="t2000029" style="LEFT: 435px; TOP: 319px" name="tk" value="2000029"></div>
+                                            <div class="s13" id="t2000030" style="LEFT: 446px; TOP: 319px" name="tk" value="2000030"></div>
+                                            <div class="s13" id="t2500010" style="LEFT: 214px; TOP: 379px" name="tk" value="2500010"></div>
+                                            <div class="s13" id="t2500011" style="LEFT: 225px; TOP: 379px" name="tk" value="2500011"></div>
+                                            <div class="s13" id="t2500012" style="LEFT: 236px; TOP: 379px" name="tk" value="2500012"></div>
+                                            <div class="s13" id="t2500013" style="LEFT: 247px; TOP: 379px" name="tk" value="2500013"></div>
+                                            <div class="s13" id="t2500014" style="LEFT: 258px; TOP: 379px" name="tk" value="2500014"></div>
+                                            <div class="s13" id="t2500015" style="LEFT: 269px; TOP: 379px" name="tk" value="2500015"></div>
+                                            <div class="s13" id="t2500016" style="LEFT: 280px; TOP: 379px" name="tk" value="2500016"></div>
+                                            <div class="s13" id="t2500017" style="LEFT: 291px; TOP: 379px" name="tk" value="2500017"></div>
+                                            <div class="s13" id="t2500018" style="LEFT: 302px; TOP: 379px" name="tk" value="2500018"></div>
+                                            <div class="s13" id="t2500019" style="LEFT: 313px; TOP: 379px" name="tk" value="2500019"></div>
+                                            <div class="s13" id="t2500020" style="LEFT: 324px; TOP: 379px" name="tk" value="2500020"></div>
+                                            <div class="s13" id="t2500021" style="LEFT: 335px; TOP: 379px" name="tk" value="2500021"></div>
+                                            <div class="s13" id="t2500022" style="LEFT: 346px; TOP: 379px" name="tk" value="2500022"></div>
+                                            <div class="s13" id="t2500023" style="LEFT: 357px; TOP: 379px" name="tk" value="2500023"></div>
+                                            <div class="s13" id="t2500024" style="LEFT: 368px; TOP: 379px" name="tk" value="2500024"></div>
+                                            <div class="s13" id="t2500025" style="LEFT: 379px; TOP: 379px" name="tk" value="2500025"></div>
+                                            <div class="s13" id="t2500026" style="LEFT: 390px; TOP: 379px" name="tk" value="2500026"></div>
+                                            <div class="s13" id="t2500027" style="LEFT: 401px; TOP: 379px" name="tk" value="2500027"></div>
+                                            <div class="s13" id="t2500028" style="LEFT: 412px; TOP: 379px" name="tk" value="2500028"></div>
+                                            <div class="s13" id="t2500029" style="LEFT: 423px; TOP: 379px" name="tk" value="2500029"></div>
+                                            <div class="s13" id="t2600010" style="LEFT: 214px; TOP: 391px" name="tk" value="2600010"></div>
+                                            <div class="s13" id="t2600011" style="LEFT: 225px; TOP: 391px" name="tk" value="2600011"></div>
+                                            <div class="s13" id="t2600012" style="LEFT: 236px; TOP: 391px" name="tk" value="2600012"></div>
+                                            <div class="s13" id="t2600013" style="LEFT: 247px; TOP: 391px" name="tk" value="2600013"></div>
+                                            <div class="s13" id="t2600014" style="LEFT: 258px; TOP: 391px" name="tk" value="2600014"></div>
+                                            <div class="s13" id="t2600015" style="LEFT: 269px; TOP: 391px" name="tk" value="2600015"></div>
+                                            <div class="s13" id="t2600016" style="LEFT: 280px; TOP: 391px" name="tk" value="2600016"></div>
+                                            <div class="s13" id="t2600017" style="LEFT: 291px; TOP: 391px" name="tk" value="2600017"></div>
+                                            <div class="s13" id="t2600018" style="LEFT: 302px; TOP: 391px" name="tk" value="2600018"></div>
+                                            <div class="s13" id="t2600019" style="LEFT: 313px; TOP: 391px" name="tk" value="2600019"></div>
+                                            <div class="s13" id="t2600020" style="LEFT: 324px; TOP: 391px" name="tk" value="2600020"></div>
+                                            <div class="s13" id="t2600021" style="LEFT: 335px; TOP: 391px" name="tk" value="2600021"></div>
+                                            <div class="s8" id="t2600022" style="LEFT: 346px; TOP: 391px" name="tk" value="2600022" title="2층 P열 013번" grade="S석"></div>
+                                            <div class="s13" id="t2600023" style="LEFT: 357px; TOP: 391px" name="tk" value="2600023"></div>
+                                            <div class="s13" id="t2600024" style="LEFT: 368px; TOP: 391px" name="tk" value="2600024"></div>
+                                            <div class="s13" id="t2600025" style="LEFT: 379px; TOP: 391px" name="tk" value="2600025"></div>
+                                            <div class="s13" id="t2600026" style="LEFT: 390px; TOP: 391px" name="tk" value="2600026"></div>
+                                            <div class="s13" id="t2600027" style="LEFT: 401px; TOP: 391px" name="tk" value="2600027"></div>
+                                            <div class="s8" id="t2600028" style="LEFT: 412px; TOP: 391px" name="tk" value="2600028" title="2층 P열 019번" grade="S석"></div>
+                                            <div class="s8" id="t2600029" style="LEFT: 423px; TOP: 391px" name="tk" value="2600029" title="2층 P열 020번" grade="S석"></div>
+                                            <div class="s13" id="t2600030" style="LEFT: 434px; TOP: 391px" name="tk" value="2600030"></div>
+                                            <div class="s13" id="t2700011" style="LEFT: 225px; TOP: 403px" name="tk" value="2700011"></div>
+                                            <div class="s13" id="t2700012" style="LEFT: 236px; TOP: 403px" name="tk" value="2700012"></div>
+                                            <div class="s13" id="t2700013" style="LEFT: 247px; TOP: 403px" name="tk" value="2700013"></div>
+                                            <div class="s13" id="t2700014" style="LEFT: 258px; TOP: 403px" name="tk" value="2700014"></div>
+                                            <div class="s13" id="t2700015" style="LEFT: 269px; TOP: 403px" name="tk" value="2700015"></div>
+                                            <div class="s13" id="t2700016" style="LEFT: 280px; TOP: 403px" name="tk" value="2700016"></div>
+                                            <div class="s13" id="t2700017" style="LEFT: 291px; TOP: 403px" name="tk" value="2700017"></div>
+                                            <div class="s13" id="t2700018" style="LEFT: 302px; TOP: 403px" name="tk" value="2700018"></div>
+                                            <div class="s13" id="t2700019" style="LEFT: 313px; TOP: 403px" name="tk" value="2700019"></div>
+                                            <div class="s13" id="t2700020" style="LEFT: 324px; TOP: 403px" name="tk" value="2700020"></div>
+                                            <div class="s13" id="t2700021" style="LEFT: 335px; TOP: 403px" name="tk" value="2700021"></div>
+                                            <div class="s13" id="t2700022" style="LEFT: 346px; TOP: 403px" name="tk" value="2700022"></div>
+                                            <div class="s13" id="t2700023" style="LEFT: 357px; TOP: 403px" name="tk" value="2700023"></div>
+                                            <div class="s13" id="t2700024" style="LEFT: 368px; TOP: 403px" name="tk" value="2700024"></div>
+                                            <div class="s13" id="t2700025" style="LEFT: 379px; TOP: 403px" name="tk" value="2700025"></div>
+                                            <div class="s13" id="t2700026" style="LEFT: 390px; TOP: 403px" name="tk" value="2700026"></div>
+                                            <div class="s13" id="t2800011" style="LEFT: 225px; TOP: 415px" name="tk" value="2800011"></div>
+                                            <div class="s13" id="t2800012" style="LEFT: 236px; TOP: 415px" name="tk" value="2800012"></div>
+                                            <div class="s13" id="t2800013" style="LEFT: 247px; TOP: 415px" name="tk" value="2800013"></div>
+                                            <div class="s13" id="t2800014" style="LEFT: 258px; TOP: 415px" name="tk" value="2800014"></div>
+                                            <div class="s13" id="t2800015" style="LEFT: 269px; TOP: 415px" name="tk" value="2800015"></div>
+                                            <div class="s13" id="t2800016" style="LEFT: 280px; TOP: 415px" name="tk" value="2800016"></div>
+                                            <div class="s13" id="t2800017" style="LEFT: 291px; TOP: 415px" name="tk" value="2800017"></div>
+                                            <div class="s13" id="t2800018" style="LEFT: 302px; TOP: 415px" name="tk" value="2800018"></div>
+                                            <div class="s13" id="t2800019" style="LEFT: 313px; TOP: 415px" name="tk" value="2800019"></div>
+                                            <div class="s13" id="t2800020" style="LEFT: 324px; TOP: 415px" name="tk" value="2800020"></div>
+                                            <div class="s13" id="t2800021" style="LEFT: 335px; TOP: 415px" name="tk" value="2800021"></div>
+                                            <div class="s13" id="t2800022" style="LEFT: 346px; TOP: 415px" name="tk" value="2800022"></div>
+                                            <div class="s13" id="t2800023" style="LEFT: 357px; TOP: 415px" name="tk" value="2800023"></div>
+                                            <div class="s13" id="t2800024" style="LEFT: 368px; TOP: 415px" name="tk" value="2800024"></div>
+                                            <div class="s13" id="t2800025" style="LEFT: 379px; TOP: 415px" name="tk" value="2800025"></div>
+                                            <div class="s13" id="t2800026" style="LEFT: 390px; TOP: 415px" name="tk" value="2800026"></div>
+                                            <div class="s13" id="t2900011" style="LEFT: 225px; TOP: 427px" name="tk" value="2900011"></div>
+                                            <div class="s13" id="t2900012" style="LEFT: 236px; TOP: 427px" name="tk" value="2900012"></div>
+                                            <div class="s13" id="t2900013" style="LEFT: 247px; TOP: 427px" name="tk" value="2900013"></div>
+                                            <div class="s13" id="t2900014" style="LEFT: 258px; TOP: 427px" name="tk" value="2900014"></div>
+                                            <div class="s13" id="t2900015" style="LEFT: 269px; TOP: 427px" name="tk" value="2900015"></div>
+                                            <div class="s13" id="t2900016" style="LEFT: 280px; TOP: 427px" name="tk" value="2900016"></div>
+                                            <div class="s13" id="t2900017" style="LEFT: 291px; TOP: 427px" name="tk" value="2900017"></div>
+                                            <div class="s13" id="t2900018" style="LEFT: 302px; TOP: 427px" name="tk" value="2900018"></div>
+                                            <div class="s13" id="t2900019" style="LEFT: 313px; TOP: 427px" name="tk" value="2900019"></div>
+                                            <div class="s13" id="t2900020" style="LEFT: 324px; TOP: 427px" name="tk" value="2900020"></div>
+                                            <div class="s13" id="t2900021" style="LEFT: 335px; TOP: 427px" name="tk" value="2900021"></div>
+                                            <div class="s13" id="t2900022" style="LEFT: 346px; TOP: 427px" name="tk" value="2900022"></div>
+                                            <div class="s13" id="t2900023" style="LEFT: 357px; TOP: 427px" name="tk" value="2900023"></div>
+                                            <div class="s13" id="t2900024" style="LEFT: 368px; TOP: 427px" name="tk" value="2900024"></div>
+                                            <div class="s13" id="t2900025" style="LEFT: 379px; TOP: 427px" name="tk" value="2900025"></div>
+                                            <div class="s13" id="t2900026" style="LEFT: 390px; TOP: 427px" name="tk" value="2900026"></div>
+                                            <div class="s13" id="t3000010" style="LEFT: 214px; TOP: 439px" name="tk" value="3000010"></div>
+                                            <div class="s13" id="t3000011" style="LEFT: 225px; TOP: 439px" name="tk" value="3000011"></div>
+                                            <div class="s13" id="t3000012" style="LEFT: 236px; TOP: 439px" name="tk" value="3000012"></div>
+                                            <div class="s13" id="t3000013" style="LEFT: 247px; TOP: 439px" name="tk" value="3000013"></div>
+                                            <div class="s13" id="t3000014" style="LEFT: 258px; TOP: 439px" name="tk" value="3000014"></div>
+                                            <div class="s13" id="t3000015" style="LEFT: 269px; TOP: 439px" name="tk" value="3000015"></div>
+                                            <div class="s13" id="t3000016" style="LEFT: 280px; TOP: 439px" name="tk" value="3000016"></div>
+                                            <div class="s13" id="t3000017" style="LEFT: 291px; TOP: 439px" name="tk" value="3000017"></div>
+                                            <div class="s13" id="t3000018" style="LEFT: 302px; TOP: 439px" name="tk" value="3000018"></div>
+                                            <div class="s13" id="t3000019" style="LEFT: 313px; TOP: 439px" name="tk" value="3000019"></div>
+                                            <div class="s8" id="t3000020" style="LEFT: 324px; TOP: 439px" name="tk" value="3000020" title="2층 T열 011번" grade="S석"></div>
+                                            <div class="s8" id="t3000021" style="LEFT: 335px; TOP: 439px" name="tk" value="3000021" title="2층 T열 012번" grade="S석"></div>
+                                            <div class="s8" id="t3000022" style="LEFT: 346px; TOP: 439px" name="tk" value="3000022" title="2층 T열 013번" grade="S석"></div>
+                                            <div class="s8" id="t3000023" style="LEFT: 357px; TOP: 439px" name="tk" value="3000023" title="2층 T열 014번" grade="S석" oldclass="s8"></div>
+                                            <div class="s13" id="t3000024" style="LEFT: 368px; TOP: 439px" name="tk" value="3000024"></div>
+                                            <div class="s13" id="t3000025" style="LEFT: 379px; TOP: 439px" name="tk" value="3000025"></div>
+                                            <div class="s13" id="t3000026" style="LEFT: 390px; TOP: 439px" name="tk" value="3000026"></div>
+                                            <div class="s13" id="t3000027" style="LEFT: 401px; TOP: 439px" name="tk" value="3000027"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- 오른쪽 예매 상황-->
+            <div id="StateBoard">
+                <div class="result">
+                    <div id="perfboard" class="title">
+                        <div class="select_infor">
+                            <h3 style="text-align-last: center;">선택내역</h3>
+                            <!-- 예매내역 -->
+                            <ul>
+                                <li class="concert_poster_li" >
+                                    <img src="/images/con_6.jpg"
+                                         alt="슬라이드"
+                                         class="concert_poster">
+                                </li>
+                                <li><span>아티스트</span></li>
+                                <li><span id="tk_day">날짜</span></li>
+                                <li><span id="tk_time">시간</span></li>
+                                <li><span id="tk_count">매수</span></li>
+                                <li><span id="tk_seat">좌석</span></li>
+                            </ul>
+                            <h3>결제금액</h3>
+                        </div>
+
+                        <!-- 다음단계 이전단계 버튼  -->
+                        <div class="step_btn">
+                            <!-- 이전 버튼 -->
+                            <button onclick="window.location.href='/reserves/reserveDtl';"
+                                    class="back_button"
+                                    type="button">
+                                이전 단계
+                            </button>
+                            <!-- 다음 버튼 -->
+                            <button onclick="window.location.href='/reserves/reserveForm';"
+                                    class="next_button"
+                                    type="button">
+                                다음 단계
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block layout:fragment="script">
+</th:block>
+
+</html>

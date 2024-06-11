@@ -9,6 +9,7 @@ import com.podoarena.repository.GoodsImgRepository;
 import com.podoarena.repository.GoodsRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -114,5 +115,10 @@ public class GoodsService {
         return mainGoodsPage;
     }
 
+    // ID를 사용하여 Goods 엔티티를 가져옴
+    public Goods getGoodsById(Long id) {
+        return goodsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Goods not found with id: " + id));
+    }
 
 }

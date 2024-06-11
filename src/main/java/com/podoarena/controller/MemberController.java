@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -43,9 +44,12 @@ public class MemberController {
 
     //회원가입 처리
     @PostMapping(value = "/members/register")
-    public String registerUser(@Valid MemberFormDto memberFormDto,
+    public String registerUser(@Validated MemberFormDto memberFormDto,
                                BindingResult bindingResult , Model model) {
-        if(bindingResult.hasErrors()) return "member/register";
+        if(bindingResult.hasErrors()) {
+//            model.addAttribute("validErrorMsg","비밀번호는 8~16자 영문, 숫자, 특수문자를 입력해주세요.");
+            return "member/register";
+        }
 
         try {
             Member member = Member.createMember(memberFormDto, passwordEncoder);
@@ -63,28 +67,33 @@ public class MemberController {
     }
 
     //이메일 전화번호 검사 페이지
-    @GetMapping(value = "/members/chkuser")
+    @GetMapping(value = "/members/findpw")
     public String chkUserPage(Model model) {
         model.addAttribute("member", new MemberFormDto());
-        return "member/chkuser";
+        return "member/findpw";
     }
 
     //이메일 전화번호 체크
-    @PostMapping(value = "/members/chkuser")
+    @PostMapping(value = "/members/findpw")
     public ResponseEntity<String> chkUser(@RequestBody Map<String, String> requestData) {
-        try {
+
             String email = requestData.get("email");
             String phone = requestData.get("phone");
-            boolean chkUser = memberService.chkUser(email, phone);
 
-            if (chkUser) {
-                return new ResponseEntity<String>("인증 성공", HttpStatus.OK);
-            } else {
-                return new ResponseEntity<String>("인증 실패", HttpStatus.BAD_REQUEST);
-            }
-        } catch (IllegalStateException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+
+        if (email == null || email.trim().isEmpty()) {
+            return new ResponseEntity<>("emailError", HttpStatus.BAD_REQUEST);
         }
+        if (phone == null || phone.trim().isEmpty()) {
+            return new ResponseEntity<>("phoneError", HttpStatus.BAD_REQUEST);
+        }
+        Member findPw = memberRepository.findByEmailAndPhone(email, phone);
+        if (findPw != null) {
+            return new ResponseEntity<>(email, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("해당 정보로 가입한 내역이 없습니다.", HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     //비밀번호 재설정
@@ -115,18 +124,23 @@ public class MemberController {
 
     //찾은 아이디 표시
     @PostMapping(value = "/members/showid")
-    public ResponseEntity<String> findId(@RequestBody Map<String, String> requestData, Model model){
+    public ResponseEntity<String> findId(@RequestBody Map<String, String> requestData) {
         String name = requestData.get("name");
         String phone = requestData.get("phone");
 
+        if (name == null || name.trim().isEmpty()) {
+            return new ResponseEntity<>("nameError", HttpStatus.BAD_REQUEST);
+        }
+        if (phone == null || phone.trim().isEmpty()) {
+            return new ResponseEntity<>("phoneError", HttpStatus.BAD_REQUEST);
+        }
 
         Member findId = memberRepository.findByPhoneAndName(phone, name);
         String email = findId.getEmail();
-
-        if(findId != null) {
-            return new ResponseEntity<String>(email, HttpStatus.OK);
+        if (findId != null) {
+            return new ResponseEntity<>(email, HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>("해당 정보로 가입한 내역이 없습니다.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("해당 정보로 가입한 내역이 없습니다.", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -157,6 +171,7 @@ public class MemberController {
         }
     }
 
+    //회원정보 수정페이지
     @GetMapping(value = "/members/editprofile")
     public String editProfilePage(Principal principal, Model model) {
         if(principal == null) {
@@ -169,6 +184,7 @@ public class MemberController {
         }
     }
 
+    //회원정보 수정 처리
     @PostMapping(value = "/members/editprofile")
     public String editProfile(Model model, MemberFormDto memberFormDto) {
         memberService.editMember(memberFormDto, passwordEncoder);

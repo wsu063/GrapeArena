@@ -4,7 +4,7 @@
        layout:decorate="~{layouts/layout2}">
  
   <th:block layout:fragment="css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/chkuser.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/find_id_pw.css}">
   </th:block>
   <head>
     <meta name="_csrf" th:content="${_csrf.token}" />
@@ -35,10 +35,10 @@
               </label>
             </div>
           </div>
-          <p style="color:red;" th:if="${error}" th:text="${error}" class="error"></p>
+          <div id="find_pw_error"></div>
         </div>
         <div class="chkuser_style">
-          <button onclick="chkUser()"
+          <button onclick="findPw()"
               type="button" class="chkuser_btn" id="chkuserBtn">
             <span>비밀번호 찾기</span>
           </button>
@@ -50,7 +50,7 @@
             </li>
             |
             <li>
-              <a id="findPwd" href="/members/chkuser">비밀번호 찾기</a>
+              <a id="findPwd" href="/members/findpw">비밀번호 찾기</a>
             </li>
             |
             <li>
@@ -103,7 +103,7 @@
   
   <th:block layout:fragment="script">
     <script th:inline="javascript">
-      function chkUser() {
+      function findPw() {
         var email = $("#email").val();
         var phone = $("#phone").val();
         
@@ -116,7 +116,7 @@
         };
         
         $.ajax({
-          url: "/members/chkuser",
+          url: "/members/findpw",
           type: "POST",
           contentType: "application/json", // JSON 형식으로 전송
           beforeSend: function(xhr) {
@@ -126,17 +126,20 @@
           cache: false,
           data: JSON.stringify(formData), // JSON 형식으로 데이터 전송
           success: function(result, status, xhr, formData) {
+            $("#find_pw_error").hide();
             alert('인증에 성공하셨습니다. 비밀번호 재설정 페이지로 이동합니다.')
             $("#resetPwModal").modal("show");
           },
           error: function(jqXHR, status, error) {
-            if (jqXHR.responseText === '잘못된 정보입니다. 확인 후 다시 입력해주세요.') {
-              alert('잘못된 정보입니다. 확인 후 다시 입력해주세요.');
-              location.href = '/members/chkuser'
-            } else if(jqXHR.responseText === '가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.') {
-              alert('가입되지 않은 번호입니다. 확인 후 다시 입력해주세요.');
-              location.href = '/members/chkuser'
+            var errorMessage;
+            if (jqXHR.responseText === 'emailError') {
+              errorMessage = '이메일을 입력해주세요.';
+            } else if (jqXHR.responseText === 'phoneError') {
+              errorMessage = '전화번호를 입력해주세요.';
+            } else {
+              errorMessage = jqXHR.responseText || "오류가 발생했습니다.";
             }
+            $("#find_pw_error").html("<p>" + errorMessage + "</p>");
           }
         });
       }

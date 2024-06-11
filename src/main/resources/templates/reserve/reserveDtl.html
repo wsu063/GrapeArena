@@ -24,7 +24,7 @@
                 </ul>
             </div>
 
-            <div id="ContentsArea" class="container" style="display: block;">
+            <div id="ContentsArea" class="main_contents" style="display: block;">
                 <div id="step01">
                     <!-- 컨텐츠 -->
                     <div style="display: flex;">
@@ -75,25 +75,21 @@
                                 <!-- 회차선택 -->
                                 <span>회차선택</span>
                                 <div class="choice_selector">
-                                    <ul>
-                                        <li>야아</li>
-                                        <li>야아</li>
-                                        <li>야아</li>
-                                    </ul>
+                                        <ul id="unTime">
+                                            <li>[1회] 14시 00분</li>
+                                            <li>[2회] 16시 00분</li>
+                                            <li>[3회] 18시 00분</li>
+                                        </ul>
                                 </div>
                                 <!-- 좌석등급 -->
                                 <span>좌석등급</span>
-                                    <div class="choice_selector">
+                                    <div class="grade_select">
                                         <ul>
-                                            <li>R석 77,000원</li>
-                                            <li>S석 55,000원</li>
+                                            <li>VIP석 198,000원</li>
+                                            <li>R석 154,000원</li>
+                                            <li>S석 132,000원</li>
                                         </ul>
                                     </div>
-                                <!-- 좌석버튼 -->
-                                <button onclick="window.location.href='링크주소를_입력하세요';"
-                                        class="seat_selector_button">
-                                    좌석 예매
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -120,7 +116,7 @@
                 <div class="result">
                     <div id="perfboard" class="title">
                         <!-- 상황판 -->
-                        <div class="select_infor">
+                        <div class="select_infor" style="padding-bottom:89px;">
                             <h3 style="text-align-last: center;">선택내역</h3>
                             <!-- 예매내역 -->
                             <ul>
@@ -139,43 +135,16 @@
                         </div>
 
                         <!-- 다음단계 이전단계 버튼  -->
-                        <div class="btn">
-                            <div id="StepCtrlBtnPanel" class="tc">
-                                <div id="StepCtrlBtn01" style="display: block;">
-                                    <a class="dcursor" onclick="fdc_VerifySelSeatNumber();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next04.gif" alt="다음단계"></a>
-                                </div>
-                                <div id="StepCtrlBtn03" style="display:none;">
-                                    <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP1);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                    <a class="dcursor" onclick="fdc_PromotionEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
-                                </div>
-                                <div id="StepCtrlBtn04" style="display:none;">
-                                    <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP3);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                    <a class="dcursor" onclick="fdc_DeliveryEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
-                                </div>
-                                <div id="StepCtrlBtn05" style="display:none;">
-                                    <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP4);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                    <a class="dcursor" onclick="fdc_PrePayCheck();"><img id="imgPayEnd" src="http://tkfile.yes24.com/img/perfsale/btn_succ.gif" alt="결제하기"></a>
-                                </div>
-                            </div>
+                        <div class="step_btn">
+                                <!-- 다음 버튼 -->
+                                <button class="next_button"
+                                        type="button">
+                                   다음 단계
+                                </button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!--좌석선택 reserveSeat 자리-->
-            <div id="SeatFlashArea" style="display: none;">
-                <div class="seat_arrange">
-                </div>
-            </div>
-
-
-            <!--결제방법 reserveForm 자리-->
-            <div style="display: none;">
-                <div>
-                </div>
-            </div>
-
-
         </div>
     </div>
     </div>
@@ -184,13 +153,12 @@
 
     <script th:inline="javascript">
 
-
+    // 캘린더
     let currentYear = new Date().getFullYear();
     let currentMonth = new Date().getMonth();
     let date0 = $("#date0").attr("value");
     let date1 = $("#date1").attr("value");
     let date2 = $("#date2").attr("value");
-
 
     function generateCalendar(year, month, highlightedDates) {
     const calendarBody = document.getElementById('calendarBody');
@@ -268,6 +236,46 @@
     }
     generateCalendar(currentYear, currentMonth, highlightedDates);
     }
+
+
+function selectTime() {
+    var $ulTime = $("#unTime"); // 시간을 표시하는 ul 요소
+    var $li = $ulTime.find("li"); // ul 요소 안의 모든 li 요소
+    if ($li.length === 1) {
+        $li.addClass("on");
+    } else {
+        $li.each(function() {
+            $(this).click(function() {
+                if ($(this).hasClass("on")) {
+                    $(this).removeClass("on");
+                } else {
+                    $li.removeClass("on");
+                    $(this).addClass("on");
+                }
+            });
+        });
+    }
+}
+selectTime();
+
+
+
+function onNextButtonClick() {
+    var selectedTime = $("#unTime .on").text(); // 선택된 회차
+
+    // 회차가 선택되지 않은 경우
+    if (!selectedTime) {
+        alert("회차를 선택해주세요.");
+    } else {
+        window.location.href='/reserves/reserveSeat/5';
+    }
+}
+
+$('.next_button').click(function(event) {
+    event.preventDefault(); // 기본 동작(링크 이동) 막기
+    onNextButtonClick(); // 다음 버튼 처리 함수 호출
+});
+
 
     </script>
 </th:block>
