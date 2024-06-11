@@ -13,26 +13,30 @@
     <!-- UI 영역 START -->
     <div id="warp">
         <div id="all" style="display: block;">
-            <!--상단메뉴 -->
+            <!--상단 메뉴 -->
             <div id="header" class="header">
                 <ul class="gnb">
-                    <li class="m01"><span>관람일/회차</span></li>
+                    <li class="m01 on"><span>관람일/회차</span></li>
                     <li class="m02"><span>좌석선택</span></li>
-                    <li class="m03 on"><span>결제하기</span></li>
+                    <li class="m03"><span>결제하기</span></li>
                 </ul>
             </div>
-            <!-- 내용컨탠츠 -->
+
             <div id="ContentsArea" class="container" style="display: block;">
-                <!-- 제 1 단계 : 관람일/회차 -->
                 <div id="step01">
-                    <div style="display: flex; height: 4rem; margin-top: 2rem;">
+
+                    <div class="step01_contents" >
+                        <!-- 수령방법 선택  -->
                         <div style="width: 97%; padding-top: 0.6rem;">
                             <span style="margin: 1rem; font-size: 1rem;">수령방법선택</span>
                             <input type="radio" id="pickup" name="delivery_option" value="pickup" checked>
                             <label for="pickup" style="font-size: 16px;">현장 수령</label>
                         </div>
+                        <!-- 결제 방법 선택 / 무통장입금만 사용 -->
                         <div style="width: 97%;">
-                            <span style="margin: 1rem; font-size: 1rem;">무통장입금</span>
+                            <label for="bankSelect">
+                                <span style="margin: 1rem; font-size: 1rem;">무통장입금</span>
+                            </label>
                             <select id="bankSelect">
                                 <option value="" disabled selected>은행선택</option>
                                 <option value="shinhan">신한은행</option>
@@ -43,22 +47,23 @@
                         </div>
                     </div>
                 </div>
-                <!-- 유의사항 -->
-                    <div>
-                        <table class="boardListTypeB tb_w">
-                            <colgroup>
-                                <col width="33%" align="center">
-                                <col width="38%" align="center">
-                                <col width="*">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>내용</th>
-                                    <th>취소수수료</th>
-                                    <th>비고</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+
+                <!-- 티켓 주의사항 -->
+                <div>
+                    <table class="boardListTypeB tb_w">
+                        <colgroup>
+                            <col width="33%" align="center">
+                            <col width="38%" align="center">
+                            <col width="*">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>내용</th>
+                                <th>취소수수료</th>
+                                <th>비고</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             <tr>
                                 <td>예매 후 7일 이내</td>
                                 <td>없음</td>
@@ -83,76 +88,84 @@
                                 <td>관람일 2일 전 ~ 관람일 1일 전까지</td>
                                 <td>티켓금액의 <em class="red">30%</em></td>
                             </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="caution" id="step04_DeliveryCaution" style="display: block; width: 97%;">
-                        <h5>주의사항 <em style="font-weight:normal;">
-                            * 부정확한 정보 입력으로 인한 문제 발생 시 PodoArena는 책임을 지지 않습니다.</em></h5>
-                        <ul style="padding-left: 2rem;">
-                            <li>1)<span class="red"> 배송 선택 시 티켓 수령자의 배송지 정보를 정확히 입력해주시기 바랍니다.</span></li>
-                            <li>2)<span class="red"> 티켓은 유가증권으로 본인에게 직접 전달해야하며, 분실된 티켓은 재발권 되지 않습니다.</span></li>
-                            <li>3)<span class="red"> 일괄배송의 경우 정해진 날짜에 티켓 배송이 시작되며, 주소 수정은 일괄배송일 2일 전까지 가능합니다.</span></li>
-                            <li>4)<span class="red"> 예매 티켓 배송은 예매완료일, 혹은 일괄배송일로부터 4~5일(영업일 기준) 이내 수령 가능합니다.</span> </li>
-                            <li>5) 긴급연락처는 공연 취소와 같은 유사 시 안내 받으실 연락처이므로 정확히 입력해주시기 바랍니다.</li>
-                            <li>6) 이메일 정보 미 입력 시 예매 관련 안내 메일을 받을 수 없으니 이메일 받기를 원하시는 경우 마이페이지에서<br>&nbsp;&nbsp;&nbsp;회원정보를 수정해주시기 바랍니다.</li>
-
-                        </ul>
-                    </div>
-                     <div>
-                        <span class="chkbox">
-                            <input id="cbxAllAgree" type="checkbox" onclick="fdc_AllAgree();"><label><em class="bold">모두 동의합니다.</em></label>
-                            <input id="chkUserAgree" type="checkbox"><label>개인정보 수집 및 이용에 동의합니다. <a href="javascript:fdc_PopupUserAgree();"> [상세보기]</a></label><br>
-                            <input id="cbxCancelFeeAgree" type="checkbox"><label id="chkCancelFeeAgreeText">취소수수료 및 취소기한을 확인하였으며, 동의합니다.</label>
-                            <input id="chkinfoAgree" type="checkbox"><label>제3자 정보제공 내용에 동의합니다. <a href="javascript:fdc_PopupSaleAgree('49543')">[상세보기]</a></label>
-                        </span>
-                     </div>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- //공연안내 -->
-            </div>
 
-            <!-- 상황판 -->
-            <div id="StateBoard">
-                <div class="result">
-                    <div id="perfboard" class="title">
-                        <div class="select_infor">
-                            <h3 style="text-align-last: center;">선택내역</h3>
-                            <ul>
-                                <li style="display: inline-table;margin-left: 3rem;" >
-                                    <img src="/images/con_6.jpg" alt="슬라이드" style="width:9rem;margin-bottom: 1rem;">
-                                </li>
-                                <li><span>아티스트</span></li>
-                                <li><span id="tk_day">날짜</span></li>
-                                <li><span id="tk_time">시간</span></li>
-                                <li><span id="tk_count">매수</span></li>
-                                <li><span id="tk_seat">좌석</span></li>
-                            </ul>
-                            <h3>결제금액</h3>
-                        </div>
-                        <div class="btn">
-                            <div id="StepCtrlBtnPanel" class="tc">
-                                <div id="StepCtrlBtn01" style="display: block;">
-                                    <a class="dcursor" onclick="fdc_VerifySelSeatNumber();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next04.gif" alt="다음단계"></a>
-                                </div>
-                                <div id="StepCtrlBtn03" style="display:none;">
-                                    <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP1);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                    <a class="dcursor" onclick="fdc_PromotionEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
-                                </div>
-                                <div id="StepCtrlBtn04" style="display:none;">
-                                    <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP3);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                    <a class="dcursor" onclick="fdc_DeliveryEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
-                                </div>
-                                <div id="StepCtrlBtn05" style="display:none;">
-                                    <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP4);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                    <a class="dcursor" onclick="fdc_PrePayCheck();"><img id="imgPayEnd" src="http://tkfile.yes24.com/img/perfsale/btn_succ.gif" alt="결제하기"></a>
-                                </div>
+                 <!--  티켓 수령 주의 사항  -->
+                <div class="caution" id="step04_DeliveryCaution" style="display: block; width: 97%;">
+                    <h5>주의사항 <em style="font-weight:normal;">
+                        * 부정확한 정보 입력으로 인한 문제 발생 시 PodoArena는 책임을 지지 않습니다.</em></h5>
+                    <ul style="padding-left: 2rem;">
+                        <li>1)<span class="red"> 배송으로 선택 시 티켓 수령자의 배송지 정보를 정확히 입력해주시기 바랍니다.</span></li>
+                        <li>2)<span class="red"> 티켓은 유가증권으로 본인에게 직접 전달해야하며, 분실된 티켓은 재발권 되지 않습니다.</span></li>
+                        <li>3)<span class="red"> 일괄배송의 경우 정해진 날짜에 티켓 배송이 시작되며, 주소 수정은 일괄배송일 2일 전까지 가능합니다.</span></li>
+                        <li>4)<span class="red"> 예매 티켓 배송은 예매완료일, 혹은 일괄배송일로부터 4~5일(영업일 기준) 이내 수령 가능합니다.</span> </li>
+                        <li>5) 긴급연락처는 공연 취소와 같은 유사 시 안내 받으실 연락처이므로 정확히 입력해주시기 바랍니다.</li>
+                        <li>6) 이메일 정보 미 입력 시 예매 관련 안내 메일을 받을 수 없으니 이메일 받기를 원하시는 경우 마이페이지에서<br>&nbsp;&nbsp;&nbsp;회원정보를 수정해주시기 바랍니다.</li>
+                    </ul>
+                </div>
+
+                <!--  개인정보 수집 및 이용 동의  -->
+                 <div>
+                    <span class="chkbox">
+                        <input id="cbxAllAgree" type="checkbox" onclick="fdc_AllAgree();"><label><em class="bold">모두 동의합니다.</em></label>
+                        <input id="chkUserAgree" type="checkbox"><label>개인정보 수집 및 이용에 동의합니다. <a href="javascript:fdc_PopupUserAgree();"> [상세보기]</a></label><br>
+                        <input id="cbxCancelFeeAgree" type="checkbox"><label id="chkCancelFeeAgreeText">취소수수료 및 취소기한을 확인하였으며, 동의합니다.</label>
+                        <input id="chkinfoAgree" type="checkbox"><label>제3자 정보제공 내용에 동의합니다. <a href="javascript:fdc_PopupSaleAgree('49543')">[상세보기]</a></label>
+                    </span>
+                 </div>
+            </div>
+        </div>
+
+        <!-- 오른쪽 예매 상황-->
+        <div id="StateBoard">
+            <div class="result">
+                <div id="perfboard" class="title">
+                    <!-- 상황판 -->
+                    <div class="select_infor">
+                        <h3 style="text-align-last: center;">선택내역</h3>
+                        <!-- 예매내역 -->
+                        <ul>
+                            <li class="concert_poster_li" >
+                                <img src="/images/con_6.jpg"
+                                     alt="슬라이드"
+                                     class="concert_poster">
+                            </li>
+                            <li><span>아티스트</span></li>
+                            <li><span id="tk_day">날짜</span></li>
+                            <li><span id="tk_time">시간</span></li>
+                            <li><span id="tk_count">매수</span></li>
+                            <li><span id="tk_seat">좌석</span></li>
+                        </ul>
+                        <h3>결제금액</h3>
+                    </div>
+
+                    <!-- 다음단계 이전단계 버튼  -->
+                    <div class="btn">
+                        <div id="StepCtrlBtnPanel" class="tc">
+                            <div id="StepCtrlBtn01" style="display: block;">
+                                <a class="dcursor" onclick="fdc_VerifySelSeatNumber();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next04.gif" alt="다음단계"></a>
+                            </div>
+                            <div id="StepCtrlBtn03" style="display:none;">
+                                <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP1);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
+                                <a class="dcursor" onclick="fdc_PromotionEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
+                            </div>
+                            <div id="StepCtrlBtn04" style="display:none;">
+                                <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP3);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
+                                <a class="dcursor" onclick="fdc_DeliveryEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
+                            </div>
+                            <div id="StepCtrlBtn05" style="display:none;">
+                                <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP4);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
+                                <a class="dcursor" onclick="fdc_PrePayCheck();"><img id="imgPayEnd" src="http://tkfile.yes24.com/img/perfsale/btn_succ.gif" alt="결제하기"></a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+
+    </div>
 </div>
 
 

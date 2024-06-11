@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -43,9 +44,12 @@ public class MemberController {
 
     //회원가입 처리
     @PostMapping(value = "/members/register")
-    public String registerUser(@Valid MemberFormDto memberFormDto,
+    public String registerUser(@Validated MemberFormDto memberFormDto,
                                BindingResult bindingResult , Model model) {
-        if(bindingResult.hasErrors()) return "member/register";
+        if(bindingResult.hasErrors()) {
+//            model.addAttribute("validErrorMsg","비밀번호는 8~16자 영문, 숫자, 특수문자를 입력해주세요.");
+            return "member/register";
+        }
 
         try {
             Member member = Member.createMember(memberFormDto, passwordEncoder);
@@ -157,6 +161,7 @@ public class MemberController {
         }
     }
 
+    //회원정보 수정페이지
     @GetMapping(value = "/members/editprofile")
     public String editProfilePage(Principal principal, Model model) {
         if(principal == null) {
@@ -169,10 +174,20 @@ public class MemberController {
         }
     }
 
+    //회원정보 수정 처리
     @PostMapping(value = "/members/editprofile")
-    public String editProfile(Model model, MemberFormDto memberFormDto) {
-        memberService.editMember(memberFormDto, passwordEncoder);
-        return "redirect:/";
+    public String editProfile(@Validated MemberFormDto memberFormDto, Model model, BindingResult bindingResult ) {
+        if(bindingResult.hasErrors()) {
+            return "member/editprofile";
+        }
+
+        try {
+            memberService.editMember(memberFormDto, passwordEncoder);
+            return "redirect:/";
+        } catch (Exception e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "member/editprofile";
+        }
     }
 
     @DeleteMapping(value = "/members/deleteMember")
