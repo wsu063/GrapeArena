@@ -16,7 +16,6 @@ import java.util.List;
 @Table(name = "member")
 @Getter
 @Setter
-@ToString
 public class Member extends BaseEntity {
     @Id
     @Column(name = "member_id")
@@ -44,8 +43,11 @@ public class Member extends BaseEntity {
 
     private String extraAddress;
 
-//    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Cart cart;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cart> cart;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GoodsCart> goodsCart;
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private Reserve reserve;

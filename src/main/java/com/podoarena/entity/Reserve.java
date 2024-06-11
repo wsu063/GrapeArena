@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "reserve")
 @Getter
 @Setter
-@ToString
 public class Reserve {
     @Id
     @Column(name = "reserve_id")

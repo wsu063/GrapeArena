@@ -2,7 +2,9 @@ package com.podoarena.service;
 
 import com.podoarena.dto.MemberFormDto;
 import com.podoarena.entity.Member;
+import com.podoarena.entity.Reserve;
 import com.podoarena.repository.MemberRepository;
+import com.podoarena.repository.ReserveRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
+    private final ReserveRepository reserveRepository;
 
     //회원가입
     public Member saveMember(Member member) {
@@ -87,7 +90,7 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-    public void confirmDelete(String email){
+    public void confirmDelete(String email) {
         Member member = memberRepository.findByEmail(email);
         memberRepository.delete(member);
     }
