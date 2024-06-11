@@ -2,133 +2,128 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-  
-  <head>
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-  </head>
-  
-  <th:block layout:fragment="css">
-    <style>
-      /* 스타일 정의 */
-    </style>
-  </th:block>
 
-  <div layout:fragment="content">
-    <div class="bg-light py-3" style="margin-top: 2rem;">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 mb-0">
-            <a href="/" style="text-decoration-line: none; color: #ffc107;">Home</a>
-            <span class="mx-2 mb-0">/</span>
-            <strong class="text-black">MD Cart</strong>
-          </div>
+<head>
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<th:block layout:fragment="css">
+  <style>
+    /* 스타일 정의 */
+  </style>
+</th:block>
+
+<div layout:fragment="content">
+  <div class="bg-light py-3" style="margin-top: 2rem;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mb-0">
+          <a href="/" style="text-decoration-line: none; color: #ffc107;">Home</a>
+          <span class="mx-2 mb-0">/</span>
+          <strong class="text-black">MD Cart</strong>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="site-section" style="margin-top: 1rem;">
-      <div class="container">
-        <div class="row mb-5">
-          <form class="col-md-12" method="post">
-            <div class="site-blocks-table">
-              <table class="table table-bordered" style="text-align: center;">
-                <thead>
-                  <tr>
-                    <th class="product-remove">
-                      <input type="checkbox" id="checkall" onclick="checkAll()"/> 전체선택
-                    </th>
-                    <th class="product-thumbnail">이미지</th>
-                    <th class="product-name">상품명</th>
-                    <th class="product-price">가격</th>
-                    <th class="product-quantity">수량</th>
-                    <th class="product-total">총금액</th>
-                    <th class="product-remove">삭제</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- 장바구니 항목들을 순회하며 출력 -->
-                  <tr th:each="cart : ${goodsCarts}">
-                    <td colspan="7">
-                      <table style="width: 100%;">
-                        <tr th:each="goodsCart : ${cart.goodsCartDtoList}">
-                        <!-- 각 장바구니 항목의 상품들을 순회하며 출력 -->
-                          <td class="product-remove">
-                            <input type="checkbox" name="cartChkBox" th:value="${goodsCart.goodsId}"/>
-                          </td>
-                          <td class="product-thumbnail">
-                            <img th:src="${goodsCart.imgUrl}" class="img-fluid" th:alt="${goodsCart.goodsName}">
-                          </td>
-                          <td class="product-name">
-                            <span th:text="${goodsCart.goodsName}"></span>
-                          </td>
-                          <td>
-                             <span th:id="'price_' + ${goodsCart.goodsId}"
-                               th:data-price="${goodsCart.goodsPrice}"
-                               th:text="${#numbers.formatInteger(goodsCart.goodsPrice, 0, 'COMMA')} + '원'">
+  <div class="site-section" style="margin-top: 1rem;">
+    <div class="container">
+      <div class="row mb-5">
+        <form class="col-md-12" method="post">
+          <div class="site-blocks-table">
+            <table class="table table-bordered" style="text-align: center;">
+              <thead>
+              <tr>
+                <th class="product-remove">
+                  <input type="checkbox" id="checkall" onclick="checkAll()"/> 전체선택
+                </th>
+                <th class="product-thumbnail">이미지</th>
+                <th class="product-name">상품명</th>
+                <th class="product-price">가격</th>
+                <th class="product-quantity">수량</th>
+                <th class="product-total">총금액</th>
+                <th class="product-remove">삭제</th>
+              </tr>
+              </thead>
+              <tbody>
+              <!-- 장바구니 항목들을 순회하며 출력 -->
+              <tr th:each="cart : ${goodsCarts}">
+                <td colspan="7" th:each="goodsCart : ${cart.goodsCartDtoList}">
+                  <table style="width: 100%;">
+                    <tr >
+                      <!-- 각 장바구니 항목의 상품들을 순회하며 출력 -->
+                      <td class="product-remove">
+                        <input type="checkbox" name="cartChkBox" th:value="${cart.cartId}"/>
+                      </td>
+                      <td class="product-thumbnail">
+                        <img th:src="${goodsCart.imgUrl}" class="img-fluid" th:alt="${goodsCart.goodsName}">
+                      </td>
+                      <td class="product-name">
+                        <span th:text="${goodsCart.goodsName}"></span>
+                      </td>
+                      <td>
+                             <span th:id="'price_' + ${cart.cartId}"
+                                   th:data-price="${goodsCart.goodsPrice}"
+                                   th:text="${#numbers.formatInteger(goodsCart.goodsPrice, 0, 'COMMA')} + '원'">
                              </span>
-                          </td>
-                          <td>
-                            <div class="input-group mb-3" style="max-width: 120px;">
-                              <div class="input-group-prepend">
-                                <button class="btn btn-outline-primary js-btn-minus" id="minus" type="button">&minus;</button>
-                              </div>
-                              <input type="text" class="form-control text-center"
-                                     id="quantity"
-                                     th:value="${goodsCart.goodsCount}" placeholder=""
-                                     aria-label="Example text with button addon" aria-describedby="button-addon1">
-                              <div class="input-group-append">
-                                <button class="btn btn-outline-primary js-btn-plus" id="plus" type="button">&plus;</button>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <span th:id="'totalPrice_' + ${goodsCart.goodsId}"
+                      </td>
+                      <td>
+                        <div class="input-group mb-3" style="max-width: 120px;">
+                          <div class="input-group-prepend">
+                            <button class="btn btn-outline-primary js-btn-minus" id="minus" type="button">&minus;</button>
+                          </div>
+                          <input type="text" class="form-control text-center" th:id="'count_' + ${cart.cartId}"
+                                 th:value="${goodsCart.goodsCount}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-primary js-btn-plus" id="plus" type="button">&plus;</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                            <span th:id="'totalPrice_' + ${cart.cartId}"
                                   name="totalPrice"
                                   th:text="${#numbers.formatInteger(goodsCart.goodsPrice * goodsCart.goodsCount, 0, 'COMMA')} + '원'">
                             </span>
-                          </td>
-                          <td>
-                            <a href="#"  th:onclick="'deleteGoodsCart(' + ${goodsCart.goodsCartId} + ')'"
-                               class="btn btn-primary height-auto btn-sm">X</a>
-                          </td>
-                        </tr>
-
-                      </table>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-          </form>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <!-- 추가 내용 -->
+                      </td>
+                      <td>
+                        <a role="button" th:id="'cartId' + ${cart.cartId}"  th:value="${cart.cartId}" onclick="deleteGoodsCart(this)"
+                           class="btn btn-primary height-auto btn-sm">X</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="col-md-6 pl-5">
-            <div class="row justify-content-end">
-              <div class="col-md-7">
-                <div class="row">
-                  <div class="col-md-12 text-right border-bottom mb-5">
-                    <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
-                  </div>
-                </div>
-                <div class="row mb-5">
-                  <div class="col-md-6">
-                    <span class="text-black">총 상품금액</span>
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <strong class="text-black"><span id="orderTotalPrice" class="text-danger">0원</span></strong>
-                  </div>
-                </div>
+        </form>
+      </div>
 
-                <div class="row">
-                  <div class="col-md-12">
-                    <button class="btn btn-success btn-lg btn-block" onclick="orders()">주문하기</button>
-                  </div>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- 추가 내용 -->
+        </div>
+        <div class="col-md-6 pl-5">
+          <div class="row justify-content-end">
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-md-12 text-right border-bottom mb-5">
+                  <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                </div>
+              </div>
+              <div class="row mb-5">
+                <div class="col-md-6">
+                  <span class="text-black">총 상품금액</span>
+                </div>
+                <div class="col-md-6 text-right">
+                  <strong class="text-black"><span id="orderTotalPrice" class="text-danger">0원</span></strong>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-success btn-lg btn-block" onclick="orders()">주문하기</button>
                 </div>
               </div>
             </div>
@@ -137,44 +132,171 @@
       </div>
     </div>
   </div>
+</div>
 
-  <th:block layout:fragment="script">
-    <script th:inline="javascript">
-      function deleteGoodsCart(goodsCartId) {
-          const cancelConf = confirm("굿즈를 삭제하시겠습니까?");
-          if(!cancelConf) return; // 취소 선택시 끝
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+    $("input[name=cartChkBox]").change(function() {
+        getOrderTotalPrice();
+    });
 
-          var token = $("meta[name='_csrf']").attr("content");
-          var header = $("meta[name='_csrf_header']").attr("content");
+    function getOrderTotalPrice() {
+        var orderTotalPrice = 0;
+        $("input[name=cartChkBox]:checked").each(function() {
+            var cartId = $(this).val();
+            var price = $("#price_" + cartId).data("price");
+            var count = $("#count_" + cartId).val();
+            orderTotalPrice += price * count;
+        });
 
-          $.ajax({
-              url : "/goodsCart/" + goodsCartId,
-              type : "DELETE",
-              contentType : "application/json",
-              beforeSend : function(xhr) {
-                  //데이터를 전송하기 전에 헤더에 csrf 값을 설정
-                  xhr.setRequestHeader(header, token);
-              },
-              dataType : "json",
-              cache : false,
-              success : function(result, status) {
-                  location.reload();
-              },
-              error : function(jqXHR, status, error) {
-                  if(jqXHR.status == '401') {
-                   alert('로그인 후 이용해주세요.');
-                   location.href = '/members/login';
-                  } else {
+        $("#orderTotalPrice").html(orderTotalPrice.toLocaleString('ko-KR') + '원');
+    }
+
+    function changeCount($obj) {
+        var count = $obj.val();
+        var cartId = $obj.attr('id').split('_')[1];
+        var price = $("#price_" + cartId).data("price");
+        var totalPrice = count * price;
+        $("#totalPrice_" + cartId).html(totalPrice.toLocaleString('ko-KR') + "원");
+        getOrderTotalPrice();
+        updateCartCount(cartId, count);
+    }
+
+    function checkAll() {
+        if ($("#checkall").prop("checked")) {
+            $("input[name=cartChkBox]").prop("checked", true);
+        } else {
+            $("input[name=cartChkBox]").prop("checked", false);
+        }
+        getOrderTotalPrice();
+    }
+
+    $('.js-btn-minus').on('click', function(e) {
+        e.preventDefault();
+        var $input = $(this).closest('.input-group').find('.form-control');
+        var currentVal = parseInt($input.val());
+        if (currentVal > 1) {
+            $input.val(currentVal - 1);
+        } else {
+            $input.val(1);
+        }
+        changeCount($input);
+    });
+
+    $('.js-btn-plus').on('click', function(e) {
+        e.preventDefault();
+        var $input = $(this).closest('.input-group').find('.form-control');
+        $input.val(parseInt($input.val()) + 1);
+        changeCount($input);
+    });
+
+    function updateCartCount(cartId, count) {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+        var url = "/goodsCart/" + cartId + "?count=" + count;
+
+        $.ajax({
+            url: url,
+            type: "PATCH",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            dataType: "json",
+            cache: false,
+            success: function(result, status) {
+                console.log("cart count update success");
+            },
+            error: function(jqXHR, status, error) {
+                if (jqXHR.status == 401) {
+                    alert('로그인 후 이용해주세요');
+                    location.href = '/members/login';
+                } else {
+                    alert(jqXHR.responseJSON.message);
+                }
+            }
+        });
+    }
+
+    function deleteGoodsCart(obj) {
+        var cartId = document.getElementById("cartId" + cartId).value;
+        console.log(cartId)
+        if (!cartId) {
+            console.error("cartId is null or undefined");
+            return;
+        }
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+        $.ajax({
+            url: "/goodsCart/" + cartId,
+            type: "DELETE",
+            contentType: "application/json",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            dataType: "json",
+            cache: false,
+            success: function(result, status) {
+                location.reload();
+            },
+            error: function(jqXHR, status, error) {
+                if (jqXHR.status == 401) {
+                    alert('로그인 후 이용해주세요.');
+                    location.href = '/members/login';
+                } else {
                     alert(jqXHR.responseText);
-                  }
-              }
-          });
-      }
+                }
+            }
+        });
+    }
 
     function orders() {
-      console.log("Order button clicked");
-      // 주문 처리 로직을 추가
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+        var url = "/cart/orders";
+
+        var dataList = [];
+        $("input[name=cartChkBox]:checked").each(function() {
+            var cartId = $(this).val();
+            if (!cartId) {
+                console.error("cartId is null or undefined");
+                return;
+            }
+            dataList.push({ cartId: cartId });
+        });
+
+        if (dataList.length === 0) {
+            alert("선택된 상품이 없습니다.");
+            return;
+        }
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ cartOrderDtoList: dataList }),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            dataType: "json",
+            cache: false,
+            success: function(result, status) {
+                alert("주문이 완료되었습니다.");
+                location.href = '/orders';
+            },
+            error: function(jqXHR, status, error) {
+                if (jqXHR.status == 401) {
+                    alert('로그인 후 이용해주세요');
+                    location.href = '/members/login';
+                } else {
+                    alert(jqXHR.responseJSON.message);
+                }
+            }
+        });
     }
-    </script>
-  </th:block>
+  </script>
+</th:block>
 </html>

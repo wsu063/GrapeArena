@@ -1,10 +1,14 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.*;
+import com.podoarena.entity.Cart;
+import com.podoarena.entity.GoodsCart;
 import com.podoarena.entity.Member;
+import com.podoarena.repository.CartRepository;
 import com.podoarena.repository.MemberRepository;
 import com.podoarena.service.CartService;
 import com.podoarena.service.MemberService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +28,7 @@ public class CartController {
     private final CartService cartService;
     private final MemberRepository memberRepository;
     private final MemberService memberService;
+    private final CartRepository cartRepository;
 
 
 
@@ -74,28 +79,42 @@ public class CartController {
     }
 }
     //카트 굿즈 삭제
-    @DeleteMapping(value = "/goodsCart/{goodsCartId}")
-    public @ResponseBody ResponseEntity deleteGoodsCart(@PathVariable("goodsCartId") Long goodsCartId, Principal principal) {
-        if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
-            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
-        }
-        cartService.deleteGoodsCart(goodsCartId); // 굿즈 삭제
+    @DeleteMapping(value = "/goodsCart/{cartId}")
+    public @ResponseBody ResponseEntity deleteGoodsCart(@PathVariable("cartId") Long cartId, Principal principal) {
+//        if (!cartService.validateGoodsCart(cartId, principal.getName())) {
+//            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
+//        }
+        cartService.deleteCart(cartId);
+//        cartService.deleteGoodsCart(goodsCartId); // 굿즈 삭제
 
-        return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
+        return new ResponseEntity<Long>(cartId, HttpStatus.OK);
     }
 
     // 카트 굿즈 수량을 수정
-    @PatchMapping(value = "/goodsCart/{goodsCartId}")
-    public @ResponseBody ResponseEntity updateGoodsCart(@PathVariable("goodsCartId") Long goodsCartId, @RequestParam("goodsCount") int count, Principal principal){
-
+    @PatchMapping(value = "/goodsCart/{cartId}")
+    public @ResponseBody ResponseEntity updateGoodsCart(@PathVariable("cartId") Long cartId,
+                                                        @RequestParam("count") int count,
+                                                        Principal principal){
+        Cart cart = cartRepository.findById(cartId).
+                orElseThrow(EntityNotFoundException::new);
+        GoodsCart goodsCart = cart.getGoodsCarts().get(0);
         if (count <= 0) {
             return new ResponseEntity<String>("최소 1개 이상 담아주세요.", HttpStatus.BAD_REQUEST);
-        } else if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
+        } else if (!cartService.validateGoodsCart(cartId, principal.getName())) {
             return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
         }
+
+
+        Long goodsCartId = goodsCart.getId();
         cartService.updateGoodsCartCount(goodsCartId, count);
         return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
     }
+
+    //카트에 담긴 굿즈 주문
+//    @PostMapping(value = "/cart/orders")
+//    public @ResponseBody ResponseEntity orderGoodsCart(@RequestBody OrderDto orderDto, Principal principal) {
+//        List<OrderDto> orderDtoList = orderDto.
+//    }
 
 
 }
@@ -140,10 +159,7 @@ public class CartController {
 
 
 
-    //카트에 담긴 굿즈 주문
-//    public @ResponseBody ResponseEntity orderGoodsCart(@RequestBody OrderDto orderDto, Principal principal) {
-//        List<OrderDto> orderDtoList = orderDto.get();
-//    }
+
 
 
 
