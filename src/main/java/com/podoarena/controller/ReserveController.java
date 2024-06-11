@@ -4,14 +4,13 @@ import com.podoarena.dto.ConcertFormDto;
 import com.podoarena.dto.GoodsFormDto;
 import com.podoarena.dto.ReserveFormDto;
 import com.podoarena.dto.ReserveSeatSearchDto;
-import com.podoarena.entity.Concert;
-import com.podoarena.entity.Date;
-import com.podoarena.entity.Place;
-import com.podoarena.entity.ReserveSeat;
+import com.podoarena.entity.*;
 import com.podoarena.repository.PlaceRepository;
 import com.podoarena.repository.ReserveSeatRepository;
 import com.podoarena.service.ConcertService;
+import com.podoarena.service.DateService;
 import com.podoarena.service.ReserveSeatService;
+import com.podoarena.service.SeatService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -33,7 +33,8 @@ import java.util.Optional;
 public class ReserveController {
     private final ReserveSeatService reserveSeatService;
     private final ConcertService concertService;
-    private final PlaceRepository placeRepository;
+    private final DateService dateService;
+    private final SeatService seatService;
 
 
     // 콘서트 예약 페이지 이동
@@ -50,10 +51,16 @@ public class ReserveController {
     }
 
     @GetMapping(value ="/reserves/reserveSeat/{concertId}")
-    public String reserveSeat(@PathVariable("concertId") Long concertId, Model model) {
+    public String reserveSeat(@PathVariable("concertId") Long concertId,
+                               Model model) {
         ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
+        // @RequestParam("dateId") Long dateId,
+        // Date date = dateService.getDateByPlaceConcertId(concertFormDto.getPlaceId());
+        Long dateId = 16L; // 임시로 넣은 데이트값
+        List<Seat> seats = seatService.getSeatList(dateId);
 
         model.addAttribute("concertFormDto", concertFormDto);
+        model.addAttribute("seats", seats);
         model.addAttribute("reserveFormDto", new ReserveFormDto());
         return "reserve/reserveSeat";
     }

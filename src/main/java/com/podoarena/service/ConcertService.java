@@ -67,7 +67,7 @@ public class ConcertService {
 
         //필요한 요소를 가져온다.
         List<ConcertImgDto> concertImgList = concertImgService.getConcertImgDtoList(concertId);
-        List<Date> dateList = dateService.getDateByConcertIdOrderByDateAsc(concertId);
+        List<Date> dateList = dateService.getDateByPlaceConcertId(concert.getPlaceConcert().getId());
         PlaceFormDto placeFormDto = PlaceFormDto.of(concert.getPlaceConcert().getPlace());
 
         //가져온 concertFormDto에 이미지 리스트를 넣어준다.

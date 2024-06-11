@@ -1,6 +1,7 @@
 package com.podoarena.service;
 
 import com.podoarena.entity.Date;
+import com.podoarena.entity.PlaceConcert;
 import com.podoarena.repository.DateRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,8 @@ public class DateService {
     }
 
     //날짜 받아오기
-    public List<Date> getDateByConcertIdOrderByDateAsc(Long placeConcertId) {
-        return dateRepository.getDateByConcertIdOrderByDateAsc(placeConcertId);
+    public List<Date> getDateByPlaceConcertId(Long placeConcertId) {
+        return dateRepository.findByPlaceConcertIdOrderByIdAsc(placeConcertId);
     }
+
 }
