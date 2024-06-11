@@ -22,6 +22,8 @@ public class Place {
 
     private String placeLocation;
 
+    @Lob
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String placeBatch;
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)

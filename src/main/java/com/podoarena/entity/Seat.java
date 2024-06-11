@@ -15,7 +15,6 @@ import java.util.List;
 @Table(name = "seat")
 @Getter
 @Setter
-@ToString
 public class Seat{
     @Id
     @Column(name = "seat_id")

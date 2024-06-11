@@ -6,6 +6,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import java.util.List;
 
-public interface DateRepository extends JpaRepository<Date, Long>, DateRepositoryCustom,
-        QuerydslPredicateExecutor<Date> {
+public interface DateRepository extends JpaRepository<Date, Long>{
+    List<Date> findByPlaceConcertIdOrderByIdAsc(Long placeConcertId);
 }

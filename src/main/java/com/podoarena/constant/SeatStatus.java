@@ -11,4 +11,12 @@ public enum SeatStatus {
             default: throw new IllegalArgumentException("잘못된 값입니다.");
         }
     }
+    public static int toInt(SeatStatus seatStatus) {
+        switch (seatStatus) {
+            case NONE: return 0;
+            case AVAILABLE: return 1;
+            case SELECTED: return 2;
+            default: throw new IllegalArgumentException("잘못된 값입니다.");
+        }
+    }
 }

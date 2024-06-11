@@ -41,7 +41,7 @@ public class PlaceService {
 
     //2. 공연장 목록(관리자)
     public List<Place> getPlaceList() {
-        List<Place> places = placeRepository.getPlaceAll();
+        List<Place> places = placeRepository.findAllByOrderByIdDesc();
         return places;
     }
 

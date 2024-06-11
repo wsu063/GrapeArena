@@ -38,4 +38,8 @@ public class SeatService {
         return seatList;
     }
 
+    public List<Seat> getSeatList(Long dateId) {
+        return seatRepository.findByDateIdOrderByIdAsc(dateId);
+    }
+
 }
