@@ -2,11 +2,13 @@ package com.podoarena.controller;
 
 import com.podoarena.dto.*;
 import com.podoarena.entity.Cart;
+import com.podoarena.entity.Goods;
 import com.podoarena.entity.GoodsCart;
 import com.podoarena.entity.Member;
 import com.podoarena.repository.CartRepository;
 import com.podoarena.repository.MemberRepository;
 import com.podoarena.service.CartService;
+import com.podoarena.service.GoodsService;
 import com.podoarena.service.MemberService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -29,7 +31,7 @@ public class CartController {
     private final MemberRepository memberRepository;
     private final MemberService memberService;
     private final CartRepository cartRepository;
-
+    private final GoodsService goodsService;
 
 
 
@@ -53,31 +55,39 @@ public class CartController {
 
 
     //카트 추가
-@PostMapping(value = "/members/addCart")
+    @PostMapping(value = "/members/addCart")
     public @ResponseBody ResponseEntity addtoCart(@Valid @RequestBody CartDto cartDto,
-                                                  BindingResult bindingResult,Model model,Principal principal) {
-    if(bindingResult.hasErrors()) {
-        StringBuilder sb = new StringBuilder();
-
-        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-        for(FieldError fieldError : fieldErrors) {
-
-            sb.append(fieldError.getDefaultMessage());
+                                                  BindingResult bindingResult, Model model, Principal principal) {
+        if (bindingResult.hasErrors()) {
+            StringBuilder sb = new StringBuilder();
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            for (FieldError fieldError : fieldErrors) {
+                sb.append(fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<String>(sb.toString(),HttpStatus.BAD_REQUEST);
-    }
-    String email = principal.getName();
+        String email = principal.getName();
 
-    try{
-        Long cartId = cartService.addToCart(cartDto,email, cartDto.getGoodsCount());
-        model.addAttribute("member", memberService.getMember(email));
-        model.addAttribute("memberFormDto", new MemberFormDto());
-        return new ResponseEntity<String>("formData", HttpStatus.OK);
-    } catch (Exception e){
-        e.printStackTrace();
-        return new ResponseEntity<String>(e.getMessage() ,HttpStatus.BAD_REQUEST);
+        try {
+            // Goods 엔티티의 정보를 가져옵니다.
+            Goods goods = goodsService.getGoodsById(cartDto.getGoodsId());
+
+            // Goods 엔티티에서 goodsMaxAmount 속성을 가져옵니다.
+            int goodsMaxAmount = goods.getGoodsMaxAmount();
+
+            Long cartId = cartService.addToCart(cartDto, email, cartDto.getGoodsCount());
+            model.addAttribute("member", memberService.getMember(email));
+            model.addAttribute("memberFormDto", new MemberFormDto());
+            model.addAttribute("goodsMaxAmount", goodsMaxAmount); // goodsMaxAmount를 모델에 추가합니다.
+
+            return new ResponseEntity<String>("formData", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
-}
+
+
     //카트 굿즈 삭제
     @DeleteMapping(value = "/goodsCart/{cartId}")
     public @ResponseBody ResponseEntity deleteGoodsCart(@PathVariable("cartId") Long cartId, Principal principal) {

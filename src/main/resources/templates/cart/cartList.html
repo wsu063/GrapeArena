@@ -61,6 +61,7 @@
                       </td>
                       <td class="product-name">
                         <span th:text="${goodsCart.goodsName}"></span>
+                        <span th:text="${goodsMaxAmount}"></span>
                       </td>
                       <td>
                              <span th:id="'price_' + ${cart.cartId}"
@@ -87,7 +88,7 @@
                             </span>
                       </td>
                       <td>
-                        <a role="button" th:id="'cartId' + ${cart.cartId}"  th:value="${cart.cartId}" onclick="deleteGoodsCart(this)"
+                        <a role="button" th:id="'cartId' + ${cart.cartId}"  th:value="${cart.cartId}" th:onclick="'deleteGoodsCart(' + ${cart.cartId} + ')'"
                            class="btn btn-primary height-auto btn-sm">X</a>
                       </td>
                     </tr>
@@ -218,8 +219,7 @@
         });
     }
 
-    function deleteGoodsCart(obj) {
-        var cartId = document.getElementById("cartId" + cartId).value;
+    function deleteGoodsCart(cartId) {
         console.log(cartId)
         if (!cartId) {
             console.error("cartId is null or undefined");
