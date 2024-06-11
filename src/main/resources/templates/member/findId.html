@@ -111,6 +111,7 @@
             alert('인증에 성공하셨습니다.')
             $("#find_id_error").hide();
             $("#findIdModal").modal("show");
+            $("#id_text").text(result);
           },
           error: function (jqXHR) {
             var errorMessage;

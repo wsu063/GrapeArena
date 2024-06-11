@@ -136,8 +136,8 @@ public class MemberController {
         }
 
         Member findId = memberRepository.findByPhoneAndName(phone, name);
+        String email = findId.getEmail();
         if (findId != null) {
-            String email = findId.getEmail();
             return new ResponseEntity<>(email, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("해당 정보로 가입한 내역이 없습니다.", HttpStatus.BAD_REQUEST);
