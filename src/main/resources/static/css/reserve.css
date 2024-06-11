@@ -1107,5 +1107,39 @@ thead {
 }
 
  span {
-             font-weight: bold;
+   font-weight: bold;
         }
+
+.step01_contents{ display: flex;
+ height: 4rem;
+ margin-top: 2rem;
+ }
+
+ .choice_selector{
+     text-align-last: left;
+      margin: 1rem 0;
+      border: 1px solid;
+      width: 11rem;
+      height: 9rem;
+      padding : 1rem;
+ }
+
+ .seat_selector_button{
+     background-color: rgba(var(--bs-link-color-rgb),
+     var(--bs-link-opacity, 1));
+     color: white;
+     padding: 10px 20px;
+     border: none;
+     cursor: pointer;
+ }
+
+ .concert_poster{
+    width:9rem;
+    margin-bottom: 1rem;
+ }
+
+.concert_poster_li{
+    display: inline-table;
+    margin-left: 3rem;
+}
+

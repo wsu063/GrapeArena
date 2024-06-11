@@ -12,11 +12,10 @@
 
 <div layout:fragment="content">
 
-    <body>
-    <!-- UI 영역 START -->
     <div id="warp">
         <div id="all" style="display: block;">
-            <!--상단메뉴 -->
+
+            <!--상단 메뉴 -->
             <div id="header" class="header">
                 <ul class="gnb">
                     <li class="m01 on"><span>관람일/회차</span></li>
@@ -24,200 +23,161 @@
                     <li class="m03"><span>결제하기</span></li>
                 </ul>
             </div>
-            <!--//상단메뉴 -->
-            <!-- 내용컨탠츠 -->
-            <div id="ContentsArea" class="container" style="display: block;">
-                <!-- 제 1 단계 : 관람일/회차 -->
-                <div id="step01">
-                    <div style="display: flex;">
-                            <div class="calendar-container" style="padding-top: 2rem;">
-                                <header style=" height: 7rem; width: 82%; background: gray;">
-                                    <div class="day">관람일</div>
-                                    <div class="month">
-                                        <button onclick="showPreviousMonth()">‹</button>
-                                        <span id="monthYear">2024.07</span>
-                                        <button onclick="showNextMonth()">›</button>
-                                    </div>
-                                </header>
-                                <table class="calendar" style="margin-bottom: 1.5rem; width: 82%;">
-                                    <thead>
-                                    <tr>
-                                        <td>Mon</td>
-                                        <td>Tue</td>
-                                        <td>Wed</td>
-                                        <td>Thu</td>
-                                        <td>Fri</td>
-                                        <td>Sat</td>
-                                        <td>Sun</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="calendarBody">
-                                    <!-- JavaScript will dynamically populate this tbody -->
-                                    </tbody>
-                                </table>
-                                <div>
-                                    <ul style="display:flex; margin-bottom:1rem;">
-                                        <li>
-                                            <span style="margin: 0 0 0 9rem;">
-                                            <span style="color:red;"> ● </span>
-                                                예매가능 날짜</span></li>
 
-                                    </ul>
+            <div id="ContentsArea" class="container" style="display: block;">
+                <div id="step01">
+                    <!-- 컨텐츠 -->
+                    <div style="display: flex;">
+                        <!-- 관람일 캘린더-->
+                        <div class="calendar-container" style="padding-top: 2rem;">
+                            <header style=" height: 7rem;
+                                            width: 82%;
+                                            background: gray;">
+
+                                <div class="day">관람일</div>
+                                <div class="month">
+                                    <button onclick="showPreviousMonth()">‹</button>
+                                    <span id="monthYear">2024.07</span>
+                                    <button onclick="showNextMonth()">›</button>
                                 </div>
-                            </div> <!-- end calendar-container -->
+                            </header>
+                            <table class="calendar" style="margin-bottom: 1.5rem; width: 82%;">
+                                <thead>
+                                <tr>
+                                    <td>Mon</td>
+                                    <td>Tue</td>
+                                    <td>Wed</td>
+                                    <td>Thu</td>
+                                    <td>Fri</td>
+                                    <td>Sat</td>
+                                    <td>Sun</td>
+                                </tr>
+                                </thead>
+                                <tbody id="calendarBody">
+                                <!-- JavaScript will dynamically populate this tbody -->
+                                </tbody>
+                            </table>
+                            <div>
+                                <ul style="display:flex; margin-bottom:1rem;">
+                                    <li>
+                                        <span style="margin: 0 0 0 9rem;">
+                                        <span style="color:red;"> ● </span>
+                                            예매가능 날짜</span></li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 회차 및 좌석등급-->
                         <div>
                             <div style="margin-top:1rem;
                                          text-align: center;">
-                             <span>회차선택</span>
-                            <div style="
-                                 text-align-last: left;
-                                 margin: 1rem 0;
-                                 border: 1px solid;
-                                 width: 11rem;
-                                 height: 9rem;
-                                 padding : 1rem ">
-                                <ul>
-                                    <li>야아</li>
-                                    <li>야아</li>
-                                    <li>야아</li>
-                                </ul>
-                            </div>
-
-                            <span>좌석등급</span>
-                                <div style="
-                                 text-align-last: left;
-                                 margin-top: 1rem;
-                                 border: 1px solid;
-                                 width: 11rem;
-                                 height: 9rem;
-                                 padding : 1rem ">
+                                <!-- 회차선택 -->
+                                <span>회차선택</span>
+                                <div class="choice_selector">
                                     <ul>
-                                        <li>R석 77,000원</li>
-                                        <li>S석 55,000원</li>
+                                        <li>야아</li>
+                                        <li>야아</li>
+                                        <li>야아</li>
                                     </ul>
                                 </div>
-
-
+                                <!-- 좌석등급 -->
+                                <span>좌석등급</span>
+                                    <div class="choice_selector">
+                                        <ul>
+                                            <li>R석 77,000원</li>
+                                            <li>S석 55,000원</li>
+                                        </ul>
+                                    </div>
+                                <!-- 좌석버튼 -->
                                 <button onclick="window.location.href='링크주소를_입력하세요';"
-                                        style="background-color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
-                                        color: white;
-                                        padding: 10px 20px;
-                                        border: none;
-                                        cursor: pointer;
-                                        margin: 1rem;">
+                                        class="seat_selector_button">
                                     좌석 예매
                                 </button>
-
-
                             </div>
                         </div>
-                    </div> <!-- end container -->
-
+                    </div>
                 </div>
 
-                    <!-- 유의사항 -->
                 <div id="step01_notice" class="step01_notice" style="display: block;">
-                        <div id="guideview">
-                            <ul>
-                                <li>- 안내되어 있는 잔여석은 결제 진행 중인 좌석을 포함하고 있어 예매 가능 좌석과 다를 수 있습니다.</li>
-                                <li>- 할인은 자동선택 되지 않으니, <u>적용 받고자 하는 할인이 있는 경우 직접 선택</u>해주시기 바랍니다.</li>
-                                <li>- 장애인, 국가유공자, 학생 할인 등 증빙서류가 필요한 경우 현장수령만 가능하며, <u>현장에서 증빙서류 미지참 시 차액 지불</u>하셔야 합니다.</li>
-                                <li>- <u>관람 당일 공연 예매 시에는 변경/취소/환불이 불가</u>합니다.</li>
-                                <li>- 경우에 따라 ATM 기기에서 가상계좌 입금이 안 될 수 있으니 가급적 인터넷/폰뱅킹 등을 이용해주시기 바랍니다.</li>
-                                <li>- 예매 취소 시 <u>예매수수료는 예매 당일 밤 12시 이전까지 환불되며, 그 이후 기간에는 환불되지 않습니다.</u></li>
-                                <li>- 예매 취소 시점에 따라 취소수수료가 부과될 수 있습니다. 예매 후 취소마감시간과 함께 취소수수료를 꼭 확인해주시기 바랍니다.</li>
-                            </ul>
-                        </div>
-                        <!-- 공연안내 미등록시 보여줄 Default 문구 -->
-                        <div id="guideview_default" style="display: none;">
-                            <ul>
-                                <li>- 안내되어 있는 잔여석은 결제 진행 중인 좌석을 포함하고 있어 예매 가능 좌석과 다를 수 있습니다.</li>
-                                <li>- 할인은 자동선택 되지 않으니, <u>적용 받고자 하는 할인이 있는 경우 직접 선택</u>해주시기 바랍니다.</li>
-                                <li>- 장애인, 국가유공자, 학생 할인 등 증빙서류가 필요한 경우 현장수령만 가능하며, <u>현장에서 증빙서류 미지참 시 차액 지불</u>하셔야 합니다.</li>
-                                <li>- <u>관람 당일 공연 예매 시에는 변경/취소/환불이 불가</u>합니다.</li>
-                                <li>- 경우에 따라 ATM 기기에서 가상계좌 입금이 안 될 수 있으니 가급적 인터넷/폰뱅킹 등을 이용해주시기 바랍니다.</li>
-                                <li>- 예매 취소 시 <u>예매수수료는 예매 당일 밤 12시 이전까지 환불되며, 그 이후 기간에는 환불되지 않습니다.</u></li>
-                                <li>- 예매 취소 시점에 따라 취소수수료가 부과될 수 있습니다. 예매 후 취소마감시간과 함께 취소수수료를 꼭 확인해주시기 바랍니다.</li>
-                            </ul>
-                        </div>
-                        <div id="guideview_smfanclub" style="display: none;">
-                            <ul>
-                                <li>- ACE 회원 코드는 결제 완료된 건에 한해 발급되며 SMS, 이메일 또는 MY티켓에서 확인 가능합니다.</li>
-                                <li>- 발급받은 ACE 회원 코드는 Lysn 에 등록해주셔야 ACE 회원(유료회원)으로 전환 완료됩니다. </li>
-                                <li>- ACE 회원 코드 유효기간은 발급일로부터 30일입니다. 유효기간 만료 시 사용 불가하니 이용에 유의하시기 바랍니다. </li>
-                                <li>- Welcome Kit는 ACE 회원 전환 완료 순서에 따라 순차적으로 배송됩니다. </li>
-                                <li>- Lysn 에 등록 및 인증 절차가 완료된 후(ACE 회원으로의 전환 완료)에는 일정 금액의 위약금이 발생하며, 이를 제외하고 남은 ACE 회원 자격의 유효기간에 비례한 금액을 산정하여 환불합니다</li>
-                                <li>- ACE 회원에게 주어지는 혜택 중 아티스트의 콘서트, 유료 팬미팅 등에 관한 티켓 선예매 혜택이 제공된 시점 또는 Welcome Kit 제작이 시작된 경우 전액 환불이 불가합니다.</li>
-                            </ul>
-                        </div>
+                    <!-- 유의사항 -->
+                    <div id="guideview">
+                        <ul>
+                            <li>- 안내되어 있는 잔여석은 결제 진행 중인 좌석을 포함하고 있어 예매 가능 좌석과 다를 수 있습니다.</li>
+                            <li>- 할인은 자동선택 되지 않으니, <u>적용 받고자 하는 할인이 있는 경우 직접 선택</u>해주시기 바랍니다.</li>
+                            <li>- 장애인, 국가유공자, 학생 할인 등 증빙서류가 필요한 경우 현장수령만 가능하며, <u>현장에서 증빙서류 미지참 시 차액 지불</u>하셔야 합니다.</li>
+                            <li>- <u>관람 당일 공연 예매 시에는 변경/취소/환불이 불가</u>합니다.</li>
+                            <li>- 경우에 따라 ATM 기기에서 가상계좌 입금이 안 될 수 있으니 가급적 인터넷/폰뱅킹 등을 이용해주시기 바랍니다.</li>
+                            <li>- 예매 취소 시 <u>예매수수료는 예매 당일 밤 12시 이전까지 환불되며, 그 이후 기간에는 환불되지 않습니다.</u></li>
+                            <li>- 예매 취소 시점에 따라 취소수수료가 부과될 수 있습니다. 예매 후 취소마감시간과 함께 취소수수료를 꼭 확인해주시기 바랍니다.</li>
+                        </ul>
+                    </div>
                 </div>
-            <!-- //공연안내 -->
-                </div>
+            </div>
 
-
-
-
-            <!-- 상황판 -->
-        <div id="StateBoard">
+            <!-- 오른쪽 예매 상황-->
+            <div id="StateBoard">
                 <div class="result">
                     <div id="perfboard" class="title">
-                    <div class="select_infor">
-                        <h3 style="text-align-last: center;">선택내역</h3>
-                        <ul>
-                            <li style="display: inline-table;margin-left: 3rem;" >
-                                    <img src="/images/con_6.jpg" alt="슬라이드" style="width:9rem;margin-bottom: 1rem;">
-                            </li>
-                            <li><span>아티스트</span></li>
-                            <li><span id="tk_day">날짜</span></li>
-                            <li><span id="tk_time">시간</span></li>
-                            <li><span id="tk_count">매수</span></li>
-                            <li><span id="tk_seat">좌석</span></li>
-                        </ul>
-                        <h3>결제금액</h3>
-                    </div>
-                    <div class="btn">
-                        <div id="StepCtrlBtnPanel" class="tc">
-                            <div id="StepCtrlBtn01" style="display: block;">
-                                <a class="dcursor" onclick="fdc_VerifySelSeatNumber();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next04.gif" alt="다음단계"></a>
-                            </div>
-                            <div id="StepCtrlBtn03" style="display:none;">
-                                <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP1);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                <a class="dcursor" onclick="fdc_PromotionEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
-                            </div>
-                            <div id="StepCtrlBtn04" style="display:none;">
-                                <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP3);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                <a class="dcursor" onclick="fdc_DeliveryEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
-                            </div>
-                            <div id="StepCtrlBtn05" style="display:none;">
-                                <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP4);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
-                                <a class="dcursor" onclick="fdc_PrePayCheck();"><img id="imgPayEnd" src="http://tkfile.yes24.com/img/perfsale/btn_succ.gif" alt="결제하기"></a>
+                        <!-- 상황판 -->
+                        <div class="select_infor">
+                            <h3 style="text-align-last: center;">선택내역</h3>
+                            <!-- 예매내역 -->
+                            <ul>
+                                <li class="concert_poster_li" >
+                                    <img src="/images/con_6.jpg"
+                                         alt="슬라이드"
+                                         class="concert_poster">
+                                </li>
+                                <li><span>아티스트</span></li>
+                                <li><span id="tk_day">날짜</span></li>
+                                <li><span id="tk_time">시간</span></li>
+                                <li><span id="tk_count">매수</span></li>
+                                <li><span id="tk_seat">좌석</span></li>
+                            </ul>
+                            <h3>결제금액</h3>
+                        </div>
+
+                        <!-- 다음단계 이전단계 버튼  -->
+                        <div class="btn">
+                            <div id="StepCtrlBtnPanel" class="tc">
+                                <div id="StepCtrlBtn01" style="display: block;">
+                                    <a class="dcursor" onclick="fdc_VerifySelSeatNumber();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next04.gif" alt="다음단계"></a>
+                                </div>
+                                <div id="StepCtrlBtn03" style="display:none;">
+                                    <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP1);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
+                                    <a class="dcursor" onclick="fdc_PromotionEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
+                                </div>
+                                <div id="StepCtrlBtn04" style="display:none;">
+                                    <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP3);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
+                                    <a class="dcursor" onclick="fdc_DeliveryEnd();"><img src="http://tkfile.yes24.com/img/perfsale/btn_next02.gif" alt="다음단계"></a>
+                                </div>
+                                <div id="StepCtrlBtn05" style="display:none;">
+                                    <a class="dcursor" onclick="fdc_GoPrevStep(jcSTEP4);"><img src="http://tkfile.yes24.com/img/perfsale/btn_prev.gif" alt="이전단계"></a>
+                                    <a class="dcursor" onclick="fdc_PrePayCheck();"><img id="imgPayEnd" src="http://tkfile.yes24.com/img/perfsale/btn_succ.gif" alt="결제하기"></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--// 상황판 -->
-        </div>
 
-
-
-        <!-- 제 2 단계 : 좌석선택 (좌석플래시) -->
-        <div id="SeatFlashArea" style="display: none;">
-            <div class="seat_arrange">
-
-
+            <!--좌석선택 reserveSeat 자리-->
+            <div id="SeatFlashArea" style="display: none;">
+                <div class="seat_arrange">
+                </div>
             </div>
-        </div>
-        <!-- //제 2 단계 : 좌석선택 (좌석플래시) -->
-        <!-- 결과페이지 -->
-        <div id="SuccessBoard" style="display: none;">
-            <div class="success">
 
+
+            <!--결제방법 reserveForm 자리-->
+            <div style="display: none;">
+                <div>
+                </div>
             </div>
-        </div>
+
+
         </div>
     </div>
-    </body>
     </div>
 
 <th:block layout:fragment="script">
