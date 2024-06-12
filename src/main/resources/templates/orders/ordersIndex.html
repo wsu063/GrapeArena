@@ -50,8 +50,8 @@
             </table>
         </div>
         <hr>
-        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-3">
-            <div class="col">
+<!--        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-3">-->
+<!--            <div class="col">-->
 <!--                <div class="card mb-4 rounded-3 shadow-sm">-->
 <!--                    <div class="card-header py-3">-->
 <!--                        <h4 class="my-0 fw-normal">총 수량</h4>-->
@@ -60,8 +60,8 @@
 <!--                        <h1 class="card-title pricing-card-title" th:text="${totalCount} + '개'">$0</h1>-->
 <!--                    </div>-->
 <!--                </div>-->
-            </div>
-        </div>
+<!--            </div>-->
+<!--        </div>-->
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-3">
             <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm">
@@ -69,7 +69,7 @@
                         <h4 class="my-0 fw-normal">총 결제금액</h4>
                     </div>
                     <form class="card-body" onsubmit="return orderGoods();" th:action="@{/orders}" method="post">
-                        <h1 class="card-title pricing-card-title" th:text="${#numbers.formatInteger(totalPrice, 0, 'COMMA')} + '원'">$0</h1>
+                        <h1 class="card-title pricing-card-title" th:text="${#numbers.formatInteger(orderTotalPrice, 0, 'COMMA')} + '원'">0</h1>
                         <ul class="list-unstyled mt-3 mb-4">
                             <li>잘못 담은 물건이 있는지 확인해보세요!</li>
                         </ul>
@@ -83,19 +83,23 @@
 
 
 <th:block layout:fragment="script">
-    function cancel() {
+
+    <script th:inline="javascript">
+        function cancel() {
         if (1) {
         alert("주문 취소가 완료되었습니다.");
-     return true;
-    }
-}
-
-    function orderGoods() {
-    if (confirm("구매를 확정하시겠습니까?")) {
-    alert("구매가 완료되었습니다.");
         return true;
-    }
+        }
+     }
+
+        function orderGoods() {
+        if (confirm("구매를 확정하시겠습니까?")) {
+        alert("구매가 완료되었습니다.");
+        return true;
+        }
         return false;
-}
+      }
+    </script>
+
 </th:block>
 </html>
