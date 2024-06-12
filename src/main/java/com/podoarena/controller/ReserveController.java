@@ -35,7 +35,7 @@ public class ReserveController {
     // 콘서트 예매 내역 이동
     @GetMapping(value="/reserves/reserveDtl")
     public String reserveDtl(Model model){
-        model.addAttribute("reserveFormDto", new ReserveFormDto());
+//        model.addAttribute("reserveFormDto", new ReserveFormDto());
         return "reserve/reserveDtl";
     }
 
