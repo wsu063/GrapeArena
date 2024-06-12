@@ -3,13 +3,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
   <head>
-    <meta name="_csrf" th:content="${_csrf.token}" />
-    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   </head>
   
-<th:block layout:fragment="css">
+  <th:block layout:fragment="css">
     <style>
-        .addCart {
+      .addCart {
         display: block;
         color: #FFFFFF;
         text-transform: uppercase;
@@ -18,8 +18,8 @@
         text-align: center;
         line-height: 40px;
         width: 100%;
-        }
-
+      }
+    
     </style>
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
@@ -28,137 +28,144 @@
     <link rel="stylesheet" type="text/css" th:href="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/single_styles.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/single_responsive.css}">
-</th:block>
-
-<div layout:fragment="content">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+  </th:block>
+  
+  <div layout:fragment="content">
+    <button class="topbtn">TOP</button>
     <div class="super_container">
-        <div class="fs_menu_overlay"></div>
-        <div class="container single_product_container">
-            <div class="row">
-                <div class="col">
-
-                    <!-- 세부항목(?) -->
-                    <div class="breadcrumbs d-flex flex-row align-items-center">
-                        <ul>
-                            <li><a href="/goods/goodsIndex">MD샵</a></li>
-                            <li><a href="/goods/goodsIndex"><i class="fa fa-angle-right" aria-hidden="true"></i>TOUR MERCH</a></li>
-                            <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Merch</a></li>
-                        </ul>
-                    </div>
-                </div>
+      <div class="fs_menu_overlay"></div>
+      <div class="container single_product_container">
+        <div class="row">
+          <div class="col">
+            
+            <!-- 세부항목(?) -->
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+              <ul>
+                <li><a href="/goods/goodsIndex">MD샵</a></li>
+                <li><a href="/goods/goodsIndex"><i class="fa fa-angle-right" aria-hidden="true"></i>TOUR MERCH</a></li>
+                <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Merch</a></li>
+              </ul>
             </div>
-
-          <form>
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="single_product_pics">
-                        <div class="row">
-                            <!-- 상품 이미지 -->
-                            <div class="col-lg-9 image_col order-lg-2 order-1">
-                                <div class="single_product_image">
-                                  <img class="single_product_image_background"
-                                  th:src="${goods.getGoodsImgDtoList().get(0).getImgUrl()}"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="product_details">
-                        <!-- 상품 타이틀, 가격 -->
-                        <div class="product_details_title">
-                            <h3 th:text="${goods.goodsName}"></h3>
-                            <strong style="font-size: 1.5rem;">￦&nbsp;&nbsp;[[${#numbers.formatInteger(goods.goodsPrice,0, 'COMMA')}]]</strong>
-                            <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
-                                <span class="ti-truck">&nbsp;무료배송</span>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <!-- 상품 개수 -->
-                        <div>
-                            <span th:text="${goods.goodsName}" >상품명</span>
-                        </div>
-                      <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-                        <div class="quantity_selector">
-                          <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                          <span id="quantity_value" class="count">1</span>
-                          <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                        </div>
-                        <div>
-                          <div class="product_price">
-                            <span id="total_price" th:text="'￦' +${#numbers.formatInteger(goods.goodsPrice, 0, 'COMMA')}"></span>
-                          </div>
-                        </div>
-                      </div>
-
-                        <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
-                            <i class="fa-solid fa-circle-exclamation"></i>&nbsp;
-                            <span th:text="'최대 ' + ${goods.goodsMaxAmount} + '개까지 구입 가능합니다.'" > 최대 n개까지 구매 가능합니다.</span>
-                        </div>
-                        <div class="quantity">
-                            <div> <b>총 상품 금액</b></div>
-                            <div id="total_price2" th:text="'￦' +${#numbers.formatInteger(goods.goodsPrice, 0, 'COMMA')}" ></div>
-                        </div>
-                        <div style="display: flex; justify-content: center; margin-top: 30px;">
-                            <button class="red_button add_to_cart_button" onclick="addCartGoods()" style="color: white; cursor: pointer; border:none;">카트 추가</button>
-                            <button class="red_button add_to_cart_button" style="border:none;"><a href="/orders/ordersIndex">바로 구매</a></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <input id="goods" type="hidden" th:value="${goods}" />
-            <input id="goods_max_amount" type="hidden" th:value="${goods.goodsMaxAmount}" />
-            <input id="price_per_goods" type="hidden" th:value="${goods.goodsPrice}" />
-            <input id="goodsId" type="hidden" th:value="${goods.id}" />
-            <input id="memberId" type="hidden" th:value="${member.id}" />
-          </form>
+          </div>
         </div>
-
-        <!-- Tabs -->
-
-        <div class="tabs_section_container">
-
-            <div class="container">
+        
+        <form>
+          <div class="row">
+            <div class="col-lg-7">
+              <div class="single_product_pics">
                 <div class="row">
-                    <div class="col">
-
-                        <!-- 상품설명 -->
-                        <div class="row">
-                            <div class="col">
-                                <div class="tabs_container">
-                                    <div class="notiBox">
+                  <!-- 상품 이미지 -->
+                  <div class="col-lg-9 image_col order-lg-2 order-1">
+                    <div class="single_product_image">
+                      <img class="single_product_image_background"
+                           th:src="${goods.getGoodsImgDtoList().get(0).getImgUrl()}"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="product_details">
+                <!-- 상품 타이틀, 가격 -->
+                <div class="product_details_title">
+                  <h3 th:text="${goods.goodsName}"></h3>
+                  <strong style="font-size: 1.5rem;">￦&nbsp;&nbsp;[[${#numbers.formatInteger(goods.goodsPrice,0,
+                    'COMMA')}]]</strong>
+                  <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
+                    <span class="ti-truck">&nbsp;무료배송</span>
+                  </div>
+                </div>
+                
+                <hr>
+                
+                <!-- 상품 개수 -->
+                <div>
+                  <span th:text="${goods.goodsName}">상품명</span>
+                </div>
+                <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                  <div class="quantity_selector">
+                    <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                    <span id="quantity_value" class="count">1</span>
+                    <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                  </div>
+                  <div>
+                    <div class="product_price">
+                      <span id="total_price"
+                            th:text="'￦' +${#numbers.formatInteger(goods.goodsPrice, 0, 'COMMA')}"></span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
+                  <i class="fa-solid fa-circle-exclamation"></i>&nbsp;
+                  <span th:text="'최대 ' + ${goods.goodsMaxAmount} + '개까지 구입 가능합니다.'"> 최대 n개까지 구매 가능합니다.</span>
+                </div>
+                <div class="quantity">
+                  <div><b>총 상품 금액</b></div>
+                  <div id="total_price2" th:text="'￦' +${#numbers.formatInteger(goods.goodsPrice, 0, 'COMMA')}"></div>
+                </div>
+                <div style="display: flex; justify-content: center; margin-top: 30px;">
+                  <button class="red_button add_to_cart_button" onclick="addCartGoods()"
+                          style="color: white; cursor: pointer; border:none;">카트 추가
+                  </button>
+                  <button class="red_button add_to_cart_button" style="border:none;"><a href="/orders/ordersIndex">바로
+                    구매</a></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <input id="goods" type="hidden" th:value="${goods}"/>
+          <input id="goods_max_amount" type="hidden" th:value="${goods.goodsMaxAmount}"/>
+          <input id="price_per_goods" type="hidden" th:value="${goods.goodsPrice}"/>
+          <input id="goodsId" type="hidden" th:value="${goods.id}"/>
+          <input id="memberId" type="hidden" th:value="${member.id}"/>
+        </form>
+      </div>
+      
+      <!-- Tabs -->
+      
+      <div class="tabs_section_container">
+        
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              
+              <!-- 상품설명 -->
+              <div class="row">
+                <div class="col">
+                  <div class="tabs_container">
+                    <div class="notiBox">
                                 <span>
                                     <b>[판매공지]</b>
                                     <br>
-                                  <th:block th:text="'최대 구매 수량은' + ${goods.goodsMaxAmount} + '개입니다.'" >
+                                  <th:block th:text="'최대 구매 수량은' + ${goods.goodsMaxAmount} + '개입니다.'">
                                     ● 최대 구매 수량은 3개 입니다.
                                     </th:block>
                                 </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div id="tab_1" class="tab_container active">
-                            <div class="tab_title">
-                                <h4 style="padding-top: 2rem;">
-                                    <strong>상품설명</strong></h4>
-                            </div>
-                            <div style="display: flex; justify-content: center;">
-                                <img th:src="${goods.getGoodsImgDtoList().get(1).getImgUrl()}" alt="">
-                            </div>
-                        </div>
                     </div>
+                  </div>
                 </div>
+              </div>
+              
+              
+              <div id="tab_1" class="tab_container active">
+                <div class="tab_title">
+                  <h4 style="padding-top: 2rem;">
+                    <strong>상품설명</strong></h4>
+                </div>
+                <div style="display: flex; justify-content: center;">
+                  <img th:src="${goods.getGoodsImgDtoList().get(1).getImgUrl()}" alt="">
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-<th:block layout:fragment="script">
+  </div>
+  
+  <th:block layout:fragment="script">
     <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
     <script th:src="@{/css/bootstrap4/popper.js}"></script>
     <script th:src="@{/css/bootstrap4/bootstrap.min.js}"></script>
@@ -167,12 +174,12 @@
     <script th:src="@{/plugins/easing/easing.js}"></script>
     <script th:src="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
     <script th:src="@{/js/single_custom.js}"></script>
-
-
+    
+    
     <script th:inline="javascript">
-      $(document).ready(function() {
+      $(document).ready(function () {
         var pricePerItem = parseInt([[${goods.goodsPrice}]]);
-        var maxAmount =  parseInt([[${goods.goodsMaxAmount}]]);
+        var maxAmount = parseInt([[${goods.goodsMaxAmount}]]);
         var quantity = parseInt($('#quantity_value').text());
         
         function updateTotalPrice() {
@@ -181,7 +188,7 @@
           $('#total_price2').text('￦' + totalPrice.toLocaleString('ko-KR'));
         }
         
-        $('.plus').click(function() {
+        $('.plus').click(function () {
           if (quantity < maxAmount) {
             quantity++;
             $('#quantity_value').text(quantity);
@@ -192,7 +199,7 @@
         });
         
         
-        $('.minus').click(function() {
+        $('.minus').click(function () {
           if (quantity > 1) {
             quantity--;
             $('#quantity_value').text(quantity);
@@ -202,8 +209,9 @@
         
         updateTotalPrice();
       });
+      
       function addCartGoods() {
-        var goodsId= $("#goodsId").val();
+        var goodsId = $("#goodsId").val();
         var memberId = $("#memberId").val();
         var goodsCount = parseInt($('#quantity_value').text());
         
@@ -211,31 +219,51 @@
         var header = $("meta[name='_csrf_header']").attr("content");
         
         var formData = {
-          goodsId : goodsId,
-          goodsCount : goodsCount,
-            memberId : memberId,
+          goodsId: goodsId,
+          goodsCount: goodsCount,
+          memberId: memberId,
         };
         
         $.ajax({
           url: "/members/addCart",
           type: "POST",
           contentType: "application/json",
-          beforeSend: function(xhr) {
+          beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
           },
           dataType: "text",
           cache: false,
           data: JSON.stringify(formData),
-          success: function(result, status, xhr, formData) {
+          success: function (result, status, xhr, formData) {
             confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?");
-            location.href= "/members/cart";
+            location.href = "/members/cart";
             
           },
-          error: function(jqXHR, status, error) {
+          error: function (jqXHR, status, error) {
             alert("장바구니에 추가를 실패했습니다. 관리자에게 문의하세요.")
           }
         });
       }
+      
+      //TOP버튼
+      $(document).ready(function () {
+        
+        // Top 버튼 특정 스크롤높이에서만 보이기 / 숨기기
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 20) {
+            $('.topbtn').fadeIn();
+          } else {
+            $('.topbtn').fadeOut();
+          }
+        });
+        
+        // Top 버튼 클릭시 페이지 상단으로 이동
+        $('.topbtn').click(function () {
+          $('html, body').animate({scrollTop: 0}, 800);
+          return false;
+        });
+        
+      });
     </script>
-</th:block>
+  </th:block>
 </html>

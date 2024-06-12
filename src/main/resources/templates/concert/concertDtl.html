@@ -12,9 +12,12 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/single_styles.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/single_responsive.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/concertDtl.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/btn.css}">
+  
 </th:block>
 
 <div layout:fragment="content">
+  <button class="topbtn">TOP</button>
     <th:block th:object="${concertFormDto}">
         <div class="super_container">
             <div class="fs_menu_overlay"></div>
@@ -67,9 +70,9 @@
 
                                         <div class="form_details">
                                             <label class="text-black">공연기간</label>
-                                            <span th:text="${#temporals.format(concertFormDto.dates[0].dateTime, 'yyyy.MM.dd')}"></span>
-                                            <span> ~ </span>
-                                            <span th:text="${#temporals.format(concertFormDto.dates[concertFormDto.dates.size() - 1].dateTime, 'yyyy.MM.dd')}"></span>
+                                            <span th:text="${#temporals.format(concertFormDto.dates[0].dateTime, 'yyyy.MM.dd')} +
+                                                ' ~ ' +
+                                                 ${#temporals.format(concertFormDto.dates[concertFormDto.dates.size() - 1].dateTime, 'yyyy.MM.dd')}"></span>
                                         </div>
 
                                         <div class="form_details">
@@ -198,7 +201,6 @@
     <script th:src="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.js}"></script>
     <script th:src="@{/js/single_custom.js}"></script>
 
-
     <script th:inline="javascript">
         let currentYear = new Date().getFullYear();
         let currentMonth = new Date().getMonth();
@@ -301,6 +303,26 @@
                 alert('팝업이 차단되었습니다. 팝업을 허용해주세요.');
             }
         }
+        
+        //TOP버튼
+        $(document).ready(function() {
+          
+          // Top 버튼 특정 스크롤높이에서만 보이기 / 숨기기
+          $(window).scroll(function(){
+            if($(this).scrollTop() > 20){
+              $('.topbtn').fadeIn();
+            }else{
+              $('.topbtn').fadeOut();
+            }
+          });
+          
+          // Top 버튼 클릭시 페이지 상단으로 이동
+          $('.topbtn').click(function(){
+            $('html, body').animate({scrollTop : 0}, 800);
+            return false;
+          });
+          
+        });
 
     </script>
 </th:block>
