@@ -157,33 +157,33 @@ public class CartService {
                 .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아옴
         cartRepository.delete(cart); //카트 아이템 삭제
     }
-//
-//    //카트 굿즈 주문
-//    public Long orderGoodsCart(List<GoodsCartDto> goodsCartDtoList, String email) {
-//        List<OrderDto> orderDtoList = new ArrayList<>();
-//
-//        //주문할 각 카트 굿즈
-//        for (GoodsCartDto goodsCartDto : goodsCartDtoList) {
-//            GoodsCart goodsCart = goodsCartRepository
-//                    .findById(goodsCartDto.getGoodsCartId())
-//                    .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아온다
-//
-//            OrderDto orderDto = new OrderDto();
-//            orderDto.setGoodsId(goodsCart.getCart().getId()); // 굿즈 아이디 설정
-//            orderDto.setCount(goodsCart.getGoodsCount()); // 수량 설정
-//            orderDtoList.add(orderDto);
-//        }
-//
-//        //주문 서비스 호출하여 주문 생성
-//        Long orderId = orderService.orders(orderDtoList, email);
-//        for (OrderDto orderDto : orderDtoList) {
-//            GoodsCart goodsCart = goodsCartRepository
-//                    .findById(orderDto.getGoodsId())
-//                    .orElseThrow(EntityNotFoundException::new);
-//            goodsCartRepository.delete(goodsCart);
-//        }
-//
-//        return orderId;
-//    }
+
+    //카트 굿즈 주문
+    public Long orderGoodsCart(List<GoodsCartDto> goodsCartDtoList, String email) {
+        List<OrderDto> orderDtoList = new ArrayList<>();
+
+        //주문할 각 카트 굿즈
+        for (GoodsCartDto goodsCartDto : goodsCartDtoList) {
+            GoodsCart goodsCart = goodsCartRepository
+                    .findById(goodsCartDto.getGoodsCartId())
+                    .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아온다
+
+            OrderDto orderDto = new OrderDto();
+            orderDto.setGoodsId(goodsCart.getCart().getId()); // 굿즈 아이디 설정
+            orderDto.setCount(goodsCart.getGoodsCount()); // 수량 설정
+            orderDtoList.add(orderDto);
+        }
+
+        //주문 서비스 호출하여 주문 생성
+        Long orderId = orderService.orders(orderDtoList, email);
+        for (OrderDto orderDto : orderDtoList) {
+            GoodsCart goodsCart = goodsCartRepository
+                    .findById(orderDto.getGoodsId())
+                    .orElseThrow(EntityNotFoundException::new);
+            goodsCartRepository.delete(goodsCart);
+        }
+
+        return orderId;
+    }
 
 }
