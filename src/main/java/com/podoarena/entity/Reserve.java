@@ -26,7 +26,7 @@ public class Reserve {
     private List<ReserveSeat> reserveSeats = new ArrayList<>();
 
     //추가
-    public void addReserveSeat(ReserveSeat reserveSeat) {
+    public void addReserve(ReserveSeat reserveSeat) {
         this.reserveSeats.add(reserveSeat);
         reserveSeat.setReserve(this);
     }

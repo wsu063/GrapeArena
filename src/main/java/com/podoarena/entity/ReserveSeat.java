@@ -25,6 +25,10 @@ public class ReserveSeat extends BaseEntity {
     private Reserve reserve;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_concert_id")
     private PlaceConcert placeConcert;
 

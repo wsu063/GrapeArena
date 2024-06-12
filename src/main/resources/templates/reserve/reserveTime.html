@@ -73,8 +73,9 @@
                                     <div class="choice_selector">
                                             <ul id="unTime">
                                                 <th:block th:each="date, index : ${concertFormDto.dates}">
-                                                    <li th:id="'date' + ${index.index}" th:value="${date.dateTime}"
-                                                        th:text="'[' + ${index.count} + '회] ' + ${#temporals.format(date.dateTime, 'MM.dd hh:mm')}" >
+                                                    <li th:id="'date' + ${index.index}" th:data-id="${date.id}" th:value="${date.dateTime}">
+                                                        <span th:text="'[' + ${index.count} + '회] ' + ${#temporals.format(date.dateTime, 'MM.dd hh:mm')}"></span>
+                                                        <input type="hidden" th:id="'date_' + ${index.index}" th:value="${date.id}" />
                                                     </li>
                                                 </th:block>
                                             </ul>
@@ -143,8 +144,8 @@
                             <!-- 다음단계 이전단계 버튼  -->
                             <div class="step_btn">
                                 <!-- 다음 버튼 -->
-                                <form id="selectedTimeForm" th:action="@{'/reserves/reserveSeat/' + ${concertFormDto.id}}" method="post">
-                                    <input type="hidden" id="selectedTime" name="selectedTime" value>
+                                <form name="reserveForm" th:action="@{'/reserves/reserveSeat/' + ${concertFormDto.id}}" method="post">
+                                    <input type="hidden" name="dateId" id="dateId"value>
                                     <button class="next_button"
                                             type="button">
                                         다음 단계
@@ -269,16 +270,16 @@ selectTime();
 
 
 function onNextButtonClick() {
-    var selectedTime = $("#unTime .on").text(); // 선택된 회차
-
+    var dateId= $("#unTime .on").data("id"); // 선택된 회차의 dateId 문자열
+    const f = document.reserveForm;
     // 회차가 선택되지 않은 경우
-    if (!selectedTime) {
+    if (!dateId) {
         alert("회차를 선택해주세요.");
     } else {
         // 선택된 값을 히든 필드에 설정
-        document.getElementById('selectedTime').value = selectedTime;
+        document.getElementById('dateId').value = dateId;
         // 폼 제출
-        document.getElementById('selectedTime').submit();
+        f.submit();
     }
 }
 
