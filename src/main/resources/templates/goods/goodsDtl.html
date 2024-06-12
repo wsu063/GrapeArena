@@ -258,10 +258,13 @@
         });
         
         // Top 버튼 클릭시 페이지 상단으로 이동
-        $('.topbtn').click(function () {
-          $('html, body').animate({scrollTop: 0}, 800);
-          return false;
-        });
+        $('.topbtn').click(function() {
+          $('html, body').animate({scrollTop: 0}, {
+                duration: 0, // 애니메이션 지속 시간 (밀리초)
+                easing: 'linear' // 이징 효과
+              }
+          )});
+        
         
       });
     </script>
