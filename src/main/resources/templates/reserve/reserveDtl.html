@@ -11,143 +11,152 @@
 </th:block>
 
 <div layout:fragment="content">
+    <th:block th:object="${concertFormDto}">
+        <div id="warp">
+            <div id="all" style="display: block;">
+                <!--상단 메뉴 -->
+                <div id="header" class="header">
+                    <ul class="gnb">
+                        <li class="m01 on"><span>관람일/회차</span></li>
+                        <li class="m02"><span>좌석선택</span></li>
+                        <li class="m03"><span>결제하기</span></li>
+                    </ul>
+                </div>
 
-    <div id="warp">
-        <div id="all" style="display: block;">
-
-            <!--상단 메뉴 -->
-            <div id="header" class="header">
-                <ul class="gnb">
-                    <li class="m01 on"><span>관람일/회차</span></li>
-                    <li class="m02"><span>좌석선택</span></li>
-                    <li class="m03"><span>결제하기</span></li>
-                </ul>
-            </div>
-
-            <div id="ContentsArea" class="main_contents" style="display: block;">
-                <div id="step01">
-                    <!-- 컨텐츠 -->
-                    <div style="display: flex;">
-                        <!-- 관람일 캘린더-->
-                        <div class="calendar-container" style="padding-top: 2rem;">
-                            <header style=" height: 7rem;
-                                            width: 82%;
-                                            background: gray;">
-
-                                <div class="day">관람일</div>
-                                <div class="month">
-                                    <button onclick="showPreviousMonth()">‹</button>
-                                    <span id="monthYear">2024.07</span>
-                                    <button onclick="showNextMonth()">›</button>
-                                </div>
-                            </header>
-                            <table class="calendar" style="margin-bottom: 1.5rem; width: 82%;">
-                                <thead>
-                                <tr>
-                                    <td>Mon</td>
-                                    <td>Tue</td>
-                                    <td>Wed</td>
-                                    <td>Thu</td>
-                                    <td>Fri</td>
-                                    <td>Sat</td>
-                                    <td>Sun</td>
-                                </tr>
-                                </thead>
-                                <tbody id="calendarBody">
-                                <!-- JavaScript will dynamically populate this tbody -->
-                                </tbody>
-                            </table>
-                            <div>
-                                <ul style="display:flex; margin-bottom:1rem;">
-                                    <li>
-                                        <span style="margin: 0 0 0 9rem;">
-                                        <span style="color:red;"> ● </span>
-                                            예매가능 날짜</span></li>
-
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- 회차 및 좌석등급-->
-                        <div>
-                            <div style="margin-top:1rem;
-                                         text-align: center;">
-                                <!-- 회차선택 -->
-                                <span>회차선택</span>
-                                <div class="choice_selector">
-                                        <ul id="unTime">
-                                            <li>[1회] 14시 00분</li>
-                                            <li>[2회] 16시 00분</li>
-                                            <li>[3회] 18시 00분</li>
-                                        </ul>
-                                </div>
-                                <!-- 좌석등급 -->
-                                <span>좌석등급</span>
-                                    <div class="grade_select">
-                                        <ul>
-                                            <li>VIP석 198,000원</li>
-                                            <li>R석 154,000원</li>
-                                            <li>S석 132,000원</li>
-                                        </ul>
+                <div id="ContentsArea" class="main_contents" style="display: block;">
+                    <div id="step01">
+                        <!-- 컨텐츠 -->
+                        <div style="display: flex;">
+                            <!-- 관람일 캘린더-->
+                            <div class="calendar-container" style="padding-top: 2rem;">
+                                <header style=" height: 7rem;
+                                                width: 82%;
+                                                background: gray;">
+                                    <div class="day">관람일</div>
+                                    <div class="month">
+                                        <button onclick="showPreviousMonth()">‹</button>
+                                        <span id="monthYear">2024.06</span>
+                                        <button onclick="showNextMonth()">›</button>
                                     </div>
+                                </header>
+                                <table class="calendar" style="margin-bottom: 1.5rem; width: 82%;">
+                                    <thead>
+                                    <tr>
+                                        <td>Mon</td>
+                                        <td>Tue</td>
+                                        <td>Wed</td>
+                                        <td>Thu</td>
+                                        <td>Fri</td>
+                                        <td>Sat</td>
+                                        <td>Sun</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="calendarBody">
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <ul style="display:flex; margin-bottom:1rem;">
+                                        <li>
+                                            <span style="margin: 0 0 0 9rem;">
+                                                <span style="color:#e66b6b;"> ● </span>
+                                                예매가능 날짜
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- 회차 및 좌석등급-->
+                            <div>
+                                <div style="margin-top:1rem;
+                                             text-align: center;">
+                                    <!-- 회차선택 -->
+                                    <span>회차선택</span>
+                                    <div class="choice_selector">
+                                            <ul id="unTime">
+                                                <th:block th:each="date, index : ${concertFormDto.dates}">
+                                                    <li th:id="'date' + ${index.index}" th:value="${date.dateTime}"
+                                                        th:text="'[' + ${index.count} + '회] ' + ${#temporals.format(date.dateTime, 'MM.dd hh:mm')}" >
+                                                    </li>
+                                                </th:block>
+                                            </ul>
+                                    </div>
+                                    <!-- 좌석등급 -->
+                                    <span>좌석등급</span>
+                                        <div class="grade_select">
+                                            <ul>
+                                                <li>VIP석 198,000원</li>
+                                                <li>R석 154,000원</li>
+                                                <li>S석 132,000원</li>
+                                            </ul>
+                                        </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div id="step01_notice" class="step01_notice" style="display: block;">
-                    <!-- 유의사항 -->
-                    <div id="guideview">
-                        <ul>
-                            <li>- 안내되어 있는 잔여석은 결제 진행 중인 좌석을 포함하고 있어 예매 가능 좌석과 다를 수 있습니다.</li>
-                            <li>- 할인은 자동선택 되지 않으니, <u>적용 받고자 하는 할인이 있는 경우 직접 선택</u>해주시기 바랍니다.</li>
-                            <li>- 장애인, 국가유공자, 학생 할인 등 증빙서류가 필요한 경우 현장수령만 가능하며, <u>현장에서 증빙서류 미지참 시 차액 지불</u>하셔야 합니다.</li>
-                            <li>- <u>관람 당일 공연 예매 시에는 변경/취소/환불이 불가</u>합니다.</li>
-                            <li>- 경우에 따라 ATM 기기에서 가상계좌 입금이 안 될 수 있으니 가급적 인터넷/폰뱅킹 등을 이용해주시기 바랍니다.</li>
-                            <li>- 예매 취소 시 <u>예매수수료는 예매 당일 밤 12시 이전까지 환불되며, 그 이후 기간에는 환불되지 않습니다.</u></li>
-                            <li>- 예매 취소 시점에 따라 취소수수료가 부과될 수 있습니다. 예매 후 취소마감시간과 함께 취소수수료를 꼭 확인해주시기 바랍니다.</li>
-                        </ul>
+                    <div id="step01_notice" class="step01_notice" style="display: block;">
+                        <!-- 유의사항 -->
+                        <div id="guideview">
+                            <ul>
+                                <li>- 안내되어 있는 잔여석은 결제 진행 중인 좌석을 포함하고 있어 예매 가능 좌석과 다를 수 있습니다.</li>
+                                <li>- 할인은 자동선택 되지 않으니, <u>적용 받고자 하는 할인이 있는 경우 직접 선택</u>해주시기 바랍니다.</li>
+                                <li>- 장애인, 국가유공자, 학생 할인 등 증빙서류가 필요한 경우 현장수령만 가능하며, <u>현장에서 증빙서류 미지참 시 차액 지불</u>하셔야 합니다.</li>
+                                <li>- <u>관람 당일 공연 예매 시에는 변경/취소/환불이 불가</u>합니다.</li>
+                                <li>- 경우에 따라 ATM 기기에서 가상계좌 입금이 안 될 수 있으니 가급적 인터넷/폰뱅킹 등을 이용해주시기 바랍니다.</li>
+                                <li>- 예매 취소 시 <u>예매수수료는 예매 당일 밤 12시 이전까지 환불되며, 그 이후 기간에는 환불되지 않습니다.</u></li>
+                                <li>- 예매 취소 시점에 따라 취소수수료가 부과될 수 있습니다. 예매 후 취소마감시간과 함께 취소수수료를 꼭 확인해주시기 바랍니다.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 오른쪽 예매 상황-->
-            <div id="StateBoard">
-                <div class="result">
-                    <div id="perfboard" class="title">
-                        <!-- 상황판 -->
-                        <div class="select_infor" style="padding-bottom:89px;">
-                            <h3 style="text-align-last: center;">선택내역</h3>
-                            <!-- 예매내역 -->
-                            <ul>
-                                <li class="concert_poster_li" >
-                                    <img src="/images/con_6.jpg"
-                                         alt="슬라이드"
-                                         class="concert_poster">
-                                </li>
-                                <li><span>아티스트</span></li>
-                                <li><span id="tk_day">날짜</span></li>
-                                <li><span id="tk_time">시간</span></li>
-                                <li><span id="tk_count">매수</span></li>
-                                <li><span id="tk_seat">좌석</span></li>
-                            </ul>
-                            <h3>결제금액</h3>
-                        </div>
+                <!-- 오른쪽 예매 상황-->
+                <div id="StateBoard">
+                    <div class="result">
+                        <div id="perfboard" class="title">
+                            <!-- 상황판 -->
+                            <div class="select_infor" style="padding-bottom:89px;">
+                                <h3 style="text-align-last: center;">선택내역</h3>
+                                <!-- 예매내역 -->
+                                <ul>
+                                    <li class="concert_poster_li" >
+                                        <img th:src="@{${concertFormDto.concertImgDtoList[0].imgUrl}}"
+                                             alt="슬라이드"
+                                             class="concert_poster">
+                                    </li>
+                                    <li class="infor_info">
+                                        <span>아티스트</span>
+                                        <p th:text="${concertFormDto.concertSinger}"></p>
+                                    </li>
+                                    <li class="infor_info">
+                                        <span id="tk_day">날짜</span>
+                                        <p th:text="${#temporals.format(concertFormDto.dates[0].dateTime, 'yyyy.MM.dd')} +
+                                        ' ~ ' + ${#temporals.format(concertFormDto.dates[concertFormDto.dates.size() - 1].dateTime, 'yyyy.MM.dd')}">
 
-                        <!-- 다음단계 이전단계 버튼  -->
-                        <div class="step_btn">
-                                <!-- 다음 버튼 -->
-                                <button class="next_button"
-                                        type="button">
-                                   다음 단계
-                                </button>
+                                        </p>
+                                    </li>
+                                    <li class="infor_info"><span id="tk_time">시간</span></li>
+                                    <li class="infor_info"><span id="tk_count">매수</span></li>
+                                    <li class="infor_info"><span id="tk_seat">좌석</span></li>
+                                </ul>
+                                <h3>결제금액</h3>
+                            </div>
+
+                            <!-- 다음단계 이전단계 버튼  -->
+                            <div class="step_btn">
+                                    <!-- 다음 버튼 -->
+                                    <button class="next_button"
+                                            type="button">
+                                       다음 단계
+                                    </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+    </th:block>
+</div>
 
 <th:block layout:fragment="script">
 
@@ -209,7 +218,7 @@
     }
     }
 
-    // 예시: 세 가지 특정한 날짜를 설정하고 해당 날짜들만 강조
+    // 세 가지 특정한 날짜를 설정하고 해당 날짜들만 강조
     const highlightedDates = [
     new Date(date0),
     new Date(date1),

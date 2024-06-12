@@ -139,7 +139,7 @@
                                         <div class="md-12 btn_div" style="width: 450px;">
                                             <button
                                                     class="ticket_btn"
-                                                    onclick="openAdvancedPopup()" >
+                                                    th:onclick="'openAdvancedPopup('+ ${concertFormDto.Id} + ')'" >
                                                 예매하기
                                             </button>
 
@@ -185,7 +185,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </th:block>
 </div>
 
@@ -257,7 +256,7 @@
             }
         }
 
-        // 예시: 세 가지 특정한 날짜를 설정하고 해당 날짜들만 강조
+        // 세 가지 특정한 날짜를 설정하고 해당 날짜들만 강조
         const highlightedDates = [
             new Date(date0),
             new Date(date1),
@@ -288,10 +287,10 @@
 
         // 팝업창으로 예약 페이지 띄우기
 
-             function openAdvancedPopup() {
-            var url = "http://localhost/reserves/reserveDtl";
+        function openAdvancedPopup(concertId) {
+            var url = "http://localhost/reserves/reserveDtl/" + concertId;
             var name = "popupWindow";
-            var specs = "width=970,height=600,top=100,left=100," +
+            var specs = "width=970,height=640,top=100,left=100," +
                         "toolbar=no,scrollbars=yes,resizable=yes," +
                         "status=no,menubar=no,location=no";
             var newWindow = window.open(url, name, specs);

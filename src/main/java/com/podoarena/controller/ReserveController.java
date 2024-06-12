@@ -38,14 +38,17 @@ public class ReserveController {
 
 
     // 콘서트 예약 페이지 이동
-    @GetMapping(value ="/reserves/reserveDtl")
-    public String reserveDtl(Model model) {
+    @GetMapping(value ="/reserves/reserveDtl/{concertId}")
+    public String reserveDtl(@PathVariable("concertId") Long concertId, Model model) {
+        ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
+        model.addAttribute("concertFormDto", concertFormDto);
         model.addAttribute("reserveFormDto", new ReserveFormDto());
         return "reserve/reserveDtl";
     }
 
-    @GetMapping(value ="/reserves/reservePay")
-    public String reservePay(Model model) {
+    @GetMapping(value ="/reserves/reservePay/{concertId}")
+    public String reservePay(@RequestParam("reserveFormDto") ReserveFormDto reserveFormDto,
+                             Model model) {
         model.addAttribute("reserveFormDto", new ReserveFormDto());
         return "reserve/reservePay";
     }
