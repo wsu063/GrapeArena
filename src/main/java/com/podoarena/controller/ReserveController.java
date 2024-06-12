@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,20 +50,12 @@ public class ReserveController {
         return "reserve/reserveTime";
     }
 
-    @GetMapping(value ="/reserves/reservePay/{concertId}")
-    public String reservePay(@RequestParam("reserveFormDto") ReserveSeatFormDto reserveSeatFormDto,
-                             Model model) {
-        model.addAttribute("reserveFormDto", new ReserveSeatFormDto());
-        return "reserve/reservePay";
-    }
-
-    @GetMapping(value ="/reserves/reserveSeat/{concertId}")
+    @PostMapping(value ="/reserves/reserveSeat/{concertId}")
     public String reserveSeat(@PathVariable("concertId") Long concertId,
-                               Model model) {
+                              @RequestParam("dateId") Long dateId,
+                              Model model) {
         ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
-        // @RequestParam("dateId") Long dateId,
-        // Date date = dateService.getDateByPlaceConcertId(concertFormDto.getPlaceId());
-        Long dateId = 16L; // 임시로 넣은 데이트값
+//        Date date = dateService.g;
         List<Seat> seats = seatService.getSeatList(dateId);
 
         model.addAttribute("concertFormDto", concertFormDto);
@@ -70,6 +63,15 @@ public class ReserveController {
         model.addAttribute("reserveFormDto", new ReserveSeatFormDto());
         return "reserve/reserveSeat";
     }
+
+    @GetMapping(value ="/reserves/reservePay/{concertId}")
+    public String reservePay(@RequestParam("reserveFormDto") ReserveSeatFormDto reserveSeatFormDto,
+                             Model model) {
+        model.addAttribute("reserveFormDto", new ReserveSeatFormDto());
+        return "reserve/reservePay";
+    }
+
+
 
 
     @GetMapping(value = "/reserves/new/{concertId}")
