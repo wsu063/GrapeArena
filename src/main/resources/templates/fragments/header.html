@@ -29,13 +29,13 @@
                             장바구니</a>
                         <div class="dropdown" sec:authorize="isAuthenticated()">
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                마이페이지
+                                My Page
                             </button>
                             <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" type="button"><a href="/members/mypage">회원정보 수정</a></button></li>
-                                <li><button class="dropdown-item" type="button"><a href="/">예매내역</a></button></li>
-                                <li><button class="dropdown-item" type="button"><a href="/">결제내역</a></button></li>
-                                <li><button class="dropdown-item" type="button"><a href="/admin/reserves/list">관리자 메뉴</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/members/mypage">Edit Profile</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/">Concert Record</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/orders/ordersIndex">Goods Record</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/admin/reserves/list">Admin Menu</a></button></li>
                             </ul>
                         </div>
                         <a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a>
