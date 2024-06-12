@@ -3,9 +3,7 @@ package com.podoarena.controller;
 import com.podoarena.dto.ConcertFormDto;
 import com.podoarena.dto.ConcertSearchDto;
 import com.podoarena.dto.PlaceFormDto;
-import com.podoarena.dto.ReserveFormDto;
 import com.podoarena.entity.Concert;
-import com.podoarena.entity.Date;
 import com.podoarena.entity.Place;
 import com.podoarena.service.ConcertService;
 import com.podoarena.service.PlaceService;
@@ -22,10 +20,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
