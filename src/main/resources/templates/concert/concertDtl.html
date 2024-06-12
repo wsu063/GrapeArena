@@ -137,9 +137,9 @@
                                 </div>
                                     <div class="form-group">
                                         <div class="md-12 btn_div" style="width: 450px;">
-                                            <button type="submit"
+                                            <button
                                                     class="ticket_btn"
-                                                    onclick="window.open('/reserves/reserveDtl', target='_blank' rel='noopener noreferrer');" >
+                                                    onclick="openAdvancedPopup()" >
                                                 예매하기
                                             </button>
 
@@ -283,6 +283,24 @@
                 currentYear++; // 다음 해로 이동합니다.
             }
             generateCalendar(currentYear, currentMonth, highlightedDates);
+        }
+
+
+        // 팝업창으로 예약 페이지 띄우기
+
+             function openAdvancedPopup() {
+            var url = "http://localhost/reserves/reserveDtl";
+            var name = "popupWindow";
+            var specs = "width=970,height=600,top=100,left=100," +
+                        "toolbar=no,scrollbars=yes,resizable=yes," +
+                        "status=no,menubar=no,location=no";
+            var newWindow = window.open(url, name, specs);
+
+            if (newWindow) {
+                newWindow.focus();
+            } else {
+                alert('팝업이 차단되었습니다. 팝업을 허용해주세요.');
+            }
         }
 
     </script>

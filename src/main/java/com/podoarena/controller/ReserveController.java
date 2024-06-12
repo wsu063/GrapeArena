@@ -44,10 +44,10 @@ public class ReserveController {
         return "reserve/reserveDtl";
     }
 
-    @GetMapping(value ="/reserves/reserveForm")
-    public String reserveForm(Model model) {
+    @GetMapping(value ="/reserves/reservePay")
+    public String reservePay(Model model) {
         model.addAttribute("reserveFormDto", new ReserveFormDto());
-        return "reserve/reserveForm";
+        return "reserve/reservePay";
     }
 
     @GetMapping(value ="/reserves/reserveSeat/{concertId}")
@@ -67,7 +67,7 @@ public class ReserveController {
 
 
     @GetMapping(value = "/reserves/new/{concertId}")
-    public String reserveForm(@PathVariable("concertId") Long concertId,
+    public String reservePay(@PathVariable("concertId") Long concertId,
                               Model model) {
         // 콘서트에서 예매하기 누르면 예매하는 화면으로 이동한다.
         // (고민중) dateTime을 받아온다.
@@ -85,14 +85,14 @@ public class ReserveController {
         model.addAttribute("reserveFormDto", reserveFormDto);
         model.addAttribute("concert", concert);
 
-        return "reserve/reserveForm";
+        return "reserve/reservePay";
     }
 
     @PostMapping(value = "/reserves/new/{concertId}")
     public String reserve(@Valid ReserveFormDto reserveFormDto, BindingResult bindingResult, Model model) {
         //responseBody로 해서 화면따로? 아니면 한 HTML에서 전부다 할까?
         if(bindingResult.hasErrors()){
-            return "reserve/reserveForm";
+            return "reserve/reservePay";
         }
         return null;
     }
