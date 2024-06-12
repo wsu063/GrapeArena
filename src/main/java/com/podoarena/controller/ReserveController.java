@@ -1,12 +1,9 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.ConcertFormDto;
-import com.podoarena.dto.GoodsFormDto;
-import com.podoarena.dto.ReserveFormDto;
+import com.podoarena.dto.ReserveSeatFormDto;
 import com.podoarena.dto.ReserveSeatSearchDto;
 import com.podoarena.entity.*;
-import com.podoarena.repository.PlaceRepository;
-import com.podoarena.repository.ReserveSeatRepository;
 import com.podoarena.service.ConcertService;
 import com.podoarena.service.DateService;
 import com.podoarena.service.ReserveSeatService;
@@ -24,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,14 +38,14 @@ public class ReserveController {
     public String reserveTime(@PathVariable("concertId") Long concertId, Model model) {
         ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
         model.addAttribute("concertFormDto", concertFormDto);
-        model.addAttribute("reserveFormDto", new ReserveFormDto());
+        model.addAttribute("reserveFormDto", new ReserveSeatFormDto());
         return "reserve/reserveTime";
     }
 
     @GetMapping(value ="/reserves/reservePay/{concertId}")
-    public String reservePay(@RequestParam("reserveFormDto") ReserveFormDto reserveFormDto,
+    public String reservePay(@RequestParam("reserveFormDto") ReserveSeatFormDto reserveSeatFormDto,
                              Model model) {
-        model.addAttribute("reserveFormDto", new ReserveFormDto());
+        model.addAttribute("reserveFormDto", new ReserveSeatFormDto());
         return "reserve/reservePay";
     }
 
@@ -64,7 +60,7 @@ public class ReserveController {
 
         model.addAttribute("concertFormDto", concertFormDto);
         model.addAttribute("seats", seats);
-        model.addAttribute("reserveFormDto", new ReserveFormDto());
+        model.addAttribute("reserveFormDto", new ReserveSeatFormDto());
         return "reserve/reserveSeat";
     }
 
@@ -79,20 +75,20 @@ public class ReserveController {
         // 그러면 콘서트 상세페이지에서 제공하는 달력은 회차만 보여줘야되나? 의미가 없나? 고민해볼것
         // 혹은 데이터 입력 받고, 거기서도 바꿀 수 잇게 하기.
 
-        ReserveFormDto reserveFormDto = new ReserveFormDto();
+        ReserveSeatFormDto reserveSeatFormDto = new ReserveSeatFormDto();
         // 예약하기위해서 필요한것: 좌석, 공연장콘서트, 공연장콘서트날짜,
 
         Concert concert = concertService.getConcert(concertId);
 
 
-        model.addAttribute("reserveFormDto", reserveFormDto);
+        model.addAttribute("reserveFormDto", reserveSeatFormDto);
         model.addAttribute("concert", concert);
 
         return "reserve/reservePay";
     }
 
     @PostMapping(value = "/reserves/new/{concertId}")
-    public String reserve(@Valid ReserveFormDto reserveFormDto, BindingResult bindingResult, Model model) {
+    public String reserve(@Valid ReserveSeatFormDto reserveSeatFormDto, BindingResult bindingResult, Model model) {
         //responseBody로 해서 화면따로? 아니면 한 HTML에서 전부다 할까?
         if(bindingResult.hasErrors()){
             return "reserve/reservePay";

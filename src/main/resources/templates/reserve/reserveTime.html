@@ -67,8 +67,7 @@
                             </div>
                             <!-- 회차 및 좌석등급-->
                             <div>
-                                <div style="margin-top:1rem;
-                                             text-align: center;">
+                                <div style="margin-top:1rem; text-align: center;">
                                     <!-- 회차선택 -->
                                     <span>회차선택</span>
                                     <div class="choice_selector">
@@ -132,7 +131,6 @@
                                         <span id="tk_day">날짜</span>
                                         <p th:text="${#temporals.format(concertFormDto.dates[0].dateTime, 'yyyy.MM.dd')} +
                                         ' ~ ' + ${#temporals.format(concertFormDto.dates[concertFormDto.dates.size() - 1].dateTime, 'yyyy.MM.dd')}">
-
                                         </p>
                                     </li>
                                     <li class="infor_info"><span id="tk_time">시간</span></li>
@@ -144,11 +142,14 @@
 
                             <!-- 다음단계 이전단계 버튼  -->
                             <div class="step_btn">
-                                    <!-- 다음 버튼 -->
+                                <!-- 다음 버튼 -->
+                                <form id="selectedTimeForm" th:action="@{'/reserves/reserveSeat/' + ${concertFormDto.id}}" method="post">
+                                    <input type="hidden" id="selectedTime" name="selectedTime" value>
                                     <button class="next_button"
                                             type="button">
-                                       다음 단계
+                                        다음 단계
                                     </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -159,9 +160,7 @@
 </div>
 
 <th:block layout:fragment="script">
-
     <script th:inline="javascript">
-
     // 캘린더
     let currentYear = new Date().getFullYear();
     let currentMonth = new Date().getMonth();
@@ -276,7 +275,10 @@ function onNextButtonClick() {
     if (!selectedTime) {
         alert("회차를 선택해주세요.");
     } else {
-        window.location.href='/reserves/reserveSeat/5';
+        // 선택된 값을 히든 필드에 설정
+        document.getElementById('selectedTime').value = selectedTime;
+        // 폼 제출
+        document.getElementById('selectedTime').submit();
     }
 }
 
