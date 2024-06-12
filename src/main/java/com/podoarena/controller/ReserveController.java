@@ -32,6 +32,13 @@ public class ReserveController {
     private final DateService dateService;
     private final SeatService seatService;
 
+    // 콘서트 예매 내역 이동
+    @GetMapping(value="/reserves/reserveDtl")
+    public String reserveDtl(Model model){
+        model.addAttribute("reserveFormDto", new ReserveFormDto());
+        return "reserve/reserveDtl";
+    }
+
 
     // 콘서트 예약 페이지 이동
     @GetMapping(value ="/reserves/reserveTime/{concertId}")

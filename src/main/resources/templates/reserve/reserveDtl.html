@@ -1,11 +1,83 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
-<body>
+<th:block layout:fragment="css">
+</th:block>
 
-</body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="clip_con">
+            <h2 class="first" style="font-weight: 800;">CONCERT Record</h2>
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-striped table-sm conTable ">
+                <thead>
+                <tr>
+                    <th scope="col">예매번호</th>
+                    <th scope="col">콘서트</th>
+                    <th scope="col">공연장</th>
+                    <th scope="col">공연시간</th>
+                    <th scope="col">공연좌석</th>
+                    <th scope="col">주문취소</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- goodsCarts가 비어있지 않은 경우에만 출력 -->
+                <th:block th:if="${reserve != null}">
+                    <tr th:each="reserve, reserveStat : ${reserves}">
+                        <td th:text="${reserveStat.index + 1}">1</td>
+                        <td th:text="${reserve.reserveSeat.placeConcert.concert.concertName}">콘서트</td>
+                        <td th:text="${reserve.reserveSeat.placeConcert.place.placeName}">공연장</td>
+                        <td th:text="${reserve.reserveSeat.placeConcert.concert.concertPlayTime}">공연시간</td>
+                        <td th:text="${reserve.reserveSeat.seat.seatName}">공연좌석</td>
+                        <td th:if="${reserve.isCancel == 1}">주문취소</td>
+                        <td th:unless="${reserve.isCancel == 1}">
+                            <!-- 결제 취소창 만들어야 함 -->
+                            <!--
+                            <form onsubmit="return cancel();" th:action="@{/orders/{id}/checkout/cancel/{goodsCartId}(id=${member.id}, goodsCartId=${goodsCart.goodsId})}" method="post">
+                                <button type="submit" class="btn btn-outline-dark">주문취소</button>
+                            </form>
+                            -->
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+            <hr>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<th:block layout:fragment="script">
+
+
+    <script th:inline="javascript">
+
+    function cancel() {
+    if (1) {
+    alert("주문 취소가 완료되었습니다.");
+    return true;
+    }
+    }
+
+    function orderGoods() {
+    if (confirm("구매를 확정하시겠습니까?")) {
+    alert("구매가 완료되었습니다.");
+    return true;
+    }
+    return false;
+    }
+    </script>
+
+</th:block>
 </html>
