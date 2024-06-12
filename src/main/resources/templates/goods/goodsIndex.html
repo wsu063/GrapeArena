@@ -129,7 +129,7 @@
                 <div th:case="'TOUR'" class="product-item TOUR"  >
                   <div class="product discount product_filter">
                     <a th:href="'/goods/goodsDtl/'+${good.id}">
-                      <div style="width: 86%; margin: 0 auto;" class="product_image">
+                      <div style="width: 80%; margin: 0 auto;" class="product_image">
                         <img th:src="${good.goodsImgs.get(0).getImgUrl()}" alt="">
                       </div>
                       <div class="product_info">
@@ -138,12 +138,11 @@
                       </div>
                     </a>
                   </div>
-                  <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
                 </div>
                   <div th:case="'STICK'" class="product-item STICK"  >
                     <div class="product discount product_filter">
                       <a th:href="'/goods/goodsDtl/'+${good.id}">
-                        <div style="width: 86%; margin: 0 auto;" class="product_image">
+                        <div style="width: 80%; margin: 0 auto;" class="product_image">
                           <img th:src="${good.goodsImgs.get(0).getImgUrl()}" alt="">
                         </div>
                         <div class="product_info">
@@ -152,12 +151,11 @@
                         </div>
                       </a>
                     </div>
-                    <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
                   </div>
                   <div th:case="'ALBUM'" class="product-item ALBUM"  >
                     <div class="product discount product_filter">
                       <a th:href="'/goods/goodsDtl/'+${good.id}">
-                        <div style="width: 86%; margin: 0 auto;" class="product_image">
+                        <div style="width: 80%; margin: 0 auto;" class="product_image">
                           <img th:src="${good.goodsImgs.get(0).getImgUrl()}" alt="">
                         </div>
                         <div class="product_info">
@@ -166,7 +164,6 @@
                         </div>
                       </a>
                     </div>
-                    <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
                   </div>
                 </th:block>
               </div>
@@ -174,7 +171,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" style="margin-top: 2rem">
       <div class="col-md-12 text-center">
         <nav aria-label="Page navigation example" th:with="start=${(goods.number/maxPage)*maxPage + 1}
                ,end=(${(goods.totalPages == 0) ? 1 : (start + (maxPage - 1) < goods.totalPages ? start + (maxPage - 1) : goods.totalPages)})">
@@ -243,6 +240,7 @@
         },
       });
     
+      
     
     </script>
   </th:block>
