@@ -4,25 +4,23 @@ import com.podoarena.dto.ConcertFormDto;
 import com.podoarena.dto.ReserveSeatFormDto;
 import com.podoarena.dto.ReserveSeatSearchDto;
 import com.podoarena.entity.*;
-import com.podoarena.service.ConcertService;
-import com.podoarena.service.DateService;
-import com.podoarena.service.ReserveSeatService;
-import com.podoarena.service.SeatService;
+import com.podoarena.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -32,6 +30,7 @@ public class ReserveController {
     private final ConcertService concertService;
     private final DateService dateService;
     private final SeatService seatService;
+    private final MemberService memberService;
 
     // 콘서트 예매 내역 이동
     @GetMapping(value="/reserves/reserveDtl")
@@ -77,18 +76,21 @@ public class ReserveController {
         return "reserve/reservePay";
     }
 
-    @PostMapping(value = "/reserves/new/{concertId}")
-    public String reserve(@Valid ReserveSeatFormDto reserveSeatFormDto, BindingResult bindingResult, Model model) {
-        //responseBody로 해서 화면따로? 아니면 한 HTML에서 전부다 할까?
-        if(bindingResult.hasErrors()){
-            return "reserve/reservePay";
+    // 4. 결제방식 제출 후 결제
+    @PostMapping(value = "/reserves/reserve/{concertId}")
+    public ResponseEntity<String> reserveInsert(@PathVariable("concertId") Long concertId,
+                                        @RequestBody Map<String, Long> requestData, Principal principal) {
+        Long seatId = requestData.get("seatId");
+        Seat seat = seatService.getSeat(seatId);
+        Member member = memberService.getMember(principal.getName());
+        PlaceConcert placeConcert = concertService.getConcert(concertId).getPlaceConcert();
+        try {
+            reserveSeatService.saveReserveSeat(seat,member, placeConcert);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return null;
+        return new ResponseEntity<>("결제 성공했습니다", HttpStatus.OK);
     }
-
-
-
-
 
     // 고객 관리 페이지로 이동
     @GetMapping(value = {"/admin/reserves/list", "/admin/reserves/list/{page}"})

@@ -3,14 +3,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout4}">
 <head>
-
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
-<th:block layout:fragment="css">
-
-</th:block>
-
 <div layout:fragment="content">
-    <!-- UI 영역 START -->
     <div id="warp">
         <div id="all" style="display: block;">
             <!--상단 메뉴 -->
@@ -21,10 +17,8 @@
                     <li class="m03 on"><span>결제하기</span></li>
                 </ul>
             </div>
-
             <div id="ContentsArea" class="main_contents" style="display: block;">
                 <div id="step01">
-
                     <div class="step01_contents" >
                         <!-- 수령방법 선택  -->
                         <div style="width: 97%; padding-top: 0.6rem;">
@@ -143,55 +137,65 @@
                     <!-- 다음단계 이전단계 버튼  -->
                     <div class="step_btn">
                         <!-- 이전 버튼 -->
-                        <button onclick="window.location.href='/reserves/reserveSeat/5';"
-                                class="back_button"
-                                type="button">
-                            이전 단계
-                        </button>
+                        <form name = "backForm" th:action="@{'/reserves/reserveSeat/' + ${concertFormDto.id}}"
+                              method="post" enctype="multipart/form-data" >
+                            <input type="hidden" name="dateId" id="dateId" th:value="${dateId}">
+                            <button class="back_button" type="button">
+                                이전 단계
+                            </button>
+                        </form>
                         <!-- 다음 버튼 -->
-                        <button class="payment_button"
-                                type="button">
-                            결제하기
-                        </button>
+                        <form name="reserveForm" th:action="@{'/reserves/reserve/' + ${concertFormDto.id}}" method="post">
+                            <input type="hidden" id="seatId" name="seatId" th:value="${seat.id}">
+                            <input type="hidden" id="concertId" th:value="${concertFormDto.id}"/>
+                            <input type="hidden" name="bank" id="bank" value>
+                            <button class="next_button"
+                                    type="button">
+                                결제 하기
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-</div>
-
-
 </div>
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
         function fdc_AllAgree() {
-    var cbxAllAgree = document.getElementById("cbxAllAgree");
-    var chkUserAgree = document.getElementById("chkUserAgree");
-    var cbxCancelFeeAgree = document.getElementById("cbxCancelFeeAgree");
-    var chkinfoAgree = document.getElementById("chkinfoAgree");
+            var cbxAllAgree = document.getElementById("cbxAllAgree");
+            var chkUserAgree = document.getElementById("chkUserAgree");
+            var cbxCancelFeeAgree = document.getElementById("cbxCancelFeeAgree");
+            var chkinfoAgree = document.getElementById("chkinfoAgree");
 
-    // 모두 동의합니다 체크 여부 확인
-    if (cbxAllAgree.checked) {
-        // 모든 체크박스 체크하기
-        chkUserAgree.checked = true;
-        cbxCancelFeeAgree.checked = true;
-        chkinfoAgree.checked = true;
-    } else {
-        // 모든 체크박스 해제하기
-        chkUserAgree.checked = false;
-        cbxCancelFeeAgree.checked = false;
-        chkinfoAgree.checked = false;
-    }
-}
+            // 모두 동의합니다 체크 여부 확인
+            if (cbxAllAgree.checked) {
+                // 모든 체크박스 체크하기
+                chkUserAgree.checked = true;
+                cbxCancelFeeAgree.checked = true;
+                chkinfoAgree.checked = true;
+            } else {
+                // 모든 체크박스 해제하기
+                chkUserAgree.checked = false;
+                cbxCancelFeeAgree.checked = false;
+                chkinfoAgree.checked = false;
+            }
+        }
+        function closeBrowser() {
+            // 현재 브라우저 닫기
+            window.close();
+        }
 
-
-        function onPaymentButtonClick() {
+        function onNextButtonClick() {
             var bankSelect = document.getElementById("bankSelect");
             var chkUserAgree = document.getElementById("chkUserAgree");
             var cbxCancelFeeAgree = document.getElementById("cbxCancelFeeAgree");
             var chkinfoAgree = document.getElementById("chkinfoAgree");
+            var concertId = $("#concertId").attr("value");
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
 
             // 은행 선택 여부 확인
             if (bankSelect.value === "") {
@@ -199,23 +203,55 @@
             } else if (!chkUserAgree.checked || !cbxCancelFeeAgree.checked || !chkinfoAgree.checked) {
                 alert("모든 항목에 동의해주세요.");
             } else {
+                document.getElementById('bank').value = bank;
+                var seatId = $("#seatId").attr("value");
+                console.log(seatId);
                 // 현재 브라우저 닫기
-                closeBrowser();
+                var formData = {
+                  seatId: seatId
+                };
+                $.ajax({
+                  url: "/reserves/reserve/" + concertId,
+                  type: "POST",
+                  contentType: "application/json; charset=utf-8",
+                  beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                  },
+                  cache: false,
+                  data: JSON.stringify(formData), // 데이터를 JSON 형식으로 전송
+                  success: function (result, status, xhr, formData) {
+                    const conf = confirm("결제가 완료되었습니다.");
+                    //아무 버튼이나 누르면 창을 닫는다.
+                    closeBrowser();
+                  },
+                  error: function (jqXHR) {
+                    if(jqXHR.status == '401') {
+                     const conf = confirm("로그인 후 이용해주세요.");
+                     closeBrowser();
+                    } else {
+                      alert(jqXHR.responseText);
+                    }
+                  }
+                });
             }
+
         }
 
-    function closeBrowser() {
-        // 현재 브라우저 닫기
-        window.close();
-    }
+        $('.next_button').click(function(event) {
+            event.preventDefault(); // 기본 동작(링크 이동) 막기
+            onNextButtonClick(); // 다음 버튼 처리 함수 호출
+        });
 
-    $('.payment_button').click(function(event) {
-        event.preventDefault(); // 기본 동작(링크 이동) 막기
-        onPaymentButtonClick(); // 다음 버튼 처리 함수 호출
-    });
+        function onBackButtonClick() {
+            const f = document.backForm;
+            f.submit();
+        }
 
+        $('.back_button').click(function(event) {
+            event.preventDefault(); // 기본 동작(링크 이동) 막기
+            onBackButtonClick(); // 이전 버튼 처리 함수 호출
+        });
 
-    </script>
 
     </script>
 </th:block>
