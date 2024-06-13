@@ -160,7 +160,7 @@
                         <!-- 이전 버튼 -->
                         <form name = "backForm" th:action="@{'/reserves/reserveSeat/' + ${concertFormDto.id}}"
                               method="post" enctype="multipart/form-data" >
-                            <input type="hidden" name="dateId" id="dateId" th:value="${dateId}">
+                            <input type="hidden" name="dateId" id="dateId" th:value="${seat.date.id}">
                             <button class="back_button" type="button">
                                 이전 단계
                             </button>
@@ -265,6 +265,7 @@
 
         function onBackButtonClick() {
             const f = document.backForm;
+            var dateId = $("#dateId").attr("value"); // 선택된 좌석의 seatId
             f.submit();
         }
 
