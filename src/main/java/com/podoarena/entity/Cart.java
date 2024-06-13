@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "cart")
 @Getter
 @Setter
-@ToString
 public class Cart {
     @Id
     @Column(name = "cart_id")

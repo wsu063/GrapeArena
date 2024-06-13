@@ -4,10 +4,7 @@ package com.podoarena.service;
 import com.podoarena.dto.OrderDto;
 import com.podoarena.dto.OrderHistDto;
 import com.podoarena.entity.*;
-import com.podoarena.repository.GoodsImgRepository;
-import com.podoarena.repository.GoodsRepository;
-import com.podoarena.repository.MemberRepository;
-import com.podoarena.repository.OrderRepository;
+import com.podoarena.repository.*;
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +24,7 @@ public class OrderService {
     private final GoodsRepository goodsRepository;
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
-    private final GoodsImgRepository goodsImgRepository;
+    private final GoodsCartRepository goodsCartRepository;
 
     //주문하기
     public Long order(OrderDto orderDto, String email) {
@@ -51,35 +48,41 @@ public class OrderService {
 
     }
 
-    //주문 목록 가져오기
     @Transactional(readOnly = true)
-    public Page<OrderHistDto> getOrderList(String email, Pageable pageable) {
-        // 유저 아이디를 이용해서 주문 목록 조회
-        List<Orders> ordersList = orderRepository.findOrders(email, pageable);
-
-        // 유저의 총 주문 개수를 구한다
-        Long totalCount = orderRepository.countOrder(email);
-
-        // 주문내역은 여러개이므로 리스티에 저장
-        List<OrderHistDto> orderHistDtos = new ArrayList<>();
-
-        // 주문 리스트 ordersList를 순회하면서 컨트롤러에 전달할 OrderHistDto 생성
-        for (Orders orders : ordersList) {
-            OrderHistDto orderHistDto = new OrderHistDto(orders);
-
-            List<OrderGoods> orderGoodsList = orders.getOrderGoodsList();
-
-            for (OrderGoods orderGoods : orderGoodsList) {
-
-
-//                orderHistDto.addGoodsCartDto(goodsCartDto);
-            }
-
-            orderHistDtos.add(orderHistDto);
-        }
-
-        return new PageImpl<>(orderHistDtos, pageable, totalCount); //페이지 구현 객체를 생성하여 return
+    public List<GoodsCart> getGoodsCartList(String email) {
+        Member member = memberRepository.findByEmail(email);
+        return goodsCartRepository.findByMember(member);
     }
+
+    //주문 목록 가져오기
+    //@Transactional(readOnly = true)
+//    public Page<OrderHistDto> getOrderList(String email, Pageable pageable) {
+//        // 유저 아이디를 이용해서 주문 목록 조회
+//        List<Orders> ordersList = orderRepository.findOrders(email, pageable);
+//
+//        // 유저의 총 주문 개수를 구한다
+//        Long totalCount = orderRepository.countOrder(email);
+//
+//        // 주문내역은 여러개이므로 리스티에 저장
+//        List<OrderHistDto> orderHistDtos = new ArrayList<>();
+//
+//        // 주문 리스트 ordersList를 순회하면서 컨트롤러에 전달할 OrderHistDto 생성
+//        for (Orders orders : ordersList) {
+//            OrderHistDto orderHistDto = new OrderHistDto(orders);
+//
+//            List<OrderGoods> orderGoodsList = orders.getOrderGoodsList();
+//
+//            for (OrderGoods orderGoods : orderGoodsList) {
+//
+//
+////                orderHistDto.addGoodsCartDto(goodsCartDto);
+//            }
+//
+//            orderHistDtos.add(orderHistDto);
+//        }
+//
+//        return new PageImpl<>(orderHistDtos, pageable, totalCount); //페이지 구현 객체를 생성하여 return
+//    }
 
     //본인확인
     public boolean validateOrder(Long orderId, String email) {
@@ -89,13 +92,7 @@ public class OrderService {
 
         Member savedMember = orders.getMember(); //주문한 사용자 찾기
 
-        //로그인한 사용자의 이메일과 주문한 사용자의 이메일이 같은지 최종 비교
-        if (!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
-            //같지 않으면
-            return false;
-        }
-
-        return true;
+        return curMember.getEmail().equals(savedMember.getEmail());
     }
 
     //주문 취소

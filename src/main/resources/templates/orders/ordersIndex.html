@@ -6,12 +6,13 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/plugins/themify-icons/themify-icons.css}">
 </th:block>
 
 <div layout:fragment="content">
     <div class="container">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">결제하기</h1>
+            <h1 class="h2">주문내역</h1>
         </div>
 
         <div class="table-responsive">
@@ -21,28 +22,17 @@
                     <th scope="col">번호</th>
                     <th scope="col">상품명</th>
                     <th scope="col">수량</th>
-                    <th scope="col">가격</th>
                     <th scope="col">주문금액</th>
-                    <th scope="col">주문취소</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!-- goodsCarts가 비어있지 않은 경우에만 출력 -->
+                <!-- orderDto가 비어있지 않은 경우에만 출력 -->
                 <th:block th:if="${goodsCarts != null}">
                     <tr th:each="goodsCart, iterStat : ${goodsCarts}">
                         <td th:text="${iterStat.index + 1}">1</td>
-                        <td th:text="${goodsCart.goodsName}">상품명</td>
+                        <td th:text="${goodsCart.goods.goodsName}">상품명</td>
                         <td th:text="${goodsCart.goodsCount}">수량</td>
-                        <td th:text="${#numbers.formatInteger(goodsCart.goodsPrice, 0, 'COMMA')} + '원'">가격</td>
-                        <td th:text="${#numbers.formatInteger(goodsCart.goodsCount * goodsCart.goodsPrice, 0, 'COMMA')} + '원'">주문금액</td>
-                        <td th:if="${goodsCart.isCancel == 1}">취소완료</td>
-                        <td th:unless="${goodsCart.isCancel == 1}">
-                            <!-- 결제 취소창 만들어야 함 -->
-                            <!--
-                            <form onsubmit="return cancel();" th:action="@{/orders/{id}/checkout/cancel/{goodsCartId}(id=${member.id}, goodsCartId=${goodsCart.goodsId})}" method="post">
-                                <button type="submit" class="btn btn-outline-dark">주문취소</button>
-                            </form>
-                            -->
+                        <td th:text="${#numbers.formatInteger(goodsCart.goods.goodsPrice, 0, 'COMMA')} + '원'">가격</td>
                         </td>
                     </tr>
                 </th:block>
@@ -50,30 +40,19 @@
             </table>
         </div>
         <hr>
-<!--        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-3">-->
-<!--            <div class="col">-->
-<!--                <div class="card mb-4 rounded-3 shadow-sm">-->
-<!--                    <div class="card-header py-3">-->
-<!--                        <h4 class="my-0 fw-normal">총 수량</h4>-->
-<!--                    </div>-->
-<!--                    <div class="card-body">-->
-<!--                        <h1 class="card-title pricing-card-title" th:text="${totalCount} + '개'">$0</h1>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-3">
             <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">총 결제금액</h4>
+                        <h4 class="my-0 fw-normal">총 주문금액</h4>
                     </div>
                     <form class="card-body" onsubmit="return orderGoods();" th:action="@{/orders}" method="post">
-                        <h1 class="card-title pricing-card-title" th:text="${#numbers.formatInteger(orderTotalPrice, 0, 'COMMA')} + '원'">0</h1>
+                        <h1 class="card-title pricing-card-title" th:text="${#numbers.formatInteger(totalPrice, 0, 'COMMA')} + '원'">0</h1>
                         <ul class="list-unstyled mt-3 mb-4">
-                            <li>잘못 담은 물건이 있는지 확인해보세요!</li>
+
                         </ul>
-                        <button type="submit" class="w-100 btn btn-lg btn-outline-primary">구매하기</button>
+                        <button type="submit" class="w-100 btn btn-lg btn-outline-success">결제취소</button>
                     </form>
                 </div>
             </div>
@@ -83,22 +62,24 @@
 
 
 <th:block layout:fragment="script">
-
     <script th:inline="javascript">
-        function cancel() {
-        if (1) {
-        alert("주문 취소가 완료되었습니다.");
-        return true;
-        }
+     function cancel() {
+         // 주문 취소 확인 대화상자 표시
+         if (confirm("결제를 취소하시겠습니까?")) {
+             alert("결제가 취소되었습니다.");
+             return true;
+         }
+         return false;
      }
 
-        function orderGoods() {
-        if (confirm("구매를 확정하시겠습니까?")) {
-        alert("구매가 완료되었습니다.");
-        return true;
-        }
-        return false;
-      }
+<!--     function orderGoods() {-->
+<!--         // 구매 확정 확인 대화상자 표시-->
+<!--         if (confirm("구매를 확정하시겠습니까?")) {-->
+<!--             alert("구매가 완료되었습니다.");-->
+<!--             return true;-->
+<!--         }-->
+<!--         return false;-->
+<!--     }-->
     </script>
 
 </th:block>

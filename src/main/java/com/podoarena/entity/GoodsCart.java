@@ -9,7 +9,6 @@ import lombok.ToString;
 @Table(name="goods_cart")
 @Getter
 @Setter
-@ToString
 public class GoodsCart {
     @Id
     @Column(name = "goods_cart_id")
