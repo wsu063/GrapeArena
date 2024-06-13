@@ -217,6 +217,7 @@ h2.first:hover {
 }
 
 .clip_con {
+    margin-top:2rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -397,7 +398,9 @@ ul {
       }
     }
 
-
+.reserve_all_list{
+    margin : 1rem 5rem 10rem 5rem;
+}
 
 
 

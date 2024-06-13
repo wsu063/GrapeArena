@@ -37,6 +37,7 @@ out/
 .vscode/
 
 #
+/src/main/generated/
 !src/main/resources/application.properties
 !src/main/java/com/podoarena/config/WebMvcConfig.java
-generated/*
+!src/main/resources/application-auth.properties
