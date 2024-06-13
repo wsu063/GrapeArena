@@ -123,7 +123,7 @@
             <div class="result">
                 <div id="perfboard" class="title">
                     <!-- 상황판 -->
-                    <div class="select_infor">
+                    <div class="select_infor" style="padding-bottom:52px;">
                         <h3 style="text-align-last: center;">선택내역</h3>
                         <!-- 예매내역 -->
                         <ul>
@@ -167,6 +167,27 @@
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
+        function fdc_AllAgree() {
+    var cbxAllAgree = document.getElementById("cbxAllAgree");
+    var chkUserAgree = document.getElementById("chkUserAgree");
+    var cbxCancelFeeAgree = document.getElementById("cbxCancelFeeAgree");
+    var chkinfoAgree = document.getElementById("chkinfoAgree");
+
+    // 모두 동의합니다 체크 여부 확인
+    if (cbxAllAgree.checked) {
+        // 모든 체크박스 체크하기
+        chkUserAgree.checked = true;
+        cbxCancelFeeAgree.checked = true;
+        chkinfoAgree.checked = true;
+    } else {
+        // 모든 체크박스 해제하기
+        chkUserAgree.checked = false;
+        cbxCancelFeeAgree.checked = false;
+        chkinfoAgree.checked = false;
+    }
+}
+
+
         function onPaymentButtonClick() {
             var bankSelect = document.getElementById("bankSelect");
             var chkUserAgree = document.getElementById("chkUserAgree");
