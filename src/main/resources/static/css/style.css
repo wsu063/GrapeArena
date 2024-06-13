@@ -8,21 +8,44 @@
 
 
 /* 기본 화면 구성*/
-@media(max-width: 759px) {
+@media(max-width: 767px) {
     html {
         font-size:15px
     }
+    body {
+        min-width: 768px; /* 최소 너비를 768px로 설정 */
+        overflow-x: hidden; /* 가로 스크롤을 숨김 */
+    }
+    .header_searchbar {
+        display: none !important;  /* 검색창을 화면에서 숨김 */
+    }
+    .header_logo {
+        width: 100px !important;
+    }
 }
 
-@media(min-width: 760px) and (max-width:1023px) {
+@media(min-width: 768px) and (max-width:1023px) {
     html {
         font-size:15px
+    }
+    body {
+        min-width: 768px; /* 최소 너비를 768px로 설정 */
+        overflow-x: hidden; /* 가로 스크롤을 숨김 */
+    }
+    .header_searchbar {
+        display: none !important;  /* 검색창을 화면에서 숨김 */
+    }
+    .header_logo {
+        width: 200px !important;
     }
 }
 
 @media(min-width: 1024px) and (max-width:1279px) {
     html {
         font-size:15px
+    }
+    .header_searchbar {
+        display: none !important;  /* 검색창을 화면에서 숨김 */
     }
 }
 
@@ -284,7 +307,7 @@ margin-top: 3rem;}
      display: flex;
      --contents_width: 792.4226px;
      width: 100%;
-     min-width: 1024px;
+     min-width: 768px;
 
      }
 
