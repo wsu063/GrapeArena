@@ -4,6 +4,7 @@ import com.podoarena.entity.Date;
 import com.podoarena.entity.PlaceConcert;
 import com.podoarena.entity.Seat;
 import com.podoarena.repository.SeatRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +41,11 @@ public class SeatService {
 
     public List<Seat> getSeatList(Long dateId) {
         return seatRepository.findByDateIdOrderByIdAsc(dateId);
+    }
+
+    public Seat getSeat(Long seatId) {
+        return seatRepository.findById(seatId)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
 }

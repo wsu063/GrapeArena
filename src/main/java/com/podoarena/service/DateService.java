@@ -30,4 +30,9 @@ public class DateService {
         return dateRepository.findByPlaceConcertIdOrderByIdAsc(placeConcertId);
     }
 
+    public Date getDate(Long dateId) {
+        return dateRepository.findById(dateId)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
 }

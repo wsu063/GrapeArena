@@ -1054,15 +1054,7 @@ thead {
 
 /* 좌석에 관한 css */
 
-.s13 {
-    position: absolute;
-    background: url(http://tkfile.yes24.com/images/ticket_new/ic_seat13.gif) no-repeat;
-    height: 12px;
-    width: 11px;
-    z-index: 10;
-}
-
-.s6 {
+.available {
     position: absolute;
     background: url(http://tkfile.yes24.com/images/ticket_new/ic_seat6.gif) no-repeat;
     height: 12px;
@@ -1070,9 +1062,9 @@ thead {
     z-index: 10;
 }
 
-.s8 {
+.selected {
     position: absolute;
-    background: url(http://tkfile.yes24.com/images/ticket_new/ic_seat8.gif) no-repeat;
+    background: url(http://tkfile.yes24.com/images/ticket_new/ic_seat13.gif) no-repeat;
     height: 12px;
     width: 11px;
     z-index: 10;
@@ -1080,7 +1072,7 @@ thead {
 
 .son {
     position: absolute;
-    background: url(http://tkfile.yes24.com/images/ticket_new/ic_seat_on.gif) no-repeat;
+    background: url(http://tkfile.yes24.com/images/ticket_new/ic_seat8.gif) no-repeat;
     height: 12px;
     width: 11px;
     z-index: 10;

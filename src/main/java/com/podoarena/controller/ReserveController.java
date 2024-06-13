@@ -41,57 +41,38 @@ public class ReserveController {
     }
 
 
-    // 콘서트 예약 페이지 이동
+    // 1. 콘서트 예약 페이지로 이동
     @GetMapping(value ="/reserves/reserveTime/{concertId}")
     public String reserveTime(@PathVariable("concertId") Long concertId, Model model) {
         ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
         model.addAttribute("concertFormDto", concertFormDto);
-        model.addAttribute("reserveFormDto", new ReserveSeatFormDto());
         return "reserve/reserveTime";
     }
-
+    // 2. 회차를 선택하고 좌석을 선택하는 페이지로 이동
     @PostMapping(value ="/reserves/reserveSeat/{concertId}")
     public String reserveSeat(@PathVariable("concertId") Long concertId,
                               @RequestParam("dateId") Long dateId,
                               Model model) {
         ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
-//        Date date = dateService.g;
+        //선택한 dateId로 좌석 정보를 찾는다.
         List<Seat> seats = seatService.getSeatList(dateId);
 
         model.addAttribute("concertFormDto", concertFormDto);
         model.addAttribute("seats", seats);
-        model.addAttribute("reserveFormDto", new ReserveSeatFormDto());
         return "reserve/reserveSeat";
     }
 
-    @GetMapping(value ="/reserves/reservePay/{concertId}")
-    public String reservePay(@RequestParam("reserveFormDto") ReserveSeatFormDto reserveSeatFormDto,
-                             Model model) {
-        model.addAttribute("reserveFormDto", new ReserveSeatFormDto());
-        return "reserve/reservePay";
-    }
-
-
-
-
-    @GetMapping(value = "/reserves/new/{concertId}")
+    // 3. 좌석을 선택하고 결제방식을 선택하는 페이지로 이동
+    @PostMapping(value ="/reserves/reservePay/{concertId}")
     public String reservePay(@PathVariable("concertId") Long concertId,
-                              Model model) {
-        // 콘서트에서 예매하기 누르면 예매하는 화면으로 이동한다.
-        // (고민중) dateTime을 받아온다.
+                             @RequestParam("seatId") Long seatId,
+                             Model model) {
+        ConcertFormDto concertFormDto = concertService.getConcertDtl(concertId);
+        //선택한 seatId로 좌석 정보를 찾는다.
+        Seat seat = seatService.getSeat(seatId);
 
-        // 콘서트, 날짜(회차) 선택 -> 좌석 선택 -> 결제하기
-        // 그러면 콘서트 상세페이지에서 제공하는 달력은 회차만 보여줘야되나? 의미가 없나? 고민해볼것
-        // 혹은 데이터 입력 받고, 거기서도 바꿀 수 잇게 하기.
-
-        ReserveSeatFormDto reserveSeatFormDto = new ReserveSeatFormDto();
-        // 예약하기위해서 필요한것: 좌석, 공연장콘서트, 공연장콘서트날짜,
-
-        Concert concert = concertService.getConcert(concertId);
-
-
-        model.addAttribute("reserveFormDto", reserveSeatFormDto);
-        model.addAttribute("concert", concert);
+        model.addAttribute("concertFormDto", concertFormDto);
+        model.addAttribute("seat", seat);
 
         return "reserve/reservePay";
     }
