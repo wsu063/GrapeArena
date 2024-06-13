@@ -196,6 +196,7 @@ a:hover {
 }
 
 .select_infor {
+       width:17rem;
     padding: 10px 15px 5px 15px;
     padding-bottom: 36px;
     _padding-bottom: 30px;

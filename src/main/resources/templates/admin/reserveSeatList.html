@@ -55,12 +55,14 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-3 text-sm" th:text="reserveSeat.placeConcert.concert.concertName"></td>
+                                    <td class="px-4 py-3 text-sm" th:text="${reserveSeat.placeConcert.concert.concertName}"></td>
                                     <!-- 공연날짜 -->
                                     <td class="px-4 py-3 text-xs"></td>
-                                    <td class="px-4 py-3 text-sm" th:text="reserveSeat.placeConcert.place.placeName"></td>
-                                    <td class="px-4 py-3 text-sm" th:text="reserveSeat.seat.seatName"></td>
-                                    <td class="px-4 py-3 text-xs" th:text="reserveSeat.createBy"></td>
+                                    <td class="px-4 py-3 text-sm" th:text="${reserveSeat.placeConcert.place.placeName}"></td>
+                                    <td class="px-4 py-3 text-sm" th:text="${reserveSeat.seat.seatName}"></td>
+                                    <td class="px-4 py-3 text-xs" th:text="${reserveSeat.createBy}"></td>
+                                    <td class="px-4 py-3 text-xs" th:text="${reserveSeat.seat.date.dateTime}"></td>
+                                    <td class="px-4 py-3 text-xs" ></td>
                                     <td class="px-4 py-3">
                                         <div class="flex items-center space-x-4 text-sm">
                                             <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"

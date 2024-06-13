@@ -125,13 +125,34 @@
                                 <img th:src="@{${concertFormDto.concertImgDtoList[0].imgUrl}}"
                                      alt="슬라이드"  class="concert_poster"  >
                             </li>
-                            <li><span>아티스트</span></li>
-                            <li><span id="tk_day">날짜</span></li>
-                            <li><span id="tk_time">시간</span></li>
-                            <li><span id="tk_count">매수</span></li>
-                            <li><span id="tk_seat">좌석</span></li>
+                            <li  class="infor_info">
+                                <span>아티스트</span>
+                                <p th:text="${concertFormDto.concertSinger}"></p>
+                            </li>
+                            <li class="infor_info">
+                                <span id="tk_day">날짜</span>
+                                <p th:text="${#temporals.format(concertFormDto.dates[0].dateTime, 'yyyy.MM.dd')} +
+                                        ' ~ ' + ${#temporals.format(concertFormDto.dates[concertFormDto.dates.size() - 1].dateTime, 'yyyy.MM.dd')}">
+                                </p>
+                            </li>
+                            <li class="infor_info">
+                                <span id="tk_time">시간</span>
+                                <p th:text="${concertFormDto.concertPlayTime} + 분"></p>
+                            </li>
+                            <li class="infor_info">
+                                <span id="tk_count">매수</span>
+                                <p>1</p>
+                            </li>
+                            <li class="infor_info">
+                                <span id="tk_seat">좌석</span>
+                                <p th:text="${seat.seatName}"></p>
+                            </li>
+                            <li class="infor_info">
+                                <span>결제금액</span>
+                                <p th:text="${seat.seatPrice} + '원'"></p>
+                            </li>
                         </ul>
-                        <h3>결제금액</h3>
+
                     </div>
 
                     <!-- 다음단계 이전단계 버튼  -->
