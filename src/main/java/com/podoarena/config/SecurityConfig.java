@@ -1,5 +1,7 @@
 package com.podoarena.config;
 
+import com.podoarena.handler.OAuth2SuccessHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -7,14 +9,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
-
+    private final DefaultOAuth2UserService oAuth2UserService;
+private final OAuth2SuccessHandler oAuth2SuccessHandler;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         // 1. 페이지 접근에 대한 설정(인가)
@@ -40,7 +45,14 @@ public class SecurityConfig {
                         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                         .accessDeniedPage("/members/login") // 인증되지 않은 사용자 접근 시 이동할 페이지
                 ) // 로그인 이후 세션을 통해 로그인 유지
-                .rememberMe(Customizer.withDefaults());
+                .rememberMe(Customizer.withDefaults())
+                .oauth2Login(oauth2 -> oauth2
+                        //.authorizationEndpoint(endpoint -> endpoint.baseUri("/login/oauth2"))
+                        .redirectionEndpoint(endpoint -> endpoint.baseUri("/oauth2/callback/*"))
+                        .userInfoEndpoint(endpoint -> endpoint.userService(oAuth2UserService))
+                        //.successHandler(oAuth2SuccessHandler)
+                );
+
 
         return httpSecurity.build();
 

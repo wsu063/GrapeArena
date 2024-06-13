@@ -5,9 +5,7 @@ import com.podoarena.dto.MemberFormDto;
 import com.podoarena.repository.MemberRepository;
 import com.podoarena.service.MemberService;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
@@ -16,6 +14,8 @@ import java.util.List;
 @Table(name = "member")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member extends BaseEntity {
     @Id
     @Column(name = "member_id")
@@ -43,6 +43,12 @@ public class Member extends BaseEntity {
 
     private String extraAddress;
 
+    //sns 네이버 카카오 구글 등
+    private String provider;
+    //SNS 로그인 유저 고유ID
+    private String providerId;
+
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cart> cart;
 
@@ -55,6 +61,12 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Orders> ordersList;
 
+
+    public Member (String providerId, String email, String provider) {
+        this.providerId = providerId;
+        this.email = email;
+        this. provider = provider;
+    }
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
         String password = passwordEncoder.encode(memberFormDto.getPassword());
