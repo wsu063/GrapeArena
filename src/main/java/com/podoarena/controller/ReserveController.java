@@ -34,8 +34,10 @@ public class ReserveController {
 
     // 콘서트 예매 내역 이동
     @GetMapping(value="/reserves/reserveDtl")
-    public String reserveDtl(Model model){
-//        model.addAttribute("reserveFormDto", new ReserveFormDto());
+    public String reserveDtl(Principal principal, Model model){
+        Member member = memberService.getMember(principal.getName());
+        Reserve reserve = member.getReserve();
+        model.addAttribute("reserve", reserve);
         return "reserve/reserveDtl";
     }
 
@@ -106,5 +108,20 @@ public class ReserveController {
 
         model.addAttribute("maxPage", 5);
 
-        return "admin/reserveSeatList";}
+        return "admin/reserveSeatList";
+    }
+
+    //좌석 삭제 삭제
+    @DeleteMapping(value = "/reserves/delete/{reserveSeatId}")
+    public @ResponseBody ResponseEntity deleteReserveSeat(@PathVariable(value = "reserveSeatId") Long reserveSeatId) {
+        ReserveSeat reserveSeat = reserveSeatService.getReserveSeat(reserveSeatId);
+
+        try {
+            reserveSeatService.delete(reserveSeat);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("오류가 발생했습니다.", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<Long>(reserveSeatId, HttpStatus.OK);
+    }
 }
