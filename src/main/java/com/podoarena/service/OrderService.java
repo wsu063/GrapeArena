@@ -36,23 +36,24 @@ public class OrderService {
 
     //주문하기
     public Long order(OrderDto orderDto, String email) {
-
         //1. 주문한 굿즈의 객체를 가져온다.
-        Goods goods = goodsRepository.findById(orderDto.getGoodsId())
-                                        .orElseThrow(EntityExistsException::new);
+        for(Long goodsCartId : orderDto.getGoodsCartIds()) {
+            GoodsCart goodsCart = cartService.getGoodsCart(goodsCartId);
+            orderDto.getGoodsCartList().add(goodsCart);
+        }
+//
+//        //2. 현재 로그인한 회원의 이메일을 이용해 member 엔티티를 가져온다
+//        Member member = memberRepository.findByEmail(email);
+//
+//        //양방향 관계일때 save
+//        List<OrderGoods> orderGoodsList = new ArrayList<>();
+//        OrderGoods orderGoods = OrderGoods.createOrderGoods(goods, orderDto.getCount());
+//        orderGoodsList.add(orderGoods);
+//
+//        Orders orders = Orders.createOrder(member, orderGoodsList);
+//        orderRepository.save(orders); //insert
 
-        //2. 현재 로그인한 회원의 이메일을 이용해 member 엔티티를 가져온다
-        Member member = memberRepository.findByEmail(email);
-
-        //양방향 관계일때 save
-        List<OrderGoods> orderGoodsList = new ArrayList<>();
-        OrderGoods orderGoods = OrderGoods.createOrderGoods(goods, orderDto.getCount());
-        orderGoodsList.add(orderGoods);
-
-        Orders orders = Orders.createOrder(member, orderGoodsList);
-        orderRepository.save(orders); //insert
-
-        return orders.getId();
+        return null;
 
     }
 
@@ -121,21 +122,21 @@ public class OrderService {
     }
 
     public Long orders(List<OrderDto> orderDtoList, String email) {
-        Member member = memberRepository.findByEmail(email);
-        List<OrderGoods> orderGoodsList = new ArrayList<>();
+//        Member member = memberRepository.findByEmail(email);
+//        List<OrderGoods> orderGoodsList = new ArrayList<>();
+//
+//        for (OrderDto orderDto : orderDtoList) {
+//            Goods goods = goodsRepository.findById(orderDto.getGoodsId())
+//                    .orElseThrow(EntityExistsException::new);
+//
+//            OrderGoods orderGoods = OrderGoods.createOrderGoods(goods, orderDto.getCount());
+//            orderGoodsList.add(orderGoods);
+//        }
+//
+//        Orders orders = Orders.createOrder(member, orderGoodsList);
+//        orderRepository.save(orders);
 
-        for (OrderDto orderDto : orderDtoList) {
-            Goods goods = goodsRepository.findById(orderDto.getGoodsId())
-                    .orElseThrow(EntityExistsException::new);
-
-            OrderGoods orderGoods = OrderGoods.createOrderGoods(goods, orderDto.getCount());
-            orderGoodsList.add(orderGoods);
-        }
-
-        Orders orders = Orders.createOrder(member, orderGoodsList);
-        orderRepository.save(orders);
-
-        return orders.getId();
+        return null;
     }
 
     //카트 굿즈 주문
@@ -169,20 +170,21 @@ public class OrderService {
     //카트에 담긴 굿즈 주문
     @PostMapping(value = "/cart/orders")
     public @ResponseBody ResponseEntity orderGoodsCart(@RequestBody OrderDto orderDto, Principal principal) {
-        List<OrderDto> orderDtoList = orderDto.getOrderDtoList();
-
-        if (orderDtoList == null || orderDtoList.size() == 0) {
-            return new ResponseEntity<String>("주문할 상품을 선택해주세요", HttpStatus.FORBIDDEN);
-        }
-
-        for (OrderDto orderDtos : orderDtoList ) {
-            if (!cartService.validateGoodsCart(orderDtos.getGoodsId(), principal.getName())){
-                return new ResponseEntity<String>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN);
-            }
-        }
-
-        Long ordersId = orderGoodsCart(new ArrayList<>(), principal.getName());
-        return new ResponseEntity<Long>(ordersId, HttpStatus.OK);
+//        List<OrderDto> orderDtoList = orderDto.getOrderDtoList();
+//
+//        if (orderDtoList == null || orderDtoList.size() == 0) {
+//            return new ResponseEntity<String>("주문할 상품을 선택해주세요", HttpStatus.FORBIDDEN);
+//        }
+//
+//        for (OrderDto orderDtos : orderDtoList ) {
+//            if (!cartService.validateGoodsCart(orderDtos.getGoodsId(), principal.getName())){
+//                return new ResponseEntity<String>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN);
+//            }
+//        }
+//
+//        Long ordersId = orderGoodsCart(new ArrayList<>(), principal.getName());
+//        return new ResponseEntity<Long>(ordersId, HttpStatus.OK);
+        return null;
     }
 
 }

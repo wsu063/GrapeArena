@@ -58,70 +58,68 @@
   <div class="site-section" style="margin-top: 1rem;">
     <div class="container">
       <div class="row mb-5">
-        <form class="col-md-12">
-          <div class="site-blocks-table">
-            <table class="table table-bordered" style="text-align: center;">
-              <thead>
-              <tr>
-                <th class="product-remove">
-                  <input type="checkbox" id="checkall" onclick="checkAll()"/> 전체선택
-                </th>
-                <th class="product-thumbnail">이미지</th>
-                <th class="product-name">상품명</th>
-                <th class="product-price">가격</th>
-                <th class="product-quantity">수량</th>
-                <th class="product-total">총금액</th>
-                <th class="product-remove">삭제</th>
-              </tr>
-              </thead>
-              <tbody>
-              <!-- 장바구니 항목들을 순회하며 출력 -->
-              <tr th:each="goodsCart : ${cart.goodsCarts}">
-                  <!-- 각 장바구니 항목의 상품들을 순회하며 출력 -->
-                  <td class="product-remove">
-                    <input type="checkbox" name="cartChkBox" th:value="${goodsCart.id}"/>
-                  </td>
-                  <td class="product-thumbnail">
-                    <img th:src="${goodsCart.goods.goodsImgs[0].imgUrl}" class="img-fluid cart-img" th:alt="${goodsCart.goods.goodsName}">
-                  </td>
-                  <td class="product-name">
-                    <span th:text="${goodsCart.goods.goodsName}"></span>
-                    <span th:text="${goodsCart.goods.goodsMaxAmount}"></span>
-                  </td>
-                  <td>
-                         <span th:id="'price_' + ${goodsCart.id}"
-                               th:data-price="${goodsCart.goods.goodsPrice}"
-                               th:text="${#numbers.formatInteger(goodsCart.goods.goodsPrice, 0, 'COMMA')} + '원'">
-                         </span>
-                  </td>
-                  <td>
-                    <div class="input-group mb-3" style="max-width: 120px;">
-                      <div class="input-group-prepend">
-                        <button class="btn btn-outline-success js-btn-minus" id="minus" type="button">&minus;</button>
-                      </div>
-                      <input type="text" class="form-control text-center" th:id="'count_' + ${goodsCart.id}"
-                             name="goodsCount"
-                             th:value="${goodsCart.goodsCount}" placeholder="" aria-label="addon" aria-describedby="button-addon1">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-success js-btn-plus" id="plus" type="button">&plus;</button>
-                      </div>
+        <div class="site-blocks-table">
+          <table class="table table-bordered" style="text-align: center;">
+            <thead>
+            <tr>
+              <th class="product-remove">
+                <input type="checkbox" id="checkall" onclick="checkAll()"/> 전체선택
+              </th>
+              <th class="product-thumbnail">이미지</th>
+              <th class="product-name">상품명</th>
+              <th class="product-price">가격</th>
+              <th class="product-quantity">수량</th>
+              <th class="product-total">총금액</th>
+              <th class="product-remove">삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 장바구니 항목들을 순회하며 출력 -->
+            <tr th:each="goodsCart : ${cart.goodsCarts}">
+                <!-- 각 장바구니 항목의 상품들을 순회하며 출력 -->
+                <td class="product-remove">
+                  <input type="checkbox" name="cartChkBox" th:value="${goodsCart.id}"/>
+                </td>
+                <td class="product-thumbnail">
+                  <img th:src="${goodsCart.goods.goodsImgs[0].imgUrl}" class="img-fluid cart-img" th:alt="${goodsCart.goods.goodsName}">
+                </td>
+                <td class="product-name">
+                  <span th:text="${goodsCart.goods.goodsName}"></span>
+                  <span th:text="${goodsCart.goods.goodsMaxAmount}"></span>
+                </td>
+                <td>
+                       <span th:id="'price_' + ${goodsCart.id}"
+                             th:data-price="${goodsCart.goods.goodsPrice}"
+                             th:text="${#numbers.formatInteger(goodsCart.goods.goodsPrice, 0, 'COMMA')} + '원'">
+                       </span>
+                </td>
+                <td>
+                  <div class="input-group mb-3" style="max-width: 120px;">
+                    <div class="input-group-prepend">
+                      <button class="btn btn-outline-success js-btn-minus" id="minus" type="button">&minus;</button>
                     </div>
-                  </td>
-                  <td>
-                        <span th:id="'totalPrice_' + ${goodsCart.id}"
-                              name="totalPrice"
-                              th:text="${#numbers.formatInteger(goodsCart.goods.goodsPrice * goodsCart.goodsCount, 0, 'COMMA')} + '원'">
-                        </span>
-                  </td>
-                  <td>
-                    <a role="button" th:id="'goodsCartId' + ${goodsCart.id}"  th:value="${goodsCart.id}" th:onclick="'deleteGoodsCart(' + ${goodsCart.id} + ')'"
-                       class="btn btn-success height-auto btn-sm">X</a>
-                  </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </form>
+                    <input type="text" class="form-control text-center" th:id="'count_' + ${goodsCart.id}"
+                           name="goodsCount"
+                           th:value="${goodsCart.goodsCount}" placeholder="" aria-label="addon" aria-describedby="button-addon1">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-success js-btn-plus" id="plus" type="button">&plus;</button>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                      <span th:id="'totalPrice_' + ${goodsCart.id}"
+                            name="totalPrice"
+                            th:text="${#numbers.formatInteger(goodsCart.goods.goodsPrice * goodsCart.goodsCount, 0, 'COMMA')} + '원'">
+                      </span>
+                </td>
+                <td>
+                  <a role="button" th:id="'goodsCartId' + ${goodsCart.id}"  th:value="${goodsCart.id}" th:onclick="'deleteGoodsCart(' + ${goodsCart.id} + ')'"
+                     class="btn btn-success height-auto btn-sm">X</a>
+                </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div class="row">
@@ -147,7 +145,10 @@
 
               <div class="row">
                 <div class="col-md-12">
-                  <button class="btn btn-success btn-lg btn-block" onclick="orders()">주문하기</button>
+                  <form action="/orders/order" method="post" id="cartForm" >
+                    <button type="button" class="btn btn-success btn-lg btn-block" onclick="orders()">주문하기</button>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                  </form>
                 </div>
               </div>
             </div>
@@ -244,18 +245,16 @@
         });
     }
 
-    function deleteGoodsCart(cartId) {
-        console.log(cartId)
-        if (!cartId) {
-            console.error("cartId is null or undefined");
+    function deleteGoodsCart(goodsCartId) {
+        if (!goodsCartId) {
+            console.error("goodsCartId is null or undefined");
             return;
         }
-
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
 
         $.ajax({
-            url: "/goodsCart/" + cartId,
+            url: "/goodsCart/delete/" + goodsCartId,
             type: "DELETE",
             contentType: "application/json",
             beforeSend: function(xhr) {
@@ -277,65 +276,30 @@
         });
     }
 
-     function orders() {
-                var token = $("meta[name='_csrf']").attr("content");
-                var header = $("meta[name='_csrf_header']").attr("content");
+    function orders() {
+      var cartForm = document.getElementById('cartForm');
+      var token = $("meta[name='_csrf']").attr("content");
+      var header = $("meta[name='_csrf_header']").attr("content");
+      var checkboxes = document.getElementsByName('cartChkBox');
+      checkboxes.forEach((checkbox) => {
+          //체크된 체크박스들만 필드를 생성한다.
+          if (checkbox.checked) {
+              var id = checkbox.value;
+              var countInput = document.querySelector('input[name="goodsCount"][data-id="' + id + '"]');
 
-                var url = "/orders/ordersIndex";
+              // 숨겨진 필드 생성
+              var hiddenIdField = document.createElement('input');
+              hiddenIdField.type = 'hidden';
+              hiddenIdField.name = 'goodsCartId';
+              hiddenIdField.value = id;
+              cartForm.appendChild(hiddenIdField);
+          }
+      });
 
-                var dataList = [];
-                var goodsIds;
-                var counts;
-                $("input[name=cartChkBox]:checked").each(function() {
-                    var cartId = $(this).val();
-                    var goodsId = $("#goodsId_" + cartId).val(); // goodsId로 변경
-                    if (!goodsId) {
-                        console.error("goodsId is null or undefined");
-                        return;
-                    }
-                    goodsIds = goodsId;
-                    //var count = $(this).siblings("input[name=goodsCount]").val();
-                    var count = $("#count_" + cartId).val();
-                    if (!count) {
-                        console.error("count is null or undefined");
-                        return;
-                    }
-                    counts = count;
+      cartForm.submit();
+    }
 
-                    dataList.push({ goodsId: goodsId, count: count }); // goodsId로 추가
-                });
 
-                if (dataList.length === 0) {
-                    alert("선택된 상품이 없습니다. 상품을 선택해주세요.");
-                    return;
-                }
-
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ orderDtoList: dataList,
-                                            goodsId: goodsIds,
-                                            count: counts,
-                     }), // orderDtoList로 변경
-                    beforeSend: function(xhr) {
-                        xhr.setRequestHeader(header, token);
-                    },
-                    dataType: "json",
-                    cache: false,
-                    success: function(result, status) {
-                        location.href = '/orders/ordersIndex';
-                    },
-                    error: function(jqXHR, status, error) {
-                        if (jqXHR.status == 401) {
-                            alert('로그인 후 이용해주세요');
-                            location.href = '/members/login';
-                        } else {
-                            alert('주문 도중 오류가 발생했습니다.');
-                        }
-                    }
-                });
-            }
   </script>
 </th:block>
 </html>

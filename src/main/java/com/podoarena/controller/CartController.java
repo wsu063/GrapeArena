@@ -37,11 +37,14 @@ public class CartController {
     // 현재 로그인한 멤버의 장바구니로 간다.
     @GetMapping(value = "/members/cart")
     public String cart(Principal principal, Model model) {
-        Member member = memberService.getMember(principal.getName());
-        Cart cart = member.getCart();
-        model.addAttribute("cart", cart);
-
-        return "cart/cartList";
+        if(principal == null) {
+            return "/";
+        } else {
+            Member member = memberService.getMember(principal.getName());
+            Cart cart = member.getCart();
+            model.addAttribute("cart", cart);
+            return "cart/cartList";
+        }
     }
 
     //카트 추가
