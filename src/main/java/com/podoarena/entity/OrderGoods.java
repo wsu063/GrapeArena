@@ -35,7 +35,7 @@ public class OrderGoods extends BaseEntity {
         OrderGoods orderGoods = new OrderGoods();
         orderGoods.setGoods(goods);
         orderGoods.setOrderCount(orderCount);
-        orderGoods.setOrderPrice(goods.getGoodsPrice());
+        orderGoods.setOrderPrice(goods.getGoodsPrice() * orderCount);
 
         goods.removeStock(orderCount); //재고감소
 

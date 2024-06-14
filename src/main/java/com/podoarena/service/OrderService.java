@@ -32,6 +32,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final GoodsCartRepository goodsCartRepository;
     private final CartService cartService;
+    private final GoodsService goodsSerivce;
 
     //주문하기. 하나라도 실패하면 전체 취소되어야한다.
     @Transactional
@@ -41,8 +42,10 @@ public class OrderService {
 
         List<OrderGoods> orderGoodsList = new ArrayList<>();
 
+        boolean buyNow = orderDto.getGoodsCartIds().isEmpty();
+
         //장바구니에서 결제로 이동했을시
-        if(orderDto.getGoodsCartIds() != null) {
+        if(!buyNow) {
             //OrderGoodsList 구하고, 결제 완료된 goodsCart를 장바구니에서 삭제한다.
             for(Long goodsCartId : orderDto.getGoodsCartIds()) {
                 GoodsCart goodsCart = cartService.getGoodsCart(goodsCartId);
@@ -50,12 +53,13 @@ public class OrderService {
                 orderGoodsList.add(orderGoods);
                 cartService.deleteGoodsCart(goodsCartId);
             }
-        } else if (orderDto.getGoodsIds() != null && orderDto.getGoodsCounts() != null) {
+        } else {
             //굿즈 상세페이지에서 바로 구매로 이동했을시
             //OrderGoodsList 구한다.
-
-        } else { // 아무것도 없으면 null을 리턴한다.
-            return null;
+            Goods goods = goodsSerivce.getGoodsById(orderDto.getGoodsIds().get(0));
+            int goodsCount = Math.toIntExact(orderDto.getGoodsCounts().get(0));
+            OrderGoods orderGoods = OrderGoods.createOrderGoods(goods, goodsCount);
+            orderGoodsList.add(orderGoods);
         }
         // 주문결과를 만들고, 주문결과를 현재 멤버에 저장한다.
         Orders orders = Orders.createOrder(member, orderGoodsList);
