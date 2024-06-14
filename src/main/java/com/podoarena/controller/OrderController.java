@@ -43,9 +43,7 @@ public class OrderController {
                 GoodsCart goodsCart = cartService.getGoodsCart(goodsCartId);
                 goodsCartList.add(goodsCart);
             }
-
-            model.addAttribute(goodsCartList);
-
+            model.addAttribute("goodsCartList", goodsCartList);
             return "orders/ordersIndex"; //성공시
         }
     }
