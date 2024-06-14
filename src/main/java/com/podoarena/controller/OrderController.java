@@ -50,33 +50,21 @@ public class OrderController {
 
     // 현재 결제페이지에 있는 굿즈카트들을 결제한다.
     @PostMapping(value = "/orders/orderNow")
-    public @ResponseBody ResponseEntity order(@RequestBody @Valid OrderDto orderDto,
-             BindingResult bindingResult,Principal principal) {
+    public @ResponseBody ResponseEntity order(@RequestBody OrderDto orderDto,
+                        Principal principal) {
 
-        if (bindingResult.hasErrors()) {
-            StringBuilder sb = new StringBuilder();
+            String email = principal.getName(); //id에 해당하는 정보 가지고 옴(email)
+            Long orderId = null;
 
-            //유효성 체크 후 에러결과 가져옴
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            try {
+                orderId = orderService.order(orderDto, email); //주문하기
+            } catch (Exception e) {
+                e.printStackTrace();
 
-            for (FieldError fieldError : fieldErrors) {
-                sb.append(fieldError.getDefaultMessage()); //에러메세지 합침
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
             }
 
-            return new ResponseEntity<>(sb.toString(), HttpStatus.BAD_REQUEST);
-        }
-
-        String email = principal.getName(); //id에 해당하는 정보 가지고 옴(email)
-        Long orderId;
-
-        try {
-            orderId = orderService.order(orderDto, email); //주문하기
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(orderId, HttpStatus.OK); //성공시
+            return new ResponseEntity<>(orderId, HttpStatus.OK); //성공시
     }
 
 

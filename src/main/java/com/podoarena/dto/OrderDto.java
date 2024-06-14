@@ -1,5 +1,6 @@
 package com.podoarena.dto;
 
+import com.podoarena.entity.Goods;
 import com.podoarena.entity.GoodsCart;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -15,8 +16,11 @@ import java.util.List;
 @Setter
 public class OrderDto {
 
-    private List<Long> goodsCartIds;
+    private List<Long> goodsCartIds  = new ArrayList<>(); // 장바구니에서 구매할때 필요
 
-    private List<GoodsCart> goodsCartList = new ArrayList<>();
+    private List<Long> goodsIds = new ArrayList<>(); // 바로구매할때 필요
+
+    private List<Long> goodsCounts = new ArrayList<>(); // 바로구매할때 필요
+
 
 }

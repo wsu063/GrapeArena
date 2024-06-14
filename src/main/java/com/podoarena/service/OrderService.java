@@ -28,32 +28,41 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class OrderService {
-    private final GoodsRepository goodsRepository;
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
     private final GoodsCartRepository goodsCartRepository;
     private final CartService cartService;
 
-    //주문하기
+    //주문하기. 하나라도 실패하면 전체 취소되어야한다.
+    @Transactional
     public Long order(OrderDto orderDto, String email) {
-        //1. 주문한 굿즈의 객체를 가져온다.
-        for(Long goodsCartId : orderDto.getGoodsCartIds()) {
-            GoodsCart goodsCart = cartService.getGoodsCart(goodsCartId);
-            orderDto.getGoodsCartList().add(goodsCart);
-        }
-//
-//        //2. 현재 로그인한 회원의 이메일을 이용해 member 엔티티를 가져온다
-//        Member member = memberRepository.findByEmail(email);
-//
-//        //양방향 관계일때 save
-//        List<OrderGoods> orderGoodsList = new ArrayList<>();
-//        OrderGoods orderGoods = OrderGoods.createOrderGoods(goods, orderDto.getCount());
-//        orderGoodsList.add(orderGoods);
-//
-//        Orders orders = Orders.createOrder(member, orderGoodsList);
-//        orderRepository.save(orders); //insert
+        //현재 로그인한 회원의 이메일을 이용해 member 엔티티를 가져온다
+        Member member = memberRepository.findByEmail(email);
 
-        return null;
+        List<OrderGoods> orderGoodsList = new ArrayList<>();
+
+        //장바구니에서 결제로 이동했을시
+        if(orderDto.getGoodsCartIds() != null) {
+            //OrderGoodsList 구하고, 결제 완료된 goodsCart를 장바구니에서 삭제한다.
+            for(Long goodsCartId : orderDto.getGoodsCartIds()) {
+                GoodsCart goodsCart = cartService.getGoodsCart(goodsCartId);
+                OrderGoods orderGoods = OrderGoods.createOrderGoods(goodsCart.getGoods(), goodsCart.getGoodsCount());
+                orderGoodsList.add(orderGoods);
+                cartService.deleteGoodsCart(goodsCartId);
+            }
+        } else if (orderDto.getGoodsIds() != null && orderDto.getGoodsCounts() != null) {
+            //굿즈 상세페이지에서 바로 구매로 이동했을시
+            //OrderGoodsList 구한다.
+
+        } else { // 아무것도 없으면 null을 리턴한다.
+            return null;
+        }
+        // 주문결과를 만들고, 주문결과를 현재 멤버에 저장한다.
+        Orders orders = Orders.createOrder(member, orderGoodsList);
+        orderRepository.save(orders);
+        member.getOrdersList().add(orders);
+
+        return orders.getId();
 
     }
 
