@@ -38,6 +38,17 @@
                             </tr>
                         </th:block>
                         <!-- 바로구매시 이쪽으로(미완성) -->
+                        <th:block th:if="${goods != null}">
+                            <tr>
+                                <td>1</td>
+                                <td th:text="${goods.goodsName}">상품명</td>
+                                <td th:text="${goodsCount}">수량</td>
+                                <td th:text="${#numbers.formatInteger(goods.goodsPrice*goodsCount, 0, 'COMMA')} + '원'"
+                                    th:id="total_1" th:value="${goods.goodsPrice * goodsCount}">가격</td>
+                                <input type="hidden" name="goodsId" th:value="${goods.id}" />
+                                <input type="hidden" name="goodsCount" th:value="${goodsCount}" />
+                            </tr>
+                        </th:block>
                     </tbody>
                 </table>
             </div>

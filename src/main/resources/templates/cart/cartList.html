@@ -281,22 +281,27 @@
       var token = $("meta[name='_csrf']").attr("content");
       var header = $("meta[name='_csrf_header']").attr("content");
       var checkboxes = document.getElementsByName('cartChkBox');
-      checkboxes.forEach((checkbox) => {
-          //체크된 체크박스들만 필드를 생성한다.
-          if (checkbox.checked) {
-              var id = checkbox.value;
-              var countInput = document.querySelector('input[name="goodsCount"][data-id="' + id + '"]');
+      var chk = $("input[name=cartChkBox]:checked").length;
+      console.log(chk);
+      if(chk == 0) {
+        alert("상품을 선택해주세요.");
+      } else {
+        checkboxes.forEach((checkbox) => {
+            //체크된 체크박스들만 필드를 생성한다.
+            if (checkbox.checked) {
+                var id = checkbox.value;
+                var countInput = document.querySelector('input[name="goodsCount"][data-id="' + id + '"]');
 
-              // 숨겨진 필드 생성
-              var hiddenIdField = document.createElement('input');
-              hiddenIdField.type = 'hidden';
-              hiddenIdField.name = 'goodsCartId';
-              hiddenIdField.value = id;
-              cartForm.appendChild(hiddenIdField);
-          }
-      });
-
-      cartForm.submit();
+                // 숨겨진 필드 생성
+                var hiddenIdField = document.createElement('input');
+                hiddenIdField.type = 'hidden';
+                hiddenIdField.name = 'goodsCartId';
+                hiddenIdField.value = id;
+                cartForm.appendChild(hiddenIdField);
+            }
+        });
+        cartForm.submit();
+      }
     }
 
 

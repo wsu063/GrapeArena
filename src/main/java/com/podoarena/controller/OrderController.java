@@ -2,9 +2,11 @@ package com.podoarena.controller;
 
 import com.podoarena.dto.OrderDto;
 import com.podoarena.dto.OrderHistDto;
+import com.podoarena.entity.Goods;
 import com.podoarena.entity.GoodsCart;
 import com.podoarena.repository.GoodsCartRepository;
 import com.podoarena.service.CartService;
+import com.podoarena.service.GoodsService;
 import com.podoarena.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,21 +32,33 @@ import java.util.Optional;
 public class OrderController {
     private final OrderService orderService;
     private final CartService cartService;
+    private final GoodsService goodsService;
+    
     // 선택한 굿즈카트를 주문페이지로 옮긴다
+    // 혹은 굿즈상세페이지에서 바로구매시 주문페이지로 옮긴다
     @PostMapping(value = "/orders/order")
-    public String orderPage(@RequestParam("goodsCartId") List<Long> goodsCartIdList,
+    public String orderPage(@RequestParam(value = "goodsCartId", required = false) List<Long> goodsCartIdList,
+                        @RequestParam(value = "goodsId", required = false) Long goodsId,
+                        @RequestParam(value = "goodsCount", required = false) Integer goodsCount,
                         Principal principal, Model model) {
 
         if (principal == null) {
             return "members/login";
-        } else {
+        } else if(goodsCartIdList != null) { // 장바구니에서 구매시
             List<GoodsCart> goodsCartList = new ArrayList<>();
             for(Long goodsCartId : goodsCartIdList) {
                 GoodsCart goodsCart = cartService.getGoodsCart(goodsCartId);
                 goodsCartList.add(goodsCart);
             }
             model.addAttribute("goodsCartList", goodsCartList);
-            return "orders/ordersIndex"; //성공시
+            return "orders/ordersIndex";
+        } else { // 바로구매시
+            if(goodsId == null) return "index"; //데이터가 없으면 메인화면으로 이동한다.
+            Goods goods = goodsService.getGoodsById(goodsId);
+            model.addAttribute("goods", goods);
+            model.addAttribute("goodsCount", goodsCount);
+
+            return "orders/ordersIndex";
         }
     }
 
