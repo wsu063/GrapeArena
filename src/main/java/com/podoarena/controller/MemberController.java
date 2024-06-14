@@ -1,8 +1,10 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.MemberFormDto;
+import com.podoarena.entity.Cart;
 import com.podoarena.entity.Member;
 import com.podoarena.entity.Reserve;
+import com.podoarena.repository.CartRepository;
 import com.podoarena.repository.MemberRepository;
 import com.podoarena.repository.ReserveRepository;
 import com.podoarena.service.MemberService;
@@ -27,6 +29,7 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     private final ReserveRepository reserveRepository;
+    private final CartRepository cartRepository;
 
     //로그인 페이지 이동
     @GetMapping(value = "/members/login")
@@ -54,9 +57,14 @@ public class MemberController {
         try {
             Member member = Member.createMember(memberFormDto, passwordEncoder);
             memberService.saveMember(member);
+            //예매 내역 자동 생성
             Reserve reserve = new Reserve();
             reserve.setMember(member);
             reserveRepository.save(reserve);
+            //장바구니 자동 생성
+            Cart cart = new Cart();
+            cart.setMember(member);
+            cartRepository.save(cart);
 
         } catch (IllegalStateException e) {
             model.addAttribute("errorMessage", e.getMessage());

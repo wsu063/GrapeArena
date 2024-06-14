@@ -212,7 +212,6 @@
       
       function addCartGoods() {
         var goodsId = $("#goodsId").val();
-        var memberId = $("#memberId").val();
         var goodsCount = parseInt($('#quantity_value').text());
         
         var token = $("meta[name='_csrf']").attr("content");
@@ -221,7 +220,6 @@
         var formData = {
           goodsId: goodsId,
           goodsCount: goodsCount,
-          memberId: memberId,
         };
         
         $.ajax({
@@ -235,8 +233,10 @@
           cache: false,
           data: JSON.stringify(formData),
           success: function (result, status, xhr, formData) {
-            confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?");
-            location.href = "/members/cart";
+            const confirmChk = confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?");
+            if(confirmChk) {
+              location.href = "/members/cart";
+            }
             
           },
           error: function (jqXHR, status, error) {

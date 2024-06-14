@@ -58,7 +58,7 @@
   <div class="site-section" style="margin-top: 1rem;">
     <div class="container">
       <div class="row mb-5">
-        <form class="col-md-12" method="post">
+        <form class="col-md-12">
           <div class="site-blocks-table">
             <table class="table table-bordered" style="text-align: center;">
               <thead>
@@ -76,24 +76,22 @@
               </thead>
               <tbody>
               <!-- 장바구니 항목들을 순회하며 출력 -->
-              <tr th:each="cart : ${goodsCarts}">
-                <th:block th:each="goodsCart : ${cart.goodsCartDtoList}">
+              <tr th:each="goodsCart : ${cart.goodsCarts}">
                   <!-- 각 장바구니 항목의 상품들을 순회하며 출력 -->
                   <td class="product-remove">
-                    <input type="checkbox" name="cartChkBox" th:value="${cart.cartId}"/>
-                    <input type="hidden" th:id="'goodsId_' + ${cart.cartId}" th:value="${goodsCart.goodsId}"/>
+                    <input type="checkbox" name="cartChkBox" th:value="${goodsCart.id}"/>
                   </td>
                   <td class="product-thumbnail">
-                    <img th:src="${goodsCart.imgUrl}" class="img-fluid cart-img" th:alt="${goodsCart.goodsName}">
+                    <img th:src="${goodsCart.goods.goodsImgs[0].imgUrl}" class="img-fluid cart-img" th:alt="${goodsCart.goods.goodsName}">
                   </td>
                   <td class="product-name">
-                    <span th:text="${goodsCart.goodsName}"></span>
-                    <span th:text="${goodsMaxAmount}"></span>
+                    <span th:text="${goodsCart.goods.goodsName}"></span>
+                    <span th:text="${goodsCart.goods.goodsMaxAmount}"></span>
                   </td>
                   <td>
-                         <span th:id="'price_' + ${cart.cartId}"
-                               th:data-price="${goodsCart.goodsPrice}"
-                               th:text="${#numbers.formatInteger(goodsCart.goodsPrice, 0, 'COMMA')} + '원'">
+                         <span th:id="'price_' + ${goodsCart.id}"
+                               th:data-price="${goodsCart.goods.goodsPrice}"
+                               th:text="${#numbers.formatInteger(goodsCart.goods.goodsPrice, 0, 'COMMA')} + '원'">
                          </span>
                   </td>
                   <td>
@@ -101,27 +99,24 @@
                       <div class="input-group-prepend">
                         <button class="btn btn-outline-success js-btn-minus" id="minus" type="button">&minus;</button>
                       </div>
-                      <input type="text" class="form-control text-center" th:id="'count_' + ${cart.cartId}"
+                      <input type="text" class="form-control text-center" th:id="'count_' + ${goodsCart.id}"
                              name="goodsCount"
-                             th:value="${goodsCart.goodsCount}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                             th:value="${goodsCart.goodsCount}" placeholder="" aria-label="addon" aria-describedby="button-addon1">
                       <div class="input-group-append">
                         <button class="btn btn-outline-success js-btn-plus" id="plus" type="button">&plus;</button>
                       </div>
                     </div>
                   </td>
                   <td>
-                        <span th:id="'totalPrice_' + ${cart.cartId}"
+                        <span th:id="'totalPrice_' + ${goodsCart.id}"
                               name="totalPrice"
-                              th:text="${#numbers.formatInteger(goodsCart.goodsPrice * goodsCart.goodsCount, 0, 'COMMA')} + '원'">
+                              th:text="${#numbers.formatInteger(goodsCart.goods.goodsPrice * goodsCart.goodsCount, 0, 'COMMA')} + '원'">
                         </span>
                   </td>
                   <td>
-                    <a role="button" th:id="'cartId' + ${cart.cartId}"  th:value="${cart.cartId}" th:onclick="'deleteGoodsCart(' + ${cart.cartId} + ')'"
+                    <a role="button" th:id="'goodsCartId' + ${goodsCart.id}"  th:value="${goodsCart.id}" th:onclick="'deleteGoodsCart(' + ${goodsCart.id} + ')'"
                        class="btn btn-success height-auto btn-sm">X</a>
                   </td>
-                </td>
-              </th:block>
-
               </tr>
               </tbody>
             </table>
@@ -172,9 +167,9 @@
     function getOrderTotalPrice() {
         var orderTotalPrice = 0;
         $("input[name=cartChkBox]:checked").each(function() {
-            var cartId = $(this).val();
-            var price = $("#price_" + cartId).data("price");
-            var count = $("#count_" + cartId).val();
+            var goodsCartId = $(this).val();
+            var price = $("#price_" + goodsCartId).data("price");
+            var count = $("#count_" + goodsCartId).val();
             orderTotalPrice += price * count;
         });
 
@@ -183,12 +178,12 @@
 
     function changeCount($obj) {
         var count = $obj.val();
-        var cartId = $obj.attr('id').split('_')[1];
-        var price = $("#price_" + cartId).data("price");
+        var goodsCartId = $obj.attr('id').split('_')[1];
+        var price = $("#price_" + goodsCartId).data("price");
         var totalPrice = count * price;
-        $("#totalPrice_" + cartId).html(totalPrice.toLocaleString('ko-KR') + "원");
+        $("#totalPrice_" + goodsCartId).html(totalPrice.toLocaleString('ko-KR') + "원");
         getOrderTotalPrice();
-        updateCartCount(cartId, count);
+        updateCartCount(goodsCartId, count);
     }
 
     function checkAll() {
@@ -219,29 +214,31 @@
         changeCount($input);
     });
 
-    function updateCartCount(cartId, count) {
+    function updateCartCount(goodsCartId, count) {
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
 
-        var url = "/goodsCart/" + cartId + "?count=" + count;
+        var url = "/goodsCart/patch/" + goodsCartId + "?count=" + count;
 
         $.ajax({
             url: url,
             type: "PATCH",
+            contentType: "application/json",
             beforeSend: function(xhr) {
                 xhr.setRequestHeader(header, token);
             },
             dataType: "json",
             cache: false,
             success: function(result, status) {
-                console.log("cart count update success");
+                //성공적으로 장바구니 업데이트 완료.
             },
             error: function(jqXHR, status, error) {
                 if (jqXHR.status == 401) {
                     alert('로그인 후 이용해주세요');
                     location.href = '/members/login';
                 } else {
-                    alert(jqXHR.responseJSON.message);
+                    alert(jqXHR.responseJSON ? jqXHR.responseJSON.message : '최대 수량 이하로만 구매할 수 있습니다.');
+                    location.reload();
                 }
             }
         });

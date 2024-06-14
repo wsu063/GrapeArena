@@ -1,6 +1,7 @@
 package com.podoarena.service;
 
 
+import com.podoarena.dto.GoodsCartDto;
 import com.podoarena.dto.OrderDto;
 import com.podoarena.dto.OrderHistDto;
 import com.podoarena.entity.*;
@@ -10,10 +11,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +32,7 @@ public class OrderService {
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
     private final GoodsCartRepository goodsCartRepository;
+    private final CartService cartService;
 
     //주문하기
     public Long order(OrderDto orderDto, String email) {
@@ -128,6 +136,53 @@ public class OrderService {
         orderRepository.save(orders);
 
         return orders.getId();
+    }
+
+    //카트 굿즈 주문
+    public Long orderGoodsCart(List<GoodsCartDto> goodsCartDtoList, String email) {
+        List<OrderDto> orderDtoList = new ArrayList<>();
+
+//        //주문할 각 카트 굿즈
+//        for (GoodsCartDto goodsCartDto : goodsCartDtoList) {
+//            GoodsCart goodsCart = goodsCartRepository
+//                    .findById(goodsCartDto.getGoodsCartId())
+//                    .orElseThrow(EntityNotFoundException::new); //카트 굿즈를 아이디로 찾아온다
+//
+//            OrderDto orderDto = new OrderDto();
+//            orderDto.setGoodsId(goodsCart.getCart().getId()); // 굿즈 아이디 설정
+//            orderDto.setCount(goodsCart.getGoodsCount()); // 수량 설정
+//            orderDtoList.add(orderDto);
+//        }
+//
+//        //주문 서비스 호출하여 주문 생성
+//        Long orderId = orderService.orders(orderDtoList, email);
+//        for (OrderDto orderDto : orderDtoList) {
+//            GoodsCart goodsCart = goodsCartRepository
+//                    .findById(orderDto.getGoodsId())
+//                    .orElseThrow(EntityNotFoundException::new);
+//            goodsCartRepository.delete(goodsCart);
+//        }
+
+        return null;
+    }
+
+    //카트에 담긴 굿즈 주문
+    @PostMapping(value = "/cart/orders")
+    public @ResponseBody ResponseEntity orderGoodsCart(@RequestBody OrderDto orderDto, Principal principal) {
+        List<OrderDto> orderDtoList = orderDto.getOrderDtoList();
+
+        if (orderDtoList == null || orderDtoList.size() == 0) {
+            return new ResponseEntity<String>("주문할 상품을 선택해주세요", HttpStatus.FORBIDDEN);
+        }
+
+        for (OrderDto orderDtos : orderDtoList ) {
+            if (!cartService.validateGoodsCart(orderDtos.getGoodsId(), principal.getName())){
+                return new ResponseEntity<String>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN);
+            }
+        }
+
+        Long ordersId = orderGoodsCart(new ArrayList<>(), principal.getName());
+        return new ResponseEntity<Long>(ordersId, HttpStatus.OK);
     }
 
 }

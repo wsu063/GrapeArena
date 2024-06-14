@@ -30,14 +30,4 @@ public class Cart {
         goodsCarts.add(goodsCart);
         goodsCart.setCart(this);
     }
-    //생성
-    public static Cart createCart(Member member, List<GoodsCart> goodsCartList) {
-        Cart cart = new Cart();
-        cart.setMember(member);
-
-        for(GoodsCart goodsCart : goodsCartList) {
-            cart.addCart(goodsCart);
-        }
-        return cart;
-    }
 }

@@ -6,6 +6,7 @@ import com.podoarena.entity.Goods;
 import com.podoarena.entity.GoodsCart;
 import com.podoarena.entity.Member;
 import com.podoarena.repository.CartRepository;
+import com.podoarena.repository.GoodsCartRepository;
 import com.podoarena.repository.MemberRepository;
 import com.podoarena.service.CartService;
 import com.podoarena.service.GoodsService;
@@ -29,26 +30,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartController {
     private final CartService cartService;
-    private final MemberRepository memberRepository;
     private final MemberService memberService;
-    private final CartRepository cartRepository;
     private final GoodsService goodsService;
 
 
+    // 현재 로그인한 멤버의 장바구니로 간다.
     @GetMapping(value = "/members/cart")
     public String cart(Principal principal, Model model) {
-        List<CartListDto> cartListDtoList =
-                cartService.getCartList(principal.getName());
-        model.addAttribute("goodsCarts", cartListDtoList);
+        Member member = memberService.getMember(principal.getName());
+        Cart cart = member.getCart();
+        model.addAttribute("cart", cart);
 
         return "cart/cartList";
     }
 
-
     //카트 추가
     @PostMapping(value = "/members/addCart")
-    public @ResponseBody ResponseEntity addtoCart(@Valid @RequestBody CartDto cartDto,
+    public @ResponseBody ResponseEntity addToCart(@Valid @RequestBody GoodsCartDto goodsCartDto,
                                                   BindingResult bindingResult, Model model, Principal principal) {
+        //현재 선택한 굿즈를 선택한 수량과 함께 장바구니에 넣는다.
+
         if (bindingResult.hasErrors()) {
             StringBuilder sb = new StringBuilder();
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -61,16 +62,10 @@ public class CartController {
 
         try {
             // Goods 엔티티의 정보를 가져옵니다.
-            Goods goods = goodsService.getGoodsById(cartDto.getGoodsId());
-
+            Goods goods = goodsService.getGoodsById(goodsCartDto.getGoodsId());
             // Goods 엔티티에서 goodsMaxAmount 속성을 가져옵니다.
             int goodsMaxAmount = goods.getGoodsMaxAmount();
-
-            Long cartId = cartService.addToCart(cartDto, email, cartDto.getGoodsCount());
-            model.addAttribute("member", memberService.getMember(email));
-            model.addAttribute("memberFormDto", new MemberFormDto());
-            model.addAttribute("goodsMaxAmount", goodsMaxAmount); // goodsMaxAmount를 모델에 추가합니다.
-
+            cartService.addToCart(goodsCartDto, principal.getName());
             return new ResponseEntity<String>("formData", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,57 +75,34 @@ public class CartController {
 
 
     //카트 굿즈 삭제
-    @DeleteMapping(value = "/goodsCart/{cartId}")
-    public @ResponseBody ResponseEntity deleteGoodsCart(@PathVariable("cartId") Long cartId, Principal principal) {
-//        if (!cartService.validateGoodsCart(cartId, principal.getName())) {
-//            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
-//        }
-        cartService.deleteCart(cartId);
-//        cartService.deleteGoodsCart(goodsCartId); // 굿즈 삭제
-
-        return new ResponseEntity<Long>(cartId, HttpStatus.OK);
-    }
-
-    // 카트 굿즈 수량을 수정
-    @PatchMapping(value = "/goodsCart/{cartId}")
-    public @ResponseBody ResponseEntity updateGoodsCart(@PathVariable("cartId") Long cartId,
-                                                        @RequestParam("count") int count,
-                                                        Principal principal){
-        Cart cart = cartRepository.findById(cartId).
-                orElseThrow(EntityNotFoundException::new);
-        GoodsCart goodsCart = cart.getGoodsCarts().get(0);
-        if (count <= 0) {
-            return new ResponseEntity<String>("최소 1개 이상 담아주세요.", HttpStatus.BAD_REQUEST);
-        } else if (!cartService.validateGoodsCart(cartId, principal.getName())) {
+    @DeleteMapping(value = "/goodsCart/delete/{goodsCartId}")
+    public @ResponseBody ResponseEntity deleteGoodsCart(@PathVariable("goodsCartId") Long goodsCartId, Principal principal) {
+        if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
             return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
         }
+        cartService.deleteGoodsCart(goodsCartId);
 
-
-        Long goodsCartId = goodsCart.getId();
-        cartService.updateGoodsCartCount(goodsCartId, count);
         return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
     }
 
-    //카트에 담긴 굿즈 주문
-    @PostMapping(value = "/cart/orders")
-    public @ResponseBody ResponseEntity orderGoodsCart(@RequestBody OrderDto orderDto, Principal principal) {
-        List<OrderDto> orderDtoList = orderDto.getOrderDtoList();
+    // 카트 굿즈 수량을 수정
+    @PatchMapping(value = "/goodsCart/patch/{goodsCartId}")
+    public @ResponseBody ResponseEntity updateGoodsCart(@PathVariable("goodsCartId") Long goodsCartId,
+                                                        @RequestParam("count") int count,
+                                                        Principal principal){
 
-        if (orderDtoList == null || orderDtoList.size() == 0) {
-            return new ResponseEntity<String>("주문할 상품을 선택해주세요", HttpStatus.FORBIDDEN);
+        GoodsCart goodsCart = cartService.getGoodsCart(goodsCartId);
+        if (count <= 0) {
+            return new ResponseEntity<String>("최소 1개 이상 담아주세요.", HttpStatus.BAD_REQUEST);
+        } else if (!cartService.validateGoodsCart(goodsCartId, principal.getName())) {
+            return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
         }
 
-        for (OrderDto orderDtos : orderDtoList ) {
-            if (!cartService.validateGoodsCart(orderDtos.getGoodsId(), principal.getName())){
-                return new ResponseEntity<String>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN);
-            }
+        if(!cartService.updateGoodsCartCount(goodsCartId, count)) {
+            return new ResponseEntity<String>("최대 수량 이하로만 구매할 수 있습니다.", HttpStatus.BAD_REQUEST);
         }
-
-        Long ordersId = cartService.orderGoodsCart(new ArrayList<>(), principal.getName());
-        return new ResponseEntity<Long>(ordersId, HttpStatus.OK);
+        return new ResponseEntity<Long>(goodsCartId, HttpStatus.OK);
     }
-
-
 
 }
 
