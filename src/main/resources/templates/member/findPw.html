@@ -84,6 +84,7 @@
                       </label>
                     </div>
                   </div>
+                  <div id="find_pw_error_modal"></div>
                 </div>
                 <div class="chkuser_style">
                 
@@ -143,17 +144,15 @@
           }
         });
       }
-      
+
       function resetPassword() {
-        // 사용자가 입력한 아이디와 퀴즈 답변을 가져옴
         var resetPw = $("#resetPw").val();
         var resetPwChk = $("#resetPwChk").val();
         var email = $("#email").val();
-        
+
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
-        
-        // 폼 데이터 객체 생성
+
         var formData = {
           resetPw: resetPw,
           resetPwChk: resetPwChk,
@@ -163,20 +162,28 @@
           url: "/members/resetpw",
           type: "POST",
           contentType: "application/json",
-          beforeSend: function(xhr) {
-            // 데이터를 전송하기 전에 헤더에 csrf 값을 설정
+          beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
           },
           dataType: "text",
           cache: false,
           data: JSON.stringify(formData), // 데이터를 JSON 형식으로 전송
-          success: function(result, status, xhr) {
+          success: function (result, status, xhr) {
             $("#resetPwModal").modal("hide");
+            $("#find_pw_error_modal").hide();
             alert("비밀번호 변경 완료되었습니다.");
             location.href = "/members/login"
           },
-          error: function(jqXHR, status, error) {
-            alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+          error: function (jqXHR, status, error) {
+            var errorMessage;
+            if (jqXHR.responseText === 'chkError') {
+              errorMessage = '비밀번호가 일치하지 않습니다';
+            } else if (jqXHR.responseText === 'validError') {
+              errorMessage = '비밀번호는 최소 8자 이상이어야 하며, 하나 이상의 문자, 숫자, 특수문자를 포함해야 합니다.';
+            } else {
+              errorMessage = jqXHR.responseText || "오류가 발생했습니다.";
+            }
+            $("#find_pw_error_modal").html("<p>" + errorMessage + "</p>");
           }
         });
       }

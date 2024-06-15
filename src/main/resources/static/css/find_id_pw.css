@@ -117,7 +117,8 @@
 }
 
 #find_id_error p,
-#find_pw_error {
+#find_pw_error p,
+#find_pw_error_modal p{
     color:red;
     margin: 10px 0;
 }

@@ -110,18 +110,35 @@ public class MemberController {
         String email = requestData.get("email");
         String resetPw = requestData.get("resetPw");
         String resetPwChk = requestData.get("resetPwChk");
-
-        boolean comparePw = resetPw.equals(resetPwChk);
-
-        if(comparePw) {
-            Member member = memberRepository.findByEmail(email);
-            member.resetPassword(member, resetPw, passwordEncoder);
-            memberRepository.save(member);
-            return new ResponseEntity<String>(email, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<String>("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
+        
+        
+        // 비밀번호 일치 여부 확인
+        if (!resetPw.equals(resetPwChk)) {
+            return new ResponseEntity<>("chkError", HttpStatus.BAD_REQUEST);
         }
+        
+        // 비밀번호 유효성 검사
+        if (!isValidPassword(resetPw)) {
+            return new ResponseEntity<>("validError", HttpStatus.BAD_REQUEST);
+        }
+
+        Member member = memberRepository.findByEmail(email);
+        if (member == null) {
+            return new ResponseEntity<>("해당 이메일의 사용자가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+        }
+
+        member.resetPassword(member, resetPw, passwordEncoder);
+        memberRepository.save(member);
+        return new ResponseEntity<>(email, HttpStatus.OK);
+        
     }
+
+    //비밀번호 재설정 페이지 유효성 검사
+    private boolean isValidPassword(String resetPw) {
+        String regex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,16}$";
+        return resetPw.matches(regex);
+    }
+
 
     //아이디 찾기 페이지
     @GetMapping(value = "/members/findid")
@@ -219,4 +236,6 @@ public class MemberController {
         return "member/login";
 
     }
+
+    
 }

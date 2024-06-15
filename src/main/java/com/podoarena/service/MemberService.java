@@ -61,6 +61,8 @@ public class MemberService implements UserDetailsService {
         return true;
     }
 
+
+
     public Member getMember(String email) {return memberRepository.findByEmail(email); }
 
     //entity -> dto
