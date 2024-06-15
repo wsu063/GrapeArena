@@ -39,6 +39,19 @@ public class MemberService implements UserDetailsService {
         }
     }
 
+    //전화번호 010-1234-1234 포맷
+    public String formatPhone(String phone) {
+        phone = phone.replace("\\D", "");
+
+        if (phone.length() == 10) {
+            return phone.replaceFirst("(\\d{3})(\\d{3})(\\d{4})", "$1-$2-$3");
+        } else if (phone.length() == 11) {
+            return phone.replaceFirst("(\\d{3})(\\d{4})(\\d{4})", "$1-$2-$3");
+        } else {
+            return phone;
+        }
+    }
+
     //이메일과 휴대폰 번호로 일치 확인
     public boolean chkUser(String email, String phone) {
         Member findPassword = memberRepository.findByEmailAndPhone(email, phone);
@@ -92,6 +105,7 @@ public class MemberService implements UserDetailsService {
         }
     }
 
+    //회원탈퇴
     public void confirmDelete(String email) {
         Member member = memberRepository.findByEmail(email);
         memberRepository.delete(member);

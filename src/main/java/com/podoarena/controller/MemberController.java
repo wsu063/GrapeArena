@@ -50,7 +50,6 @@ public class MemberController {
     public String registerUser(@Validated MemberFormDto memberFormDto,
                                BindingResult bindingResult , Model model) {
         if(bindingResult.hasErrors()) {
-//            model.addAttribute("validErrorMsg","비밀번호는 8~16자 영문, 숫자, 특수문자를 입력해주세요.");
             return "member/register";
         }
 
@@ -212,6 +211,7 @@ public class MemberController {
     //회원정보 수정 처리
     @PostMapping(value = "/members/editprofile")
     public String editProfile(Model model, MemberFormDto memberFormDto) {
+        model.addAttribute("memberFormDto", new MemberFormDto());
         memberService.editMember(memberFormDto, passwordEncoder);
         return "redirect:/";
     }

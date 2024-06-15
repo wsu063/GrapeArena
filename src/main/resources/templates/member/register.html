@@ -75,6 +75,7 @@
                                     </div>
                                 </div>
                             </div>
+                            </div>
                           <div class="col-md-12"></div>
                           <div class="col-md-2"> </div>
                           <div class="col-md-10">
@@ -83,8 +84,8 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label th:for="phone">휴대폰</label>
-                                <input type="text" class="form-control" placeholder="010-1234-4567 형식으로 입력해주세요." th:field="*{phone}" />
+                                <label th:for="phone">전화번호</label>
+                                <input type="text" class="form-control" placeholder="'-'을 포함하여 입력해주세요." th:field="*{phone}" />
                             </div>
                           <div class="col-md-12"></div>
                           <div class="col-md-2"> </div>
@@ -100,7 +101,7 @@
                         </div>
 
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                        </div>
+
                     </form>
                 </div>
             </div>

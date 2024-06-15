@@ -22,6 +22,7 @@ public class MemberFormDto {
     @NotEmpty(message = "비밀번호는 필수 입력 값입니다.")
     private String password;
 
+    @Pattern(regexp = "^\\d{3}-\\d{4}-\\d{4}$", message = "올바르지 않은 형식입니다. '-'을 포함하여 입력해주세요.")
     @NotEmpty(message = "번호는 필수 입력 값입니다.")
     private String phone;
 
