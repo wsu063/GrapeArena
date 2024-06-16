@@ -4,6 +4,7 @@ import com.podoarena.dto.OrderDto;
 import com.podoarena.dto.OrderHistDto;
 import com.podoarena.entity.Goods;
 import com.podoarena.entity.GoodsCart;
+import com.podoarena.entity.Orders;
 import com.podoarena.repository.GoodsCartRepository;
 import com.podoarena.service.CartService;
 import com.podoarena.service.GoodsService;
@@ -84,21 +85,19 @@ public class OrderController {
 
 
     //주문내역
-    @GetMapping(value = "/orders/orderHist")
+    @GetMapping(value = "/orders/ordersDtl")
     public String orderHist(Principal principal, Model model) {
         String email = principal.getName();
 
-        List<GoodsCart> goodsCarts = orderService.getGoodsCartList(email);
-        int totalPrice = goodsCarts.stream().mapToInt(cart -> cart.getGoodsCount() * cart.getGoods().getGoodsPrice()).sum();
+        List<Orders> ordersList = orderService.getOrderHist(email);
 
-        model.addAttribute("goodsCarts", goodsCarts);
-        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("ordersList", ordersList);
 
-        return "orders/ordersIndex";
+        return "orders/ordersDtl";
     }
 
     // 주문 취소
-    @PostMapping(value = "/orders/cancel/{orderId}")
+    @DeleteMapping(value = "/orders/delete/{orderId}")
     public @ResponseBody ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId,
             Principal principal) {
         // 주문취소 권한이 있는지 확인(본인확인)
@@ -107,7 +106,7 @@ public class OrderController {
                     HttpStatus.FORBIDDEN);
         }
         //주문취소
-        orderService.cancelOrder(orderId);
+        orderService.cancelOrder(orderId, principal.getName());
         return new ResponseEntity<>(orderId, HttpStatus.OK); //성공시
     }
 

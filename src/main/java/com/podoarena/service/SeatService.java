@@ -29,6 +29,7 @@ public class SeatService {
             String[] seatStatuses = divide[i].split(",");
             for (int j = 0; j < seatStatuses.length; j++) {
                 int seatStatus = Integer.parseInt(seatStatuses[j]);
+                //입력받은 placeConcert, 행, 열, 좌석상태, 날짜로 좌석을 만든다.
                 Seat seat = new Seat(placeConcert, i, j, seatStatus, date);
                 seatList.add(seat);
             }
