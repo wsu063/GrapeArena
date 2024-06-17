@@ -163,7 +163,7 @@
         var errorMessage = "";
 
         if (!regPhone(phone)) {
-          errorMessage = '올바르지 않은 형식입니다.';
+          errorMessage = "올바르지 않은 형식입니다. ' - ' 을 포함하여 입력해주세요.";
           $("#phone_error").html("<p style='color:red;'>" + errorMessage + "</p>");
           return false;
         }

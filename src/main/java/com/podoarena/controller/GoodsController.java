@@ -99,11 +99,19 @@ public class GoodsController {
     // 굿즈 상세 페이지 이동
     @GetMapping(value = "/goods/goodsDtl/{goodId}")
     public String goodsDtl(Model model, @PathVariable(value ="goodId") Long goodId, Principal principal) {
-        String email = principal.getName();
+        if(principal != null) {
+            String email = principal.getName();
+            Member member = memberService.getMember(email);
+            model.addAttribute("member", member);
+        }
+        else {
+            Member member = null;
+            model.addAttribute("member", member);
+        }
         GoodsFormDto goodsFormDto = goodsService.getGoodsDtl(goodId);
-        Member member = memberService.getMember(email);
+
         model.addAttribute("goods", goodsFormDto);
-        model.addAttribute("member", member);
+
         return "goods/goodsDtl";
     }
 
