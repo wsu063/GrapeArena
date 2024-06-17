@@ -96,7 +96,7 @@
                   <h5 class="card-title" th:text="${concert.concertName}"></h5>
                 </div>
               </a>
-              <ul class="list-group list-group-flush">
+              <ul class="list-group list-group-flush" style="line-height: 17px;">
                 <li class="list-group-item" th:text="${concert.placeConcert.place.placeName}" style="border: none;"></li>
                 <li class="list-group-item" style="border: none;">
                   <span th:text="${#temporals.format(concert.placeConcert.dateList[0].dateTime, 'yyyy.MM.dd')}"></span>
@@ -148,22 +148,22 @@
       //TOP버튼
       $(document).ready(function () {
         
-        // Top 버튼 특정 스크롤높이에서만 보이기 / 숨기기
+        // 스크롤 이벤트
         $(window).scroll(function () {
           if ($(this).scrollTop() > 50) {
-            $('.topbtn').fadeIn();
+            $('.topbtn').css({ 'opacity': '1', 'visibility': 'visible' });
           } else {
-            $('.topbtn').fadeOut();
+            $('.topbtn').css({ 'opacity': '0', 'visibility': 'hidden' });
           }
         });
         
-        // Top 버튼 클릭시 페이지 상단으로 이동
+        // Top 버튼 클릭 시 페이지 상단으로 이동
         $('.topbtn').click(function() {
           $('html, body').animate({scrollTop: 0}, {
-                duration: 0, // 애니메이션 지속 시간 (밀리초)
-                easing: 'linear' // 이징 효과
-              }
-          )});
+            duration: 0, // 애니메이션 지속 시간 (밀리초)
+            easing: 'linear' // 이징 효과
+          });
+        });
         
       });
     </script>
