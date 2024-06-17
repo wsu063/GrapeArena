@@ -27,8 +27,10 @@
                         <th:block th:if="${ordersList != null}">
                             <tr th:each="orders, index : ${ordersList}">
                                 <td th:text="${index.index + 1}">1</td>
-                                <td th:each="orderGoods : ${orders.orderGoodsList}">
-                                    <span th:text="${orderGoods.goods.goodsName}"></span>
+                                <td>
+                                    <th:block th:each="orderGoods : ${orders.orderGoodsList}">
+                                        <span th:text="${orderGoods.goods.goodsName}"></span>
+                                    </th:block>
                                 </td>
                                 <td><button th:onclick="'deleteOrders(' + ${orders.id} + ')'">주문취소</button></td>
                             </tr>

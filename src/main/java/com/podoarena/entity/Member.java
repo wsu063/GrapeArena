@@ -59,12 +59,6 @@ public class Member extends BaseEntity {
     private List<Orders> ordersList;
 
 
-    public Member (String providerId, String email, String provider) {
-        this.providerId = providerId;
-        this.email = email;
-        this. provider = provider;
-    }
-
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
         String password = passwordEncoder.encode(memberFormDto.getPassword());
 
@@ -85,11 +79,13 @@ public class Member extends BaseEntity {
         return member;
     }
 
+    //비밀번호 재설정
     public static void resetPassword(Member member, String password, PasswordEncoder passwordEncoder) {
         String resetPassword = passwordEncoder.encode(password);
         member.setPassword(resetPassword);
     }
 
+    //비밀번호 확인
     public static boolean confirmPassword(Member member, String password, PasswordEncoder passwordEncoder) {
         return passwordEncoder.matches(password, member.getPassword());
     }
