@@ -11,7 +11,7 @@
     <div layout:fragment="content">
         <div class="container">
             <div class="clip_con">
-                <h2 class="first" style="font-weight: 800;">Orders Record</h2>
+                <h2 class="first" style="font-weight: 800;">주문 내역</h2>
             </div>
             <div class="table-responsive reserve_all_list" style="text-align: center;">
                 <table class="table table-striped table-sm conTable ">
@@ -32,7 +32,7 @@
                                         <span th:text="${orderGoods.goods.goodsName}"></span>
                                     </th:block>
                                 </td>
-                                <td><button th:onclick="'deleteOrders(' + ${orders.id} + ')'">주문취소</button></td>
+                                <td><button class="btn btn-danger" th:onclick="'deleteOrders(' + ${orders.id} + ')'">주문취소</button></td>
                             </tr>
                         </th:block>
                     </tbody>
