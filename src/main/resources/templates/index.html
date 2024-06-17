@@ -96,7 +96,7 @@
                   <h5 class="card-title" th:text="${concert.concertName}"></h5>
                 </div>
               </a>
-              <ul class="list-group list-group-flush">
+              <ul class="list-group list-group-flush" style="line-height: 17px;">
                 <li class="list-group-item" th:text="${concert.placeConcert.place.placeName}" style="border: none;"></li>
                 <li class="list-group-item" style="border: none;">
                   <span th:text="${#temporals.format(concert.placeConcert.dateList[0].dateTime, 'yyyy.MM.dd')}"></span>

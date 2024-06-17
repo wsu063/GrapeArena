@@ -29,13 +29,14 @@
                             장바구니</a>
                         <div class="dropdown" sec:authorize="isAuthenticated()">
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-pager" style="margin-right: 0.3rem;"></i>
                                 My Page
                             </button>
                             <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" type="button"><a href="/members/mypage">Edit Profile</a></button></li>
-                                <li><button class="dropdown-item" type="button"><a href="/reserves/reserveDtl">Concert Record</a></button></li>
-                                <li><button class="dropdown-item" type="button"><a href="/orders/ordersDtl">Goods Record</a></button></li>
-                                <li><button class="dropdown-item" type="button"><a href="/admin/reserves/list">Admin Menu</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/members/mypage"><i class="fa-regular fa-user" style="margin-right: 1rem;"></i>Edit Profile</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/reserves/reserveDtl"><i class="fa-solid fa-ticket" style="margin-right: 0.7rem;"></i>Concert Record</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/orders/ordersDtl"><i class="fa-solid fa-bag-shopping" style="margin-right: 1rem;"></i>Goods Record</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/admin/reserves/list"><i class="fa-solid fa-user-tie" style="margin-right: 1rem;"></i>Admin Menu</a></button></li>
                             </ul>
                         </div>
                         <a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a>
