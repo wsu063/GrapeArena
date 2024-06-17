@@ -26,7 +26,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath address = createString("address");
 
-    public final ListPath<Cart, QCart> cart = this.<Cart, QCart>createList("cart", Cart.class, QCart.class, PathInits.DIRECT2);
+    public final QCart cart;
 
     //inherited
     public final StringPath createdBy = _super.createdBy;
@@ -36,8 +36,6 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath email = createString("email");
 
     public final StringPath extraAddress = createString("extraAddress");
-
-    public final ListPath<GoodsCart, QGoodsCart> goodsCart = this.<GoodsCart, QGoodsCart>createList("goodsCart", GoodsCart.class, QGoodsCart.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -86,6 +84,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public QMember(Class<? extends Member> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.cart = inits.isInitialized("cart") ? new QCart(forProperty("cart"), inits.get("cart")) : null;
         this.reserve = inits.isInitialized("reserve") ? new QReserve(forProperty("reserve"), inits.get("reserve")) : null;
     }
 

@@ -1,6 +1,7 @@
 package com.podoarena.service;
 
 
+import com.podoarena.dto.GoodsCartDto;
 import com.podoarena.dto.OrderDto;
 import com.podoarena.dto.OrderHistDto;
 import com.podoarena.entity.*;
@@ -10,10 +11,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,28 +28,44 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class OrderService {
-    private final GoodsRepository goodsRepository;
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
     private final GoodsCartRepository goodsCartRepository;
+    private final CartService cartService;
+    private final GoodsService goodsService;
+    private final OrderGoodsRepository orderGoodsRepository;
 
-    //주문하기
+    //주문하기. 하나라도 실패하면 전체 취소되어야한다.
+    @Transactional
     public Long order(OrderDto orderDto, String email) {
-
-        //1. 주문한 굿즈의 객체를 가져온다.
-        Goods goods = goodsRepository.findById(orderDto.getGoodsId())
-                                        .orElseThrow(EntityExistsException::new);
-
-        //2. 현재 로그인한 회원의 이메일을 이용해 member 엔티티를 가져온다
+        //현재 로그인한 회원의 이메일을 이용해 member 엔티티를 가져온다
         Member member = memberRepository.findByEmail(email);
 
-        //양방향 관계일때 save
         List<OrderGoods> orderGoodsList = new ArrayList<>();
-        OrderGoods orderGoods = OrderGoods.createOrderGoods(goods, orderDto.getCount());
-        orderGoodsList.add(orderGoods);
 
+        boolean buyNow = orderDto.getGoodsCartIds().isEmpty();
+
+        //장바구니에서 결제로 이동했을시
+        if(!buyNow) {
+            //OrderGoodsList 구하고, 결제 완료된 goodsCart를 장바구니에서 삭제한다.
+            for(Long goodsCartId : orderDto.getGoodsCartIds()) {
+                GoodsCart goodsCart = cartService.getGoodsCart(goodsCartId);
+                OrderGoods orderGoods = OrderGoods.createOrderGoods(goodsCart.getGoods(), goodsCart.getGoodsCount());
+                orderGoodsList.add(orderGoods);
+                cartService.deleteGoodsCart(goodsCartId);
+            }
+        } else {
+            //굿즈 상세페이지에서 바로 구매로 이동했을시
+            //OrderGoodsList 구한다.
+            Goods goods = goodsService.getGoodsById(orderDto.getGoodsIds().get(0));
+            int goodsCount = Math.toIntExact(orderDto.getGoodsCounts().get(0));
+            OrderGoods orderGoods = OrderGoods.createOrderGoods(goods, goodsCount);
+            orderGoodsList.add(orderGoods);
+        }
+        // 주문결과를 만들고, 주문결과를 현재 멤버에 저장한다.
         Orders orders = Orders.createOrder(member, orderGoodsList);
-        orderRepository.save(orders); //insert
+        orderRepository.save(orders);
+        member.getOrdersList().add(orders);
 
         return orders.getId();
 
@@ -55,34 +78,12 @@ public class OrderService {
     }
 
     //주문 목록 가져오기
-    //@Transactional(readOnly = true)
-//    public Page<OrderHistDto> getOrderList(String email, Pageable pageable) {
-//        // 유저 아이디를 이용해서 주문 목록 조회
-//        List<Orders> ordersList = orderRepository.findOrders(email, pageable);
-//
-//        // 유저의 총 주문 개수를 구한다
-//        Long totalCount = orderRepository.countOrder(email);
-//
-//        // 주문내역은 여러개이므로 리스티에 저장
-//        List<OrderHistDto> orderHistDtos = new ArrayList<>();
-//
-//        // 주문 리스트 ordersList를 순회하면서 컨트롤러에 전달할 OrderHistDto 생성
-//        for (Orders orders : ordersList) {
-//            OrderHistDto orderHistDto = new OrderHistDto(orders);
-//
-//            List<OrderGoods> orderGoodsList = orders.getOrderGoodsList();
-//
-//            for (OrderGoods orderGoods : orderGoodsList) {
-//
-//
-////                orderHistDto.addGoodsCartDto(goodsCartDto);
-//            }
-//
-//            orderHistDtos.add(orderHistDto);
-//        }
-//
-//        return new PageImpl<>(orderHistDtos, pageable, totalCount); //페이지 구현 객체를 생성하여 return
-//    }
+    public List<Orders> getOrderHist(String email) {
+        // 유저 아이디를 이용해서 주문 목록 조회
+        List<Orders> ordersList = orderRepository.findOrders(email);
+
+        return ordersList; //페이지 구현 객체를 생성하여 return
+    }
 
     //본인확인
     public boolean validateOrder(Long orderId, String email) {
@@ -96,11 +97,19 @@ public class OrderService {
     }
 
     //주문 취소
-    public void cancelOrder(Long orderId) {
+    public void cancelOrder(Long orderId, String email) {
         Orders orders = orderRepository.findById(orderId)
                 .orElseThrow(EntityExistsException::new);
         //OrderStatus를 update -> entity 필드값 변경해주기
         orders.cancelOrder();
+        // 주문에 포함된 오더굿즈 삭제하기
+        for (OrderGoods orderGoods: orders.getOrderGoodsList()) {
+            orderGoodsRepository.delete(orderGoods);
+        }
+        //멤버에 포함된 orders객체 삭제하기
+        Member member = memberRepository.findByEmail(email);
+        member.getOrdersList().remove(orders);
+        deleteOrder(orderId);
     }
 
     //주문 삭제
@@ -111,23 +120,4 @@ public class OrderService {
         //delete
         orderRepository.delete(orders);
     }
-
-    public Long orders(List<OrderDto> orderDtoList, String email) {
-        Member member = memberRepository.findByEmail(email);
-        List<OrderGoods> orderGoodsList = new ArrayList<>();
-
-        for (OrderDto orderDto : orderDtoList) {
-            Goods goods = goodsRepository.findById(orderDto.getGoodsId())
-                    .orElseThrow(EntityExistsException::new);
-
-            OrderGoods orderGoods = OrderGoods.createOrderGoods(goods, orderDto.getCount());
-            orderGoodsList.add(orderGoods);
-        }
-
-        Orders orders = Orders.createOrder(member, orderGoodsList);
-        orderRepository.save(orders);
-
-        return orders.getId();
-    }
-
 }

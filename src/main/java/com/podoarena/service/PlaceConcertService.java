@@ -43,6 +43,7 @@ public class PlaceConcertService {
         List<LocalDateTime> sortDateList = concertFormDto.getDateList();
         Collections.sort(sortDateList); // 날짜가 저장될때 오름차순으로 정렬된 이후 저장된다.
 
+        // 선택한 콘서트의 공연장, 날짜에 따라 placeConcert를 만들고, DateList를 만든다.
         for (LocalDateTime time : sortDateList) {
             Date date = new Date();
             date.setDateTime(time);
@@ -55,7 +56,7 @@ public class PlaceConcertService {
         placeConcert.setPlace(place);
         placeConcert.setConcert(concert);
 
-
+        // 생긴 날짜마다, 좌석을 생성해준다.
         for(Date date : dateList) {
             date.setPlaceConcert(placeConcert);
             //좌석 생성

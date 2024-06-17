@@ -1,8 +1,10 @@
 package com.podoarena.controller;
 
 import com.podoarena.dto.MemberFormDto;
+import com.podoarena.entity.Cart;
 import com.podoarena.entity.Member;
 import com.podoarena.entity.Reserve;
+import com.podoarena.repository.CartRepository;
 import com.podoarena.repository.MemberRepository;
 import com.podoarena.repository.ReserveRepository;
 import com.podoarena.service.MemberService;
@@ -27,6 +29,7 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     private final ReserveRepository reserveRepository;
+    private final CartRepository cartRepository;
 
     //로그인 페이지 이동
     @GetMapping(value = "/members/login")
@@ -47,16 +50,20 @@ public class MemberController {
     public String registerUser(@Validated MemberFormDto memberFormDto,
                                BindingResult bindingResult , Model model) {
         if(bindingResult.hasErrors()) {
-//            model.addAttribute("validErrorMsg","비밀번호는 8~16자 영문, 숫자, 특수문자를 입력해주세요.");
             return "member/register";
         }
 
         try {
             Member member = Member.createMember(memberFormDto, passwordEncoder);
             memberService.saveMember(member);
+            //예매 내역 자동 생성
             Reserve reserve = new Reserve();
             reserve.setMember(member);
             reserveRepository.save(reserve);
+            //장바구니 자동 생성
+            Cart cart = new Cart();
+            cart.setMember(member);
+            cartRepository.save(cart);
 
         } catch (IllegalStateException e) {
             model.addAttribute("errorMessage", e.getMessage());
@@ -102,18 +109,35 @@ public class MemberController {
         String email = requestData.get("email");
         String resetPw = requestData.get("resetPw");
         String resetPwChk = requestData.get("resetPwChk");
-
-        boolean comparePw = resetPw.equals(resetPwChk);
-
-        if(comparePw) {
-            Member member = memberRepository.findByEmail(email);
-            member.resetPassword(member, resetPw, passwordEncoder);
-            memberRepository.save(member);
-            return new ResponseEntity<String>(email, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<String>("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
+        
+        
+        // 비밀번호 일치 여부 확인
+        if (!resetPw.equals(resetPwChk)) {
+            return new ResponseEntity<>("chkError", HttpStatus.BAD_REQUEST);
         }
+        
+        // 비밀번호 유효성 검사
+        if (!isValidPassword(resetPw)) {
+            return new ResponseEntity<>("validError", HttpStatus.BAD_REQUEST);
+        }
+
+        Member member = memberRepository.findByEmail(email);
+        if (member == null) {
+            return new ResponseEntity<>("해당 이메일의 사용자가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+        }
+
+        member.resetPassword(member, resetPw, passwordEncoder);
+        memberRepository.save(member);
+        return new ResponseEntity<>(email, HttpStatus.OK);
+        
     }
+
+    //비밀번호 재설정 페이지 유효성 검사
+    private boolean isValidPassword(String resetPw) {
+        String regex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,16}$";
+        return resetPw.matches(regex);
+    }
+
 
     //아이디 찾기 페이지
     @GetMapping(value = "/members/findid")
@@ -187,6 +211,7 @@ public class MemberController {
     //회원정보 수정 처리
     @PostMapping(value = "/members/editprofile")
     public String editProfile(Model model, MemberFormDto memberFormDto) {
+        model.addAttribute("memberFormDto", new MemberFormDto());
         memberService.editMember(memberFormDto, passwordEncoder);
         return "redirect:/";
     }
@@ -211,4 +236,6 @@ public class MemberController {
         return "member/login";
 
     }
+
+    
 }
