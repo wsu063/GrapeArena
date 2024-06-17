@@ -31,6 +31,7 @@ public class ReserveSeatRepositoryCustomImpl implements ReserveSeatRepositoryCus
         List<ReserveSeat> content = queryFactory
                 .selectFrom(QReserveSeat.reserveSeat)
                 .where(searchByLike(reserveSeatSearchDto.getSearchQuery()))
+                .orderBy(QReserveSeat.reserveSeat.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -39,6 +40,7 @@ public class ReserveSeatRepositoryCustomImpl implements ReserveSeatRepositoryCus
                 .select(Wildcard.count)
                 .from(QReserveSeat.reserveSeat)
                 .where(searchByLike(reserveSeatSearchDto.getSearchQuery()))
+                .orderBy(QReserveSeat.reserveSeat.id.desc())
                 .fetchOne();
 
 

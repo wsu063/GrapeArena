@@ -146,8 +146,8 @@ public class ConcertController {
     public String concertReserveListAdmin(ConcertSearchDto concertSearchDto,
                                           @PathVariable(value = "page") Optional<Integer> page, Model model) {
         // page가 있으면 번호 조회, 아니면 0
-        // 한 페이지에 10개
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
+        // 한 페이지에 5개
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
 
         Page<Concert> concertPage = concertService.getAdminConcertPage(concertSearchDto, pageable);
 
