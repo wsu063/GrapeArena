@@ -107,10 +107,28 @@
                 </div>
                 <div style="display: flex; justify-content: center; margin-top: 30px;">
                   <button class="red_button add_to_cart_button" onclick="addCartGoods()"
-                          style="color: white; cursor: pointer; border:none;">카트 추가
+                          style="color: white; cursor: pointer; border:none;" th:if="${member == null}"
+                          disabled>카트 추가
                   </button>
-                  <button class="red_button add_to_cart_button" style="border:none;color:white;" onclick="buyNow(); return false;">바로
-                    구매</button>
+                  <button class="red_button add_to_cart_button" onclick="addCartGoods()"
+                          style="color: white; cursor: pointer; border:none;" th:if="${member != null}"
+                          >카트 추가
+                  </button>
+                  <button
+                          class="red_button add_to_cart_button"
+                          style="border:none;color:white;"
+                          th:if="${member != null}"
+                          onclick="buyNow(); return false;">
+                    바로 구매
+                  </button>
+
+                  <button
+                          class="red_button add_to_cart_button"
+                          style="border:none;color:white;"
+                          th:if="${member == null}"
+                          disabled>
+                    바로 구매
+                  </button>
                   <input id="goodsId" type="hidden" name="goodsId" th:value="${goods.id}"/>
                   <input id="goodsCount" type="hidden" name="goodsCount" value/>
                   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
