@@ -250,6 +250,11 @@ h2.first:hover {
     flex: none;
 }
 
+.card-title {
+    font-weight: 700;
+}
+
+
 
 /* hover effect 97 */
 .SMN_effect-97 a {
