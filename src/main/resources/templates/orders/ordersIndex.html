@@ -42,7 +42,7 @@
                             <tr>
                                 <td>1</td>
                                 <td th:text="${goods.goodsName}">상품명</td>
-                                <td th:text="${goodsCount}">수량</td>
+                                <td th:text="${goodsCount} + '개' ">수량</td>
                                 <td th:text="${#numbers.formatInteger(goods.goodsPrice*goodsCount, 0, 'COMMA')} + '원'"
                                     th:id="total_1" th:value="${goods.goodsPrice * goodsCount}">가격</td>
                                 <input type="hidden" name="goodsId" th:value="${goods.id}" />
@@ -60,7 +60,7 @@
                         <div class="card-header py-3">
                             <h4 class="my-0 fw-normal">총 주문금액</h4>
                         </div>
-                        <h1 class="card-title pricing-card-title" id="totalPrice">0</h1>
+                        <h1 class="card-title pricing-card-title" id="totalPrice" style="margin: 2rem;">0</h1>
                         <button type="button" class="w-100 btn btn-lg btn-outline-success" onclick="orders(); return false;">결제</button>
                         <button type="button" class="w-100 btn btn-lg btn-outline-success" onclick="cancel(); return false;">결제취소</button>
                     </div>

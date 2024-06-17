@@ -14,11 +14,7 @@
                         </a>
                     </div>
                     <!-- 서치바 -->
-                    <div class="header_searchbar">
-                        <input type="text" placeholder="찾는 공연을 검색해보세요"/>
-                        <a role="button" tabindex="0" class="search_btn">
-                            <i class="fa-solid fa-magnifying-glass fa-beat" style="width: 30px; color: #FFD43B;"></i>
-                        </a>
+                    <div class="header_searchbar" style="border: none;">
                     </div>
                     <!-- 유저메뉴 -->
                     <div class="header_usermenu">
@@ -30,13 +26,13 @@
                         <div class="dropdown" sec:authorize="isAuthenticated()">
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-pager" style="margin-right: 0.3rem;"></i>
-                                My Page
+                                마이 페이지
                             </button>
                             <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" type="button"><a href="/members/mypage"><i class="fa-regular fa-user" style="margin-right: 1rem;"></i>Edit Profile</a></button></li>
-                                <li><button class="dropdown-item" type="button"><a href="/reserves/reserveDtl"><i class="fa-solid fa-ticket" style="margin-right: 0.7rem;"></i>Concert Record</a></button></li>
-                                <li><button class="dropdown-item" type="button"><a href="/orders/ordersDtl"><i class="fa-solid fa-bag-shopping" style="margin-right: 1rem;"></i>Goods Record</a></button></li>
-                                <li><button class="dropdown-item" type="button"><a href="/admin/reserves/list"><i class="fa-solid fa-user-tie" style="margin-right: 1rem;"></i>Admin Menu</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/members/mypage"><i class="fa-regular fa-user" style="margin-right: 1rem;"></i>회원정보수정</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/reserves/reserveDtl"><i class="fa-solid fa-ticket" style="margin-right: 1rem;"></i>콘서트 관리</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/orders/ordersDtl"><i class="fa-solid fa-bag-shopping" style="margin-right: 1rem;"></i>굿즈 관리</a></button></li>
+                                <li><button class="dropdown-item" type="button"><a href="/admin/reserves/list"><i class="fa-solid fa-user-tie" style="margin-right: 1rem;"></i>관리자메뉴</a></button></li>
                             </ul>
                         </div>
                         <a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a>
