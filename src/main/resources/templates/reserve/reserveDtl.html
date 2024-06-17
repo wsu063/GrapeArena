@@ -34,7 +34,7 @@
                         <td th:text="${reserveSeat.placeConcert.place.placeName}">공연장</td>
                         <td th:text="${reserveSeat.placeConcert.concert.concertPlayTime}">공연시간</td>
                         <td th:text="${reserveSeat.seat.seatName}">공연좌석</td>
-                        <td><button th:onclick="'deleteReserveSeat(' + ${reserveSeat.id} + ')'">예약취소</button></td>
+                        <td><button class="btn btn-danger" th:onclick="'deleteReserveSeat(' + ${reserveSeat.id} + ')'">예약취소</button></td>
                     </tr>
                 </th:block>
                 </tbody>
