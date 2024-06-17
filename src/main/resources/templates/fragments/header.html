@@ -20,7 +20,7 @@
                     <div class="header_usermenu">
                         <a href="/members/login" sec:authorize="isAnonymous()">로그인</a>
                         <a href="/members/register" sec:authorize="isAnonymous()">회원가입</a>
-                        <a href="/members/cart">
+                        <a href="/members/cart" th:if="${principal != null}">
                             <i class="fa-solid fa-cart-plus fa-fade" style="color: #FFD43B;"></i>
                             장바구니</a>
                         <div class="dropdown" sec:authorize="isAuthenticated()">
