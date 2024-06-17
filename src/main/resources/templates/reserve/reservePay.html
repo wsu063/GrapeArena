@@ -149,7 +149,7 @@
                             </li>
                             <li class="infor_info">
                                 <span>결제금액</span>
-                                <p th:text="${seat.seatPrice} + '원'"></p>
+                                <p th:text="${#numbers.formatInteger(seat.seatPrice,0,'COMMA')} + ' 원'"></p>
                             </li>
                         </ul>
 
