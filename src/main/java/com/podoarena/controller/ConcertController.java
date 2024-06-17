@@ -52,13 +52,12 @@ public class ConcertController {
                              @RequestParam("placeId") Long placeId,
                              @RequestParam("concertImgFile") List<MultipartFile> concertImgFileList) {
 
-        if (bindingResult.hasErrors()) return "admin/concertForm";
+        if (bindingResult.hasErrors()) return "redirect:/admin/concerts/list";
 
         if(concertImgFileList.get(0).isEmpty()){
             model.addAttribute("errorMessage",
                     "대표 이미지는 필수 입력입니다.");
-
-            return "admin/concertForm";
+            return "redirect:/admin/concerts/list";
         }
         try {
             concertFormDto.setPlaceId(placeId);
@@ -72,7 +71,7 @@ public class ConcertController {
             e.printStackTrace();
             model.addAttribute("errorMessage",
                     "콘서트 등록 중 에러가 발생했습니다.");
-            return "admin/concertForm";
+            return "redirect:/admin/concerts/list";
         }
         return "redirect:/admin/concerts/list";
     }

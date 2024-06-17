@@ -38,7 +38,7 @@ public class CartController {
     @GetMapping(value = "/members/cart")
     public String cart(Principal principal, Model model) {
         if(principal == null) {
-            return "/";
+            return "index";
         } else {
             Member member = memberService.getMember(principal.getName());
             Cart cart = member.getCart();
