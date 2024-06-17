@@ -254,6 +254,8 @@
             const confirmChk = confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?");
             if(confirmChk) {
               location.href = "/members/cart";
+            } else {
+              location.reload();
             }
             
           },
