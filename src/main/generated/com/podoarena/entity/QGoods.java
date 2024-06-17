@@ -29,11 +29,15 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final ListPath<GoodsImg, QGoodsImg> goodsImgs = this.<GoodsImg, QGoodsImg>createList("goodsImgs", GoodsImg.class, QGoodsImg.class, PathInits.DIRECT2);
 
+    public final NumberPath<Integer> goodsMaxAmount = createNumber("goodsMaxAmount", Integer.class);
+
+    public final StringPath goodsName = createString("goodsName");
+
+    public final NumberPath<Integer> goodsPrice = createNumber("goodsPrice", Integer.class);
+
     public final NumberPath<Integer> goodsStock = createNumber("goodsStock", Integer.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
-
-    public final StringPath item = createString("item");
 
     //inherited
     public final StringPath modifiedBy = _super.modifiedBy;
@@ -43,7 +47,7 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final EnumPath<com.podoarena.constant.SellStatus> sellStatus = createEnum("sellStatus", com.podoarena.constant.SellStatus.class);
 
-    public final StringPath shopName = createString("shopName");
+    public final StringPath sort = createString("sort");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateDate = _super.updateDate;

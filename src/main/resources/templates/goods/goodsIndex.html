@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+  
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/goodsIndex.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap4/bootstrap.min.css}">
+    <link th:href="@{/plugins/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+  
+  </th:block>
+  
+  <div layout:fragment="content">
+    
+    <!--  스와이퍼  -->
+    <!--  슬라이어 메인 컨테이너  -->
+    <div class="swiper mySwiper" style="width: 100rem;">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="/images/banner1.png" alt="슬라이드">
+          <div class="slide_inside">
+            <P style="color: rgb(255, 255, 255); font-weight: 700; font-size: 2.6rem; width: 61.5551%;">‘THIS MAN’ Deluxe Ver.</P>
+            <P style="color: rgb(255, 255, 255); font-size: 1.6rem; margin-top: 0.8rem;">지금 바로 만나보세요🙌</P>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <img src="/images/banner2.png" alt="슬라이드">
+          <div class="slide_inside">
+            <P style="color: rgb(255, 255, 255); font-weight: 700; font-size: 2.6rem; width: 61.5551%;">정한X원우 1st Single
+              Album</P>
+            <P style="color: rgb(255, 255, 255); font-size: 1.6rem; margin-top: 0.8rem;">‘THIS MAN’ 지금 바로 만나보세요!</P>
+          </div>
+        </div>
+        <div class="swiper-slide"><img src="/images/banner3.png" alt="슬라이드">
+          <div class="slide_inside">
+            <P style="color: rgb(0, 0, 0); font-weight: 700; font-size: 2.6rem; width: 61.5551%;">SEVENTEEN LENTICULAR (SEVENTEENTH HEAVEN)</P>
+            <P style="color: rgb(0, 0, 0); font-size: 1.6rem; margin-top: 0.8rem;">지금 바로 만나보세요🙌</P>
+          </div>
+        </div>
+        <div class="swiper-slide"><img src="/images/banner4.png" alt="슬라이드">
+          <div class="slide_inside">
+            <P style="color: rgb(255, 255, 255); font-weight: 700; font-size: 2.6rem; width: 61.5551%;">SEVENTEEN BEST
+              ALBUM '17 IS RIGHT HERE'</P>
+            <P style="color: rgb(255, 255, 255); font-size: 1.6rem; margin-top: 0.8rem;">세븐틴의 베스트 앨범! 지금 바로 만나보세요🙌</P>
+          </div>
+        </div>
+        <div class="swiper-slide"><img src="/images/banner5.png" alt="슬라이드">
+          <div class="slide_inside">
+            <P style="color: rgb(255, 255, 255); font-weight: 700; font-size: 2.6rem; width: 61.5551%;">나나투어 with
+              세븐틴</P>
+            <P style="color: rgb(255, 255, 255); font-size: 1.6rem; margin-top: 0.8rem;">💎 자세한 내용 보러가기</P>
+          </div>
+        </div>
+        <div class="swiper-slide"><img src="/images/banner6.png" alt="슬라이드">
+          <div class="slide_inside">
+            <P style="color: rgb(255, 255, 255); font-weight: 700; font-size: 2.6rem; width: 61.5551%;">CARAT
+              MEMBERSHIP</P>
+            <P style="color: rgb(255, 255, 255); font-size: 1.6rem; margin-top: 0.8rem;">RENEWAL! 지금 바로 확인하세요💎</P>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 슬라이드 페이지 -->
+      
+      <div class="swiper-button-prev">
+        <i class="fa-solid fa-circle-chevron-left fa-2xl" style="color: #ffffff;"></i>
+      </div>
+      <div class="swiper-button-next">
+        <i class="fa-solid fa-circle-chevron-right fa-2xl" style="color: #ffffff;"></i>
+      </div>
+    </div>
+    
+    
+    <!-- 상품 리스트 -->
+    <form th:object="${goods}" method="get" th:action="@{'/goods/goodsIndex/' + ${goods.number}}">
+      <div class="new_arrivals">
+        <div class="container">
+          <div class="row">
+            <div class="col text-center">
+              <div class="section_title new_arrivals_title">
+                <h2>Products</h2>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col text-center">
+              <div class="new_arrivals_sorting">
+                <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+                  <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked"
+                      data-filter="*">all
+                  </li>
+                  <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                      data-filter=".TOUR">TOUR MERCH
+                  </li>
+                  <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                      data-filter=".STICK">OFFICIAL STICK
+                  </li>
+                  <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                      data-filter=".ALBUM">ALBUM
+                  </li>
+                </ul>
+                <div>
+                  <!-- 검색 인풋 -->
+                  <div class="goods_searchbar" th:object="${goodsSearchDto}">
+                    <input type="text"  th:field="*{searchQuery}"
+                           placeholder="검색할 상품을 입력해주세요."/>
+                    <a role="button" tabindex="0" class="search_btn">
+                      <i class="fa-solid fa-magnifying-glass fa-beat" style="width: 30px; color: #FFD43B;"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 상품 추가 -->
+          <div class="row">
+            <div class="col">
+              <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+                <!-- Product 1 -->
+                <th:block th:each="good : ${goods}" th:switch="${good.sort}" >
+                <div th:case="'TOUR'" class="product-item TOUR"  >
+                  <div class="product discount product_filter">
+                    <a th:href="'/goods/goodsDtl/'+${good.id}">
+                      <div style="width: 80%; margin: 0 auto;" class="product_image">
+                        <img th:src="${good.goodsImgs.get(0).getImgUrl()}" alt="">
+                      </div>
+                      <div class="product_info">
+                        <h6 class="product_name" th:text="${good.goodsName}"></h6>
+                        <div class="product_price" >&nbsp;&nbsp;￦[[${#numbers.formatInteger(good.goodsPrice,0, 'COMMA')}]]</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                  <div th:case="'STICK'" class="product-item STICK"  >
+                    <div class="product discount product_filter">
+                      <a th:href="'/goods/goodsDtl/'+${good.id}">
+                        <div style="width: 80%; margin: 0 auto;" class="product_image">
+                          <img th:src="${good.goodsImgs.get(0).getImgUrl()}" alt="">
+                        </div>
+                        <div class="product_info">
+                          <h6 class="product_name" th:text="${good.goodsName}"></h6>
+                          <div class="product_price" >&nbsp;&nbsp;￦[[${#numbers.formatInteger(good.goodsPrice,0, 'COMMA')}]]</div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <div th:case="'ALBUM'" class="product-item ALBUM"  >
+                    <div class="product discount product_filter">
+                      <a th:href="'/goods/goodsDtl/'+${good.id}">
+                        <div style="width: 80%; margin: 0 auto;" class="product_image">
+                          <img th:src="${good.goodsImgs.get(0).getImgUrl()}" alt="">
+                        </div>
+                        <div class="product_info">
+                          <h6 class="product_name" th:text="${good.goodsName}"></h6>
+                          <div class="product_price" >&nbsp;&nbsp;￦[[${#numbers.formatInteger(good.goodsPrice,0, 'COMMA')}]]</div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </th:block>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 2rem">
+      <div class="col-md-12 text-center">
+        <nav aria-label="Page navigation example" th:with="start=${(goods.number/maxPage)*maxPage + 1}
+               ,end=(${(goods.totalPages == 0) ? 1 : (start + (maxPage - 1) < goods.totalPages ? start + (maxPage - 1) : goods.totalPages)})">
+          <ul class="pagination d-flex justify-content-center">
+            <li class="page-item" th:classappend="${goods.first}?'disabled'">
+              <a class="page-link" th:href="@{'/goods/goodsIndex/'+${goods.number -1}}" >이전</a>
+            </li>
+            
+            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}"
+                th:classappend="${goods.number eq page-1}?'active':''">
+              <a class="page-link"
+                 th:classappend="${goods.number eq page-1}?'active':''" th:inline="text"
+                 th:href="@{'/goods/goodsIndex/'+${page -1}}">[[${page}]]</a>
+            </li>
+            
+            <li class="page-item" th:classappend="${goods.last}?'disabled'">
+              <a class="page-link"
+                 th:href="@{'/goods/goodsIndex/'+ ${goods.number +1}}">다음</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+  </div>
+    </form>
+  </div>
+  
+  <th:block layout:fragment="script">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/css/bootstrap4/popper.js}"></script>
+    <script th:src="@{/css/bootstrap4/bootstrap.min.js}"></script>
+    <script th:src="@{/plugins/Isotope/isotope.pkgd.min.js}"></script>
+    <script th:src="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+    <script th:src="@{/plugins/easing/easing.js}"></script>
+    <script th:src="@{/js/custom.js}"></script>
+    
+    <script th:inline="javascript">
+      function page(page) {
+        //입력한 값을 전부 가지고 온다.
+        var searchQuery = $("#searchQuery").val();
+        
+        //주소 이동
+        location.href = "/goods/goodsIndex/" + page
+            + "&searchQuery=" + searchQuery;
+      }
+      document.querySelectorAll('button.disabled').forEach(button => {
+        button.disabled = true;
+      });
+      
+      var swiper = new Swiper(".mySwiper", {
+        
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false
+        },
+        
+        slidesPerView: 2,
+        pagination: {
+          el: ".swiper-pagination",
+          type: "progressbar",
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    
+      
+    
+    </script>
+  </th:block>
+</html>

@@ -9,7 +9,6 @@ import lombok.ToString;
 @Table(name="goods_cart")
 @Getter
 @Setter
-@ToString
 public class GoodsCart {
     @Id
     @Column(name = "goods_cart_id")
@@ -17,6 +16,8 @@ public class GoodsCart {
     private Long id;
 
     private int goodsCount;
+
+    private int goodsmaxAmount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
@@ -31,11 +32,11 @@ public class GoodsCart {
     private Member member;
 
     //생성
-    public static GoodsCart crateShopCart(Goods goods, Member member, int goodsCount) {
+    public static GoodsCart createGoodsCart(Goods goods, Member member, int goodsCount) {
         GoodsCart goodsCart = new GoodsCart();
         goodsCart.setGoods(goods);
-        goodsCart.setCart(member.getCart());
         goodsCart.setGoodsCount(goodsCount);
+        goodsCart.setMember(member);
 
         return goodsCart;
     }

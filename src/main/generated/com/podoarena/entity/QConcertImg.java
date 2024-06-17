@@ -52,7 +52,7 @@ public class QConcertImg extends EntityPathBase<ConcertImg> {
 
     public QConcertImg(Class<? extends ConcertImg> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.concert = inits.isInitialized("concert") ? new QConcert(forProperty("concert")) : null;
+        this.concert = inits.isInitialized("concert") ? new QConcert(forProperty("concert"), inits.get("concert")) : null;
     }
 
 }

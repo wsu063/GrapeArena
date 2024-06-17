@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PodoArena</title>
+
+    <!-- css  -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- 각 페이지의 CSS가 작성될 위치 -->
+    <th:block layout:fragment="css"></th:block>
+
+</head>
+<body>
+<div>
+    <div th:replace="~{fragments/header::header}"></div>
+    <div layout:fragment="content" class="content"></div>
+    <div th:replace="~{fragments/footer::footer}"></div>
+</div>
+
+    <!--  js  -->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+<!-- jquery    -->
+<script
+        src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+
+    <!-- 각 페이지의 스크립트가 작성될 위치 -->
+    <th:block layout:fragment="script"></th:block>
+</body>
+</html>

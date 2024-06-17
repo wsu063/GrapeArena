@@ -12,6 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class GoodsImg {
+
     @Id
     @Column(name = "goods_img_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

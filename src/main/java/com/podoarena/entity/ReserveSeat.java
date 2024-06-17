@@ -16,9 +16,7 @@ public class ReserveSeat extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int seatCount;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id")
     private Seat seat;
 
@@ -30,12 +28,17 @@ public class ReserveSeat extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_concert_id")
+    private PlaceConcert placeConcert;
+
+
     //생성
-    public static ReserveSeat crateReserveSeat(Seat seat, Member member, int seatCount) {
+    public static ReserveSeat crateReserveSeat(Seat seat, Member member, PlaceConcert placeConcert) {
         ReserveSeat reserveSeat = new ReserveSeat();
         reserveSeat.setSeat(seat);
         reserveSeat.setReserve(member.getReserve());
-        reserveSeat.setSeatCount(seatCount);
+        reserveSeat.setPlaceConcert(placeConcert);
 
         return reserveSeat;
     }

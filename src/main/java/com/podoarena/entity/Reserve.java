@@ -12,18 +12,17 @@ import java.util.List;
 @Table(name = "reserve")
 @Getter
 @Setter
-@ToString
 public class Reserve {
     @Id
     @Column(name = "reserve_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "reserve_seat", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "reserve", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReserveSeat> reserveSeats = new ArrayList<>();
 
     //추가

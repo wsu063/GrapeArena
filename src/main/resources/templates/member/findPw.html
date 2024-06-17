@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{layouts/layout2}">
+ 
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/find_id_pw.css}">
+  </th:block>
+  <head>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  </head>
+  
+  <div layout:fragment="content">
+    <div class="resetpw_wrap">
+      <div class="resetpw_logo">
+        <a href="/">
+          <img src="/images/logo_head.png" alt="로고" width="110" height="90" fill="none"/>
+        </a>
+      </div>
+      
+      <form role="form" id="chkuser-form">
+        <div class="chkuser_form">
+          <div class="input_box">
+            <div class="input_style_input_id">
+              <label th:for="email">
+                <i class="fa-regular fa-user"></i>
+                <input  type="email" class="input_text_id" id="email" name="email" placeholder="가입 시, 입력한 이메일을 입력하세요.">
+              </label>
+            </div>
+            <div class="input_style_input_phone">
+              <label th:for="phone">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <input type="text" class="input_text_phone" id="phone" name="phone" placeholder="가입 시, 입력한 전화번호를 입력하세요.">
+              </label>
+            </div>
+          </div>
+          <div id="find_pw_error"></div>
+        </div>
+        <div class="chkuser_style">
+          <button onclick="findPw()"
+              type="button" class="chkuser_btn" id="chkuserBtn">
+            <span>비밀번호 찾기</span>
+          </button>
+        </div>
+        <div class="find_list">
+          <ul>
+            <li>
+              <a id="findId" class="find_id" href="/members/findid">아이디 찾기</a>
+            </li>
+            |
+            <li>
+              <a id="findPwd" href="/members/findpw">비밀번호 찾기</a>
+            </li>
+            |
+            <li>
+              <a id="join" href="/members/register"><span style="color:blue">회원가입</span></a>
+            </li>
+          </ul>
+        </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+      </form>
+      <div class="modal" id="resetPwModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">비밀번호 재설정</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form role="form" id="resetpw-form">
+                <div class="resetpw_form">
+                  <div class="input_box">
+                    <div class="input_style_input_id">
+                      <p>비밀번호를 입력해주세요.</p>
+                      <label th:for="resetpw">
+                        <input type="password" class="input_text_pw" id="resetPw" name="resetPw" placeholder="비밀번호">
+                      </label>
+                    </div>
+                    <div class="input_style_input_phone">
+                      <p>비밀번호를 재입력 해주세요.</p>
+                      <label th:for="resetPwChk">
+                        <input type="password" class="input_text_pw" id="resetPwChk" name="resetPwChk" placeholder="비밀번호 확인">
+                      </label>
+                    </div>
+                  </div>
+                  <div id="find_pw_error_modal"></div>
+                </div>
+                <div class="chkuser_style">
+                
+                </div>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+              <button type="button" class="btn btn-primary" onclick="resetPassword()">비밀번호 변경</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <th:block layout:fragment="script">
+    <script th:inline="javascript">
+      function findPw() {
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        
+        var formData = {
+          email: email,
+          phone: phone
+        };
+        
+        $.ajax({
+          url: "/members/findpw",
+          type: "POST",
+          contentType: "application/json", // JSON 형식으로 전송
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          dataType: "text",
+          cache: false,
+          data: JSON.stringify(formData), // JSON 형식으로 데이터 전송
+          success: function(result, status, xhr, formData) {
+            $("#find_pw_error").hide();
+            alert('인증에 성공하셨습니다. 비밀번호 재설정 페이지로 이동합니다.')
+            $("#resetPwModal").modal("show");
+          },
+          error: function(jqXHR, status, error) {
+            var errorMessage;
+            if (jqXHR.responseText === 'emailError') {
+              errorMessage = '이메일을 입력해주세요.';
+            } else if (jqXHR.responseText === 'phoneError') {
+              errorMessage = '전화번호를 입력해주세요.';
+            } else {
+              errorMessage = jqXHR.responseText || "오류가 발생했습니다.";
+            }
+            $("#find_pw_error").html("<p>" + errorMessage + "</p>");
+          }
+        });
+      }
+
+      function resetPassword() {
+        var resetPw = $("#resetPw").val();
+        var resetPwChk = $("#resetPwChk").val();
+        var email = $("#email").val();
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+        var formData = {
+          resetPw: resetPw,
+          resetPwChk: resetPwChk,
+          email: email
+        };
+        $.ajax({
+          url: "/members/resetpw",
+          type: "POST",
+          contentType: "application/json",
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          dataType: "text",
+          cache: false,
+          data: JSON.stringify(formData), // 데이터를 JSON 형식으로 전송
+          success: function (result, status, xhr) {
+            $("#resetPwModal").modal("hide");
+            $("#find_pw_error_modal").hide();
+            alert("비밀번호 변경 완료되었습니다.");
+            location.href = "/members/login"
+          },
+          error: function (jqXHR, status, error) {
+            var errorMessage;
+            if (jqXHR.responseText === 'chkError') {
+              errorMessage = '비밀번호가 일치하지 않습니다';
+            } else if (jqXHR.responseText === 'validError') {
+              errorMessage = '비밀번호는 최소 8자 이상이어야 하며, 하나 이상의 문자, 숫자, 특수문자를 포함해야 합니다.';
+            } else {
+              errorMessage = jqXHR.responseText || "오류가 발생했습니다.";
+            }
+            $("#find_pw_error_modal").html("<p>" + errorMessage + "</p>");
+          }
+        });
+      }
+    </script>
+  </th:block>
+</html>

@@ -1,6 +1,7 @@
 package com.podoarena.entity;
 
 import com.podoarena.constant.ConcertState;
+import com.podoarena.dto.ConcertFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,6 @@ import java.util.List;
 @Table(name = "concert")
 @Getter
 @Setter
-@ToString
 public class Concert extends BaseEntity {
     @Id
     @Column(name = "concert_id")
@@ -20,17 +20,26 @@ public class Concert extends BaseEntity {
     private Long id;
     
     private String concertName; // 콘서트 이름
-    
-    private String concertPeriod; // 콘서트 기간.
-    
+
     private String concertSinger; // 콘서트 가수
     
     private ConcertState concertState; // 콘서트 상태
+    
+    private int concertPlayTime; // 콘서트 공연시간
 
     @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConcertImg> concertImgs;
 
-//    @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Seat> seatList;
+    @OneToOne(mappedBy = "concert", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "place_concert_id")
+    private PlaceConcert placeConcert;
+
+
+    public void updateConcert(ConcertFormDto concertFormDto) {
+        this.concertName = concertFormDto.getConcertName();
+        this.concertSinger = concertFormDto.getConcertSinger();
+        this.concertState = concertFormDto.getConcertState();
+        this.concertPlayTime = concertFormDto.getConcertPlayTime();
+    }
 
 }

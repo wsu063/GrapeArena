@@ -1,0 +1,156 @@
+.container {
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+.register_header,
+.edit_header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    height: 88px;
+    padding-top: 0;
+    line-height: 68px;
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
+}
+.register_wrap,
+.edit_wrap {
+    max-width: 40rem;
+    margin: 0 auto;
+}
+
+.register-title,
+.edit-title {
+    padding: 2rem 10rem;
+}
+
+.register-form,
+.edit-form {
+    margin-top: 30px;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    border-bottom: none!important;
+    font-weight: 700;
+}
+
+.form {
+    width: 500px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group.row {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.col-md-12 {
+    width: 100%;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+label {
+    font-size: 15px;
+    line-height: 30px;
+    color: #000;
+    font-weight: bold;
+    width: 20%;
+    margin-right: 10px;
+}
+
+input {
+    font-size: 15px;
+    line-height: 30px;
+    color: #000;
+    width: 75%;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.address {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.address input {
+    margin: 5px 0;
+}
+
+.address_top {
+    display: flex;
+    align-items: center;
+}
+
+.address_mid {
+    display: flex;
+    margin-left: 6.1rem;
+}
+
+.address_bottom {
+    margin-left: 6.1rem;
+}
+
+.email-input {
+    display: flex;
+    margin-left: 6.1rem;
+}
+
+.post_btn
+{
+    background-color: #7fccde;
+    text-decoration: none;
+    border: 0;
+    color: white;
+    border-radius: 5px;
+    margin-top: 0.3rem;
+    height: 2.5rem;
+    margin-left: 1rem;
+    width: 15rem;
+}
+
+.btn_div {
+    width:35rem;
+}
+
+.register_btn,
+.edit_btn {
+    width: 100%;
+    height: 70px; /* 높이를 늘렸습니다 */
+    border-radius: 10px; /* 기존 1.2rem에서 10px로 변경했습니다 */
+    background-color: #1769ff;
+    border: 0;
+    margin-top: 45px;
+    font-weight: 700;
+    font-size: 20px; /* 폰트 크기를 키웠습니다 */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fieldError {
+    color: red;
+}

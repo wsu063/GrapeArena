@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout4}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<th:block layout:fragment="css">
+
+</th:block>
+<div layout:fragment="content">
+    <th:block th:object="${concertFormDto}">
+        <div id="warp">
+            <div id="all" style="display: block;">
+                <div id="header" class="header">
+                    <ul class="gnb">
+                        <li class="m01"><span>관람일/회차</span></li>
+                        <li class="m02 on"><span>좌석선택</span></li>
+                        <li class="m03"><span>결제하기</span></li>
+                    </ul>
+                </div>
+
+                <div id="ContentsArea" class="main_contents" style="display: block;">
+                    <div id="step01">
+                        <!-- 좌석선택 배치도 -->
+                        <div style="display: flex;">
+                            <div class="bx_seatbg">
+                                <div class="seatarea">
+                                    <div class="bx_top"></div>
+                                    <div id="divGuide" class="bx_con1">
+                                        <div id="divContainer" class="raffer" th:value="${#lists.size(seats)}"
+                                             style="width:40rem; height:36rem; background-image: url(&quot;http://tkfile.yes24.com/upload2/hallimg/11000/11919/11919b_0_240424142243.jpg&quot;); background-repeat: no-repeat; background-position: 0px 0px;">
+                                            <div id="divSeatArray">
+                                                <th:block th:each="seat, index : ${seats}">
+                                                    <div th:id ="'seat' + ${index.index}" th:value="${seat.id}"
+                                                         th:data-seatRow="${seat.seatRow}" th:data-seatLine="${seat.seatLine}"
+                                                         th:data-seatStatus="${seat.seatStatus}">
+                                                    </div>
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+
+                <!-- 오른쪽 예매 상황-->
+                <div id="StateBoard">
+                    <div class="result">
+                        <div id="perfboard" class="title">
+                            <!-- 상황판 -->
+                            <div class="select_infor" style="padding-bottom:52px;">
+                                <h3 style="text-align-last: center;">선택내역</h3>
+                                <!-- 예매내역 -->
+                                <ul>
+                                    <li class="concert_poster_li">
+                                        <img th:src="@{${concertFormDto.concertImgDtoList[0].imgUrl}}"
+                                             alt="슬라이드"  class="concert_poster" >
+                                    </li>
+                                    <li class="infor_info">
+                                        <span>아티스트</span>
+                                        <p th:text="${concertFormDto.concertSinger}"></p>
+                                    </li>
+                                    <li class="infor_info">
+                                        <span id="tk_day">날짜</span>
+                                        <p th:text="${#temporals.format(concertFormDto.dates[0].dateTime, 'yyyy.MM.dd')} +
+                                        ' ~ ' + ${#temporals.format(concertFormDto.dates[concertFormDto.dates.size() - 1].dateTime, 'yyyy.MM.dd')}">
+                                        </p>
+                                    </li>
+                                    <li class="infor_info">
+                                        <span id="tk_time">시간</span>
+                                        <p th:text="${concertFormDto.concertPlayTime} + 분"></p>
+                                    </li>
+                                    <li class="infor_info">
+                                        <span id="tk_count">매수</span>
+                                    </li>
+                                    <li class="infor_info">
+                                        <span id="tk_seat">좌석</span>
+                                    </li>
+                                </ul>
+                                <h3>결제금액</h3>
+                            </div>
+
+                            <!-- 다음단계 이전단계 버튼  -->
+                            <div class="step_btn">
+                                <!-- 이전 버튼 -->
+                                <form name = "backForm" th:action="@{'/reserves/reserveTime/' + ${concertFormDto.id}}" method="get">
+                                    <button class="back_button" type="button">
+                                        이전 단계
+                                    </button>
+                                </form>
+
+                                <!-- 다음 버튼 -->
+                                <form name="reserveForm" th:action="@{'/reserves/reservePay/' + ${concertFormDto.id}}" method="post">
+                                    <input type="hidden" name="seatId" id="seatId" value>
+                                    <button class="next_button"
+                                            type="button">
+                                        다음 단계
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</div>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        const seats = $("#seatContainer").attr("value");
+        const size = $("#divContainer").attr("value");
+
+        //이선좌 여부 비교하는 함수
+        function checkStatus(seat, seatStatus) {
+            if (seatStatus === "AVAILABLE") {
+                seat.classList.add('available');
+            } else if (seatStatus === "SELECTED") {
+                seat.classList.add('selected');
+            } else if (seatStatus === "NONE") {
+                seat.remove();
+            }
+            seat.classList.add('seat');
+
+        }
+
+        // 좌석 그리는 함수
+        function renderSeat(seat) {
+            //배치도1만 해당한다.
+            let seatRow = parseInt(seat.dataset.seatrow);
+            let seatLine = parseInt(seat.dataset.seatline);
+            let seatStatus = seat.dataset.seatstatus;
+            checkStatus(seat, seatStatus);
+            const isSecondFloor = seatRow > 13;
+            const startX = 204;
+            const startY = isSecondFloor ? 200 : 151;
+            if(seatRow >= 9) {
+                seatRow = seatRow + 1;
+            }
+            let x = startX + seatLine * 11;
+            let y = startY + seatRow * 12;
+            seat.style.left = `${x}px`;
+            seat.style.top = `${y}px`;
+        }
+
+        // 좌석들 다 불러오는 함수
+        function renderSeats() {
+            for(i = 0; i < size; i++) {
+                const seat = document.getElementById('seat' + i);
+                renderSeat(seat);
+            }
+        }
+        renderSeats();
+
+        function selectSeat() {
+            var $divSeatArray = $("#divSeatArray"); // divSeatArray를 찾는다.
+            var $seat = $divSeatArray.find(".available"); // 위에서 찾은 div내부의 AVAILABLE만 찾는다
+            if ($seat.length === 1) {
+                $seat.addClass("son");
+            } else {
+                $seat.each(function() {
+                    $(this).click(function() {
+                        if ($(this).hasClass("son")) {
+                            $(this).removeClass("son");
+                        } else {
+                            $seat.removeClass("son");
+                            $(this).addClass("son");
+                        }
+                    });
+                });
+            }
+        }
+        selectSeat();
+
+        function onNextButtonClick() {
+            var seatId = $(".son").attr("value"); // 선택된 좌석의 seatId
+            const f = document.reserveForm;
+            // 좌석이 선택되지 않은 경우
+            if (!seatId) {
+                alert("좌석을 선택해주세요.");
+            } else {
+                // 선택된 값을 히든 필드에 설정
+                document.getElementById('seatId').value = seatId;
+                // 폼 제출
+                f.submit();
+            }
+        }
+
+        $('.next_button').click(function(event) {
+            event.preventDefault(); // 기본 동작(링크 이동) 막기
+            onNextButtonClick(); // 다음 버튼 처리 함수 호출
+        });
+
+        function onBackButtonClick() {
+            const f = document.backForm;
+            f.submit();
+        }
+
+        $('.back_button').click(function(event) {
+            event.preventDefault(); // 기본 동작(링크 이동) 막기
+            onBackButtonClick(); // 이전 버튼 처리 함수 호출
+        });
+
+
+    </script>
+</th:block>
+
+</html>

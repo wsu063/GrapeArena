@@ -34,14 +34,14 @@ public class QReserveSeat extends EntityPathBase<ReserveSeat> {
     //inherited
     public final StringPath modifiedBy = _super.modifiedBy;
 
+    public final QPlaceConcert placeConcert;
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final QReserve reserve;
 
     public final QSeat seat;
-
-    public final NumberPath<Integer> seatCount = createNumber("seatCount", Integer.class);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateDate = _super.updateDate;
@@ -65,6 +65,7 @@ public class QReserveSeat extends EntityPathBase<ReserveSeat> {
     public QReserveSeat(Class<? extends ReserveSeat> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
+        this.placeConcert = inits.isInitialized("placeConcert") ? new QPlaceConcert(forProperty("placeConcert"), inits.get("placeConcert")) : null;
         this.reserve = inits.isInitialized("reserve") ? new QReserve(forProperty("reserve"), inits.get("reserve")) : null;
         this.seat = inits.isInitialized("seat") ? new QSeat(forProperty("seat"), inits.get("seat")) : null;
     }

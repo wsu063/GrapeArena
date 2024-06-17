@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+#
+/src/main/generated/
+!src/main/resources/application.properties
+!src/main/java/com/podoarena/config/WebMvcConfig.java
+!src/main/resources/application-auth.properties

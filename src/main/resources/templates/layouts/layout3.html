@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PodoArena</title>
+
+    <!-- css  -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/OwlCarousel2-2.2.1/animate.css}">
+    <link rel="stylesheet" th:href="@{/plugins/themify-icons/themify-icons.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/jquery-ui-1.12.1.custom/jquery-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/single_styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/single_responsive.css}">
+    <!-- 각 페이지의 CSS가 작성될 위치 -->
+    <th:block layout:fragment="css"></th:block>
+
+</head>
+<body>
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900"
+     :class="{ 'overflow-hidden': isSideMenuOpen}" >
+    <aside th:replace="~{fragments/headerAdmin::header}"></aside>
+    <div layout:fragment="content" class="content"></div>
+</div>
+<!--  js  -->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+        defer></script>
+<script th:src="@{/js/init-alpine.js}"></script>
+<!-- jquery    -->
+<script
+        src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentPath = window.location.pathname;
+
+        const menuItems = document.querySelectorAll('#menu li');
+        menuItems.forEach(item => {
+            const link = item.querySelector('a');
+            if (link) {
+                const href = link.getAttribute('href');
+                if (href === currentPath) {
+                    link.classList.add('text-gray-800');
+
+                    const span = document.createElement('span');
+                    span.className = 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg';
+                    span.setAttribute('aria-hidden', 'true');
+                    item.appendChild(span);
+                }
+            }
+        });
+    });
+</script>
+
+<!-- 각 페이지의 스크립트가 작성될 위치 -->
+<th:block layout:fragment="script"></th:block>
+</body>
+</html>

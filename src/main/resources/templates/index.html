@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/swiper.css}">
+    <link rel="stylesheet" th:href="@{/css/btn.css}">
+  </th:block>
+  <head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  </head>
+  <div layout:fragment="content">
+    <button class="topbtn">TOP</button>
+    <div class="index_wrap">
+      <div class="index_swiper">
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="/images/slide1.webp" alt="슬라이드"></div>
+            <div class="swiper-slide"><img src="/images/slide2.webp" alt="슬라이드"></div>
+            <div class="swiper-slide"><img src="/images/slide3.webp" alt="슬라이드"></div>
+            <div class="swiper-slide"><img src="/images/slide4.webp" alt="슬라이드"></div>
+            <div class="swiper-slide"><img src="/images/slide5.webp" alt="슬라이드"></div>
+            <div class="swiper-slide"><img src="/images/slide6.webp" alt="슬라이드"></div>
+          </div>
+          <div class="swiper-pagination swiper_sub"></div>
+        </div>
+      </div>
+      
+      <section class="index_wrap">
+        <div class="clip">
+          <h2 class="first" style="font-weight: 800;">CONCERT CLIP</h2>
+        </div>
+        <div class="swiper swiper2">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/6-i70Cg5j04?si=_oqTsDoTHFTjPRLu"
+                      title="FOLLOW' AGAIN TO INCHEON/SEOUL RECAP" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="swiper-slide">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/6PENpRhUYGU?si=IkRRZhiRfNfl1ktc"
+                      title="FOLLOW MAESTRO" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="swiper-slide">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/MdXOBk92Txg?si=T6k0qibSR8kObB46"
+                      title="FOLLOW TO JAPAN RECAP" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="swiper-slide">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/K7H-W9cuF-8?si=WL2M9p8T9T2Wkc-X"
+                      title="LALALI" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="swiper-slide">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/SO6v9o5whTE?si=E-dqoTjSeYpHmSNT"
+                      title="Spell" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="swiper-slide">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/8qFwSTb8xFM?si=4NuLXPuWgiujAjrH"
+                      title="Cheers to youth" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="swiper-slide">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/EPcYvXkFpHs?si=6r0E4TEig4X7vlmA"
+                      title="SEVENTEEN TOUR 'FOLLOW' AGAIN TO INCHEON April Shower, All My Love" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </section>
+      
+      <section class="index_wrap">
+        <div class="clip">
+          <h2 class="first" style="font-weight: 800;">ALL CONCERT</h2>
+        </div>
+        <!-- concert cards -->
+        <th:block th:object="${concerts}">
+          <div class="card-1" >
+            <div class="card" th:each="concert : ${concerts}" style="border: none;">
+              <a th:href="'/concerts/detail/' + ${concert.id}">
+                <img th:src="@{${concert.concertImgs[0].imgUrl}}" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title" th:text="${concert.concertName}"></h5>
+                </div>
+              </a>
+              <ul class="list-group list-group-flush" style="line-height: 17px;">
+                <li class="list-group-item" th:text="${concert.placeConcert.place.placeName}" style="border: none;"></li>
+                <li class="list-group-item" style="border: none;">
+                  <span th:text="${#temporals.format(concert.placeConcert.dateList[0].dateTime, 'yyyy.MM.dd')}"></span>
+                  <span> ~ </span>
+                  <span
+                      th:text="${#temporals.format(concert.placeConcert.dateList[concert.placeConcert.dateList.size() - 1].dateTime, 'yyyy.MM.dd')}"></span>
+                </li>
+                <li class="list-group-item" th:text="${concert.concertSinger}"></li>
+              </ul>
+            </div>
+          </div>
+        </th:block>
+      </section>
+    </div>
+  
+  </div>
+  
+  <th:block layout:fragment="script">
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script th:inline="javascript">
+      var swiper = new Swiper(".mySwiper", {
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+          renderBullet: function (index, className) {
+            return '<img class="' + className +
+                '" src="/images/slide_sub' + (index + 1) + '.webp" alt="슬라이드">';
+          },
+        },
+      });
+      
+      var swiper2 = new Swiper('.swiper2', {
+        slidesPerView: 3,
+        direction: getDirection(),
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+      
+      function getDirection() {
+        var windowWidth = window.innerWidth;
+        var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
+        
+        return direction;
+      }
+      
+      //TOP버튼
+      $(document).ready(function () {
+        
+        // 스크롤 이벤트
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 50) {
+            $('.topbtn').css({ 'opacity': '1', 'visibility': 'visible' });
+          } else {
+            $('.topbtn').css({ 'opacity': '0', 'visibility': 'hidden' });
+          }
+        });
+        
+        // Top 버튼 클릭 시 페이지 상단으로 이동
+        $('.topbtn').click(function() {
+          $('html, body').animate({scrollTop: 0}, {
+            duration: 0, // 애니메이션 지속 시간 (밀리초)
+            easing: 'linear' // 이징 효과
+          });
+        });
+        
+      });
+    </script>
+  </th:block>
+</html>

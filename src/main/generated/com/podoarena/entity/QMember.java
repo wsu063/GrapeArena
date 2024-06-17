@@ -31,7 +31,11 @@ public class QMember extends EntityPathBase<Member> {
     //inherited
     public final StringPath createdBy = _super.createdBy;
 
+    public final StringPath detailAddress = createString("detailAddress");
+
     public final StringPath email = createString("email");
+
+    public final StringPath extraAddress = createString("extraAddress");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -40,9 +44,17 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath name = createString("name");
 
+    public final ListPath<Orders, QOrders> ordersList = this.<Orders, QOrders>createList("ordersList", Orders.class, QOrders.class, PathInits.DIRECT2);
+
     public final StringPath password = createString("password");
 
     public final StringPath phone = createString("phone");
+
+    public final StringPath postcode = createString("postcode");
+
+    public final StringPath provider = createString("provider");
+
+    public final StringPath providerId = createString("providerId");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
