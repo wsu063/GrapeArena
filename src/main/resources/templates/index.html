@@ -47,8 +47,8 @@
                       referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
             <div class="swiper-slide">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/EPcYvXkFpHs?si=dcFrZ71IhSnQm-2u"
-                      title="FOLLOW INCHEON DRONE SHOW" frameborder="0"
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/MdXOBk92Txg?si=T6k0qibSR8kObB46"
+                      title="FOLLOW TO JAPAN RECAP" frameborder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
@@ -70,6 +70,12 @@
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
+            <div class="swiper-slide">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/EPcYvXkFpHs?si=6r0E4TEig4X7vlmA"
+                      title="SEVENTEEN TOUR 'FOLLOW' AGAIN TO INCHEON April Shower, All My Love" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
           </div>
           <div class="swiper-button-next"></div>
           <div class="swiper-button-prev"></div>
@@ -82,8 +88,8 @@
         </div>
         <!-- concert cards -->
         <th:block th:object="${concerts}">
-          <div class="card-1">
-            <div class="card" th:each="concert : ${concerts}">
+          <div class="card-1" >
+            <div class="card" th:each="concert : ${concerts}" style="border: none;">
               <a th:href="'/concerts/detail/' + ${concert.id}">
                 <img th:src="@{${concert.concertImgs[0].imgUrl}}" class="card-img-top">
                 <div class="card-body">
@@ -91,8 +97,8 @@
                 </div>
               </a>
               <ul class="list-group list-group-flush">
-                <li class="list-group-item" th:text="${concert.placeConcert.place.placeName}"></li>
-                <li class="list-group-item">
+                <li class="list-group-item" th:text="${concert.placeConcert.place.placeName}" style="border: none;"></li>
+                <li class="list-group-item" style="border: none;">
                   <span th:text="${#temporals.format(concert.placeConcert.dateList[0].dateTime, 'yyyy.MM.dd')}"></span>
                   <span> ~ </span>
                   <span
