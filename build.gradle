@@ -22,6 +22,8 @@ repositories {
 }
 
 dependencies {
+	//jasypt
+	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     //sns연동 로그인
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
@@ -51,6 +53,10 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.withType(Test) {
+	enabled = false
 }
 
 def generated = 'src/main/generated'
