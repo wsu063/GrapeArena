@@ -1,7 +1,7 @@
 .topbtn {
     position: fixed;
     bottom: 5px;
-    right:1%;
+    right: 1%;
     box-sizing: border-box;
     appearance: none;
     background-color: transparent;
@@ -22,7 +22,10 @@
     text-transform: uppercase;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+    transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out, opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* 추가된 전환 효과 */
+    opacity: 0; /* 처음 로드 시 보이지 않음 */
+    visibility: hidden; /* 요소가 차지하는 공간은 유지하지만 보이지 않음 */
+
 
     &:hover,
     &:focus {
