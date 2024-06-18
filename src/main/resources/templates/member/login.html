@@ -20,13 +20,15 @@
                     <div class="input_style_input_id">
                         <label th:for="email">
                             <i class="fa-regular fa-user"></i>
-                            <input type="email" class="input_text_id" id="email" name="email" placeholder="이메일" autocomplete="username">
+                            <input type="email" class="input_text_id" th:value="admin@admin.com"
+                                   id="email" name="email" placeholder="이메일" autocomplete="username">
                         </label>
                     </div>
                     <div class="input_style_input_pw">
                         <label th:for="password">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" class="input_text_pw" id="password" name="password" placeholder="비밀번호" autocomplete="current-password">
+                            <input type="password" class="input_text_pw" th:value="rhksflwk1!"
+                                   id="password" name="password" placeholder="비밀번호" autocomplete="current-password">
                         </label>
                     </div>
                 </div>
