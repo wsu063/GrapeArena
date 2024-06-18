@@ -67,19 +67,21 @@ public class OrderController {
     @PostMapping(value = "/orders/orderNow")
     public @ResponseBody ResponseEntity order(@RequestBody OrderDto orderDto,
                         Principal principal) {
+        if (principal == null) {
+            return new ResponseEntity<>("로그인이 필요합니다.", HttpStatus.BAD_REQUEST);
+        }
+        String email = principal.getName(); //id에 해당하는 정보 가지고 옴(email)
+        Long orderId = null;
 
-            String email = principal.getName(); //id에 해당하는 정보 가지고 옴(email)
-            Long orderId = null;
+        try {
+            orderId = orderService.order(orderDto, email); //주문하기
+        } catch (Exception e) {
+            e.printStackTrace();
 
-            try {
-                orderId = orderService.order(orderDto, email); //주문하기
-            } catch (Exception e) {
-                e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
 
-                return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-            }
-
-            return new ResponseEntity<>(orderId, HttpStatus.OK); //성공시
+        return new ResponseEntity<>(orderId, HttpStatus.OK); //성공시
     }
 
 
@@ -101,7 +103,9 @@ public class OrderController {
     public @ResponseBody ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId,
             Principal principal) {
         // 주문취소 권한이 있는지 확인(본인확인)
-        if (!orderService.validateOrder(orderId, principal.getName())) {
+        if (principal == null) {
+            return new ResponseEntity<>("로그인이 필요합니다.", HttpStatus.BAD_REQUEST);
+        } else if (!orderService.validateOrder(orderId, principal.getName())) {
             return new ResponseEntity<String>("주문 취소 권한이 없습니다.",
                     HttpStatus.FORBIDDEN);
         }
@@ -114,7 +118,9 @@ public class OrderController {
     @DeleteMapping(value = "/orders/{orderId}")
     public @ResponseBody ResponseEntity deleteOrder(@PathVariable("orderId") Long orderId, Principal principal) {
         //로그인한 사용자와 주문한 사용자가 같은지 확인
-        if (!orderService.validateOrder(orderId, principal.getName())) {
+        if (principal == null) {
+            return new ResponseEntity<>("로그인이 필요합니다.", HttpStatus.BAD_REQUEST);
+        } else if (!orderService.validateOrder(orderId, principal.getName())) {
             return new ResponseEntity<>("주문 삭제 권한이 없습니다.",
                     HttpStatus.FORBIDDEN);
         }
