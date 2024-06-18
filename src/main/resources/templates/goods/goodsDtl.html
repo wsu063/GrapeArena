@@ -219,13 +219,14 @@
         });
         
         updateTotalPrice();
+      });
 
+      function buyNow() {
+        var goodsCount = parseInt($('#quantity_value').text());
+        $("#goodsCount").val(goodsCount);
+        goodsForm.submit();
 
-        function buyNow() {
-          var goodsCount = parseInt($('#quantity_value').text());
-          $("#goodsCount").val(goodsCount);
-          goodsForm.submit();
-        }
+      }
 
       function addCartGoods() {
         var goodsId = $("#goodsId").val();
@@ -263,9 +264,6 @@
           }
         });
       }
-      });
-
-
       
       //TOP버튼
       $(document).ready(function () {
