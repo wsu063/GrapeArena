@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface GoodsCartRepository extends JpaRepository<GoodsCart, Long>,
         QuerydslPredicateExecutor<GoodsCart>, GoodsCartRepositoryCustom {
-    @Query("SELECT gc FROM GoodsCart gc WHERE gc.goodsId = :goodsId AND gc.cartId = :cartId")
+    @Query("SELECT gc FROM GoodsCart gc WHERE gc.goods.id = :goodsId AND gc.cart.id = :cartId")
     GoodsCart findByGoodsIdAndCartId(@Param("goodsId") Long goodsId, @Param("cartId") Long cartId);
 
     List<GoodsCart> findByMember(Member member);
