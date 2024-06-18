@@ -5,6 +5,7 @@ import com.podoarena.entity.Cart;
 import com.podoarena.entity.GoodsCart;
 import com.podoarena.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
@@ -12,7 +13,8 @@ import java.util.List;
 
 public interface GoodsCartRepository extends JpaRepository<GoodsCart, Long>,
         QuerydslPredicateExecutor<GoodsCart>, GoodsCartRepositoryCustom {
-    GoodsCart findByGoodsId(Long id);
+    @Query("SELECT gc FROM GoodsCart gc WHERE gc.goodsId = :goodsId AND gc.cartId = :cartId")
+    GoodsCart findByGoodsIdAndCartId(@Param("goodsId") Long goodsId, @Param("cartId") Long cartId);
 
     List<GoodsCart> findByMember(Member member);
 

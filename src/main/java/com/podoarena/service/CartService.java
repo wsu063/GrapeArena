@@ -29,7 +29,7 @@ public class CartService {
         Goods goods = goodsService.getGoodsById(goodsCartDto.getGoodsId());
 
         // 카트에 동일한 상품이 있는지 확인
-        GoodsCart savedGoodsCart = goodsCartRepository.findByGoodsId(cart.getId());
+        GoodsCart savedGoodsCart = goodsCartRepository.findByGoodsIdAndCartId(goods.getId(),cart.getId());
 
         // 같은 굿즈가 있으면 수량을 증가
         if (savedGoodsCart != null) {
