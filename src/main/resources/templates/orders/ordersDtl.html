@@ -30,6 +30,7 @@
                                 <td>
                                     <th:block th:each="orderGoods : ${orders.orderGoodsList}">
                                         <span th:text="${orderGoods.goods.goodsName}"></span>
+                                        <br>
                                     </th:block>
                                 </td>
                                 <td><button class="btn btn-danger" th:onclick="'deleteOrders(' + ${orders.id} + ')'">주문취소</button></td>

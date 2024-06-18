@@ -219,27 +219,26 @@
         });
         
         updateTotalPrice();
-      });
 
-      function buyNow() {
-        var goodsCount = parseInt($('#quantity_value').text());
-        $("#goodsCount").val(goodsCount);
-        goodsForm.submit();
 
-      }
-      
+        function buyNow() {
+          var goodsCount = parseInt($('#quantity_value').text());
+          $("#goodsCount").val(goodsCount);
+          goodsForm.submit();
+        }
+
       function addCartGoods() {
         var goodsId = $("#goodsId").val();
         var goodsCount = parseInt($('#quantity_value').text());
-        
+
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
-        
+
         var formData = {
           goodsId: goodsId,
           goodsCount: goodsCount,
         };
-        
+
         $.ajax({
           url: "/members/addCart",
           type: "POST",
@@ -257,13 +256,16 @@
             } else {
               location.reload();
             }
-            
+
           },
           error: function (jqXHR, status, error) {
             alert("장바구니에 추가를 실패했습니다. 관리자에게 문의하세요.");
           }
         });
       }
+      });
+
+
       
       //TOP버튼
       $(document).ready(function () {
