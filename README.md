@@ -1,5 +1,7 @@
 # 포도알레나 🎟️🍇
 
+![GrapeArena LOGO](./GRAPEARENA_LOGO.png)
+
  콘서트 티켓 예매, MD샵 상품 구매
 
 ## 목차
@@ -27,10 +29,11 @@ http://podoarena.kro.kr/
 
 ## 프로젝트 정보 📃
 - **개발 기간:** 2024.05.23 ~ 2024.06.18
+- **프로젝트 개요:** 아이돌 콘서트 예매와 굿즈(MD) 판매를 한 플랫폼에서 제공하는 통합 서비스
 
 ## 프로젝트 목표 🎯
 
-우리의 주요 목표는 콘서트 티켓 예약과 함께 팬들이 좋아하는 아티스트와 이벤트와 관련된 다양한 상품을 손쉽게 구매할 수 있도록 하는 것입니다. 사용자 친화적인 인터페이스와 강력한 백엔드 지원을 통해 포괄적이고 안전한 쇼핑 경험을 보장합니다.
+티켓 예매와 굿즈 구매를 한 곳에서 편리하게 제공함으로써 이용자 경험 향상, 콘서트와 굿즈 판매의 정보를 한 눈에 제공하여 사용자의 정보 획득 용이
 
 ## 페이지 소개
 
@@ -47,12 +50,18 @@ http://podoarena.kro.kr/
   - 아티스트의 콘서트 유튜브
 - 콘서트 리스트
   - 등록된 콘서트 리스트를 출력
+    
+### 콘서트 상세 페이지 / 예매 페이지
+- 콘서트 상세 정보와 예매하기 버튼
+- 예매 페이지
+- <img src="./concerts_reserve.gif" alt="concerts_reserve" style="width:50%;">
 
 ### MD 페이지
 - 상단 슬라이드
   - 굿즈 광고 배너
 - 굿즈 리스트
   - 굿즈 카테고리별 분류
+  - <img src="./goods_filter.gif" alt="goods_filter" style="width:50%;">
   - 굿즈 이름 검색
   - 굿즈 리스트 출력(상품 20개씩 출력)
   - 페이징 처리
@@ -80,29 +89,34 @@ http://podoarena.kro.kr/
 - 회원정보 수정 페이지
   - 비밀번호를 재입력하여 인증 후 비밀번호, 주소 수정 가능
   - 회원탈퇴 버튼을 누르면 팝업창에 한번더 '탈퇴' 메시지를 입력 후 탈퇴 확인창 확인 후 탈퇴 가능합니다.
+ 
+### 콘서트 예매내역/ 굿즈 주문내역 페이지
+- 
+
+### 관리자 페이지
+- 
 
 ## 사용된 기술 📚
 
 ### 백엔드 
 
-- **Java:** 어노테이션 사용
-- **Spring Framework:** 의존성 주입, 웹 요청 처리, 데이터 접근 계층 관리
-- **Spring Data JPA:** 데이터 접근 계층 구현을 용이하게 함
-- **Spring Boot:** 독립 실행형 애플리케이션을 쉽게 만들기 위한 프레임워크
-- **Spring Security:** 비밀번호 인코딩 및 접근 제한
-- **Hibernate:** JPA 구현체로서 ORM을 통해 데이터베이스와 객체 간의 매핑을 담당
-- **MySQL Driver:** 데이터베이스 연동
+- **Java** 
+- **Spring Data JPA(Hibernate)** 
+- **Spring Boot** 
+- **Spring Security** 
+- **MySQL DB** 
 
 ### 프론트엔드
 
-- **Thymeleaf:** 서버사이드 템플릿 엔진
-- **Bootstrap:** CSS 프레임워크
-- **JavaScript 및 jQuery:** 클라이언트 사이드 스크립팅 언어 및 DOM 조작 및 AJAX 요청에 사용
-- **HTML 및 CSS:** 웹 페이지 마크업 및 스타일링
+- **Thymeleaf** 
+- **Bootstrap** 
+- **JavaScript** 
+- **JQuery**
+- **HTML, CSS** 
 
 ### 보안
 
-- **CSRF Protection:** CSRF 토큰을 통한 보안 강화
+- **CSRF Protection**
 
 ## ERD
 
@@ -110,7 +124,7 @@ http://podoarena.kro.kr/
 
 <summary>ERD</summary>
 
-![GrapeArena Logo](./GRAPEARENA_ERD.png)
+![GrapeArena ERD](./GRAPEARENA_ERD.png)
 
 </details>
 
@@ -119,6 +133,5 @@ http://podoarena.kro.kr/
 - **콘서트 티켓 예매:** 콘서트 티켓을 예매 후 DB에 저장합니다.
 - **MD 샵:** 좋아하는 아티스트와 이벤트 관련 상품을 탐색하고 구매할 수 있습니다.
 - **안전한 거래:** CSRF토큰을 이용 해 보안을 위해 한번 더 체크.
-- **반응형 디자인:** 데스크톱 및 모바일 장치에서 최적화되어 사용자 경험을 최대화합니다.
 
 
