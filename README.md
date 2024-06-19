@@ -182,7 +182,7 @@ http://podoarena.kro.kr/
 </details>
 
 <details>
-<summary>### MD 페이지</summary>
+<summary>MD 페이지</summary>
 - 상단 슬라이드
   - 굿즈 광고 배너
 - 굿즈 리스트
