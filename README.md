@@ -11,7 +11,7 @@
 - [프로젝트 목표](#프로젝트-목표-)
 - [페이지 소개](#페이지-소개)
 - [사용된 기술](#사용된-기술-)
-- [ERD](#erd)
+- [ERD, Figma, Structure](#erd-figma-structure)
 - [주요 기능](#주요-기능-)
 
 ## 웹사이트 링크
@@ -22,9 +22,9 @@ http://podoarena.kro.kr/
 
 | 이름   | 역할            | 이메일                   | 깃허브 |
 |--------|-----------------|--------------------------|----------------|
-| 원상운 | 프로젝트 매니저 | wsu063@gmail.com      | https://github.com/wsu063  |
+| 원상운 | 프로젝트 리더 | wsu063@gmail.com      | https://github.com/wsu063  |
 | 박은화 | 프론트, 백엔드 | cu_oo@naver.com     | https://github.com/poelri |
-| 오승찬 | 프론트, 백엔드 | younghee@example.com     | https://github.com/sseung519 |
+| 오승찬 | 프론트, 백엔드 | htc_desirehd@naver.com     | https://github.com/sseung519 |
 | 이정민 | 프론트, 백엔드 | exo1461@naver.com | https://github.com/Jjeongmean |
 
 ## 프로젝트 정보 📃
@@ -163,7 +163,7 @@ http://podoarena.kro.kr/
 
 - **CSRF Protection**
 
-## ERD
+## ERD, Figma, Structure
 
 <details>
 
@@ -172,6 +172,8 @@ http://podoarena.kro.kr/
 ![GrapeArena ERD](./GRAPEARENA_ERD.png)
 
 </details>
+- [Figma](https://www.figma.com/design/Ls4wHm9XDGkq76kE6bf9O9/%ED%8F%AC%EB%8F%84%EC%95%8C%EB%A0%88%EB%82%98?node-id=0-1&t=XxNJ1mHXJmdDyjgW-0)
+- Architecture
 
 ## 주요 기능 ✨
 
