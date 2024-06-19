@@ -55,6 +55,7 @@ public class OrderController {
             return "orders/ordersIndex";
         } else { // 바로구매시
             if(goodsId == null) return "index"; //데이터가 없으면 메인화면으로 이동한다.
+            if(goodsCount == null) return "index"; //데이터가 없으면 메인화면으로 이동한다.
             Goods goods = goodsService.getGoodsById(goodsId);
             model.addAttribute("goods", goods);
             model.addAttribute("goodsCount", goodsCount);
